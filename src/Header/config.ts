@@ -16,14 +16,33 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'children',
+          type: 'array',
+          label: 'Dropdown items',
+          admin: {
+            initCollapsed: true,
+            description: 'Optional. Add items here to turn this into a dropdown menu.',
+          },
+          fields: [
+            link({ appearances: false }),
+            { name: 'description', type: 'text', label: 'Short description' },
+          ],
+        },
       ],
-      maxRows: 6,
+      maxRows: 7,
       admin: {
         initCollapsed: true,
         components: {
           RowLabel: '@/Header/RowLabel#RowLabel',
         },
       },
+    },
+    {
+      name: 'ctaLabel',
+      type: 'text',
+      defaultValue: 'Book Now',
+      admin: { description: 'Label for the primary header button.' },
     },
   ],
   hooks: {

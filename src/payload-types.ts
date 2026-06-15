@@ -69,6 +69,11 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
+    services: Service;
+    team: Team;
+    'gallery-cases': GalleryCase;
+    testimonials: Testimonial;
+    faqs: Faq;
     media: Media;
     categories: Category;
     users: User;
@@ -91,6 +96,11 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    team: TeamSelect<false> | TeamSelect<true>;
+    'gallery-cases': GalleryCasesSelect<false> | GalleryCasesSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    faqs: FaqsSelect<false> | FaqsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -112,10 +122,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -201,7 +213,33 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | PageHeroBlock
+    | HeroBlock
+    | MediaBannerBlock
+    | SplitFeatureBlock
+    | BentoBlock
+    | StatsBlock
+    | InsuranceBlock
+    | ServicesGridBlock
+    | FeatureGridBlock
+    | BeforeAfterBlock
+    | GalleryGridBlock
+    | ReviewsBlock
+    | QuoteBlock
+    | TeamGridBlock
+    | ProcessBlock
+    | TimelineBlock
+    | FaqBlock
+    | EmergencyBlock
+    | FinalCtaBlock
+    | AppointmentBlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -438,6 +476,540 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeroBlock".
+ */
+export interface PageHeroBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  variant?: ('brand' | 'emergency') | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pageHeroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Part of the heading shown in the brand gradient (optional).
+   */
+  highlight?: string | null;
+  subheading?: string | null;
+  showRating?: boolean | null;
+  pills?:
+    | {
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBannerBlock".
+ */
+export interface MediaBannerBlock {
+  /**
+   * Background image. If empty, a brand gradient is used.
+   */
+  image?: (string | null) | Media;
+  eyebrow?: string | null;
+  heading: string;
+  text?: string | null;
+  align?: ('center' | 'left') | null;
+  overlay?: ('light' | 'medium' | 'dark') | null;
+  height?: ('standard' | 'tall') | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBannerBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SplitFeatureBlock".
+ */
+export interface SplitFeatureBlock {
+  /**
+   * Shown beside the text. If empty, a branded panel is used.
+   */
+  image?: (string | null) | Media;
+  imageSide?: ('right' | 'left') | null;
+  eyebrow?: string | null;
+  heading: string;
+  body?: string | null;
+  bullets?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  statValue?: string | null;
+  statLabel?: string | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'splitFeatureBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoBlock".
+ */
+export interface BentoBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  /**
+   * Mix sizes and tones for an asymmetric, magazine-style layout.
+   */
+  tiles?:
+    | {
+        size?: ('normal' | 'wide' | 'tall' | 'large') | null;
+        tone?: ('card' | 'brand' | 'accent' | 'image') | null;
+        /**
+         * lucide-react icon name
+         */
+        icon?: string | null;
+        title: string;
+        body?: string | null;
+        /**
+         * Used when tone is "Image".
+         */
+        image?: (string | null) | Media;
+        /**
+         * Optional big stat, e.g. "20k+"
+         */
+        stat?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bentoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  items?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsuranceBlock".
+ */
+export interface InsuranceBlock {
+  heading?: string | null;
+  /**
+   * Leave empty to use the default plan list.
+   */
+  plans?:
+    | {
+        name?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'insuranceBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesGridBlock".
+ */
+export interface ServicesGridBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  source?: ('all' | 'featured') | null;
+  /**
+   * Max number of services to show (leave blank for all).
+   */
+  limit?: number | null;
+  showViewAll?: boolean | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBlock".
+ */
+export interface FeatureGridBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  features?:
+    | {
+        /**
+         * lucide-react icon name, e.g. "HeartHandshake".
+         */
+        icon?: string | null;
+        title: string;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BeforeAfterBlock".
+ */
+export interface BeforeAfterBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'beforeAfterBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryGridBlock".
+ */
+export interface GalleryGridBlock {
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'galleryGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewsBlock".
+ */
+export interface ReviewsBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  /**
+   * Max reviews to show.
+   */
+  limit?: number | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock".
+ */
+export interface QuoteBlock {
+  quote: string;
+  author?: string | null;
+  role?: string | null;
+  rating?: number | null;
+  /**
+   * Optional background photo. If empty, a brand background is used.
+   */
+  image?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quoteBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamGridBlock".
+ */
+export interface TeamGridBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  /**
+   * Max team members to show.
+   */
+  limit?: number | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock".
+ */
+export interface ProcessBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  steps?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'processBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock".
+ */
+export interface TimelineBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  items?:
+    | {
+        /**
+         * lucide-react icon name
+         */
+        icon?: string | null;
+        title: string;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'timelineBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock".
+ */
+export interface FaqBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  category?: ('all' | 'General' | 'Insurance' | 'Emergency' | 'Treatments') | null;
+  limit?: number | null;
+  showCall?: boolean | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmergencyBlock".
+ */
+export interface EmergencyBlock {
+  heading?: string | null;
+  text?: string | null;
+  callLabel?: string | null;
+  secondaryLabel?: string | null;
+  secondaryHref?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'emergencyBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinalCtaBlock".
+ */
+export interface FinalCtaBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  primaryLabel?: string | null;
+  primaryHref?: string | null;
+  showMap?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'finalCtaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AppointmentBlock".
+ */
+export interface AppointmentBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  /**
+   * Show the phone / address / hours column next to the form.
+   */
+  showContactInfo?: boolean | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'appointmentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -783,6 +1355,116 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  name: string;
+  category: 'Preventive' | 'Cosmetic' | 'Restorative' | 'Orthodontics' | 'Emergency';
+  /**
+   * lucide-react icon name, e.g. "Sparkles"
+   */
+  icon?: string | null;
+  excerpt?: string | null;
+  from?: string | null;
+  featured?: boolean | null;
+  highlights?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team".
+ */
+export interface Team {
+  id: string;
+  name: string;
+  role: string;
+  credentials?: string | null;
+  photo?: (string | null) | Media;
+  bio?: string | null;
+  specialties?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-cases".
+ */
+export interface GalleryCase {
+  id: string;
+  title: string;
+  treatment: string;
+  description?: string | null;
+  beforeImage?: (string | null) | Media;
+  afterImage?: (string | null) | Media;
+  /**
+   * Required before publishing real before/after photos.
+   */
+  consentOnFile?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: string;
+  author: string;
+  rating: number;
+  quote: string;
+  treatment?: string | null;
+  source?: ('Google' | 'In-office') | null;
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  category?: ('General' | 'Insurance' | 'Emergency' | 'Treatments') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -980,6 +1662,26 @@ export interface PayloadLockedDocument {
         value: string | Post;
       } | null)
     | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'team';
+        value: string | Team;
+      } | null)
+    | ({
+        relationTo: 'gallery-cases';
+        value: string | GalleryCase;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: string | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'faqs';
+        value: string | Faq;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -1084,6 +1786,26 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        pageHeroBlock?: T | PageHeroBlockSelect<T>;
+        heroBlock?: T | HeroBlockSelect<T>;
+        mediaBannerBlock?: T | MediaBannerBlockSelect<T>;
+        splitFeatureBlock?: T | SplitFeatureBlockSelect<T>;
+        bentoBlock?: T | BentoBlockSelect<T>;
+        statsBlock?: T | StatsBlockSelect<T>;
+        insuranceBlock?: T | InsuranceBlockSelect<T>;
+        servicesGridBlock?: T | ServicesGridBlockSelect<T>;
+        featureGridBlock?: T | FeatureGridBlockSelect<T>;
+        beforeAfterBlock?: T | BeforeAfterBlockSelect<T>;
+        galleryGridBlock?: T | GalleryGridBlockSelect<T>;
+        reviewsBlock?: T | ReviewsBlockSelect<T>;
+        quoteBlock?: T | QuoteBlockSelect<T>;
+        teamGridBlock?: T | TeamGridBlockSelect<T>;
+        processBlock?: T | ProcessBlockSelect<T>;
+        timelineBlock?: T | TimelineBlockSelect<T>;
+        faqBlock?: T | FaqBlockSelect<T>;
+        emergencyBlock?: T | EmergencyBlockSelect<T>;
+        finalCtaBlock?: T | FinalCtaBlockSelect<T>;
+        appointmentBlock?: T | AppointmentBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1103,6 +1825,385 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeroBlock_select".
+ */
+export interface PageHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  variant?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  subheading?: T;
+  showRating?: T;
+  pills?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBannerBlock_select".
+ */
+export interface MediaBannerBlockSelect<T extends boolean = true> {
+  image?: T;
+  eyebrow?: T;
+  heading?: T;
+  text?: T;
+  align?: T;
+  overlay?: T;
+  height?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SplitFeatureBlock_select".
+ */
+export interface SplitFeatureBlockSelect<T extends boolean = true> {
+  image?: T;
+  imageSide?: T;
+  eyebrow?: T;
+  heading?: T;
+  body?: T;
+  bullets?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  statValue?: T;
+  statLabel?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoBlock_select".
+ */
+export interface BentoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  tiles?:
+    | T
+    | {
+        size?: T;
+        tone?: T;
+        icon?: T;
+        title?: T;
+        body?: T;
+        image?: T;
+        stat?: T;
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock_select".
+ */
+export interface StatsBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsuranceBlock_select".
+ */
+export interface InsuranceBlockSelect<T extends boolean = true> {
+  heading?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesGridBlock_select".
+ */
+export interface ServicesGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  source?: T;
+  limit?: T;
+  showViewAll?: T;
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBlock_select".
+ */
+export interface FeatureGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BeforeAfterBlock_select".
+ */
+export interface BeforeAfterBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryGridBlock_select".
+ */
+export interface GalleryGridBlockSelect<T extends boolean = true> {
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewsBlock_select".
+ */
+export interface ReviewsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  limit?: T;
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock_select".
+ */
+export interface QuoteBlockSelect<T extends boolean = true> {
+  quote?: T;
+  author?: T;
+  role?: T;
+  rating?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamGridBlock_select".
+ */
+export interface TeamGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  limit?: T;
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock_select".
+ */
+export interface ProcessBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock_select".
+ */
+export interface TimelineBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock_select".
+ */
+export interface FaqBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  category?: T;
+  limit?: T;
+  showCall?: T;
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmergencyBlock_select".
+ */
+export interface EmergencyBlockSelect<T extends boolean = true> {
+  heading?: T;
+  text?: T;
+  callLabel?: T;
+  secondaryLabel?: T;
+  secondaryHref?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinalCtaBlock_select".
+ */
+export interface FinalCtaBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  primaryLabel?: T;
+  primaryHref?: T;
+  showMap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AppointmentBlock_select".
+ */
+export interface AppointmentBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  showContactInfo?: T;
+  background?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1218,6 +2319,88 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  name?: T;
+  category?: T;
+  icon?: T;
+  excerpt?: T;
+  from?: T;
+  featured?: T;
+  highlights?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  body?: T;
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team_select".
+ */
+export interface TeamSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  credentials?: T;
+  photo?: T;
+  bio?: T;
+  specialties?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-cases_select".
+ */
+export interface GalleryCasesSelect<T extends boolean = true> {
+  title?: T;
+  treatment?: T;
+  description?: T;
+  beforeImage?: T;
+  afterImage?: T;
+  consentOnFile?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  author?: T;
+  rating?: T;
+  quote?: T;
+  treatment?: T;
+  source?: T;
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  category?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1654,9 +2837,37 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Optional. Add items here to turn this into a dropdown menu.
+         */
+        children?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              description?: string | null;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Label for the primary header button.
+   */
+  ctaLabel?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1691,6 +2902,42 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  practiceName?: string | null;
+  phone?: string | null;
+  emergencyPhone?: string | null;
+  email?: string | null;
+  address?: {
+    street?: string | null;
+    city?: string | null;
+    state?: string | null;
+    zip?: string | null;
+  };
+  mapUrl?: string | null;
+  hours?:
+    | {
+        day?: string | null;
+        open?: string | null;
+        close?: string | null;
+        closed?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  announcementEnabled?: boolean | null;
+  announcementText?: string | null;
+  announcementLink?: string | null;
+  instagram?: string | null;
+  facebook?: string | null;
+  google?: string | null;
+  tiktok?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1706,8 +2953,24 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        children?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              description?: T;
+              id?: T;
+            };
         id?: T;
       };
+  ctaLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1731,6 +2994,44 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  practiceName?: T;
+  phone?: T;
+  emergencyPhone?: T;
+  email?: T;
+  address?:
+    | T
+    | {
+        street?: T;
+        city?: T;
+        state?: T;
+        zip?: T;
+      };
+  mapUrl?: T;
+  hours?:
+    | T
+    | {
+        day?: T;
+        open?: T;
+        close?: T;
+        closed?: T;
+        id?: T;
+      };
+  announcementEnabled?: T;
+  announcementText?: T;
+  announcementLink?: T;
+  instagram?: T;
+  facebook?: T;
+  google?: T;
+  tiktok?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -6,8 +6,11 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
+import { AnnouncementBar } from '@/components/site/AnnouncementBar'
+import { TopBar } from '@/components/site/TopBar'
+import { SiteHeader } from '@/components/site/SiteHeader'
+import { SiteFooter } from '@/components/site/SiteFooter'
+import { MobileCTA } from '@/components/site/MobileCTA'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -15,9 +18,12 @@ import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { getSiteData } from '@/lib/getSiteSettings'
+import { getHeaderNav } from '@/lib/nav'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const [site, header] = await Promise.all([getSiteData(), getHeaderNav()])
 
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
@@ -34,9 +40,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
-          <Header />
-          {children}
-          <Footer />
+          <AnnouncementBar
+            enabled={site.announcement.enabled}
+            text={site.announcement.text}
+            link={site.announcement.link}
+          />
+          <TopBar site={site} />
+          <SiteHeader
+            nav={header.nav}
+            ctaLabel={header.ctaLabel}
+            phone={site.phone}
+            phoneHref={site.phoneHref}
+          />
+          <main className="pb-20 lg:pb-0">{children}</main>
+          <SiteFooter site={site} nav={header.nav} />
+          <MobileCTA phoneHref={site.phoneHref} />
         </Providers>
       </body>
     </html>

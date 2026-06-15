@@ -26,17 +26,13 @@ export const InitTheme: React.FC = () => {
       return theme === 'light' || theme === 'dark'
     }
 
+    // Smile360: light is the primary theme. Only honor an explicit saved
+    // choice; ignore the OS prefers-color-scheme so first paint is always light.
     var themeToSet = '${defaultTheme}'
     var preference = window.localStorage.getItem('${themeLocalStorageKey}')
 
     if (themeIsValid(preference)) {
       themeToSet = preference
-    } else {
-      var implicitPreference = getImplicitPreference()
-
-      if (implicitPreference) {
-        themeToSet = implicitPreference
-      }
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)

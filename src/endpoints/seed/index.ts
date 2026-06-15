@@ -20,7 +20,9 @@ const collections: CollectionSlug[] = [
   'search',
 ]
 
-const globals: GlobalSlug[] = ['header', 'footer']
+// Narrowed to the literal slugs so the navItems reset below stays type-safe
+// even as other globals (e.g. site-settings) are added to the config.
+const globals = ['header', 'footer'] as const satisfies GlobalSlug[]
 
 const categories = ['Technology', 'News', 'Finance', 'Design', 'Software', 'Engineering']
 

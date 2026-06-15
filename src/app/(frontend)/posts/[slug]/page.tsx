@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { CalendarCheck, CalendarDays, ChevronRight, Phone, UserRound } from 'lucide-react'
+import Link from 'next/link'
 import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
@@ -8,9 +10,9 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
-import type { Post } from '@/payload-types'
-
-import { PostHero } from '@/heros/PostHero'
+import { getSiteData } from '@/lib/getSiteSettings'
+import { formatDateTime } from '@/utilities/formatDateTime'
+import { formatAuthors } from '@/utilities/formatAuthors'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -23,55 +25,118 @@ export async function generateStaticParams() {
     limit: 1000,
     overrideAccess: false,
     pagination: false,
-    select: {
-      slug: true,
-    },
+    select: { slug: true },
   })
-
-  const params = posts.docs.map(({ slug }) => {
-    return { slug }
-  })
-
-  return params
+  return posts.docs.map(({ slug }) => ({ slug }))
 }
 
-type Args = {
-  params: Promise<{
-    slug?: string
-  }>
-}
+type Args = { params: Promise<{ slug?: string }> }
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const url = '/posts/' + decodedSlug
   const post = await queryPostBySlug({ slug: decodedSlug })
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const site = await getSiteData()
+  const category =
+    post.categories && post.categories.length && typeof post.categories[0] === 'object'
+      ? post.categories[0].title
+      : undefined
+  const hasAuthors =
+    post.populatedAuthors &&
+    post.populatedAuthors.length > 0 &&
+    formatAuthors(post.populatedAuthors) !== ''
+
   return (
-    <article className="pt-16 pb-16">
+    <article>
       <PageClient />
-
-      {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
-
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
-
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-            />
-          )}
+      {/* Branded header */}
+      <header className="relative overflow-hidden border-b border-border bg-brand-glow">
+        <div className="pointer-events-none absolute inset-0 bg-dot-grid opacity-25 [mask-image:radial-gradient(60%_60%_at_50%_0%,black,transparent)]" />
+        <div className="container relative py-14 lg:py-20">
+          <nav className="mb-5 flex items-center gap-1 text-xs text-muted-foreground">
+            <Link href="/" className="hover:text-brand">
+              Home
+            </Link>
+            <ChevronRight className="size-3" />
+            <Link href="/posts" className="hover:text-brand">
+              Blog
+            </Link>
+          </nav>
+          <div className="max-w-3xl">
+            {category && <span className="eyebrow">{category}</span>}
+            <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {post.title}
+            </h1>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              {hasAuthors && (
+                <span className="inline-flex items-center gap-1.5">
+                  <UserRound className="size-4 text-brand" />
+                  {formatAuthors(post.populatedAuthors!)}
+                </span>
+              )}
+              {post.publishedAt && (
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays className="size-4 text-brand" />
+                  <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
+                </span>
+              )}
+            </div>
+          </div>
         </div>
+      </header>
+
+      {/* Content */}
+      <div className="container py-12 lg:py-16">
+        <RichText
+          className="prose prose-slate mx-auto max-w-[44rem] dark:prose-invert prose-headings:font-extrabold prose-headings:tracking-tight prose-a:text-brand"
+          data={post.content}
+          enableGutter={false}
+        />
+
+        {/* CTA band */}
+        <div className="mx-auto mt-12 max-w-[44rem]">
+          <div className="overflow-hidden rounded-2xl border border-border bg-primary p-7 text-primary-foreground sm:p-8">
+            <h2 className="text-2xl font-extrabold tracking-tight">
+              In pain or due for a visit?
+            </h2>
+            <p className="mt-2 text-primary-foreground/80">
+              Same-day emergency appointments and new patients welcome at {site.practiceName}.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-primary transition-transform hover:-translate-y-0.5"
+              >
+                <CalendarCheck className="size-4" />
+                Book Appointment
+              </Link>
+              <Link
+                href={site.phoneHref}
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
+              >
+                <Phone className="size-4" />
+                {site.phone}
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <div className="mx-auto mt-16 max-w-[44rem]">
+            <RelatedPosts
+              className=""
+              docs={post.relatedPosts.filter((p) => typeof p === 'object')}
+            />
+          </div>
+        )}
       </div>
     </article>
   )
@@ -79,30 +144,21 @@ export default async function Post({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
-
   return generateMeta({ doc: post })
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()
-
   const payload = await getPayload({ config: configPromise })
-
   const result = await payload.find({
     collection: 'posts',
     draft,
     limit: 1,
     overrideAccess: draft,
     pagination: false,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
+    where: { slug: { equals: slug } },
   })
-
   return result.docs?.[0] || null
 })

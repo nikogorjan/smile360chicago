@@ -7,6 +7,26 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Hero } from '../../blocks/Hero/config'
+import { Stats } from '../../blocks/Stats/config'
+import { ServicesGrid } from '../../blocks/ServicesGrid/config'
+import { FeatureGrid } from '../../blocks/FeatureGrid/config'
+import { BeforeAfter } from '../../blocks/BeforeAfter/config'
+import { GalleryGrid } from '../../blocks/GalleryGrid/config'
+import { Reviews } from '../../blocks/Reviews/config'
+import { TeamGrid } from '../../blocks/TeamGrid/config'
+import { ProcessSteps } from '../../blocks/ProcessSteps/config'
+import { Faq } from '../../blocks/Faq/config'
+import { Emergency } from '../../blocks/Emergency/config'
+import { FinalCta } from '../../blocks/FinalCta/config'
+import { PageHero } from '../../blocks/PageHero/config'
+import { InsuranceMarquee } from '../../blocks/InsuranceMarquee/config'
+import { Appointment } from '../../blocks/Appointment/config'
+import { MediaBanner } from '../../blocks/MediaBanner/config'
+import { SplitFeature } from '../../blocks/SplitFeature/config'
+import { Bento } from '../../blocks/Bento/config'
+import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
+import { Timeline } from '../../blocks/Timeline/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -72,7 +92,33 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                PageHero,
+                Hero,
+                MediaBanner,
+                SplitFeature,
+                Bento,
+                Stats,
+                InsuranceMarquee,
+                ServicesGrid,
+                FeatureGrid,
+                BeforeAfter,
+                GalleryGrid,
+                Reviews,
+                QuoteSpotlight,
+                TeamGrid,
+                ProcessSteps,
+                Timeline,
+                Faq,
+                Emergency,
+                FinalCta,
+                Appointment,
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
