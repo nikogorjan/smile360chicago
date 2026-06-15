@@ -23,7 +23,7 @@ export const FinalCtaBlock: React.FC<Props> = async ({
               {eyebrow && (
                 <span className="eyebrow border-white/30 bg-white/10 text-white">{eyebrow}</span>
               )}
-              <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">{heading}</h2>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{heading}</h2>
               {description && (
                 <p className="mt-3 max-w-md text-primary-foreground/80">{description}</p>
               )}

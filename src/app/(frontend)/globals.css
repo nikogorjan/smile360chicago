@@ -97,102 +97,103 @@
 }
 
 /* =====================================================================
-   Smile360 Chicago — brand design system  ·  "Teal × Emerald (Fresh Clinical)"
+   Smile360 Chicago — brand design system  ·  "Azure & White" (logo-matched)
    Light is the PRIMARY theme. Every token has a dark counterpart below.
-   Brand = deep dental teal (trust). Accent = fresh emerald-mint (cool, no clash).
+   Brand = the logo's azure blue (#3080D8). Accent = lighter sky-blue (same
+   family, no clash). Surfaces are white with soft blue tints — clean & airy.
    Emergency = coral-red, reserved strictly for urgent/toothache CTAs.
    Gold is used only for tiny review stars.
    ===================================================================== */
 :root {
-  --background: oklch(99% 0.006 195deg);
-  --foreground: oklch(24% 0.022 210deg);
+  --background: oklch(99% 0.004 250deg);
+  --foreground: oklch(25% 0.03 258deg);
   --card: oklch(100% 0 0deg);
-  --card-foreground: oklch(24% 0.022 210deg);
+  --card-foreground: oklch(25% 0.03 258deg);
   --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(24% 0.022 210deg);
-  /* brand teal */
-  --primary: oklch(53% 0.1 205deg);
-  --primary-foreground: oklch(99% 0.01 200deg);
-  --secondary: oklch(96.5% 0.013 195deg);
-  --secondary-foreground: oklch(30% 0.04 205deg);
-  --muted: oklch(96.5% 0.009 195deg);
-  --muted-foreground: oklch(50% 0.02 205deg);
-  /* fresh emerald-mint accent (cool, harmonizes with teal) */
-  --accent: oklch(72% 0.13 168deg);
-  --accent-foreground: oklch(26% 0.06 168deg);
+  --popover-foreground: oklch(25% 0.03 258deg);
+  /* logo azure blue */
+  --primary: oklch(56% 0.16 255deg);
+  --primary-foreground: oklch(99% 0.01 250deg);
+  --secondary: oklch(96.5% 0.016 250deg);
+  --secondary-foreground: oklch(32% 0.05 256deg);
+  --muted: oklch(96.5% 0.011 250deg);
+  --muted-foreground: oklch(50% 0.025 256deg);
+  /* lighter sky-blue accent (same family) */
+  --accent: oklch(71% 0.13 249deg);
+  --accent-foreground: oklch(28% 0.06 252deg);
   --destructive: oklch(57.7% 0.245 27.325deg);
   --destructive-foreground: oklch(98.5% 0 0deg);
-  --border: oklch(91% 0.009 200deg);
-  --input: oklch(91% 0.009 200deg);
-  --ring: oklch(53% 0.1 205deg);
-  --chart-1: oklch(53% 0.1 205deg);
-  --chart-2: oklch(70% 0.12 175deg);
-  --chart-3: oklch(72% 0.13 168deg);
-  --chart-4: oklch(62% 0.1 230deg);
-  --chart-5: oklch(66% 0.12 150deg);
+  --border: oklch(91% 0.013 250deg);
+  --input: oklch(91% 0.013 250deg);
+  --ring: oklch(56% 0.16 255deg);
+  --chart-1: oklch(56% 0.16 255deg);
+  --chart-2: oklch(66% 0.14 240deg);
+  --chart-3: oklch(71% 0.13 249deg);
+  --chart-4: oklch(60% 0.12 280deg);
+  --chart-5: oklch(70% 0.1 230deg);
   --radius: 0.75rem;
-  --sidebar: oklch(98.5% 0.004 195deg);
-  --sidebar-foreground: oklch(24% 0.022 210deg);
-  --sidebar-primary: oklch(53% 0.1 205deg);
-  --sidebar-primary-foreground: oklch(99% 0.01 200deg);
-  --sidebar-accent: oklch(96.5% 0.013 195deg);
-  --sidebar-accent-foreground: oklch(30% 0.04 205deg);
-  --sidebar-border: oklch(91% 0.009 200deg);
-  --sidebar-ring: oklch(53% 0.1 205deg);
+  --sidebar: oklch(98.5% 0.004 250deg);
+  --sidebar-foreground: oklch(25% 0.03 258deg);
+  --sidebar-primary: oklch(56% 0.16 255deg);
+  --sidebar-primary-foreground: oklch(99% 0.01 250deg);
+  --sidebar-accent: oklch(96.5% 0.016 250deg);
+  --sidebar-accent-foreground: oklch(32% 0.05 256deg);
+  --sidebar-border: oklch(91% 0.013 250deg);
+  --sidebar-ring: oklch(56% 0.16 255deg);
   --success: oklch(70% 0.13 165deg);
   --warning: oklch(82% 0.13 80deg);
   --error: oklch(62% 0.2 25deg);
   /* extended brand tokens */
-  --brand: oklch(53% 0.1 205deg);
-  --brand-foreground: oklch(99% 0.01 200deg);
-  --brand-soft: oklch(94% 0.03 195deg);
+  --brand: oklch(56% 0.16 255deg);
+  --brand-foreground: oklch(99% 0.01 250deg);
+  --brand-soft: oklch(94% 0.035 250deg);
   --emergency: oklch(60% 0.205 25deg);
   --emergency-foreground: oklch(99% 0.01 25deg);
   --gold: oklch(80% 0.14 85deg);
 }
 
 [data-theme='dark'] {
-  --background: oklch(18% 0.014 200deg);
-  --foreground: oklch(96% 0.01 190deg);
-  --card: oklch(22% 0.016 200deg);
-  --card-foreground: oklch(96% 0.01 190deg);
-  --popover: oklch(21% 0.016 200deg);
-  --popover-foreground: oklch(96% 0.01 190deg);
-  /* brand teal, brightened for dark surfaces */
-  --primary: oklch(76% 0.11 185deg);
-  --primary-foreground: oklch(18% 0.03 200deg);
-  --secondary: oklch(27% 0.022 200deg);
-  --secondary-foreground: oklch(96% 0.01 190deg);
-  --muted: oklch(26% 0.018 200deg);
-  --muted-foreground: oklch(72% 0.02 195deg);
-  /* mint accent for dark */
-  --accent: oklch(76% 0.13 168deg);
-  --accent-foreground: oklch(20% 0.05 168deg);
+  --background: oklch(20% 0.03 260deg);
+  --foreground: oklch(96% 0.012 250deg);
+  --card: oklch(24% 0.032 260deg);
+  --card-foreground: oklch(96% 0.012 250deg);
+  --popover: oklch(23% 0.03 260deg);
+  --popover-foreground: oklch(96% 0.012 250deg);
+  /* logo blue, brightened for dark surfaces */
+  --primary: oklch(70% 0.15 255deg);
+  --primary-foreground: oklch(20% 0.04 260deg);
+  --secondary: oklch(28% 0.03 258deg);
+  --secondary-foreground: oklch(96% 0.012 250deg);
+  --muted: oklch(27% 0.025 258deg);
+  --muted-foreground: oklch(73% 0.02 250deg);
+  /* sky accent for dark */
+  --accent: oklch(74% 0.12 245deg);
+  --accent-foreground: oklch(20% 0.05 255deg);
   --destructive: oklch(62% 0.2 25deg);
   --destructive-foreground: oklch(98.5% 0 0deg);
-  --border: oklch(30% 0.02 200deg);
-  --input: oklch(30% 0.02 200deg);
-  --ring: oklch(76% 0.11 185deg);
-  --chart-1: oklch(76% 0.11 185deg);
-  --chart-2: oklch(75% 0.12 175deg);
-  --chart-3: oklch(76% 0.13 168deg);
-  --chart-4: oklch(70% 0.1 230deg);
-  --chart-5: oklch(72% 0.12 150deg);
-  --sidebar: oklch(21% 0.016 200deg);
-  --sidebar-foreground: oklch(96% 0.01 190deg);
-  --sidebar-primary: oklch(76% 0.11 185deg);
-  --sidebar-primary-foreground: oklch(18% 0.03 200deg);
-  --sidebar-accent: oklch(27% 0.022 200deg);
-  --sidebar-accent-foreground: oklch(96% 0.01 190deg);
-  --sidebar-border: oklch(30% 0.02 200deg);
-  --sidebar-ring: oklch(76% 0.11 185deg);
+  --border: oklch(31% 0.025 258deg);
+  --input: oklch(31% 0.025 258deg);
+  --ring: oklch(70% 0.15 255deg);
+  --chart-1: oklch(70% 0.15 255deg);
+  --chart-2: oklch(72% 0.13 240deg);
+  --chart-3: oklch(74% 0.12 245deg);
+  --chart-4: oklch(68% 0.12 285deg);
+  --chart-5: oklch(74% 0.1 230deg);
+  --sidebar: oklch(23% 0.03 260deg);
+  --sidebar-foreground: oklch(96% 0.012 250deg);
+  --sidebar-primary: oklch(70% 0.15 255deg);
+  --sidebar-primary-foreground: oklch(20% 0.04 260deg);
+  --sidebar-accent: oklch(28% 0.03 258deg);
+  --sidebar-accent-foreground: oklch(96% 0.012 250deg);
+  --sidebar-border: oklch(31% 0.025 258deg);
+  --sidebar-ring: oklch(70% 0.15 255deg);
   --success: oklch(72% 0.13 165deg);
   --warning: oklch(80% 0.13 80deg);
   --error: oklch(65% 0.2 25deg);
   /* extended brand tokens */
-  --brand: oklch(76% 0.11 185deg);
-  --brand-foreground: oklch(18% 0.03 200deg);
-  --brand-soft: oklch(28% 0.04 195deg);
+  --brand: oklch(70% 0.15 255deg);
+  --brand-foreground: oklch(20% 0.04 260deg);
+  --brand-soft: oklch(30% 0.05 258deg);
   --emergency: oklch(66% 0.2 25deg);
   --emergency-foreground: oklch(99% 0.01 25deg);
   --gold: oklch(83% 0.14 85deg);
@@ -278,19 +279,6 @@ html {
    Smile360 creative utilities
    --------------------------------------------------------------------- */
 @layer utilities {
-  /* Brand gradient text */
-  .text-gradient-brand {
-    background-image: linear-gradient(
-      100deg,
-      var(--brand) 0%,
-      oklch(68% 0.13 195deg) 55%,
-      var(--accent) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
   /* Section eyebrow pill */
   .eyebrow {
     display: inline-flex;
@@ -364,23 +352,23 @@ html {
 
 /* ---------------------------------------------------------------------
    Footer — branded, theme-specific background.
-   Light: deep teal gradient + emerald glow.  Dark: near-black, deeper
-   than the page, with a faint brand glow.
+   Light: deep azure gradient + sky glow.  Dark: near-black navy, deeper
+   than the page, with a faint blue glow.
    --------------------------------------------------------------------- */
 .site-footer {
-  background-color: oklch(26% 0.055 205deg);
+  background-color: oklch(27% 0.08 258deg);
   background-image:
-    radial-gradient(55% 70% at 82% -10%, oklch(60% 0.13 175deg / 0.35) 0%, transparent 60%),
-    radial-gradient(40% 60% at 0% 110%, oklch(50% 0.1 205deg / 0.4) 0%, transparent 60%),
-    linear-gradient(180deg, oklch(30% 0.06 205deg) 0%, oklch(21% 0.05 203deg) 100%);
+    radial-gradient(55% 70% at 82% -10%, oklch(62% 0.15 250deg / 0.4) 0%, transparent 60%),
+    radial-gradient(40% 60% at 0% 110%, oklch(52% 0.13 258deg / 0.45) 0%, transparent 60%),
+    linear-gradient(180deg, oklch(30% 0.085 258deg) 0%, oklch(21% 0.06 260deg) 100%);
 }
 
 [data-theme='dark'] .site-footer {
-  background-color: oklch(11% 0.012 200deg);
+  background-color: oklch(12% 0.02 260deg);
   background-image:
-    radial-gradient(55% 70% at 82% -10%, oklch(55% 0.12 175deg / 0.22) 0%, transparent 60%),
-    radial-gradient(40% 60% at 0% 110%, oklch(45% 0.09 205deg / 0.25) 0%, transparent 60%),
-    linear-gradient(180deg, oklch(14% 0.015 200deg) 0%, oklch(8.5% 0.01 200deg) 100%);
+    radial-gradient(55% 70% at 82% -10%, oklch(58% 0.14 250deg / 0.24) 0%, transparent 60%),
+    radial-gradient(40% 60% at 0% 110%, oklch(48% 0.11 258deg / 0.28) 0%, transparent 60%),
+    linear-gradient(180deg, oklch(14% 0.022 260deg) 0%, oklch(8.5% 0.015 262deg) 100%);
 }
 
 .footer-watermark {

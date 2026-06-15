@@ -22,7 +22,7 @@ export const AppointmentForm: React.FC = () => {
         <span className="mx-auto grid size-14 place-items-center rounded-full bg-success/20 text-success">
           <CheckCircle2 className="size-8" />
         </span>
-        <h3 className="mt-5 text-xl font-bold text-foreground">Request received!</h3>
+        <h3 className="mt-5 text-xl font-semibold text-foreground">Request received!</h3>
         <p className="mt-2 text-sm text-muted-foreground">{state.message}</p>
       </div>
     )

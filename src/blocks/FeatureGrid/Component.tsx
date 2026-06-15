@@ -28,7 +28,7 @@ export const FeatureGridBlock: React.FC<Props> = ({
               <span className="grid size-12 place-items-center rounded-2xl bg-brand/10 text-brand transition-transform group-hover:scale-110">
                 <DynamicIcon name={f.icon || 'Sparkles'} className="size-6" />
               </span>
-              <h3 className="mt-5 text-lg font-bold text-foreground">{f.title}</h3>
+              <h3 className="mt-5 text-lg font-semibold text-foreground">{f.title}</h3>
               {f.body && (
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
               )}

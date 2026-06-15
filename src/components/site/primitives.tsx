@@ -62,7 +62,7 @@ export const SectionHeading: React.FC<{
       )}
       <h2
         className={cn(
-          'mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]',
+          'mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]',
           invert && 'text-white',
         )}
       >

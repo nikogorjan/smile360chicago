@@ -72,7 +72,7 @@ export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({
             {formatDateTime(publishedAt)}
           </p>
         )}
-        <h3 className="text-lg font-bold leading-snug text-foreground">
+        <h3 className="text-lg font-semibold leading-snug text-foreground">
           <Link href={href} className="transition-colors hover:text-brand">
             {title}
           </Link>

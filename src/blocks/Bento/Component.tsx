@@ -88,13 +88,13 @@ export const BentoBlock: React.FC<Props> = ({
                     </span>
                   )}
                   {t.stat && (
-                    <p className="text-5xl font-extrabold tracking-tight lg:text-6xl">{t.stat}</p>
+                    <p className="text-5xl font-semibold tracking-tight lg:text-6xl">{t.stat}</p>
                   )}
                 </div>
 
                 {/* bottom: title + body */}
                 <div className="mt-5">
-                  <h3 className="text-lg font-bold">{t.title}</h3>
+                  <h3 className="text-lg font-semibold">{t.title}</h3>
                   {t.body && (
                     <p
                       className={cn(

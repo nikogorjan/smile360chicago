@@ -27,7 +27,7 @@ export const PageHero: React.FC<{
         )}
         <div className="mx-auto max-w-3xl text-center reveal">
           {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
             {title}
           </h1>
           {description && (

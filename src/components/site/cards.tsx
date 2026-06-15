@@ -25,7 +25,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
     <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
       <DynamicIcon name={service.icon} className="size-6" />
     </span>
-    <h3 className="mt-5 text-lg font-bold text-foreground">{service.name}</h3>
+    <h3 className="mt-5 text-lg font-semibold text-foreground">{service.name}</h3>
     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{service.excerpt}</p>
     <div className="mt-4 flex items-center justify-between">
       {service.from && (
@@ -81,7 +81,7 @@ const memberInitials = (name: string) =>
 export const TeamCard: React.FC<{ m: TeamMember }> = ({ m }) => (
   <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
     <div className="relative flex aspect-[4/5] items-center justify-center bg-gradient-to-br from-brand/15 via-secondary to-accent/15">
-      <span className="grid size-24 place-items-center rounded-full bg-card text-3xl font-extrabold text-brand shadow-sm">
+      <span className="grid size-24 place-items-center rounded-full bg-card text-3xl font-semibold text-brand shadow-sm">
         {memberInitials(m.name)}
       </span>
       {m.credentials && (
@@ -91,7 +91,7 @@ export const TeamCard: React.FC<{ m: TeamMember }> = ({ m }) => (
       )}
     </div>
     <div className="p-5">
-      <h3 className="text-lg font-bold text-foreground">{m.name}</h3>
+      <h3 className="text-lg font-semibold text-foreground">{m.name}</h3>
       <p className="text-sm font-semibold text-brand">{m.role}</p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
       <ul className="mt-4 flex flex-wrap gap-1.5">

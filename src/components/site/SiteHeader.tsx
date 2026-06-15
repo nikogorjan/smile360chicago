@@ -54,7 +54,7 @@ export const SiteHeader: React.FC<{
         )}
       >
         <div className="container flex h-16 items-center justify-between gap-4 lg:h-18">
-        <Brand />
+        <Brand priority />
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 lg:flex">

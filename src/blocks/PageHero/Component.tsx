@@ -35,7 +35,7 @@ export const PageHeroBlock: React.FC<Props> = ({
               {eyebrow}
             </span>
           )}
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">{heading}</h1>
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{heading}</h1>
           {description && (
             <p
               className={

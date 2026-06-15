@@ -48,7 +48,7 @@ export const MediaBannerBlock: React.FC<Props> = ({
               {eyebrow}
             </span>
           )}
-          <h2 className="mt-5 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
             {heading}
           </h2>
           {text && <p className="mt-4 text-lg text-white/85">{text}</p>}

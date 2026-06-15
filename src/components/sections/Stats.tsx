@@ -9,7 +9,7 @@ export const Stats: React.FC<{ items?: Stat[] }> = ({ items }) => {
       <div className="container grid grid-cols-2 gap-6 py-10 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label} className="text-center">
-            <p className="text-3xl font-extrabold tracking-tight text-brand sm:text-4xl">{s.value}</p>
+            <p className="text-3xl font-semibold tracking-tight text-brand sm:text-4xl">{s.value}</p>
             <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
           </div>
         ))}

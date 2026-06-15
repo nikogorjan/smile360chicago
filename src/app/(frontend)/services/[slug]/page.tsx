@@ -92,7 +92,7 @@ export default async function ServiceDetailPage({ params }: Args) {
             <span className="grid size-14 place-items-center rounded-2xl bg-brand/10 text-brand">
               <DynamicIcon name={service.icon} className="size-7" />
             </span>
-            <h2 className="mt-6 text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+            <h2 className="mt-6 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
               Gentle, modern {service.name.toLowerCase()} in Chicago
             </h2>
             <div className="mt-4 space-y-4 text-muted-foreground">
@@ -109,7 +109,7 @@ export default async function ServiceDetailPage({ params }: Args) {
 
             {service.highlights.length > 0 && (
               <>
-                <h3 className="mt-10 text-xl font-bold text-foreground">What&apos;s included</h3>
+                <h3 className="mt-10 text-xl font-semibold text-foreground">What&apos;s included</h3>
                 <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {service.highlights.map((h) => (
                     <li
@@ -130,7 +130,7 @@ export default async function ServiceDetailPage({ params }: Args) {
               {service.from && (
                 <>
                   <p className="text-sm text-muted-foreground">Starting from</p>
-                  <p className="text-4xl font-extrabold tracking-tight text-brand">{service.from}</p>
+                  <p className="text-4xl font-semibold tracking-tight text-brand">{service.from}</p>
                 </>
               )}
               <p className="mt-3 text-sm text-muted-foreground">

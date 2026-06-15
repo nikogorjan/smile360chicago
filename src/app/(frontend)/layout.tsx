@@ -3,7 +3,17 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { Kaushan_Script } from 'next/font/google'
 import React from 'react'
+
+// Cursive accent font — used for highlighted words. Kaushan Script is a brushy
+// script (single 400 weight) with energy, close to the logo wordmark.
+const script = Kaushan_Script({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-script',
+})
 
 import { AdminBar } from '@/components/AdminBar'
 import { AnnouncementBar } from '@/components/site/AnnouncementBar'
@@ -26,7 +36,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const [site, header] = await Promise.all([getSiteData(), getHeaderNav()])
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable, script.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />

@@ -29,7 +29,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.08em] text-white/80">
               New patients welcome
             </span>
-            <h2 className="mt-4 max-w-xl text-2xl font-extrabold tracking-tight sm:text-3xl">
+            <h2 className="mt-4 max-w-xl text-2xl font-semibold tracking-tight sm:text-3xl">
               Ready for a healthier, brighter smile?
             </h2>
           </div>
@@ -55,7 +55,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
       {/* columns */}
       <div className="container relative grid grid-cols-2 gap-8 py-14 md:grid-cols-4 lg:grid-cols-5">
         <div className="col-span-2">
-          <Brand />
+          <Brand className="h-12 w-auto sm:h-14 brightness-0 invert" />
           <p className="mt-4 max-w-xs text-sm text-white/65">{site.description}</p>
           <div className="mt-5 space-y-2 text-sm">
             <a
@@ -105,7 +105,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
         </div>
 
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-white">Explore</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Explore</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             {nav
               .filter((n) => n.href !== '/')
@@ -123,7 +123,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
         </div>
 
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-white">Services</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             {services.slice(0, 6).map((s) => (
               <li key={s.slug}>
@@ -139,7 +139,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
         </div>
 
         <div>
-          <h3 className="flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-white">
+          <h3 className="flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wider text-white">
             <Clock className="size-4 text-brand" />
             Hours
           </h3>

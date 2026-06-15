@@ -28,7 +28,7 @@ const MiniCase: React.FC<{ title: string; treatment: string; description: string
     </div>
     <figcaption className="p-4">
       <span className="text-xs font-bold text-brand">{treatment}</span>
-      <h3 className="mt-1 text-sm font-bold text-foreground">{title}</h3>
+      <h3 className="mt-1 text-sm font-semibold text-foreground">{title}</h3>
       <p className="mt-1 text-xs text-muted-foreground">{description}</p>
     </figcaption>
   </figure>

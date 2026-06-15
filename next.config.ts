@@ -22,6 +22,13 @@ const nextConfig: NextConfig = {
       {
         pathname: '/api/media/file/**',
       },
+      // static assets in /public (logo, etc.)
+      {
+        pathname: '/*.png',
+      },
+      {
+        pathname: '/*.svg',
+      },
     ],
     qualities: [100],
     remotePatterns: [

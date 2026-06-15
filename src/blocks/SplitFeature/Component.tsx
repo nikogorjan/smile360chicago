@@ -42,7 +42,7 @@ export const SplitFeatureBlock: React.FC<Props> = ({
           </div>
           {statValue && (
             <div className="glass absolute -bottom-5 right-6 w-44 rounded-2xl p-4 shadow-xl">
-              <p className="text-3xl font-extrabold text-brand">{statValue}</p>
+              <p className="text-3xl font-semibold text-brand">{statValue}</p>
               {statLabel && <p className="text-xs text-muted-foreground">{statLabel}</p>}
             </div>
           )}

@@ -21,7 +21,7 @@ export const EmergencyBlock: React.FC<Props> = async ({
             <Siren className="size-6 animate-pulse" />
           </span>
           <div>
-            <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{heading}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{heading}</h2>
             {text && (
               <p className="mt-1.5 max-w-xl text-sm text-emergency-foreground/85 sm:text-base">
                 {text}

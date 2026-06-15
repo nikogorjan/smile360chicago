@@ -55,7 +55,7 @@ export const TimelineBlock: React.FC<Props> = ({
                 {it.icon ? (
                   <DynamicIcon name={it.icon} className="size-5" />
                 ) : (
-                  <span className="text-sm font-extrabold">{i + 1}</span>
+                  <span className="text-sm font-semibold">{i + 1}</span>
                 )}
               </span>
 
@@ -63,7 +63,7 @@ export const TimelineBlock: React.FC<Props> = ({
                 <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-brand">
                   Step {i + 1}
                 </span>
-                <h3 className="text-base font-bold text-foreground">{it.title}</h3>
+                <h3 className="text-base font-semibold text-foreground">{it.title}</h3>
                 {it.body && (
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{it.body}</p>
                 )}

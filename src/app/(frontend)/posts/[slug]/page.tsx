@@ -72,7 +72,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           </nav>
           <div className="max-w-3xl">
             {category && <span className="eyebrow">{category}</span>}
-            <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               {post.title}
             </h1>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
@@ -96,7 +96,7 @@ export default async function Post({ params: paramsPromise }: Args) {
       {/* Content */}
       <div className="container py-12 lg:py-16">
         <RichText
-          className="prose prose-slate mx-auto max-w-[44rem] dark:prose-invert prose-headings:font-extrabold prose-headings:tracking-tight prose-a:text-brand"
+          className="prose prose-slate mx-auto max-w-[44rem] dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-brand"
           data={post.content}
           enableGutter={false}
         />
@@ -104,7 +104,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         {/* CTA band */}
         <div className="mx-auto mt-12 max-w-[44rem]">
           <div className="overflow-hidden rounded-2xl border border-border bg-primary p-7 text-primary-foreground sm:p-8">
-            <h2 className="text-2xl font-extrabold tracking-tight">
+            <h2 className="text-2xl font-semibold tracking-tight">
               In pain or due for a visit?
             </h2>
             <p className="mt-2 text-primary-foreground/80">

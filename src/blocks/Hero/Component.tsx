@@ -29,8 +29,14 @@ export const HeroBlock: React.FC<HeroBlockProps> = ({
               {eyebrow}
             </span>
           )}
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            {heading} {highlight && <span className="text-gradient-brand">{highlight}</span>}
+          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            {heading}{' '}
+            {/* Cursive accent in the brand blue at its natural weight. */}
+            {highlight && (
+              <span className="pr-1 font-normal text-brand [font-family:var(--font-script)] text-[1.06em] leading-tight">
+                {highlight}
+              </span>
+            )}
           </h1>
           {subheading && (
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
@@ -112,7 +118,7 @@ export const HeroBlock: React.FC<HeroBlockProps> = ({
             </div>
             <div className="glass animate-float absolute -right-3 bottom-16 w-44 rounded-2xl p-4 shadow-xl [animation-delay:1.5s] sm:-right-6">
               <StarRating value={5} />
-              <p className="mt-1.5 text-2xl font-extrabold text-foreground">{practice.rating.value}/5</p>
+              <p className="mt-1.5 text-2xl font-semibold text-foreground">{practice.rating.value}/5</p>
               <p className="text-xs text-muted-foreground">{practice.rating.count}+ happy smiles</p>
             </div>
           </div>

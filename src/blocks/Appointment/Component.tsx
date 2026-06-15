@@ -83,7 +83,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
                 </span>
               </div>
               <div className="rounded-2xl border border-border bg-card p-5">
-                <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground">
+                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-foreground">
                   <Clock className="size-4 text-brand" />
                   Office hours
                 </h3>
