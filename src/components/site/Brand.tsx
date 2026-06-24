@@ -20,12 +20,12 @@ export const Brand: React.FC<{ className?: string; priority?: boolean }> = ({
       className="inline-flex shrink-0 items-center"
     >
       <Image
-        src="/smile360chicago-logo.png"
+        src="/smile360-new-logo.png"
         alt={practice.name}
-        width={1828}
-        height={860}
+        width={1254}
+        height={1254}
         priority={priority}
-        className={cn('h-11 w-auto sm:h-12', className)}
+        className={cn('h-11 w-auto rounded-xl sm:h-12', className)}
       />
     </Link>
   )

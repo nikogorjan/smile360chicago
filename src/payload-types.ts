@@ -516,11 +516,24 @@ export interface PageHeroBlock {
  */
 export interface HeroBlock {
   eyebrow?: string | null;
-  heading: string;
   /**
-   * Part of the heading shown in the brand gradient (optional).
+   * The hero headline. Select words and choose "Cursive" to accent them.
    */
-  highlight?: string | null;
+  heading: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   subheading?: string | null;
   showRating?: boolean | null;
   pills?:
@@ -1859,7 +1872,6 @@ export interface PageHeroBlockSelect<T extends boolean = true> {
 export interface HeroBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
-  highlight?: T;
   subheading?: T;
   showRating?: T;
   pills?:

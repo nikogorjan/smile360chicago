@@ -7,10 +7,40 @@ import { StarRating } from '@/components/site/primitives'
 import { resolveHref } from '@/lib/nav'
 import { practice } from '@/lib/practice'
 
+type TextNode = { type?: string; text?: string; format?: number; $?: { style?: string } }
+type LexNode = { type?: string; children?: TextNode[] }
+
+/** Render the rich-text heading inline inside an <h1>, honoring the "Cursive"
+ *  text-state (brand script + blue) and bold, while keeping a single <h1>. */
+const renderHeading = (data: unknown): React.ReactNode => {
+  const root = (data as { root?: { children?: LexNode[] } })?.root
+  if (!root?.children) return null
+  const out: React.ReactNode[] = []
+  root.children.forEach((block, bi) => {
+    ;(block.children || []).forEach((n, i) => {
+      if (n.type !== 'text' || !n.text) return
+      let el: React.ReactNode = n.text
+      if (n.format && n.format & 1) el = <strong>{el}</strong>
+      if (n.$?.style === 'cursive') {
+        out.push(
+          <span
+            key={`${bi}-${i}`}
+            className="text-brand [font-family:var(--font-script)] text-[1.06em]"
+          >
+            {el}
+          </span>,
+        )
+      } else {
+        out.push(<React.Fragment key={`${bi}-${i}`}>{el}</React.Fragment>)
+      }
+    })
+  })
+  return out
+}
+
 export const HeroBlock: React.FC<HeroBlockProps> = ({
   eyebrow,
   heading,
-  highlight,
   subheading,
   showRating,
   pills,
@@ -30,13 +60,7 @@ export const HeroBlock: React.FC<HeroBlockProps> = ({
             </span>
           )}
           <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            {heading}{' '}
-            {/* Cursive accent in the brand blue at its natural weight. */}
-            {highlight && (
-              <span className="pr-1 font-normal text-brand [font-family:var(--font-script)] text-[1.06em] leading-tight">
-                {highlight}
-              </span>
-            )}
+            {renderHeading(heading)}
           </h1>
           {subheading && (
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">

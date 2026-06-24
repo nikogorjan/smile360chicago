@@ -10,11 +10,13 @@ export const Hero: Block = {
   labels: { singular: 'Hero', plural: 'Heroes' },
   fields: [
     { name: 'eyebrow', type: 'text' },
-    { name: 'heading', type: 'text', required: true },
     {
-      name: 'highlight',
-      type: 'text',
-      admin: { description: 'Part of the heading shown in the brand gradient (optional).' },
+      name: 'heading',
+      type: 'richText',
+      required: true,
+      admin: {
+        description: 'The hero headline. Select words and choose "Cursive" to accent them.',
+      },
     },
     { name: 'subheading', type: 'textarea' },
     { name: 'showRating', type: 'checkbox', defaultValue: true },

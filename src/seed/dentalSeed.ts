@@ -21,11 +21,44 @@ const bookLink = customLink('/contact', 'Book Appointment')
 const callLink = customLink(practice.phoneHref, `Call ${practice.phone}`)
 
 /* ------------------------------------------------------------- block makers */
+const t = (text: string, extra: Record<string, unknown> = {}) => ({
+  type: 'text',
+  detail: 0,
+  format: 0,
+  mode: 'normal',
+  style: '',
+  text,
+  version: 1,
+  ...extra,
+})
+
 const hero = () => ({
   blockType: 'heroBlock',
   eyebrow: "Chicago's friendliest dental practice",
-  heading: "A dentist you'll actually",
-  highlight: 'look forward to visiting.',
+  // rich-text heading: "look forward to visiting." is marked Cursive
+  heading: {
+    root: {
+      type: 'root',
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      version: 1,
+      children: [
+        {
+          type: 'paragraph',
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          version: 1,
+          textFormat: 0,
+          children: [
+            t("A dentist you'll "),
+            t('look forward to visiting.', { $: { style: 'cursive' } }),
+          ],
+        },
+      ],
+    },
+  },
   subheading:
     'Gentle family, cosmetic, and same-day emergency dentistry in the heart of Chicago. Transparent pricing, modern technology, and a team that treats you like a person — not a chart.',
   showRating: true,

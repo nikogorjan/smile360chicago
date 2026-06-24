@@ -38,6 +38,19 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  // Render text marked "Cursive" in the editor with the brand script font + blue.
+  text: (args) => {
+    const rendered = defaultConverters.text?.(args)
+    const state = (args.node as { $?: { style?: string } }).$
+    if (state?.style === 'cursive') {
+      return (
+        <span style={{ fontFamily: 'var(--font-script), cursive', color: 'var(--brand)' }}>
+          {rendered}
+        </span>
+      )
+    }
+    return rendered
+  },
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
     mediaBlock: ({ node }) => (

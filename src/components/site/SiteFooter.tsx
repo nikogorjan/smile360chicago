@@ -55,7 +55,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
       {/* columns */}
       <div className="container relative grid grid-cols-2 gap-8 py-14 md:grid-cols-4 lg:grid-cols-5">
         <div className="col-span-2">
-          <Brand className="h-12 w-auto sm:h-14 brightness-0 invert" />
+          <Brand className="h-14 w-auto rounded-xl shadow-lg sm:h-16" />
           <p className="mt-4 max-w-xs text-sm text-white/65">{site.description}</p>
           <div className="mt-5 space-y-2 text-sm">
             <a
