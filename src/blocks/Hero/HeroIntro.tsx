@@ -139,7 +139,7 @@ export const HeroIntro: React.FC<Props> = ({
             ) : (
               <Image src={imageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
             )}
-            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
           </motion.div>
         </div>
       </div>
