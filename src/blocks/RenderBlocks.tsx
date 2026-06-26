@@ -28,6 +28,7 @@ import { SplitFeatureBlock } from '@/blocks/SplitFeature/Component'
 import { BentoBlock } from '@/blocks/Bento/Component'
 import { QuoteBlock } from '@/blocks/QuoteSpotlight/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
+import { TabsBlock } from '@/blocks/Tabs/Component'
 
 const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
@@ -36,6 +37,7 @@ const blockComponents = {
   mediaBannerBlock: MediaBannerBlock,
   splitFeatureBlock: SplitFeatureBlock,
   bentoBlock: BentoBlock,
+  tabsBlock: TabsBlock,
   statsBlock: StatsBlock,
   insuranceBlock: InsuranceBlock,
   servicesGridBlock: ServicesGridBlock,

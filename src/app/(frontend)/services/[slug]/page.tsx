@@ -79,7 +79,7 @@ export default async function ServiceDetailPage({ params }: Args) {
         </Link>
         <Link
           href={site.phoneHref}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-brand hover:text-brand"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-6 py-3 text-sm font-bold text-brand transition-colors hover:bg-foreground/5"
         >
           <Phone className="size-4" />
           {site.phone}
@@ -146,7 +146,7 @@ export default async function ServiceDetailPage({ params }: Args) {
               </Link>
               <Link
                 href={site.phoneHref}
-                className="mt-2 flex items-center justify-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-brand hover:text-brand"
+                className="mt-2 flex items-center justify-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold text-brand transition-colors hover:bg-foreground/5"
               >
                 <Phone className="size-4" />
                 Call {site.phone}

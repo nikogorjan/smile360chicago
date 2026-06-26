@@ -13,8 +13,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
       data-theme="dark"
       className="site-footer relative mt-auto overflow-hidden text-white"
     >
-      {/* texture + oversized brand watermark */}
-      <div className="pointer-events-none absolute inset-0 bg-dot-grid opacity-[0.05]" />
+      {/* oversized brand watermark */}
       <span
         aria-hidden
         className="footer-watermark pointer-events-none absolute bottom-[-0.12em] left-1/2 -translate-x-1/2 select-none whitespace-nowrap text-[19vw] leading-none lg:text-[11rem]"
@@ -36,7 +35,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[oklch(24%_0.05_205)] shadow-lg transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[oklch(30%_0.13_262)] transition-opacity hover:opacity-90"
             >
               Book Appointment
               <ArrowRight className="size-4" />
@@ -55,7 +54,12 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
       {/* columns */}
       <div className="container relative grid grid-cols-2 gap-8 py-14 md:grid-cols-4 lg:grid-cols-5">
         <div className="col-span-2">
-          <Brand className="h-14 w-auto rounded-xl shadow-lg sm:h-16" />
+          <Brand
+            lightSrc={site.logo.lightUrl}
+            darkSrc={site.logo.darkUrl}
+            alt={site.logo.alt}
+            className="h-14 w-auto rounded-xl sm:h-16"
+          />
           <p className="mt-4 max-w-xs text-sm text-white/65">{site.description}</p>
           <div className="mt-5 space-y-2 text-sm">
             <a

@@ -30,8 +30,10 @@ const nextConfig: NextConfig = {
         pathname: '/*.svg',
       },
     ],
-    qualities: [100],
+    qualities: [75, 90, 100],
     remotePatterns: [
+      // Stock photo placeholders (swap for CMS uploads before launch)
+      { hostname: 'images.unsplash.com', protocol: 'https' },
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
 

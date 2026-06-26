@@ -18,7 +18,7 @@ export const AppointmentForm: React.FC = () => {
 
   if (state?.ok) {
     return (
-      <div className="rounded-3xl border border-success/40 bg-success/10 p-10 text-center">
+      <div className="rounded-2xl border border-success/40 bg-success/10 p-10 text-center">
         <span className="mx-auto grid size-14 place-items-center rounded-full bg-success/20 text-success">
           <CheckCircle2 className="size-8" />
         </span>
@@ -29,7 +29,7 @@ export const AppointmentForm: React.FC = () => {
   }
 
   return (
-    <form action={action} className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+    <form action={action} className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelCls}>

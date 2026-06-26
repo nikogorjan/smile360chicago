@@ -19,6 +19,14 @@
   h6 {
     font-weight: unset;
     font-size: unset;
+    /* Editorial serif (Lora) for every heading across the site. */
+    font-family: var(--font-display);
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: normal;
   }
 }
 
@@ -55,148 +63,144 @@
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  /* Editorial display serif for the hero headline. */
+  --font-display: var(--font-lora), Georgia, 'Times New Roman', serif;
+  /* Regular letter-spacing everywhere — neutralize Tailwind's tight tracking. */
+  --tracking-tight: 0em;
+  /* No shadows anywhere — flat UI (rings/borders still work, they're separate). */
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-lg: 0 0 #0000;
+  --shadow-xl: 0 0 #0000;
+  --shadow-2xl: 0 0 #0000;
 }
 
 @layer utilities {
+  /* Single editorial content width — 1200px, consistent gutters. */
   .container {
     width: 100%;
+    max-width: 75rem; /* 1200px */
     margin-inline: auto;
-    padding-inline: 1rem;
-  }
-
-  @variant sm {
-    .container {
-      max-width: var(--breakpoint-sm);
-    }
+    padding-inline: 1.5rem; /* px-6 */
   }
 
   @variant md {
     .container {
-      max-width: var(--breakpoint-md);
-      padding-inline: 2rem;
-    }
-  }
-
-  @variant lg {
-    .container {
-      max-width: var(--breakpoint-lg);
-    }
-  }
-
-  @variant xl {
-    .container {
-      max-width: var(--breakpoint-xl);
-    }
-  }
-
-  @variant 2xl {
-    .container {
-      max-width: var(--breakpoint-2xl);
+      padding-inline: 2rem; /* px-8 */
     }
   }
 }
 
 /* =====================================================================
-   Smile360 Chicago — brand design system  ·  "Azure & White" (logo-matched)
+   Smile360 Chicago — brand design system  ·  "Cobalt & Gold" (logo-exact)
    Light is the PRIMARY theme. Every token has a dark counterpart below.
-   Brand = the logo's azure blue (#3080D8). Accent = lighter sky-blue (same
-   family, no clash). Surfaces are white with soft blue tints — clean & airy.
-   Emergency = coral-red, reserved strictly for urgent/toothache CTAs.
-   Gold is used only for tiny review stars.
+   Brand = the logo's deep cobalt blue (#0048B4). Accent = the logo's gold
+   (#FCC024), used sparingly as a crisp pop (never blended into the blue).
+   --brand-2 = a lighter blue used for blue-only gradients/glows.
+   Surfaces are white. Emergency = coral, reserved for urgent CTAs.
    ===================================================================== */
 :root {
-  --background: oklch(99% 0.004 250deg);
-  --foreground: oklch(25% 0.03 258deg);
+  --background: oklch(99.3% 0.0015 255deg);
+  --foreground: oklch(22% 0.03 262deg);
   --card: oklch(100% 0 0deg);
-  --card-foreground: oklch(25% 0.03 258deg);
+  --card-foreground: oklch(25% 0.04 262deg);
   --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(25% 0.03 258deg);
-  /* logo azure blue */
-  --primary: oklch(56% 0.16 255deg);
-  --primary-foreground: oklch(99% 0.01 250deg);
-  --secondary: oklch(96.5% 0.016 250deg);
-  --secondary-foreground: oklch(32% 0.05 256deg);
-  --muted: oklch(96.5% 0.011 250deg);
-  --muted-foreground: oklch(50% 0.025 256deg);
-  /* lighter sky-blue accent (same family) */
-  --accent: oklch(71% 0.13 249deg);
-  --accent-foreground: oklch(28% 0.06 252deg);
+  --popover-foreground: oklch(25% 0.04 262deg);
+  /* logo cobalt blue */
+  --primary: oklch(44% 0.183 260deg);
+  --primary-foreground: oklch(99% 0.01 260deg);
+  --secondary: oklch(96.5% 0.004 255deg);
+  --secondary-foreground: oklch(30% 0.04 262deg);
+  --muted: oklch(96.5% 0.004 255deg);
+  --muted-foreground: oklch(46% 0.018 262deg);
+  /* logo gold accent (use sparingly) */
+  --accent: oklch(84% 0.165 85deg);
+  --accent-foreground: oklch(32% 0.06 80deg);
   --destructive: oklch(57.7% 0.245 27.325deg);
   --destructive-foreground: oklch(98.5% 0 0deg);
-  --border: oklch(91% 0.013 250deg);
-  --input: oklch(91% 0.013 250deg);
-  --ring: oklch(56% 0.16 255deg);
-  --chart-1: oklch(56% 0.16 255deg);
-  --chart-2: oklch(66% 0.14 240deg);
-  --chart-3: oklch(71% 0.13 249deg);
-  --chart-4: oklch(60% 0.12 280deg);
-  --chart-5: oklch(70% 0.1 230deg);
+  --border: oklch(91.5% 0.004 255deg);
+  --input: oklch(91.5% 0.004 255deg);
+  --ring: oklch(44% 0.183 260deg);
+  --chart-1: oklch(44% 0.183 260deg);
+  --chart-2: oklch(84% 0.165 85deg);
+  --chart-3: oklch(62% 0.16 258deg);
+  --chart-4: oklch(55% 0.14 245deg);
+  --chart-5: oklch(70% 0.12 230deg);
   --radius: 0.75rem;
-  --sidebar: oklch(98.5% 0.004 250deg);
-  --sidebar-foreground: oklch(25% 0.03 258deg);
-  --sidebar-primary: oklch(56% 0.16 255deg);
-  --sidebar-primary-foreground: oklch(99% 0.01 250deg);
-  --sidebar-accent: oklch(96.5% 0.016 250deg);
-  --sidebar-accent-foreground: oklch(32% 0.05 256deg);
-  --sidebar-border: oklch(91% 0.013 250deg);
-  --sidebar-ring: oklch(56% 0.16 255deg);
+  --sidebar: oklch(98.5% 0.006 258deg);
+  --sidebar-foreground: oklch(25% 0.04 262deg);
+  --sidebar-primary: oklch(44% 0.183 260deg);
+  --sidebar-primary-foreground: oklch(99% 0.01 260deg);
+  --sidebar-accent: oklch(96% 0.02 258deg);
+  --sidebar-accent-foreground: oklch(34% 0.09 260deg);
+  --sidebar-border: oklch(90% 0.018 258deg);
+  --sidebar-ring: oklch(44% 0.183 260deg);
   --success: oklch(70% 0.13 165deg);
-  --warning: oklch(82% 0.13 80deg);
+  --warning: oklch(84% 0.165 85deg);
   --error: oklch(62% 0.2 25deg);
   /* extended brand tokens */
-  --brand: oklch(56% 0.16 255deg);
-  --brand-foreground: oklch(99% 0.01 250deg);
-  --brand-soft: oklch(94% 0.035 250deg);
+  --brand: oklch(44% 0.183 260deg);
+  --brand-foreground: oklch(99% 0.01 260deg);
+  --brand-soft: oklch(93% 0.045 260deg);
+  --brand-2: oklch(62% 0.16 258deg);
+  --gold: oklch(84% 0.165 85deg);
+  --gold-foreground: oklch(32% 0.06 80deg);
+  /* cool neutral canvas (replaces warm cream — harmonizes with cobalt) */
+  --cream: oklch(97.2% 0.003 255deg);
   --emergency: oklch(60% 0.205 25deg);
   --emergency-foreground: oklch(99% 0.01 25deg);
-  --gold: oklch(80% 0.14 85deg);
 }
 
 [data-theme='dark'] {
-  --background: oklch(20% 0.03 260deg);
-  --foreground: oklch(96% 0.012 250deg);
-  --card: oklch(24% 0.032 260deg);
-  --card-foreground: oklch(96% 0.012 250deg);
-  --popover: oklch(23% 0.03 260deg);
-  --popover-foreground: oklch(96% 0.012 250deg);
-  /* logo blue, brightened for dark surfaces */
-  --primary: oklch(70% 0.15 255deg);
-  --primary-foreground: oklch(20% 0.04 260deg);
-  --secondary: oklch(28% 0.03 258deg);
-  --secondary-foreground: oklch(96% 0.012 250deg);
-  --muted: oklch(27% 0.025 258deg);
-  --muted-foreground: oklch(73% 0.02 250deg);
-  /* sky accent for dark */
-  --accent: oklch(74% 0.12 245deg);
-  --accent-foreground: oklch(20% 0.05 255deg);
+  --background: oklch(13% 0.01 264deg);
+  --foreground: oklch(96% 0.012 258deg);
+  --card: oklch(20% 0.016 264deg);
+  --card-foreground: oklch(96% 0.012 258deg);
+  --popover: oklch(19% 0.016 264deg);
+  --popover-foreground: oklch(96% 0.012 258deg);
+  /* cobalt blue, brightened for dark surfaces */
+  --primary: oklch(64% 0.17 262deg);
+  --primary-foreground: oklch(17% 0.04 262deg);
+  --secondary: oklch(25% 0.02 264deg);
+  --secondary-foreground: oklch(96% 0.012 258deg);
+  --muted: oklch(23% 0.016 264deg);
+  --muted-foreground: oklch(72% 0.02 262deg);
+  /* gold accent for dark */
+  --accent: oklch(84% 0.165 85deg);
+  --accent-foreground: oklch(28% 0.06 80deg);
   --destructive: oklch(62% 0.2 25deg);
   --destructive-foreground: oklch(98.5% 0 0deg);
-  --border: oklch(31% 0.025 258deg);
-  --input: oklch(31% 0.025 258deg);
-  --ring: oklch(70% 0.15 255deg);
-  --chart-1: oklch(70% 0.15 255deg);
-  --chart-2: oklch(72% 0.13 240deg);
-  --chart-3: oklch(74% 0.12 245deg);
-  --chart-4: oklch(68% 0.12 285deg);
-  --chart-5: oklch(74% 0.1 230deg);
-  --sidebar: oklch(23% 0.03 260deg);
-  --sidebar-foreground: oklch(96% 0.012 250deg);
-  --sidebar-primary: oklch(70% 0.15 255deg);
-  --sidebar-primary-foreground: oklch(20% 0.04 260deg);
-  --sidebar-accent: oklch(28% 0.03 258deg);
-  --sidebar-accent-foreground: oklch(96% 0.012 250deg);
-  --sidebar-border: oklch(31% 0.025 258deg);
-  --sidebar-ring: oklch(70% 0.15 255deg);
+  --border: oklch(27% 0.016 264deg);
+  --input: oklch(27% 0.016 264deg);
+  --ring: oklch(64% 0.17 262deg);
+  --chart-1: oklch(64% 0.17 262deg);
+  --chart-2: oklch(84% 0.165 85deg);
+  --chart-3: oklch(66% 0.16 258deg);
+  --chart-4: oklch(60% 0.14 245deg);
+  --chart-5: oklch(72% 0.12 230deg);
+  --sidebar: oklch(23% 0.042 262deg);
+  --sidebar-foreground: oklch(96% 0.014 258deg);
+  --sidebar-primary: oklch(64% 0.17 262deg);
+  --sidebar-primary-foreground: oklch(17% 0.04 262deg);
+  --sidebar-accent: oklch(29% 0.05 260deg);
+  --sidebar-accent-foreground: oklch(96% 0.014 258deg);
+  --sidebar-border: oklch(33% 0.045 260deg);
+  --sidebar-ring: oklch(64% 0.17 262deg);
   --success: oklch(72% 0.13 165deg);
-  --warning: oklch(80% 0.13 80deg);
+  --warning: oklch(84% 0.165 85deg);
   --error: oklch(65% 0.2 25deg);
   /* extended brand tokens */
-  --brand: oklch(70% 0.15 255deg);
-  --brand-foreground: oklch(20% 0.04 260deg);
-  --brand-soft: oklch(30% 0.05 258deg);
+  --brand: oklch(64% 0.17 262deg);
+  --brand-foreground: oklch(17% 0.04 262deg);
+  --brand-soft: oklch(30% 0.06 260deg);
+  --brand-2: oklch(66% 0.16 258deg);
+  --gold: oklch(84% 0.165 85deg);
+  --gold-foreground: oklch(28% 0.06 80deg);
+  --cream: oklch(15% 0.01 264deg);
   --emergency: oklch(66% 0.2 25deg);
   --emergency-foreground: oklch(99% 0.01 25deg);
-  --gold: oklch(83% 0.14 85deg);
 }
 
 @theme inline {
@@ -228,6 +232,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  /* Squared, editorial cards/images to match the hero — kill the large radii. */
+  --radius-2xl: 0rem;
+  --radius-3xl: 0rem;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -242,9 +249,12 @@
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
+  --color-brand-2: var(--brand-2);
   --color-emergency: var(--emergency);
   --color-emergency-foreground: var(--emergency-foreground);
   --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-cream: var(--cream);
 }
 
 @layer base {
@@ -252,7 +262,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-cream text-foreground min-h-[100vh] flex flex-col;
   }
 }
 
@@ -279,44 +289,16 @@ html {
    Smile360 creative utilities
    --------------------------------------------------------------------- */
 @layer utilities {
-  /* Section eyebrow pill */
+  /* Plain uppercase section label (no pill, no border) — reference-accurate. */
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border-radius: 9999px;
-    border: 1px solid color-mix(in oklch, var(--brand) 30%, transparent);
-    background-color: color-mix(in oklch, var(--brand) 8%, transparent);
     color: var(--brand);
-    padding: 0.35rem 0.85rem;
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-  }
-
-  /* Frosted glass card */
-  .glass {
-    background-color: color-mix(in oklch, var(--card) 70%, transparent);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid color-mix(in oklch, var(--foreground) 8%, transparent);
-  }
-
-  /* Soft radial brand glow background */
-  .bg-brand-glow {
-    background-image:
-      radial-gradient(60% 60% at 15% 0%, color-mix(in oklch, var(--brand) 14%, transparent) 0%, transparent 60%),
-      radial-gradient(50% 50% at 100% 20%, color-mix(in oklch, var(--accent) 12%, transparent) 0%, transparent 60%);
-  }
-
-  /* Decorative dotted grid */
-  .bg-dot-grid {
-    background-image: radial-gradient(
-      color-mix(in oklch, var(--foreground) 12%, transparent) 1px,
-      transparent 1px
-    );
-    background-size: 22px 22px;
   }
 
   .reveal {
@@ -351,34 +333,22 @@ html {
 }
 
 /* ---------------------------------------------------------------------
-   Footer — branded, theme-specific background.
-   Light: deep azure gradient + sky glow.  Dark: near-black navy, deeper
-   than the page, with a faint blue glow.
+   Footer — branded, theme-specific SOLID background (no gradients, to match
+   the photo-first, gradient-free design language).
+   Light: deep cobalt.  Dark: near-black navy, deeper than the page.
    --------------------------------------------------------------------- */
 .site-footer {
-  background-color: oklch(27% 0.08 258deg);
-  background-image:
-    radial-gradient(55% 70% at 82% -10%, oklch(62% 0.15 250deg / 0.4) 0%, transparent 60%),
-    radial-gradient(40% 60% at 0% 110%, oklch(52% 0.13 258deg / 0.45) 0%, transparent 60%),
-    linear-gradient(180deg, oklch(30% 0.085 258deg) 0%, oklch(21% 0.06 260deg) 100%);
+  background-color: oklch(27% 0.12 263deg);
 }
 
 [data-theme='dark'] .site-footer {
-  background-color: oklch(12% 0.02 260deg);
-  background-image:
-    radial-gradient(55% 70% at 82% -10%, oklch(58% 0.14 250deg / 0.24) 0%, transparent 60%),
-    radial-gradient(40% 60% at 0% 110%, oklch(48% 0.11 258deg / 0.28) 0%, transparent 60%),
-    linear-gradient(180deg, oklch(14% 0.022 260deg) 0%, oklch(8.5% 0.015 262deg) 100%);
+  background-color: oklch(10% 0.008 264deg);
 }
 
 .footer-watermark {
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px oklch(100% 0 0 / 0.06);
-  background: linear-gradient(180deg, oklch(100% 0 0 / 0.07), oklch(100% 0 0 / 0));
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: oklch(100% 0 0 / 0.05);
 }
 
 @keyframes float {

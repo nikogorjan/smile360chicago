@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { TimelineBlock as Props } from '@/payload-types'
 import { DynamicIcon, Section, SectionHeading } from '@/components/site/primitives'
+import { cn } from '@/utilities/ui'
 
 const colClass: Record<number, string> = {
   1: 'lg:grid-cols-1',
@@ -26,7 +27,7 @@ export const TimelineBlock: React.FC<Props> = ({
   const inset = `${50 / n}%`
 
   return (
-    <Section tone={(background as 'default') || 'default'}>
+    <Section tone={background}>
       <div className="container">
         {(eyebrow || heading || description) && (
           <SectionHeading
@@ -37,35 +38,50 @@ export const TimelineBlock: React.FC<Props> = ({
           />
         )}
 
-        <ol className={`relative mt-14 grid gap-8 ${colClass[n] || 'lg:grid-cols-4'} lg:gap-6`}>
-          {/* mobile: vertical connector */}
-          <span className="absolute bottom-3 left-6 top-3 w-0.5 -translate-x-1/2 bg-border lg:hidden" />
-          {/* desktop: horizontal connector */}
+        <ol
+          className={cn(
+            'relative mt-16 grid gap-y-12',
+            colClass[n] || 'lg:grid-cols-4',
+            'lg:gap-x-10',
+          )}
+        >
+          {/* mobile: vertical hairline connector */}
           <span
-            className="absolute top-6 hidden h-0.5 -translate-y-1/2 bg-border lg:block"
+            className="absolute bottom-6 left-6 top-6 w-px -translate-x-1/2 bg-border lg:hidden"
+            aria-hidden
+          />
+          {/* desktop: thin horizontal connector running node-center → node-center */}
+          <span
+            className="absolute top-6 hidden -translate-y-1/2 border-t border-border lg:block"
             style={{ left: inset, right: inset }}
+            aria-hidden
           />
 
           {list.map((it, i) => (
             <li
               key={i}
-              className="relative flex items-start gap-4 lg:flex-col lg:items-center lg:gap-0 lg:text-center"
+              className="relative flex items-start gap-5 lg:flex-col lg:items-center lg:gap-0 lg:text-center"
             >
-              <span className="z-10 grid size-12 shrink-0 place-items-center rounded-full border-4 border-background bg-brand text-brand-foreground lg:mb-5">
-                {it.icon ? (
-                  <DynamicIcon name={it.icon} className="size-5" />
-                ) : (
-                  <span className="text-sm font-semibold">{i + 1}</span>
-                )}
-              </span>
+              {/* cobalt numbered node / icon chip */}
+              <div className="relative z-10 lg:mb-6">
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary font-semibold text-primary-foreground ring-4 ring-background">
+                  {it.icon ? (
+                    <DynamicIcon name={it.icon} className="size-5" />
+                  ) : (
+                    <span className="text-sm">{i + 1}</span>
+                  )}
+                </span>
+              </div>
 
-              <div className="flex-1 rounded-2xl border border-border bg-card p-5 shadow-sm lg:w-full lg:flex-none">
-                <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-brand">
+              <div className="flex-1 lg:w-full lg:flex-none lg:px-2">
+                <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-brand">
                   Step {i + 1}
                 </span>
-                <h3 className="text-base font-semibold text-foreground">{it.title}</h3>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight text-foreground">
+                  {it.title}
+                </h3>
                 {it.body && (
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{it.body}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{it.body}</p>
                 )}
               </div>
             </li>

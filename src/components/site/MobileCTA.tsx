@@ -37,7 +37,7 @@ export const MobileCTA: React.FC<{ phoneHref: string }> = ({ phoneHref }) => {
         </Link>
         <Link
           href="/contact"
-          className="flex flex-[1.4] items-center justify-center gap-2 rounded-full bg-brand py-3 text-sm font-bold text-brand-foreground shadow-sm"
+          className="flex flex-[1.4] items-center justify-center gap-2 rounded-full bg-brand py-3 text-sm font-bold text-brand-foreground"
         >
           <CalendarCheck className="size-4" />
           Book Appointment

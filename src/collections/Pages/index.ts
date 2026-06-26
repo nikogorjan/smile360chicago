@@ -25,6 +25,7 @@ import { Appointment } from '../../blocks/Appointment/config'
 import { MediaBanner } from '../../blocks/MediaBanner/config'
 import { SplitFeature } from '../../blocks/SplitFeature/config'
 import { Bento } from '../../blocks/Bento/config'
+import { Tabs } from '../../blocks/Tabs/config'
 import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { hero } from '@/heros/config'
@@ -98,6 +99,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBanner,
                 SplitFeature,
                 Bento,
+                Tabs,
                 Stats,
                 InsuranceMarquee,
                 ServicesGrid,

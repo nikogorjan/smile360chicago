@@ -18,6 +18,7 @@ export type SiteData = {
   social: { instagram: string; facebook: string; google: string; tiktok: string }
   emergencyTagline: string
   rating: { value: number; count: number }
+  logo: { lightUrl: string | null; darkUrl: string | null; alt: string }
 }
 
 const telHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
@@ -49,7 +50,19 @@ export async function getSiteData(): Promise<SiteData> {
     ? (g.hours as SiteData['hours'])
     : fallbackHours
 
+  const logoLight = g.logoLight as { url?: string | null; alt?: string | null } | null | undefined
+  const logoDark = g.logoDark as { url?: string | null; alt?: string | null } | null | undefined
+  const logo = {
+    lightUrl: logoLight && typeof logoLight === 'object' && logoLight.url ? logoLight.url : null,
+    darkUrl: logoDark && typeof logoDark === 'object' && logoDark.url ? logoDark.url : null,
+    alt:
+      (logoLight && typeof logoLight === 'object' && logoLight.alt) ||
+      (logoDark && typeof logoDark === 'object' && logoDark.alt) ||
+      practice.name,
+  }
+
   return {
+    logo,
     practiceName: (g.practiceName as string) || practice.name,
     description: practice.description,
     legalName: practice.legalName,

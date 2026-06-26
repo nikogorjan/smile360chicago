@@ -1,8 +1,10 @@
+import Image from 'next/image'
 import React from 'react'
 
 import type { BentoBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { DynamicIcon, Section, SectionHeading } from '@/components/site/primitives'
+import { stockPhotos } from '@/lib/stockImages'
 import { cn } from '@/utilities/ui'
 
 const sizeClass: Record<string, string> = {
@@ -10,13 +12,6 @@ const sizeClass: Record<string, string> = {
   wide: 'col-span-2',
   tall: 'col-span-1 lg:row-span-2',
   large: 'col-span-2 lg:row-span-2',
-}
-
-const toneClass: Record<string, string> = {
-  card: 'bg-card border border-border text-foreground',
-  brand: 'bg-primary text-primary-foreground',
-  accent: 'bg-accent text-accent-foreground',
-  image: 'text-white',
 }
 
 export const BentoBlock: React.FC<Props> = ({
@@ -28,7 +23,7 @@ export const BentoBlock: React.FC<Props> = ({
   background,
 }) => {
   return (
-    <Section tone={(background as 'default') || 'default'}>
+    <Section tone={background}>
       <div className="container">
         {(eyebrow || heading || description) && (
           <SectionHeading
@@ -38,57 +33,82 @@ export const BentoBlock: React.FC<Props> = ({
             description={description || undefined}
           />
         )}
-        <div className="mt-12 grid auto-rows-[minmax(14rem,1fr)] grid-flow-dense grid-cols-2 gap-4 lg:grid-cols-4">
+
+        <div className="mt-14 grid auto-rows-[minmax(13rem,1fr)] grid-flow-dense grid-cols-2 gap-3 lg:grid-cols-4">
           {(tiles || []).map((t, i) => {
             const tone = t.tone || 'card'
             const hasImage = t.image && typeof t.image !== 'string'
-            // any tile can carry a photo; on a photo the text sits over a fade
-            const onDark = hasImage || tone === 'brand' || tone === 'accent' || tone === 'image'
-            const muted = tone === 'card' && !hasImage
+            const isImage = tone === 'image'
+            const isBrand = tone === 'brand'
+            const isAccent = tone === 'accent'
+
+            // FLAT surfaces only — no shadows. Cream for the accent tile (no light-blue).
+            const surface = isImage
+              ? 'text-white'
+              : isBrand
+                ? 'bg-primary text-primary-foreground'
+                : isAccent
+                  ? 'bg-cream text-foreground'
+                  : 'bg-card text-foreground ring-1 ring-border transition-colors hover:ring-foreground/15'
+
             return (
               <div
                 key={i}
                 className={cn(
-                  'group relative flex flex-col justify-end overflow-hidden rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1',
+                  'group relative flex flex-col justify-end overflow-hidden rounded-3xl p-6',
                   sizeClass[t.size || 'normal'],
-                  hasImage ? 'text-white' : toneClass[tone],
+                  surface,
                 )}
               >
-                {/* background */}
-                {hasImage ? (
+                {isImage && (
                   <>
-                    <Media
-                      resource={t.image}
-                      fill
-                      imgClassName="object-cover transition-transform duration-500 group-hover:scale-105"
-                      className="absolute inset-0 -z-10"
-                    />
-                    {/* fade so text stays readable */}
-                    <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+                    {hasImage ? (
+                      <Media
+                        resource={t.image}
+                        fill
+                        imgClassName="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="absolute inset-0 -z-10"
+                      />
+                    ) : (
+                      <Image
+                        src={stockPhotos.scanReview}
+                        alt={t.title || 'Smile360 Chicago dental care'}
+                        fill
+                        sizes="(min-width: 1024px) 25vw, 50vw"
+                        className="-z-10 object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 -z-10 bg-black/55" />
+                    {(t.stat || t.icon) && (
+                      <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-foreground">
+                        {t.icon && <DynamicIcon name={t.icon} className="size-3.5" />}
+                        {t.stat || 'Smile360'}
+                      </span>
+                    )}
                   </>
-                ) : (
-                  tone !== 'card' && (
-                    <>
-                      <div className="absolute inset-0 -z-10 bg-dot-grid opacity-[0.12]" />
-                      <div className="absolute -right-10 -top-10 -z-10 size-40 rounded-full bg-white/10 blur-2xl" />
-                    </>
-                  )
                 )}
 
-                {/* top: icon or stat */}
+                {/* top: icon chip or big serif stat */}
                 <div className="flex-1">
-                  {t.icon && (
+                  {!isImage && t.icon && (
                     <span
                       className={cn(
-                        'grid size-12 place-items-center rounded-2xl',
-                        muted ? 'bg-brand/10 text-brand' : 'bg-white/15 text-current backdrop-blur-sm',
+                        'grid size-11 place-items-center rounded-2xl',
+                        isBrand ? 'bg-white/15 text-white' : 'bg-brand/10 text-brand',
                       )}
                     >
-                      <DynamicIcon name={t.icon} className="size-6" />
+                      <DynamicIcon name={t.icon} className="size-5" />
                     </span>
                   )}
-                  {t.stat && (
-                    <p className="text-5xl font-semibold tracking-tight lg:text-6xl">{t.stat}</p>
+                  {t.stat && !isImage && (
+                    <p
+                      className={cn(
+                        'font-semibold text-5xl tracking-tight lg:text-6xl',
+                        isBrand ? 'text-white' : 'text-foreground',
+                      )}
+                    >
+                      {t.stat}
+                    </p>
                   )}
                 </div>
 
@@ -98,8 +118,12 @@ export const BentoBlock: React.FC<Props> = ({
                   {t.body && (
                     <p
                       className={cn(
-                        'mt-1.5 text-sm leading-relaxed',
-                        muted ? 'text-muted-foreground' : onDark ? 'opacity-90' : 'opacity-85',
+                        'mt-2 text-sm leading-relaxed',
+                        isImage
+                          ? 'text-white/90'
+                          : isBrand
+                            ? 'text-white/80'
+                            : 'text-muted-foreground',
                       )}
                     >
                       {t.body}

@@ -3,21 +3,27 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { Kaushan_Script } from 'next/font/google'
+import { Fraunces, Lora } from 'next/font/google'
 import React from 'react'
 
-// Cursive accent font — used for highlighted words. Kaushan Script is a brushy
-// script (single 400 weight) with energy, close to the logo wordmark.
-const script = Kaushan_Script({
-  weight: '400',
+// Editorial serif for headings (with a characterful italic for emphasis).
+const serif = Fraunces({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-script',
+  axes: ['opsz'],
+  variable: '--font-fraunces',
+})
+
+// Display serif for the hero headline.
+const display = Lora({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-lora',
 })
 
 import { AdminBar } from '@/components/AdminBar'
-import { AnnouncementBar } from '@/components/site/AnnouncementBar'
-import { TopBar } from '@/components/site/TopBar'
 import { SiteHeader } from '@/components/site/SiteHeader'
 import { SiteFooter } from '@/components/site/SiteFooter'
 import { MobileCTA } from '@/components/site/MobileCTA'
@@ -37,7 +43,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={cn(GeistSans.variable, GeistMono.variable, script.variable)}
+      className={cn(GeistSans.variable, GeistMono.variable, serif.variable, display.variable)}
       lang="en"
       suppressHydrationWarning
     >
@@ -54,17 +60,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
-          <AnnouncementBar
-            enabled={site.announcement.enabled}
-            text={site.announcement.text}
-            link={site.announcement.link}
-          />
-          <TopBar site={site} />
           <SiteHeader
             nav={header.nav}
             ctaLabel={header.ctaLabel}
             phone={site.phone}
             phoneHref={site.phoneHref}
+            logo={site.logo}
           />
           <main className="pb-20 lg:pb-0">{children}</main>
           <SiteFooter site={site} nav={header.nav} />

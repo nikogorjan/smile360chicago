@@ -1,53 +1,78 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowUpRight, Plus } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import type { ServicesGridBlock as Props } from '@/payload-types'
-import { Section, SectionHeading } from '@/components/site/primitives'
-import { ServiceCard } from '@/components/site/cards'
+import { Section, SectionHeading, buttonPrimary, cardSurface } from '@/components/site/primitives'
 import { getServices } from '@/lib/queries'
+import { getServicePhoto } from '@/lib/stockImages'
+import { cn } from '@/utilities/ui'
 
 export const ServicesGridBlock: React.FC<Props> = async ({
   eyebrow,
   heading,
   description,
-  align,
   source,
   limit,
-  showViewAll,
-  background,
 }) => {
   let services = await getServices()
   if (source === 'featured') services = services.filter((s) => s.featured)
-  if (limit) services = services.slice(0, limit)
+  services = services.slice(0, limit || 6)
 
   return (
-    <Section tone={(background as 'default') || 'default'}>
+    <Section>
       <div className="container">
-        {(eyebrow || heading || description) && (
-          <SectionHeading
-            align={align === 'left' ? 'left' : 'center'}
-            eyebrow={eyebrow || undefined}
-            title={heading || ''}
-            description={description || undefined}
-          />
-        )}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <ServiceCard key={s.slug} service={s} featured={s.featured} />
-          ))}
-        </div>
-        {showViewAll && (
-          <div className="mt-10 text-center">
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-brand hover:text-brand"
-            >
-              View all services
-              <ArrowRight className="size-4" />
-            </Link>
+        <SectionHeading
+          align="center"
+          eyebrow={eyebrow || undefined}
+          title={heading || ''}
+          description={description || undefined}
+        />
+
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+          {/* tall intro card — light surface, cobalt as accent only */}
+          <div className={cn(cardSurface, 'flex flex-col justify-between gap-10 p-8')}>
+            <span className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-brand">
+              <Plus className="size-6" />
+            </span>
+            <div>
+              <p className="font-display font-semibold text-3xl leading-tight tracking-tight text-foreground">
+                Gentle care for every smile
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Preventive, cosmetic, restorative and emergency dentistry — all in one calm, modern
+                place.
+              </p>
+              <Link href="/contact" className={cn(buttonPrimary, 'mt-6')}>
+                Book appointment
+              </Link>
+            </div>
           </div>
-        )}
+
+          {/* service photo cards */}
+          <div className="grid grid-cols-2 gap-4 lg:col-span-2">
+            {services.map((service, index) => (
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className={cn(cardSurface, 'group relative aspect-[3/2] overflow-hidden')}
+              >
+                <Image
+                  src={getServicePhoto(service.slug, index)}
+                  alt={service.name}
+                  fill
+                  sizes="(min-width: 1024px) 28vw, 50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <span className="absolute bottom-3 left-3 right-3 inline-flex items-center justify-between gap-1.5 rounded-xl bg-card px-4 py-2.5 text-sm font-semibold text-foreground">
+                  {service.name}
+                  <ArrowUpRight className="size-4 shrink-0 text-brand transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </Section>
   )

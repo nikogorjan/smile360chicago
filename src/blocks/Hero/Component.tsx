@@ -1,17 +1,21 @@
-import { CalendarCheck, CheckCircle2, Phone, Sparkles } from 'lucide-react'
+import { Phone, Play, Star } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import type { HeroBlock as HeroBlockProps } from '@/payload-types'
-import { StarRating } from '@/components/site/primitives'
 import { resolveHref } from '@/lib/nav'
 import { practice } from '@/lib/practice'
+import { stockPhotos } from '@/lib/stockImages'
 
-type TextNode = { type?: string; text?: string; format?: number; $?: { style?: string } }
+type TextNode = { type?: string; text?: string; format?: number }
 type LexNode = { type?: string; children?: TextNode[] }
+type MediaLike = { url?: string | null } | string | number | null | undefined
 
-/** Render the rich-text heading inline inside an <h1>, honoring the "Cursive"
- *  text-state (brand script + blue) and bold, while keeping a single <h1>. */
+const mediaUrl = (m: MediaLike): string | undefined =>
+  m && typeof m === 'object' && 'url' in m && m.url ? m.url : undefined
+
+/** Render the rich-text headline inline inside an <h1> (white, bold for emphasis). */
 const renderHeading = (data: unknown): React.ReactNode => {
   const root = (data as { root?: { children?: LexNode[] } })?.root
   if (!root?.children) return null
@@ -20,134 +24,119 @@ const renderHeading = (data: unknown): React.ReactNode => {
     ;(block.children || []).forEach((n, i) => {
       if (n.type !== 'text' || !n.text) return
       let el: React.ReactNode = n.text
-      if (n.format && n.format & 1) el = <strong>{el}</strong>
-      if (n.$?.style === 'cursive') {
-        out.push(
-          <span
-            key={`${bi}-${i}`}
-            className="text-brand [font-family:var(--font-script)] text-[1.06em]"
-          >
-            {el}
-          </span>,
-        )
-      } else {
-        out.push(<React.Fragment key={`${bi}-${i}`}>{el}</React.Fragment>)
-      }
+      if (n.format && n.format & 1) el = <strong key={`b${bi}-${i}`}>{el}</strong>
+      out.push(<React.Fragment key={`${bi}-${i}`}>{el}</React.Fragment>)
     })
   })
   return out
 }
 
 export const HeroBlock: React.FC<HeroBlockProps> = ({
-  eyebrow,
+  mediaType,
+  image,
+  video,
   heading,
-  subheading,
   showRating,
-  pills,
+  ratingText,
   links,
+  card,
 }) => {
-  const [primary, secondary] = links || []
+  const imageUrl = mediaUrl(image as MediaLike) || stockPhotos.reception
+  const videoUrl = mediaUrl(video as MediaLike)
+  const showVideo = mediaType === 'video' && !!videoUrl
+
+  // Single white phone CTA — prefer the CMS tel: link, fall back to the practice phone.
+  const call = (links || []).find((l) => /^tel:/i.test(l?.link?.url || ''))
+  const callHref = call?.link ? resolveHref(call.link) : practice.phoneHref
+  const callLabel = call?.link?.label || `Call ${practice.phone}`
+
+  const cardMediaUrl = mediaUrl(card?.media as MediaLike)
+  // Optional floating card — only shows when given real CMS content.
+  const showCard = card?.enabled !== false && !!(card?.title || cardMediaUrl)
 
   return (
-    <section className="relative overflow-hidden bg-brand-glow">
-      <div className="pointer-events-none absolute inset-0 bg-dot-grid opacity-40 [mask-image:radial-gradient(70%_60%_at_50%_0%,black,transparent)]" />
-      <div className="container relative grid items-center gap-12 py-14 lg:grid-cols-2 lg:gap-8 lg:py-24">
-        <div className="reveal">
-          {eyebrow && (
-            <span className="eyebrow">
-              <Sparkles className="size-3.5" />
-              {eyebrow}
-            </span>
-          )}
-          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            {renderHeading(heading)}
-          </h1>
-          {subheading && (
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              {subheading}
-            </p>
-          )}
-
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            {primary?.link && (
-              <Link
-                href={resolveHref(primary.link)}
-                className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-base font-bold text-brand-foreground shadow-lg shadow-brand/20 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
-              >
-                <CalendarCheck className="size-5" />
-                {primary.link.label}
-              </Link>
-            )}
-            {secondary?.link && (
-              <Link
-                href={resolveHref(secondary.link)}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-7 py-3.5 text-base font-bold text-foreground backdrop-blur transition-colors hover:border-brand hover:text-brand"
-              >
-                <Phone className="size-5" />
-                {secondary.link.label}
-              </Link>
-            )}
-          </div>
-
-          {showRating && (
-            <div className="mt-8 flex items-center gap-3">
-              <StarRating value={5} />
-              <p className="text-sm text-muted-foreground">
-                <span className="font-bold text-foreground">{practice.rating.value}</span> from{' '}
-                {practice.rating.count}+ Google reviews
-              </p>
-            </div>
+    // The nav is now a solid bar above the hero, so the media sits in normal flow
+    // with a small even margin on all sides (square corners).
+    <section data-hero className="relative">
+      <div className="p-3 sm:p-4">
+        <div className="relative h-[92svh] min-h-[640px] max-h-[960px] overflow-hidden bg-[oklch(20%_0.04_262deg)]">
+          {showVideo ? (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <video
+              className="absolute inset-0 size-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={imageUrl}
+            >
+              <source src={videoUrl} />
+            </video>
+          ) : (
+            <Image src={imageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
           )}
 
-          {pills && pills.length > 0 && (
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
-              {pills.map((p, i) => (
-                <li
-                  key={i}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80"
-                >
-                  <CheckCircle2 className="size-4 text-brand" />
-                  {p.label}
-                </li>
-              ))}
-            </ul>
-          )}
+          {/* Soft bottom-only overlay — keeps the rest of the photo bright/clear */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
         </div>
+      </div>
 
-        {/* Decorative visual */}
-        <div className="relative reveal [animation-delay:120ms]">
-          <div className="relative mx-auto aspect-square w-full max-w-md">
-            <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-brand via-brand to-accent opacity-90" />
-            <div className="absolute inset-0 rounded-[2.5rem] bg-dot-grid opacity-20" />
-            <svg viewBox="0 0 200 200" className="absolute inset-0 size-full p-10 text-white/15" fill="none" aria-hidden>
-              <path
-                d="M40 90c0 40 25 70 60 70s60-30 60-70c0-18-12-28-28-24-12 3-18 10-32 10s-20-7-32-10c-16-4-28 6-28 24Z"
-                fill="currentColor"
-              />
-            </svg>
-            <div className="glass animate-float absolute -left-4 top-10 w-56 rounded-2xl p-4 shadow-xl sm:-left-8">
-              <div className="flex items-center gap-2">
-                <span className="grid size-9 place-items-center rounded-xl bg-brand/15 text-brand">
-                  <CalendarCheck className="size-5" />
+      {/* Content — overlaid, bottom-left, inside the page container so it lines up
+          with the nav and the rest of the site */}
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-end pb-12 sm:pb-14 lg:pb-20">
+        <div className="container">
+          <div className="pointer-events-auto max-w-2xl text-white">
+            {showRating && (
+              <div className="flex items-center gap-2.5 text-sm text-white/90">
+                <span className="flex">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="size-4 fill-gold text-gold" />
+                  ))}
                 </span>
-                <div className="leading-tight">
-                  <p className="text-xs text-muted-foreground">Next available</p>
-                  <p className="text-sm font-bold text-foreground">Today · 2:30 PM</p>
-                </div>
+                {ratingText && <span>{ratingText}</span>}
               </div>
-              <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-success">
-                <span className="size-2 rounded-full bg-success" />
-                Accepting new patients
-              </div>
-            </div>
-            <div className="glass animate-float absolute -right-3 bottom-16 w-44 rounded-2xl p-4 shadow-xl [animation-delay:1.5s] sm:-right-6">
-              <StarRating value={5} />
-              <p className="mt-1.5 text-2xl font-semibold text-foreground">{practice.rating.value}/5</p>
-              <p className="text-xs text-muted-foreground">{practice.rating.count}+ happy smiles</p>
+            )}
+
+            <h1 className="mt-5 max-w-[18ch] font-display text-5xl font-normal leading-[1.05] tracking-normal text-white md:text-6xl">
+              {renderHeading(heading)}
+            </h1>
+
+            <div className="mt-7">
+              <Link
+                href={callHref}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary transition-opacity hover:opacity-90"
+              >
+                <Phone className="size-4" />
+                {callLabel}
+              </Link>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Optional floating card — bottom-right, desktop only, CMS-driven */}
+      {showCard && (
+        <div className="absolute bottom-10 right-6 z-20 hidden w-[300px] overflow-hidden rounded-2xl bg-card text-card-foreground shadow-xl ring-1 ring-black/5 md:bottom-12 md:right-12 lg:block">
+          {cardMediaUrl && (
+            <div className="relative aspect-[16/10] w-full">
+              <Image src={cardMediaUrl} alt="" fill sizes="300px" className="object-cover" />
+              <span className="absolute inset-0 grid place-items-center">
+                <span className="grid size-11 place-items-center rounded-full bg-white/90 text-primary shadow-md">
+                  <Play className="size-5 translate-x-0.5 fill-current" />
+                </span>
+              </span>
+            </div>
+          )}
+          <div className="p-4">
+            <p className="text-sm font-semibold leading-snug">
+              {card?.title || "Your family's smile, in one place"}
+            </p>
+            {card?.text && (
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{card.text}</p>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   )
 }

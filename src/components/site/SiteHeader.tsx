@@ -1,6 +1,22 @@
 'use client'
 
-import { CalendarCheck, ChevronDown, Menu, Phone, X } from 'lucide-react'
+import {
+  Anchor,
+  ChevronDown,
+  HeartPulse,
+  LayoutGrid,
+  Menu,
+  Phone,
+  Siren,
+  Smile,
+  Sparkles,
+  Star,
+  Stethoscope,
+  Sun,
+  Users,
+  X,
+} from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -10,25 +26,38 @@ import { ThemeToggle } from './ThemeToggle'
 import type { NavItem } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
+/** Pick a relevant icon for a dropdown item from its label. */
+const iconForLabel = (label = ''): React.ComponentType<{ className?: string }> => {
+  const l = label.toLowerCase()
+  if (l.includes('team') || l.includes('meet')) return Users
+  if (l.includes('review')) return Star
+  if (l.includes('emergency') || l.includes('toothache')) return Siren
+  if (l.includes('clean') || l.includes('checkup')) return Sparkles
+  if (l.includes('whiten')) return Sun
+  if (l.includes('invisalign') || l.includes('align') || l.includes('smile')) return Smile
+  if (l.includes('implant')) return Anchor
+  if (l.includes('all service') || l.includes('browse') || l.includes('service')) return LayoutGrid
+  if (l.includes('practice') || l.includes('story') || l.includes('about')) return HeartPulse
+  return Stethoscope
+}
+
+/**
+ * Solid top nav (Turnkey-style): logo + links on the left, actions on the right,
+ * on a sticky theme-aware bar. Items with children open a rich rounded dropdown
+ * panel — each entry is an icon + label + short description (two columns for the
+ * longer menus). Theme-aware so light and dark both work.
+ */
 export const SiteHeader: React.FC<{
   nav: NavItem[]
   ctaLabel: string
   phone: string
   phoneHref: string
-}> = ({ nav, ctaLabel, phone, phoneHref }) => {
+  logo?: { lightUrl: string | null; darkUrl: string | null; alt: string } | null
+}> = ({ nav, phone, phoneHref, logo }) => {
   const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openGroup, setOpenGroup] = useState<string | null>(null)
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // Close the mobile menu on route change + lock body scroll while open.
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
@@ -43,106 +72,132 @@ export const SiteHeader: React.FC<{
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href)
 
+  const triggerClass = (active: boolean) =>
+    cn(
+      'inline-flex items-center gap-1 rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:bg-foreground/5',
+      active ? 'text-foreground' : 'text-foreground/75 hover:text-foreground',
+    )
+
   return (
     <>
-      <header
-        className={cn(
-          'sticky top-0 z-50 transition-all duration-300',
-          scrolled
-            ? 'border-b border-border bg-background/85 backdrop-blur-md shadow-sm'
-            : 'bg-background/60 backdrop-blur-sm',
-        )}
-      >
-        <div className="container flex h-16 items-center justify-between gap-4 lg:h-18">
-        <Brand priority />
+      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+        <div className="container flex h-18.75 items-center justify-between gap-4">
+          {/* LEFT — logo + nav links */}
+          <div className="flex items-center gap-6">
+            <Link href="/" aria-label="Smile360 Chicago — home" className="flex shrink-0 items-center">
+              <Image
+                src={logo?.lightUrl || '/smile360-new-logo.png'}
+                alt={logo?.alt || 'Smile360 Chicago'}
+                width={1254}
+                height={1254}
+                priority
+                className="size-11 rounded-sm dark:hidden"
+              />
+              <Image
+                src={logo?.darkUrl || logo?.lightUrl || '/smile360-new-logo.png'}
+                alt={logo?.alt || 'Smile360 Chicago'}
+                width={1254}
+                height={1254}
+                priority
+                className="hidden size-11 rounded-sm dark:block"
+              />
+            </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
-          {nav.map((item) =>
-            item.children ? (
-              <div key={item.label} className="group relative">
-                <button
-                  type="button"
-                  className={cn(
-                    'inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold transition-colors hover:bg-secondary hover:text-brand',
-                    isActive(item.href) ? 'text-brand' : 'text-foreground/80',
-                  )}
-                >
-                  {item.label}
-                  <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
-                </button>
-                <div className="invisible absolute left-1/2 top-full w-72 -translate-x-1/2 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                  <div className="overflow-hidden rounded-2xl border border-border bg-popover p-2 shadow-xl">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-secondary"
-                      >
-                        <span className="block text-sm font-semibold text-foreground">
-                          {child.label}
-                        </span>
-                        {child.description && (
-                          <span className="block text-xs text-muted-foreground">
-                            {child.description}
-                          </span>
+            <nav className="hidden items-center gap-0.5 lg:flex">
+              {nav.map((item) => {
+                if (!item.children) {
+                  return (
+                    <Link key={item.label} href={item.href} className={triggerClass(isActive(item.href))}>
+                      {item.label}
+                    </Link>
+                  )
+                }
+                const wide = item.children.length > 4
+                return (
+                  <div key={item.label} className="group relative">
+                    <Link href={item.href} className={triggerClass(isActive(item.href))}>
+                      {item.label}
+                      <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-hover:rotate-180" />
+                    </Link>
+                    <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                      <div
+                        className={cn(
+                          'rounded-md border border-border bg-popover p-1 shadow-xl',
+                          wide ? 'relative grid w-136 grid-cols-2 gap-x-2 gap-y-1' : 'w-80',
                         )}
-                      </Link>
-                    ))}
+                      >
+                        {wide && (
+                          <span
+                            aria-hidden
+                            className="pointer-events-none absolute inset-y-2 left-1/2 w-px -translate-x-1/2 bg-border"
+                          />
+                        )}
+                        {item.children.map((child) => {
+                          const Icon = iconForLabel(child.label)
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="flex items-start gap-3 rounded-[6px] p-3 transition-colors hover:bg-foreground/5"
+                            >
+                              <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
+                                <Icon className="size-5" />
+                              </span>
+                              <span className="min-w-0">
+                                <span className="block text-sm font-semibold text-foreground">
+                                  {child.label}
+                                </span>
+                                {child.description && (
+                                  <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
+                                    {child.description}
+                                  </span>
+                                )}
+                              </span>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  'rounded-full px-3.5 py-2 text-sm font-semibold transition-colors hover:bg-secondary hover:text-brand',
-                  isActive(item.href) ? 'text-brand' : 'text-foreground/80',
-                )}
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
-        </nav>
+                )
+              })}
+            </nav>
+          </div>
 
-        {/* Desktop actions (phone lives in the top banner) */}
-        <div className="hidden items-center gap-2 lg:flex">
-          <ThemeToggle />
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-brand-foreground shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <CalendarCheck className="size-4" />
-            {ctaLabel}
-          </Link>
-        </div>
+          {/* RIGHT — actions (desktop) */}
+          <div className="hidden items-center gap-2 lg:flex">
+            <ThemeToggle />
+            <Link
+              href={phoneHref}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-semibold text-brand transition-colors hover:bg-foreground/5"
+            >
+              <Phone className="size-4" />
+              Call {phone}
+            </Link>
+          </div>
 
-        {/* Mobile actions */}
-        <div className="flex items-center gap-1.5 lg:hidden">
-          <ThemeToggle />
-          <Link
-            href={phoneHref}
-            aria-label="Call us"
-            className="grid size-9 place-items-center rounded-full bg-brand text-brand-foreground"
-          >
-            <Phone className="size-4" />
-          </Link>
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            className="grid size-9 place-items-center rounded-full border border-border text-foreground"
-          >
-            <Menu className="size-5" />
-          </button>
-        </div>
+          {/* RIGHT — actions (mobile) */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <Link
+              href={phoneHref}
+              aria-label={`Call ${phone}`}
+              className="grid size-10 place-items-center rounded-full border border-border bg-background text-brand"
+            >
+              <Phone className="size-4" />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+              className="grid size-10 place-items-center rounded-lg border border-border text-foreground"
+            >
+              <Menu className="size-5" />
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Mobile slide-in menu (rendered outside <header> so the blurred header
-          doesn't trap this fixed overlay inside its containing block) */}
+      {/* Mobile slide-in menu */}
       <div
         className={cn(
           'fixed inset-0 z-60 lg:hidden',
@@ -159,20 +214,23 @@ export const SiteHeader: React.FC<{
         />
         <div
           className={cn(
-            'absolute right-0 top-0 flex h-full w-[85%] max-w-sm flex-col bg-background shadow-2xl transition-transform duration-300',
+            'absolute right-0 top-0 flex h-full w-[85%] max-w-sm flex-col border-l border-border bg-background transition-transform duration-300',
             mobileOpen ? 'translate-x-0' : 'translate-x-full',
           )}
         >
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
-            <Brand />
-            <button
-              type="button"
-              onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
-              className="grid size-9 place-items-center rounded-full border border-border"
-            >
-              <X className="size-5" />
-            </button>
+            <Brand lightSrc={logo?.lightUrl} darkSrc={logo?.darkUrl} alt={logo?.alt} />
+            <div className="flex items-center gap-1.5">
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close menu"
+                className="grid size-9 place-items-center rounded-full border border-border"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
           </div>
           <nav className="flex-1 overflow-y-auto px-3 py-4">
             {nav.map((item) =>
@@ -180,9 +238,7 @@ export const SiteHeader: React.FC<{
                 <div key={item.label} className="mb-1">
                   <button
                     type="button"
-                    onClick={() =>
-                      setOpenGroup(openGroup === item.label ? null : item.label)
-                    }
+                    onClick={() => setOpenGroup(openGroup === item.label ? null : item.label)}
                     className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-base font-semibold text-foreground"
                   >
                     {item.label}
@@ -199,7 +255,7 @@ export const SiteHeader: React.FC<{
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-brand"
+                          className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
                         >
                           {child.label}
                         </Link>
@@ -211,24 +267,17 @@ export const SiteHeader: React.FC<{
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-secondary hover:text-brand"
+                  className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
                 >
                   {item.label}
                 </Link>
               ),
             )}
           </nav>
-          <div className="space-y-2 border-t border-border p-4">
-            <Link
-              href="/contact"
-              className="flex items-center justify-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-bold text-brand-foreground"
-            >
-              <CalendarCheck className="size-4" />
-              Book Appointment
-            </Link>
+          <div className="border-t border-border p-4">
             <Link
               href={phoneHref}
-              className="flex items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-bold text-foreground"
+              className="flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
             >
               <Phone className="size-4" />
               Call {phone}

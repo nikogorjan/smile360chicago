@@ -16,6 +16,31 @@ export const SiteSettings: GlobalConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Branding',
+          fields: [
+            {
+              name: 'logoLight',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Logo — light mode',
+              admin: {
+                description:
+                  'Logo for light backgrounds (navbar in light mode). Transparent PNG recommended. Falls back to the bundled default if empty.',
+              },
+            },
+            {
+              name: 'logoDark',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Logo — dark mode',
+              admin: {
+                description:
+                  'Logo for dark backgrounds (navbar in dark mode + the footer). Falls back to the light logo, then the bundled default.',
+              },
+            },
+          ],
+        },
+        {
           label: 'Contact',
           fields: [
             { name: 'practiceName', type: 'text', defaultValue: 'Smile360 Chicago' },

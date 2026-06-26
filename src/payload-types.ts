@@ -219,6 +219,7 @@ export interface Page {
     | MediaBannerBlock
     | SplitFeatureBlock
     | BentoBlock
+    | TabsBlock
     | StatsBlock
     | InsuranceBlock
     | ServicesGridBlock
@@ -515,9 +516,24 @@ export interface PageHeroBlock {
  * via the `definition` "HeroBlock".
  */
 export interface HeroBlock {
+  /**
+   * Choose what fills the hero card. Video falls back to the image.
+   */
+  mediaType?: ('image' | 'video') | null;
+  /**
+   * Background photo — used directly for Image, and as the poster/fallback for Video.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.
+   */
+  video?: (string | null) | Media;
+  /**
+   * Small label pill above the headline.
+   */
   eyebrow?: string | null;
   /**
-   * The hero headline. Select words and choose "Cursive" to accent them.
+   * Headline. Rendered in the editorial display serif, in white.
    */
   heading: {
     root: {
@@ -534,14 +550,11 @@ export interface HeroBlock {
     };
     [k: string]: unknown;
   };
-  subheading?: string | null;
   showRating?: boolean | null;
-  pills?:
-    | {
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * e.g. "4.9 from 487+ Google reviews"
+   */
+  ratingText?: string | null;
   links?:
     | {
         link: {
@@ -562,6 +575,27 @@ export interface HeroBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional small card overlapping the hero (hidden on mobile). Leave the title empty to show a compact rating stat card instead.
+   */
+  card?: {
+    /**
+     * Show the floating card.
+     */
+    enabled?: boolean | null;
+    /**
+     * Optional thumbnail/poster. Shows a play button when set.
+     */
+    media?: (string | null) | Media;
+    /**
+     * e.g. "Your family's smile, in one place"
+     */
+    title?: string | null;
+    /**
+     * One short supporting line.
+     */
+    text?: string | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroBlock';
@@ -697,6 +731,52 @@ export interface BentoBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock".
+ */
+export interface TabsBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  align?: ('center' | 'left') | null;
+  /**
+   * A vertical tab selector that swaps the content panel.
+   */
+  tabs?:
+    | {
+        label: string;
+        /**
+         * lucide-react icon name
+         */
+        icon?: string | null;
+        title: string;
+        body?: string | null;
+        bullets?:
+          | {
+              item?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * e.g. "20k+"
+         */
+        stat?: string | null;
+        statLabel?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabsBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1804,6 +1884,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBannerBlock?: T | MediaBannerBlockSelect<T>;
         splitFeatureBlock?: T | SplitFeatureBlockSelect<T>;
         bentoBlock?: T | BentoBlockSelect<T>;
+        tabsBlock?: T | TabsBlockSelect<T>;
         statsBlock?: T | StatsBlockSelect<T>;
         insuranceBlock?: T | InsuranceBlockSelect<T>;
         servicesGridBlock?: T | ServicesGridBlockSelect<T>;
@@ -1870,16 +1951,13 @@ export interface PageHeroBlockSelect<T extends boolean = true> {
  * via the `definition` "HeroBlock_select".
  */
 export interface HeroBlockSelect<T extends boolean = true> {
+  mediaType?: T;
+  image?: T;
+  video?: T;
   eyebrow?: T;
   heading?: T;
-  subheading?: T;
   showRating?: T;
-  pills?:
-    | T
-    | {
-        label?: T;
-        id?: T;
-      };
+  ratingText?: T;
   links?:
     | T
     | {
@@ -1893,6 +1971,14 @@ export interface HeroBlockSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  card?:
+    | T
+    | {
+        enabled?: T;
+        media?: T;
+        title?: T;
+        text?: T;
       };
   id?: T;
   blockName?: T;
@@ -1981,6 +2067,36 @@ export interface BentoBlockSelect<T extends boolean = true> {
         body?: T;
         image?: T;
         stat?: T;
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock_select".
+ */
+export interface TabsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  align?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        icon?: T;
+        title?: T;
+        body?: T;
+        bullets?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        stat?: T;
+        statLabel?: T;
         id?: T;
       };
   background?: T;
@@ -2918,6 +3034,14 @@ export interface Footer {
  */
 export interface SiteSetting {
   id: string;
+  /**
+   * Logo for light backgrounds (navbar in light mode). Transparent PNG recommended. Falls back to the bundled default if empty.
+   */
+  logoLight?: (string | null) | Media;
+  /**
+   * Logo for dark backgrounds (navbar in dark mode + the footer). Falls back to the light logo, then the bundled default.
+   */
+  logoDark?: (string | null) | Media;
   practiceName?: string | null;
   phone?: string | null;
   emergencyPhone?: string | null;
@@ -3015,6 +3139,8 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
+  logoLight?: T;
+  logoDark?: T;
   practiceName?: T;
   phone?: T;
   emergencyPhone?: T;

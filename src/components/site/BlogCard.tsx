@@ -15,13 +15,13 @@ export type BlogCardData = Pick<
 /** Deterministic on-brand gradient per category, used when a post has no image. */
 const gradientFor = (name?: string) => {
   const map: Record<string, string> = {
-    'Emergency Care': 'from-emergency/80 via-emergency to-accent/70',
+    'Emergency Care': 'from-emergency/80 via-emergency to-emergency/60',
     'Preventive Care': 'from-brand/80 via-brand to-success/60',
-    'Cosmetic Dentistry': 'from-accent/70 via-brand to-brand/80',
-    Orthodontics: 'from-brand/70 via-brand to-chart-5/70',
-    'Patient Tips': 'from-brand/80 via-brand to-accent/60',
+    'Cosmetic Dentistry': 'from-brand-2/70 via-brand to-brand/80',
+    Orthodontics: 'from-brand/70 via-brand to-brand-2/70',
+    'Patient Tips': 'from-brand/80 via-brand to-brand-2/60',
   }
-  return map[name || ''] || 'from-brand via-brand to-accent/70'
+  return map[name || ''] || 'from-brand via-brand to-brand-2/70'
 }
 
 export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({

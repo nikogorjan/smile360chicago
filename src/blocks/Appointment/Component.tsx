@@ -4,8 +4,9 @@ import React from 'react'
 
 import type { AppointmentBlock as Props } from '@/payload-types'
 import { AppointmentForm } from '@/components/sections/AppointmentForm'
-import { Section, SectionHeading } from '@/components/site/primitives'
+import { Section, SectionHeading, cardSurface } from '@/components/site/primitives'
 import { getSiteData } from '@/lib/getSiteSettings'
+import { cn } from '@/utilities/ui'
 
 export const AppointmentBlock: React.FC<Props> = async ({
   eyebrow,
@@ -28,10 +29,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_1.1fr]">
           {showContactInfo && (
             <div className="space-y-4">
-              <a
-                href={site.phoneHref}
-                className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-brand"
-              >
+              <a href={site.phoneHref} className={cn(cardSurface, 'flex items-center gap-4 p-5')}>
                 <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand">
                   <Phone className="size-6" />
                 </span>
@@ -56,7 +54,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-brand"
+                className={cn(cardSurface, 'flex items-center gap-4 p-5')}
               >
                 <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand">
                   <Mail className="size-6" />
@@ -66,7 +64,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
                   <span className="block text-lg font-bold text-foreground">{site.email}</span>
                 </span>
               </a>
-              <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5">
+              <div className={cn(cardSurface, 'flex items-start gap-4 p-5')}>
                 <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand/10 text-brand">
                   <MapPin className="size-6" />
                 </span>
@@ -82,7 +80,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
                   </Link>
                 </span>
               </div>
-              <div className="rounded-2xl border border-border bg-card p-5">
+              <div className={cn(cardSurface, 'p-5')}>
                 <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-foreground">
                   <Clock className="size-4 text-brand" />
                   Office hours

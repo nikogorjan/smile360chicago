@@ -80,7 +80,7 @@ const memberInitials = (name: string) =>
 
 export const TeamCard: React.FC<{ m: TeamMember }> = ({ m }) => (
   <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-    <div className="relative flex aspect-[4/5] items-center justify-center bg-gradient-to-br from-brand/15 via-secondary to-accent/15">
+    <div className="relative flex aspect-[4/5] items-center justify-center bg-secondary">
       <span className="grid size-24 place-items-center rounded-full bg-card text-3xl font-semibold text-brand shadow-sm">
         {memberInitials(m.name)}
       </span>

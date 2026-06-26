@@ -13,13 +13,13 @@ const MiniCase: React.FC<{ title: string; treatment: string; description: string
 }) => (
   <figure className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
     <div className="relative grid aspect-[5/3] grid-cols-2">
-      <div className="relative flex items-center justify-center bg-gradient-to-br from-muted to-secondary">
+      <div className="relative flex items-center justify-center bg-secondary">
         <span className="absolute left-2 top-2 rounded-full bg-foreground/70 px-2 py-0.5 text-[0.6rem] font-bold uppercase text-background">
           Before
         </span>
         <Tooth dull />
       </div>
-      <div className="relative flex items-center justify-center bg-gradient-to-br from-brand/15 via-background to-accent/15">
+      <div className="relative flex items-center justify-center bg-secondary">
         <span className="absolute right-2 top-2 rounded-full bg-brand px-2 py-0.5 text-[0.6rem] font-bold uppercase text-brand-foreground">
           After
         </span>

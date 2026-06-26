@@ -13,8 +13,8 @@ const SmilePanel: React.FC<{ variant: 'before' | 'after' }> = ({ variant }) => {
     <div
       className={
         after
-          ? 'flex size-full items-center justify-center bg-gradient-to-br from-brand/15 via-background to-accent/15'
-          : 'flex size-full items-center justify-center bg-gradient-to-br from-muted to-secondary'
+          ? 'flex size-full items-center justify-center bg-secondary'
+          : 'flex size-full items-center justify-center bg-secondary'
       }
     >
       <svg viewBox="0 0 220 140" className="w-2/3" aria-hidden>
@@ -96,7 +96,7 @@ export const BeforeAfter: React.FC<{
               <SmilePanel variant="before" />
             </div>
             <div
-              className="absolute inset-y-0 z-10 w-0.5 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)]"
+              className="absolute inset-y-0 z-10 w-0.5 bg-white ring-1 ring-black/10"
               style={{ left: `${pos}%` }}
             >
               <span className="absolute left-1/2 top-1/2 grid size-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-brand shadow-lg">

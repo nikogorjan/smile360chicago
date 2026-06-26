@@ -38,16 +38,13 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
-  // Render text marked "Cursive" in the editor with the brand script font + blue.
-  text: (args) => {
-    const rendered = defaultConverters.text?.(args)
-    const state = (args.node as { $?: { style?: string } }).$
-    if (state?.style === 'cursive') {
-      return (
-        <span style={{ fontFamily: 'var(--font-script), cursive', color: 'var(--brand)' }}>
-          {rendered}
-        </span>
-      )
+  // Render text marked "Brand blue" in the editor in the brand cobalt color.
+  text: (args: unknown) => {
+    const a = args as { node: { $?: { style?: string } } }
+    const baseText = defaultConverters.text as (x: unknown) => React.ReactNode
+    const rendered = baseText(args)
+    if (a.node?.$?.style === 'brand') {
+      return <span style={{ color: 'var(--brand)' }}>{rendered}</span>
     }
     return rendered
   },

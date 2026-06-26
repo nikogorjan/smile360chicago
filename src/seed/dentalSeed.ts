@@ -34,8 +34,9 @@ const t = (text: string, extra: Record<string, unknown> = {}) => ({
 
 const hero = () => ({
   blockType: 'heroBlock',
+  mediaType: 'image',
   eyebrow: "Chicago's friendliest dental practice",
-  // rich-text heading: "look forward to visiting." is marked Cursive
+  // rich-text heading: "look forward to visiting." is marked Brand blue
   heading: {
     root: {
       type: 'root',
@@ -53,21 +54,15 @@ const hero = () => ({
           textFormat: 0,
           children: [
             t("A dentist you'll "),
-            t('look forward to visiting.', { $: { style: 'cursive' } }),
+            t('look forward to visiting.', { $: { style: 'brand' } }),
           ],
         },
       ],
     },
   },
-  subheading:
-    'Gentle family, cosmetic, and same-day emergency dentistry in the heart of Chicago. Transparent pricing, modern technology, and a team that treats you like a person — not a chart.',
   showRating: true,
-  pills: [
-    { label: 'Same-day emergencies' },
-    { label: 'Most insurance accepted' },
-    { label: '0% financing available' },
-  ],
-  links: [bookLink, customLink(practice.phoneHref, practice.phone)],
+  ratingText: `${practice.rating.value} from ${practice.rating.count}+ Google reviews`,
+  links: [bookLink, callLink],
 })
 
 const statsBlock = () => ({
@@ -84,7 +79,7 @@ const insuranceBlock = () => ({
 const servicesGrid = (over: Record<string, unknown> = {}) => ({
   blockType: 'servicesGridBlock',
   eyebrow: 'What we do',
-  heading: 'Complete care for every smile',
+  heading: 'Complete care for *every smile*',
   description:
     'From routine cleanings to full smile makeovers and same-day emergencies — all under one roof, with technology that makes every visit faster and more comfortable.',
   align: 'center',
@@ -104,9 +99,9 @@ const featureGrid = (
 const beforeAfter = (background = 'muted') => ({
   blockType: 'beforeAfterBlock',
   eyebrow: 'Real results',
-  heading: 'See the difference a Smile360 smile makes',
+  heading: 'See the difference a *Smile360 smile* makes',
   description:
-    'Drag the slider to reveal a real-world transformation. From whitening and bonding to full smile makeovers, our before-and-afters speak for themselves.',
+    'From whitening and bonding to full smile makeovers, the results speak for themselves — explore real patient transformations in our smile gallery.',
   align: 'left',
   ctaLabel: 'Explore the full smile gallery',
   ctaHref: '/smile-gallery',
@@ -117,7 +112,7 @@ const galleryGrid = () => ({ blockType: 'galleryGridBlock', background: 'default
 
 const emergency = () => ({
   blockType: 'emergencyBlock',
-  heading: practice.emergencyTagline,
+  heading: 'Got a toothache? *Just come to us.*',
   text: "Toothache, broken or knocked-out tooth, swelling? Don't wait it out. We keep same-day slots open every day — fast relief, gentle hands.",
   callLabel: 'Call now',
   secondaryLabel: 'Same-day care',
@@ -137,7 +132,7 @@ const reviewsBlock = (over: Record<string, unknown> = {}) => ({
 const teamGrid = (over: Record<string, unknown> = {}) => ({
   blockType: 'teamGridBlock',
   eyebrow: 'Meet your team',
-  heading: 'The faces behind your smile',
+  heading: 'The faces *behind your smile*',
   description:
     'Experienced, warm, and genuinely invested in your comfort — meet the people who’ll care for you.',
   align: 'center',
@@ -148,7 +143,7 @@ const teamGrid = (over: Record<string, unknown> = {}) => ({
 const faqBlock = (over: Record<string, unknown> = {}) => ({
   blockType: 'faqBlock',
   eyebrow: 'Good to know',
-  heading: 'Frequently asked questions',
+  heading: 'Frequently *asked questions*',
   description: 'Can’t find your answer? We’re happy to help — give us a call.',
   align: 'left',
   category: 'all',
@@ -160,7 +155,7 @@ const faqBlock = (over: Record<string, unknown> = {}) => ({
 const finalCta = () => ({
   blockType: 'finalCtaBlock',
   eyebrow: "Let's get started",
-  heading: 'Book your visit today',
+  heading: 'Book your visit *today*',
   description:
     "New patients welcome. Most insurance accepted. Same-day emergency appointments available — we can't wait to meet you.",
   primaryLabel: 'Book Appointment',
@@ -220,6 +215,14 @@ const bento = (o: Record<string, unknown>) => ({
   ...o,
 })
 
+const tabsShowcase = (o: Record<string, unknown>) => ({
+  blockType: 'tabsBlock',
+  align: 'center',
+  background: 'default',
+  tabs: [],
+  ...o,
+})
+
 const quote = (o: Record<string, unknown>) => ({ blockType: 'quoteBlock', rating: 5, ...o })
 
 const timeline = (o: Record<string, unknown>) => ({
@@ -267,6 +270,79 @@ const differenceTiles = [
   { size: 'wide', tone: 'accent', stat: '20k+', title: 'Smiles transformed', body: '15+ years caring for Chicago families.' },
 ]
 
+const differenceTabs = [
+  {
+    label: 'Gentle care',
+    icon: 'HeartHandshake',
+    title: 'Genuinely gentle, judgment-free care',
+    body: 'Anxious about the dentist? You’re our specialty. We move at your pace, explain every step, and never lecture.',
+    bullets: [
+      b('Sedation & comfort options'),
+      b('Calm, spa-like treatment rooms'),
+      b('A team trained for nervous patients'),
+      b('Numbing that actually works'),
+    ],
+    stat: '98%',
+    statLabel: 'of patients say we eased their dental anxiety',
+  },
+  {
+    label: 'Same-day',
+    icon: 'Timer',
+    title: 'Same-day appointments that start on time',
+    body: 'We keep emergency slots open every day we’re open — and respect your schedule with visits that begin when booked.',
+    bullets: [
+      b('Emergency slots held daily'),
+      b('On-time, unhurried visits'),
+      b('Open 6 days a week'),
+      b('Walk-ins welcome'),
+    ],
+    stat: 'Same-day',
+    statLabel: 'emergency care, every day we’re open',
+  },
+  {
+    label: 'Technology',
+    icon: 'MonitorSmartphone',
+    title: 'Modern technology, clearer care',
+    body: 'Digital X-rays, intraoral scanning and same-day crowns mean faster, more comfortable, more accurate dentistry.',
+    bullets: [
+      b('Low-radiation digital X-rays'),
+      b('Same-day CEREC crowns'),
+      b('3D scans — no goopy molds'),
+      b('Photo-backed findings you can see'),
+    ],
+    stat: '1 visit',
+    statLabel: 'for most crowns, start to finish',
+  },
+  {
+    label: 'Pricing',
+    icon: 'Wallet',
+    title: 'Transparent, upfront pricing',
+    body: 'Clear estimates before we begin, most PPO insurance accepted and filed for you, and flexible financing.',
+    bullets: [
+      b('Written estimates up front'),
+      b('Most PPO plans accepted & filed'),
+      b('0% financing available'),
+      b('In-house membership plan'),
+    ],
+    stat: '0%',
+    statLabel: 'financing options available',
+  },
+  {
+    label: 'Honesty',
+    icon: 'ShieldCheck',
+    title: 'Honest advice, never pushy',
+    body: 'We show you photos of exactly what we see, explain your options, and let you decide — no pressure, ever.',
+    bullets: [
+      b('Photo-documented diagnoses'),
+      b('Only the treatment you need'),
+      b('Second-opinion friendly'),
+      b('15+ years caring for Chicago'),
+    ],
+    stat: '20k+',
+    statLabel: 'smiles cared for since opening',
+  },
+]
+
 const firstVisitTimeline = [
   { icon: 'CalendarCheck', title: 'Book in 60 seconds', body: 'Request a time online or call. We confirm fast and verify your insurance for you.' },
   { icon: 'Armchair', title: 'Relax at your visit', body: 'Comfortable chairs, calming amenities, and a team that explains every step — no lectures.' },
@@ -304,7 +380,7 @@ const pages = [
       splitFeature({
         imageSide: 'left',
         eyebrow: 'Why Smile360',
-        heading: 'Care that actually feels different',
+        heading: 'Care that actually *feels different*',
         body: 'From your first hello to your follow-up, we focus on comfort, honesty, and getting you seen fast — the dental experience Chicago has been missing.',
         bullets: [
           b('Gentle, judgment-free team'),
@@ -316,17 +392,17 @@ const pages = [
         statLabel: '487+ Google reviews',
         links: [bookLink],
       }),
-      servicesGrid({ limit: 6 }),
-      bento({ eyebrow: 'The Smile360 difference', heading: 'Why Chicago chooses us', tiles: differenceTiles }),
+      servicesGrid({ limit: 6, background: 'muted' }),
+      tabsShowcase({ eyebrow: 'The Smile360 difference', heading: 'Why Chicago chooses us', tabs: differenceTabs }),
       beforeAfter(),
       emergency(),
-      featuredQuote,
-      teamGrid({ limit: 4, background: 'muted' }),
-      timeline({ eyebrow: 'How it works', heading: 'Your first visit, made easy', items: firstVisitTimeline }),
-      faqBlock({ limit: 6, background: 'muted' }),
+      reviewsBlock({ limit: 6, heading: 'Real patient stories', eyebrow: 'Reviews' }),
+      teamGrid({ limit: 4, background: 'default' }),
+      timeline({ eyebrow: 'How it works', heading: 'Your first visit, *made easy*', background: 'muted', items: firstVisitTimeline }),
+      faqBlock({ limit: 6, background: 'default' }),
       mediaBanner({
         eyebrow: 'Comfort-first dentistry',
-        heading: 'Modern care that feels calm, not clinical',
+        heading: 'Modern care that feels *calm, not clinical*',
         text: 'A spa-like space, gentle technology, and a team trained to put even the most nervous patients at ease.',
         height: 'tall',
         links: [bookLink, callLink],
