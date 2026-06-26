@@ -23,6 +23,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
+import { buttonVariants } from '@/components/ui/button'
 import type { NavItem } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
@@ -74,7 +75,7 @@ export const SiteHeader: React.FC<{
 
   const triggerClass = (active: boolean) =>
     cn(
-      'inline-flex items-center gap-1 rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:bg-foreground/5',
+      'inline-flex h-9 items-center gap-1 rounded-sm px-3 text-sm font-medium transition-colors hover:bg-foreground/5',
       active ? 'text-foreground' : 'text-foreground/75 hover:text-foreground',
     )
 
@@ -169,7 +170,7 @@ export const SiteHeader: React.FC<{
             <ThemeToggle />
             <Link
               href={phoneHref}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-semibold text-brand transition-colors hover:bg-foreground/5"
+              className={buttonVariants({ variant: 'outline', size: 'sm' })}
             >
               <Phone className="size-4" />
               Call {phone}
@@ -181,7 +182,7 @@ export const SiteHeader: React.FC<{
             <Link
               href={phoneHref}
               aria-label={`Call ${phone}`}
-              className="grid size-10 place-items-center rounded-full border border-border bg-background text-brand"
+              className="grid size-10 place-items-center rounded-sm border border-border bg-background text-brand"
             >
               <Phone className="size-4" />
             </Link>
@@ -189,7 +190,7 @@ export const SiteHeader: React.FC<{
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
-              className="grid size-10 place-items-center rounded-lg border border-border text-foreground"
+              className="grid size-10 place-items-center rounded-sm border border-border text-foreground"
             >
               <Menu className="size-5" />
             </button>
@@ -226,7 +227,7 @@ export const SiteHeader: React.FC<{
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
-                className="grid size-9 place-items-center rounded-full border border-border"
+                className="grid size-9 place-items-center rounded-sm border border-border"
               >
                 <X className="size-5" />
               </button>
@@ -277,7 +278,7 @@ export const SiteHeader: React.FC<{
           <div className="border-t border-border p-4">
             <Link
               href={phoneHref}
-              className="flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+              className="flex items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
             >
               <Phone className="size-4" />
               Call {phone}

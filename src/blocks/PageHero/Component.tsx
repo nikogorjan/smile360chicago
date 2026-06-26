@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { PageHeroBlock as Props } from '@/payload-types'
+import { buttonVariants } from '@/components/ui/button'
 import { resolveHref } from '@/lib/nav'
 
 export const PageHeroBlock: React.FC<Props> = ({
@@ -56,11 +57,11 @@ export const PageHeroBlock: React.FC<Props> = ({
                     className={
                       i === 0
                         ? emergency
-                          ? 'inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-emergency transition-transform hover:-translate-y-0.5'
-                          : 'inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-bold text-brand-foreground transition-transform hover:-translate-y-0.5'
+                          ? buttonVariants({ variant: 'white', className: 'font-bold text-emergency' })
+                          : buttonVariants({ variant: 'default', className: 'font-bold' })
                         : emergency
-                          ? 'inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10'
-                          : 'inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-6 py-3 text-sm font-bold text-brand transition-colors hover:bg-foreground/5'
+                          ? buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })
+                          : buttonVariants({ variant: 'outline', className: 'font-bold' })
                     }
                   >
                     {i > 0 && <Phone className="size-4" />}

@@ -2,16 +2,26 @@ import type { Field, GroupField } from 'payload'
 
 import deepMerge from '@/utilities/deepMerge'
 
-export type LinkAppearances = 'default' | 'outline'
+export type LinkAppearances = 'default' | 'outline' | 'white' | 'outlineWhite'
 
+// Each value matches a `variant` in components/ui/button.tsx, so the CMS choice
+// maps straight onto a real button style via <CMSLink>.
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
   default: {
-    label: 'Default',
+    label: 'Solid (brand)',
     value: 'default',
   },
   outline: {
-    label: 'Outline',
+    label: 'Outline (brand)',
     value: 'outline',
+  },
+  white: {
+    label: 'Solid white — for dark sections',
+    value: 'white',
+  },
+  outlineWhite: {
+    label: 'Outline white — for dark sections',
+    value: 'outlineWhite',
   },
 }
 

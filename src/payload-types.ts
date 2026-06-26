@@ -571,6 +571,10 @@ export interface HeroBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('white' | 'outlineWhite') | null;
         };
         id?: string | null;
       }[]
@@ -1969,6 +1973,7 @@ export interface HeroBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              appearance?: T;
             };
         id?: T;
       };

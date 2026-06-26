@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { HeroBlock as HeroBlockProps } from '@/payload-types'
+import { buttonVariants } from '@/components/ui/button'
 import { resolveHref } from '@/lib/nav'
 import { practice } from '@/lib/practice'
 import { stockPhotos } from '@/lib/stockImages'
@@ -45,10 +46,13 @@ export const HeroBlock: React.FC<HeroBlockProps> = ({
   const videoUrl = mediaUrl(video as MediaLike)
   const showVideo = mediaType === 'video' && !!videoUrl
 
-  // Single white phone CTA — prefer the CMS tel: link, fall back to the practice phone.
+  // Single phone CTA — prefer the CMS tel: link, fall back to the practice phone.
+  // The button style is CMS-selectable (white / outline white) per the link's appearance.
   const call = (links || []).find((l) => /^tel:/i.test(l?.link?.url || ''))
   const callHref = call?.link ? resolveHref(call.link) : practice.phoneHref
   const callLabel = call?.link?.label || `Call ${practice.phone}`
+  const callVariant =
+    (call?.link as { appearance?: 'white' | 'outlineWhite' } | undefined)?.appearance || 'white'
 
   const cardMediaUrl = mediaUrl(card?.media as MediaLike)
   // Optional floating card — only shows when given real CMS content.
@@ -104,7 +108,7 @@ export const HeroBlock: React.FC<HeroBlockProps> = ({
             <div className="mt-7">
               <Link
                 href={callHref}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary transition-opacity hover:opacity-90"
+                className={buttonVariants({ variant: callVariant })}
               >
                 <Phone className="size-4" />
                 {callLabel}

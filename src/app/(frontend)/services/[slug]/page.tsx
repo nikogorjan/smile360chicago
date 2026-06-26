@@ -6,6 +6,7 @@ import React from 'react'
 
 import { PageHero } from '@/components/sections/PageHero'
 import { Faq } from '@/components/sections/Faq'
+import { buttonVariants } from '@/components/ui/button'
 import { Section, SectionHeading, DynamicIcon } from '@/components/site/primitives'
 import { ServiceCard, ReviewCard } from '@/components/site/cards'
 import { BreadcrumbSchema, ServiceSchema } from '@/components/site/Schema'
@@ -72,14 +73,14 @@ export default async function ServiceDetailPage({ params }: Args) {
       >
         <Link
           href="/contact"
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-bold text-brand-foreground transition-transform hover:-translate-y-0.5"
+          className={buttonVariants({ variant: 'default', className: 'font-bold' })}
         >
           <CalendarCheck className="size-4" />
           Book this treatment
         </Link>
         <Link
           href={site.phoneHref}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-6 py-3 text-sm font-bold text-brand transition-colors hover:bg-foreground/5"
+          className={buttonVariants({ variant: 'outline', className: 'font-bold' })}
         >
           <Phone className="size-4" />
           {site.phone}
@@ -139,14 +140,14 @@ export default async function ServiceDetailPage({ params }: Args) {
               </p>
               <Link
                 href="/contact"
-                className="mt-6 flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-bold text-brand-foreground transition-transform hover:-translate-y-0.5"
+                className={buttonVariants({ variant: 'default', className: 'mt-6 flex font-bold' })}
               >
                 <CalendarCheck className="size-4" />
                 Book a consultation
               </Link>
               <Link
                 href={site.phoneHref}
-                className="mt-2 flex items-center justify-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold text-brand transition-colors hover:bg-foreground/5"
+                className={buttonVariants({ variant: 'outline', className: 'mt-2 flex font-bold' })}
               >
                 <Phone className="size-4" />
                 Call {site.phone}

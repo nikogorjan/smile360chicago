@@ -4,6 +4,7 @@ import { Minus, Plus } from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
+import { buttonVariants } from '@/components/ui/button'
 import { Section, SectionHeading } from '@/components/site/primitives'
 import type { Faq as FaqType } from '@/lib/practice'
 
@@ -34,7 +35,7 @@ export const Faq: React.FC<{
           {phone && phoneHref && (
             <Link
               href={phoneHref}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-brand hover:text-brand"
+              className={buttonVariants({ variant: 'outline', className: 'mt-6 font-bold' })}
             >
               Call {phone}
             </Link>

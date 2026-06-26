@@ -45,7 +45,7 @@ export const Hero: Block = {
     },
     { name: 'showRating', type: 'checkbox', defaultValue: true },
     { name: 'ratingText', type: 'text', admin: { description: 'e.g. "4.9 from 487+ Google reviews"' } },
-    linkGroup({ appearances: false, overrides: { maxRows: 2 } }),
+    linkGroup({ appearances: ['white', 'outlineWhite'], overrides: { maxRows: 2 } }),
     {
       name: 'card',
       type: 'group',

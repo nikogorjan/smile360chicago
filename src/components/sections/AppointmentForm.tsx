@@ -4,6 +4,7 @@ import { CheckCircle2, Loader2, ShieldCheck } from 'lucide-react'
 import React, { useActionState } from 'react'
 
 import { submitAppointment, type AppointmentState } from '@/app/(frontend)/contact/actions'
+import { buttonVariants } from '@/components/ui/button'
 import { services } from '@/lib/practice'
 
 const field =
@@ -135,7 +136,11 @@ export const AppointmentForm: React.FC = () => {
       <button
         type="submit"
         disabled={pending}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-base font-bold text-brand-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+        className={buttonVariants({
+          variant: 'default',
+          size: 'clear',
+          className: 'mt-6 flex w-full px-6 py-3.5 text-base font-bold disabled:opacity-70',
+        })}
       >
         {pending ? (
           <>

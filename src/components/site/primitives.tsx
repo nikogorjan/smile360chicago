@@ -2,6 +2,7 @@ import { Star } from 'lucide-react'
 import * as Icons from 'lucide-react'
 import React from 'react'
 
+import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 
 /* ---------------------------------------------------------------------------
@@ -63,11 +64,10 @@ export const Card: React.FC<
   </div>
 )
 
-/** Shared pill button styles (§5). */
-export const buttonPrimary =
-  'inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90'
-export const buttonSecondary =
-  'inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-semibold text-brand transition-colors hover:bg-foreground/5'
+/** Shared button class strings — derived from the single source of truth in
+ *  components/ui/button.tsx so blocks and the <Button> component never drift. */
+export const buttonPrimary = buttonVariants({ variant: 'default' })
+export const buttonSecondary = buttonVariants({ variant: 'outline' })
 
 /** A large rounded panel that floats on the cream canvas (inset with padding).
  *  This is the signature container — hero, cobalt CTA bands, photo banners. */

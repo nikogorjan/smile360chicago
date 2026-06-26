@@ -30,14 +30,14 @@ export const MobileCTA: React.FC<{ phoneHref: string }> = ({ phoneHref }) => {
       <div className="flex gap-2">
         <Link
           href={phoneHref}
-          className="flex flex-1 items-center justify-center gap-2 rounded-full border border-border bg-background py-3 text-sm font-bold text-foreground"
+          className="flex flex-1 items-center justify-center gap-2 rounded-sm border border-border bg-background py-3 text-sm font-bold text-foreground"
         >
           <Phone className="size-4 text-brand" />
           Call
         </Link>
         <Link
           href="/contact"
-          className="flex flex-[1.4] items-center justify-center gap-2 rounded-full bg-brand py-3 text-sm font-bold text-brand-foreground"
+          className="flex flex-[1.4] items-center justify-center gap-2 rounded-sm bg-brand py-3 text-sm font-bold text-brand-foreground"
         >
           <CalendarCheck className="size-4" />
           Book Appointment

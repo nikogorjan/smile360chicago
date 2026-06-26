@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Brand } from './Brand'
+import { buttonVariants } from '@/components/ui/button'
 import type { SiteData } from '@/lib/getSiteSettings'
 import type { NavItem } from '@/lib/practice'
 import { services } from '@/lib/practice'
@@ -35,14 +36,14 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[oklch(30%_0.13_262)] transition-opacity hover:opacity-90"
+              className={buttonVariants({ variant: 'white', size: 'clear', className: 'px-6 py-3.5 font-bold' })}
             >
               Book Appointment
               <ArrowRight className="size-4" />
             </Link>
             <Link
               href={site.phoneHref}
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/10"
+              className={buttonVariants({ variant: 'outlineWhite', size: 'clear', className: 'px-6 py-3.5 font-bold' })}
             >
               <Phone className="size-4" />
               {site.phone}
@@ -92,7 +93,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="grid size-9 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
+              className="grid size-9 place-items-center rounded-sm border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
             >
               <Instagram className="size-4" />
             </a>
@@ -101,7 +102,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="grid size-9 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
+              className="grid size-9 place-items-center rounded-sm border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
             >
               <Facebook className="size-4" />
             </a>

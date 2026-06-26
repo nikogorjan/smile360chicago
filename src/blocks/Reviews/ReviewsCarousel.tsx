@@ -48,7 +48,7 @@ export const ReviewsCarousel: React.FC<{
               type="button"
               onClick={() => scroll(-1)}
               aria-label="Previous reviews"
-              className="grid size-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:border-foreground/30"
+              className="grid size-11 place-items-center rounded-sm border border-border text-foreground transition-colors hover:border-foreground/30"
             >
               <ArrowLeft className="size-5" />
             </button>
@@ -56,7 +56,7 @@ export const ReviewsCarousel: React.FC<{
               type="button"
               onClick={() => scroll(1)}
               aria-label="More reviews"
-              className="grid size-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:border-foreground/30"
+              className="grid size-11 place-items-center rounded-sm border border-border text-foreground transition-colors hover:border-foreground/30"
             >
               <ArrowRight className="size-5" />
             </button>

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { EmergencyBlock as Props } from '@/payload-types'
+import { buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Panel, Section, emphasize } from '@/components/site/primitives'
 import { practice } from '@/lib/practice'
 
@@ -35,7 +36,11 @@ export const EmergencyBlock: React.FC<Props> = ({
           <div className="flex flex-col gap-3 lg:items-end">
             <Link
               href={practice.phoneHref}
-              className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-emergency px-7 py-3.5 text-base font-semibold text-emergency-foreground transition-colors duration-300 hover:bg-emergency/90 sm:w-auto"
+              className={buttonVariants({
+                variant: 'emergency',
+                size: 'lg',
+                className: 'w-full gap-3 text-base sm:w-auto',
+              })}
             >
               <Phone className="size-5" />
               <span>
@@ -46,7 +51,11 @@ export const EmergencyBlock: React.FC<Props> = ({
             {secondaryLabel && secondaryHref && (
               <Link
                 href={secondaryHref}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-base font-semibold text-white transition-colors duration-300 hover:bg-white/10 sm:w-auto"
+                className={buttonVariants({
+                  variant: 'outlineWhite',
+                  size: 'lg',
+                  className: 'w-full text-base sm:w-auto',
+                })}
               >
                 {secondaryLabel}
               </Link>

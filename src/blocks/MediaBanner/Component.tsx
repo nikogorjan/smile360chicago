@@ -4,6 +4,7 @@ import React from 'react'
 
 import type { MediaBannerBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Section, emphasize } from '@/components/site/primitives'
 import { resolveHref } from '@/lib/nav'
 import { stockPhotos } from '@/lib/stockImages'
@@ -85,11 +86,10 @@ export const MediaBannerBlock: React.FC<Props> = ({
                         href={resolveHref(l.link)}
                         target={l.link.newTab ? '_blank' : undefined}
                         rel={l.link.newTab ? 'noopener noreferrer' : undefined}
-                        className={
-                          i === 0
-                            ? 'inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-primary transition-opacity hover:opacity-90'
-                            : 'inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white/10'
-                        }
+                        className={buttonVariants({
+                          variant: i === 0 ? 'white' : 'outlineWhite',
+                          size: 'lg',
+                        })}
                       >
                         {l.link.label}
                       </Link>

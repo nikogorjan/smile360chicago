@@ -4,6 +4,7 @@ import { CalendarCheck, CalendarDays, ChevronRight, Phone, UserRound } from 'luc
 import Link from 'next/link'
 import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
+import { buttonVariants } from '@/components/ui/button'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
@@ -113,14 +114,14 @@ export default async function Post({ params: paramsPromise }: Args) {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-primary transition-transform hover:-translate-y-0.5"
+                className={buttonVariants({ variant: 'white', className: 'font-bold' })}
               >
                 <CalendarCheck className="size-4" />
                 Book Appointment
               </Link>
               <Link
                 href={site.phoneHref}
-                className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
+                className={buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })}
               >
                 <Phone className="size-4" />
                 {site.phone}
