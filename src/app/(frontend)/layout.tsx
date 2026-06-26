@@ -29,6 +29,7 @@ import { SiteFooter } from '@/components/site/SiteFooter'
 import { MobileCTA } from '@/components/site/MobileCTA'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
+import { InitIntro } from '@/components/site/InitIntro'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head>
         <InitTheme />
+        <InitIntro />
         <link href="/favicon.png" rel="icon" type="image/png" sizes="any" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
       </head>

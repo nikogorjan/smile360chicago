@@ -370,3 +370,30 @@ html {
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------------
+   Hero intro gate — on the home load, hold the page chrome (nav, footer,
+   mobile CTA, and every section after the hero) at opacity 0 while the hero
+   plays its intro. The hero itself is never gated — its own media animates.
+   The hero clears data-intro when it finishes, fading the chrome in.
+   --------------------------------------------------------------------- */
+header,
+footer,
+[data-intro-hide],
+[data-hero] ~ * {
+  transition: opacity 0.7s ease;
+}
+html[data-intro='running'] header,
+html[data-intro='running'] footer,
+html[data-intro='running'] [data-intro-hide],
+html[data-intro='running'] [data-hero] ~ * {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro='running'] header,
+  html[data-intro='running'] footer,
+  html[data-intro='running'] [data-intro-hide],
+  html[data-intro='running'] [data-hero] ~ * {
+    opacity: 1;
+  }
+}
