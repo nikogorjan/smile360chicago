@@ -104,7 +104,7 @@ export const SiteHeader: React.FC<{
               />
             </Link>
 
-            <nav className="hidden items-center gap-0.5 lg:flex">
+            <nav className="hidden items-center gap-2 lg:flex">
               {nav.map((item) => {
                 if (!item.children) {
                   return (

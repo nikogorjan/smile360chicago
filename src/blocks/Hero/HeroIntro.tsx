@@ -4,7 +4,7 @@ import { Phone, Play, Star } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { buttonVariants } from '@/components/ui/button'
 
@@ -31,6 +31,9 @@ const EASE = [0.76, 0, 0.24, 1] as const
 const EASE_OUT = [0.22, 1, 0.36, 1] as const
 /** When the page chrome + hero content are revealed (ms). */
 const REVEAL_AT = 4000
+
+/** useLayoutEffect on the client, useEffect during SSR (silences the hydration warning). */
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 type Props = {
   imageUrl: string
@@ -111,6 +114,34 @@ export const HeroIntro: React.FC<Props> = ({
   // The logo wipes up last — after every letter has started.
   const logoDelay = 0.4 + introName.length * 0.04 + 0.1
 
+  // Fit the intro "name + logo" row to the wrapper so it always spans the
+  // container edge-to-edge. Measure the row's natural width and scale the
+  // font-size to the container's inner width (re-fit on resize + webfont swap).
+  const introBoxRef = useRef<HTMLDivElement>(null)
+  const introRowRef = useRef<HTMLDivElement>(null)
+  const [introSize, setIntroSize] = useState<number | null>(null)
+
+  useIsoLayoutEffect(() => {
+    if (play === false) return
+    const fit = () => {
+      const box = introBoxRef.current
+      const row = introRowRef.current
+      if (!box || !row) return
+      const cs = getComputedStyle(box)
+      const inner = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+      const natural = row.scrollWidth
+      const current = parseFloat(getComputedStyle(row).fontSize)
+      if (inner > 0 && natural > 0 && current > 0) setIntroSize((current * inner) / natural)
+    }
+    fit()
+    const ro = new ResizeObserver(fit)
+    if (introBoxRef.current) ro.observe(introBoxRef.current)
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      document.fonts.ready.then(fit).catch(() => {})
+    }
+    return () => ro.disconnect()
+  }, [play, introName])
+
   return (
     <section data-hero className="relative">
       <div className="p-3 sm:p-4">
@@ -180,12 +211,14 @@ export const HeroIntro: React.FC<Props> = ({
 
       {/* Brand name — the only thing on screen first, wipes up letter by letter */}
       {play !== false && (
-        <div className="pointer-events-none fixed inset-0 z-40 grid place-items-center px-4">
-          <div
-            className="flex flex-nowrap items-center justify-center gap-[0.3em] text-foreground"
-            style={{ fontSize: 'clamp(1.9rem, 8.5vw, 7rem)' }}
-          >
-            <h2 aria-hidden className="flex flex-nowrap font-display font-normal leading-none">
+        <div className="pointer-events-none fixed inset-0 z-40 grid place-items-center">
+          <div ref={introBoxRef} className="container">
+            <div
+              ref={introRowRef}
+              className="mx-auto flex w-max flex-nowrap items-center gap-[0.3em] text-foreground"
+              style={{ fontSize: introSize ? `${introSize}px` : 'clamp(1.9rem, 8.5vw, 7rem)' }}
+            >
+              <h2 aria-hidden className="flex flex-nowrap font-display font-normal leading-none">
               {introName.split('').map((ch, i) => (
                 <span key={i} className="inline-block overflow-hidden pb-[0.2em] align-bottom">
                   <motion.span
@@ -232,6 +265,7 @@ export const HeroIntro: React.FC<Props> = ({
                 />
               </motion.span>
             </span>
+            </div>
           </div>
         </div>
       )}

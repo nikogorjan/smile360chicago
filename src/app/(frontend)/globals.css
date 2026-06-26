@@ -66,6 +66,25 @@
   --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
   /* Editorial display serif for the hero headline. */
   --font-display: var(--font-lora), Georgia, 'Times New Roman', serif;
+
+  /* Type scale — uniformly enlarged to suit the wider 1600px layout.
+     Every text-* utility reads these tokens, so bumping --text-scale grows
+     ALL site text together (line-heights are unitless ratios → auto-scale). */
+  --text-scale: 1.125;
+  --text-xs: calc(0.75rem * var(--text-scale));
+  --text-sm: calc(0.875rem * var(--text-scale));
+  --text-base: calc(1rem * var(--text-scale));
+  --text-lg: calc(1.125rem * var(--text-scale));
+  --text-xl: calc(1.25rem * var(--text-scale));
+  --text-2xl: calc(1.5rem * var(--text-scale));
+  --text-3xl: calc(1.875rem * var(--text-scale));
+  --text-4xl: calc(2.25rem * var(--text-scale));
+  --text-5xl: calc(3rem * var(--text-scale));
+  --text-6xl: calc(3.75rem * var(--text-scale));
+  --text-7xl: calc(4.5rem * var(--text-scale));
+  --text-8xl: calc(6rem * var(--text-scale));
+  --text-9xl: calc(8rem * var(--text-scale));
+
   /* Regular letter-spacing everywhere — neutralize Tailwind's tight tracking. */
   --tracking-tight: 0em;
   /* No shadows anywhere — flat UI (rings/borders still work, they're separate). */
@@ -78,10 +97,10 @@
 }
 
 @layer utilities {
-  /* Single editorial content width — 1200px, consistent gutters. */
+  /* Single editorial content width — 1600px, consistent gutters. */
   .container {
     width: 100%;
-    max-width: 75rem; /* 1200px */
+    max-width: 100rem; /* 1600px */
     margin-inline: auto;
     padding-inline: 1.5rem; /* px-6 */
   }
