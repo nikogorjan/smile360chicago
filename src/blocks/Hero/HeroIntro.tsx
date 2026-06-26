@@ -29,8 +29,12 @@ const renderHeading = (data: unknown): React.ReactNode => {
 
 const EASE = [0.76, 0, 0.24, 1] as const
 const EASE_OUT = [0.22, 1, 0.36, 1] as const
-/** When the page chrome + hero content are revealed (ms). */
-const REVEAL_AT = 4000
+/** Toggle the opening brand-name + logo intro. Flip to `true` to bring it back. */
+const SHOW_INTRO_NAME = false
+
+/** When the page chrome + hero content are revealed (ms). 4000 leaves room for the
+ *  name preamble; without it the media grows immediately so we reveal sooner. */
+const REVEAL_AT = SHOW_INTRO_NAME ? 4000 : 2400
 
 /** useLayoutEffect on the client, useEffect during SSR (silences the hydration warning). */
 const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
@@ -152,7 +156,9 @@ export const HeroIntro: React.FC<Props> = ({
             initial={{ clipPath: 'inset(50% 50% 50% 50%)', scale: 1.14 }}
             animate={mediaAnimate}
             transition={
-              play === true ? { duration: 2, delay: 1.9, ease: EASE, times: [0, 0.5, 1] } : { duration: 0 }
+              play === true
+                ? { duration: 2, delay: SHOW_INTRO_NAME ? 1.9 : 0.2, ease: EASE, times: [0, 0.5, 1] }
+                : { duration: 0 }
             }
           >
             {showVideo ? (
@@ -210,7 +216,7 @@ export const HeroIntro: React.FC<Props> = ({
       </div>
 
       {/* Brand name — the only thing on screen first, wipes up letter by letter */}
-      {play !== false && (
+      {SHOW_INTRO_NAME && play !== false && (
         <div className="pointer-events-none fixed inset-0 z-40 grid place-items-center">
           <div ref={introBoxRef} className="container">
             <div
