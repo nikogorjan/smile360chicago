@@ -71,15 +71,25 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                   'object-cover transition-[filter,transform] duration-700 ease-out motion-reduce:transition-none',
                   isActive
                     ? 'scale-100 brightness-100 grayscale-0'
-                    : 'scale-105 brightness-[0.6] grayscale-[0.9] group-hover:brightness-[0.72] group-hover:grayscale-[0.7]',
+                    : 'scale-105 brightness-[0.5] grayscale-[0.9] group-hover:brightness-[0.6] group-hover:grayscale-[0.8]',
                 )}
               />
-              {/* Brand-blue frost tint (fades out when open; lifts a touch on hover) */}
+              {/* Even brand-blue frost tint — flat across the whole column (lifts a
+                  touch on hover); no center band, so the darkening reads uniform */}
               <span
                 aria-hidden
                 className={cn(
                   'pointer-events-none absolute inset-0 bg-brand transition-opacity duration-700 motion-reduce:transition-none',
-                  isActive ? 'opacity-0' : 'opacity-40 group-hover:opacity-25',
+                  isActive ? 'opacity-0' : 'opacity-65 group-hover:opacity-55',
+                )}
+              />
+              {/* Flat dark floor — uniform, stays put on hover so the white title and
+                  number keep contrast even where the source image is bright */}
+              <span
+                aria-hidden
+                className={cn(
+                  'pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 motion-reduce:transition-none',
+                  isActive ? 'opacity-0' : 'opacity-[0.18]',
                 )}
               />
 
