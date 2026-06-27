@@ -102,30 +102,31 @@ export const StatsGrid: React.FC<{ stats: Stat[] }> = ({ stats }) => {
   const shown = inView || instant
 
   return (
-    <div ref={ref} className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
+    <div
+      ref={ref}
+      className="mt-12 grid grid-cols-1 border-l border-t border-border bg-card sm:grid-cols-2 lg:grid-cols-4"
+    >
       {stats.map((s, i) => {
         const parsed = parseValue(s.value)
         const Icon = iconForLabel(s.label)
         return (
-          <div
-            key={s.label}
-            className={cn(
-              'h-full ease-out motion-safe:transition-all motion-safe:duration-500',
-              shown ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
-            )}
-            style={instant ? undefined : { transitionDelay: `${i * 90}ms` }}
-          >
+          <div key={s.label} className="border-b border-r border-border">
             <div
               role="img"
               aria-label={`${s.value}, ${s.label}`}
-              className="flex h-full flex-col items-center rounded-2xl border border-border bg-card p-6 text-center md:p-8"
+              className={cn(
+                'flex h-full flex-col items-center p-6 text-center md:p-8',
+                'ease-out motion-safe:transition-all motion-safe:duration-500',
+                shown ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+              )}
+              style={instant ? undefined : { transitionDelay: `${i * 90}ms` }}
             >
-              {/* Icon — one matched set: brand-blue outline icon, centered in a soft circle */}
+              {/* Icon chip — unified with the Pillars number chip + Services arrow chip */}
               <span
                 aria-hidden
-                className="mb-5 grid size-14 shrink-0 place-items-center rounded-full bg-brand/15 text-brand"
+                className="mb-5 grid size-11 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
               >
-                <Icon className="size-7" strokeWidth={1.75} />
+                <Icon className="size-5" strokeWidth={1.75} />
               </span>
 
               {/* Big value — fixed line box so all four share a baseline */}

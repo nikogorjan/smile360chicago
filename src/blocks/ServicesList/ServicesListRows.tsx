@@ -82,7 +82,7 @@ export const ServicesListRows: React.FC<{ rows: ServiceRow[] }> = ({ rows }) => 
             active === i ? 'bg-card' : 'bg-transparent hover:bg-card',
           )}
         >
-          {/* Thumbnail — square corners */}
+          {/* Thumbnail — plain full-colour image */}
           <div className="relative aspect-[4/3] w-40 shrink-0 overflow-hidden lg:w-full">
             <Image
               src={s.imageUrl}
@@ -112,7 +112,14 @@ export const ServicesListRows: React.FC<{ rows: ServiceRow[] }> = ({ rows }) => 
 
           {/* Arrow (desktop) — on hover the resting arrow exits top-right while a
               second arrow slides in from the bottom-left; the circle clips both. */}
-          <span className="relative hidden size-11 shrink-0 place-items-center overflow-hidden rounded-full border border-border text-foreground transition-colors duration-300 group-hover:border-foreground lg:grid">
+          <span
+            className={cn(
+              'relative hidden size-11 shrink-0 place-items-center overflow-hidden rounded-full transition-colors duration-300 motion-reduce:transition-none lg:grid',
+              active === i
+                ? 'bg-brand text-white'
+                : 'bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white',
+            )}
+          >
             <ArrowUpRight
               aria-hidden
               className="size-5 [grid-area:1/1] transition-transform duration-300 ease-out group-hover:-translate-y-[150%] group-hover:translate-x-[150%] motion-reduce:transition-none"
