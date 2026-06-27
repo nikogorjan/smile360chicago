@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, ChevronDown } from 'lucide-react'
+import { useReducedMotion } from 'motion/react'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -17,94 +18,126 @@ export type PillarItem = {
 }
 
 /**
- * Pillars accordion. Desktop: a row of columns where one expands to show the
- * number, heading, body and an image beside it; the rest collapse to a numbered
- * circle + vertical title. Tablet/mobile: a normal stacked accordion (image
- * above text). One item open at a time, first open by default. All motion is
- * gated behind `motion-reduce` so reduced-motion users get instant state changes.
+ * Pillars accordion. Desktop: a "frosted filmstrip" — each collapsed column
+ * shows its own image, desaturated + brand-blue tinted, with a ghost watermark
+ * number and a rotated title; the open panel reveals the full-colour image
+ * beside a white content card. It auto-advances on a timer (a gold progress
+ * line drives the cadence via animationend), pausing on hover/keyboard focus and
+ * stopping for good after a manual click. Tablet/mobile: a plain stacked
+ * accordion. All motion respects prefers-reduced-motion.
  */
 export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars }) => {
+  const reduce = useReducedMotion()
   const [active, setActive] = useState(0)
+  const [stopped, setStopped] = useState(false)
 
   if (!pillars.length) return null
 
+  // Manual interaction stops auto-advance permanently.
+  const select = (i: number) => {
+    setActive(i)
+    setStopped(true)
+  }
+
   return (
     <>
-      {/* Desktop — horizontal expanding accordion: one flush strip, thin dividers,
-          white fill only on the open panel (collapsed panels are transparent). */}
-      <div className="hidden overflow-hidden rounded-2xl border border-border lg:flex lg:h-[38rem]">
+      {/* Desktop — frosted filmstrip accordion */}
+      <div className="group/strip hidden overflow-hidden rounded-2xl border border-border lg:flex lg:h-[38rem]">
         {pillars.map((p, i) => {
           const isActive = i === active
           return (
             <button
               key={i}
               type="button"
-              onClick={() => setActive(i)}
+              onClick={() => select(i)}
               aria-expanded={isActive}
               aria-label={p.body ? `${p.title}. ${p.body}` : p.title}
               className={cn(
-                'group relative flex h-full min-w-0 overflow-hidden text-left outline-none',
-                'transition-[flex-grow,background-color] duration-500 ease-out motion-reduce:transition-none',
+                'group relative flex h-full min-w-0 overflow-hidden bg-muted text-left outline-none',
+                'transition-[flex-grow] duration-500 ease-out motion-reduce:transition-none',
                 'focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand',
                 i > 0 && 'border-l border-border',
-                isActive
-                  ? 'flex-[6] cursor-default bg-card xl:flex-[10]'
-                  : 'flex-[1] bg-card hover:bg-muted',
+                isActive ? 'flex-[6] cursor-default xl:flex-[10]' : 'flex-[1] cursor-pointer',
               )}
             >
-              {/* Collapsed rail — numbered circle + vertical title */}
+              {/* Background image — frosted (desaturated + dimmed) when closed,
+                  full colour + settle-zoom when open */}
+              <Image
+                src={p.imageUrl}
+                alt={p.imageAlt}
+                fill
+                sizes="(min-width: 1280px) 50vw, 40vw"
+                className={cn(
+                  'object-cover transition-[filter,transform] duration-700 ease-out motion-reduce:transition-none',
+                  isActive
+                    ? 'scale-100 brightness-100 grayscale-0'
+                    : 'scale-105 brightness-[0.6] grayscale-[0.9] group-hover:brightness-[0.72] group-hover:grayscale-[0.7]',
+                )}
+              />
+              {/* Brand-blue frost tint (fades out when open; lifts a touch on hover) */}
               <span
                 aria-hidden
                 className={cn(
-                  'absolute inset-0 flex flex-col items-center gap-6 py-7',
-                  'transition-opacity duration-300 motion-reduce:transition-none',
+                  'pointer-events-none absolute inset-0 bg-brand transition-opacity duration-700 motion-reduce:transition-none',
+                  isActive ? 'opacity-0' : 'opacity-40 group-hover:opacity-25',
+                )}
+              />
+
+              {/* Collapsed rail — ghost number + small indicator + rotated title */}
+              <span
+                aria-hidden
+                className={cn(
+                  'absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none',
                   isActive ? 'pointer-events-none opacity-0' : 'opacity-100',
                 )}
               >
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand/10 text-sm font-semibold text-brand">
-                  {p.number}
-                </span>
-                <span className="font-display rotate-180 text-xl font-medium text-foreground [writing-mode:vertical-rl]">
-                  {p.title}
+                <span className="absolute inset-0 flex flex-col items-center gap-6 py-7">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/40 text-xs font-semibold text-white">
+                    {p.number}
+                  </span>
+                  <span className="font-display rotate-180 text-xl font-medium text-white [writing-mode:vertical-rl]">
+                    {p.title}
+                  </span>
                 </span>
               </span>
 
-              {/* Expanded content — number + heading + body, image beside it */}
+              {/* Open content — white card (left) over the full-colour image (right) */}
               <span
                 aria-hidden
                 className={cn(
-                  'flex h-full w-full items-stretch',
-                  'transition-opacity duration-500 motion-reduce:transition-none',
-                  isActive ? 'opacity-100 delay-150' : 'opacity-0',
+                  'absolute inset-0 flex transition-opacity duration-500 motion-reduce:transition-none',
+                  isActive ? 'opacity-100 delay-150' : 'pointer-events-none opacity-0',
                 )}
               >
-                <span className="flex min-w-0 flex-1 flex-col justify-center p-8 xl:p-10">
-                  <span className="grid size-10 place-items-center rounded-full bg-brand/10 text-sm font-semibold text-brand">
-                    {p.number}
-                  </span>
-                  <span className="font-display mt-6 text-3xl font-medium leading-tight text-foreground">
-                    {p.title}
-                  </span>
-                  {p.body && (
-                    <span className="mt-4 block text-base leading-relaxed text-muted-foreground">
-                      {p.body}
+                <span className="flex h-full w-3/5 flex-col justify-between bg-card p-8 xl:w-1/2 xl:p-10">
+                  <span className="flex flex-col">
+                    <span className="grid size-10 place-items-center rounded-full bg-brand/10 text-sm font-semibold text-brand">
+                      {p.number}
                     </span>
-                  )}
-                  {p.checklist && p.checklist.length > 0 && (
-                    <span className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2.5">
-                      {p.checklist.map((c, j) => (
-                        <span
-                          key={j}
-                          className="flex items-start gap-2 text-sm leading-snug text-foreground/85"
-                        >
-                          <Check className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={2} />
-                          <span>{c}</span>
-                        </span>
-                      ))}
+                    <span className="font-display mt-6 text-3xl font-medium leading-tight text-foreground">
+                      {p.title}
                     </span>
-                  )}
+                    {p.body && (
+                      <span className="mt-4 block text-base leading-relaxed text-muted-foreground">
+                        {p.body}
+                      </span>
+                    )}
+                    {p.checklist && p.checklist.length > 0 && (
+                      <span className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2.5">
+                        {p.checklist.map((c, j) => (
+                          <span
+                            key={j}
+                            className="flex items-start gap-2 text-sm leading-snug text-foreground/85"
+                          >
+                            <Check className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={2} />
+                            <span>{c}</span>
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                  </span>
                   {p.stat?.value && (
-                    <span className="mt-7 flex items-center gap-4 border-t border-border pt-5">
+                    <span className="flex items-center gap-4 border-t border-border pt-5">
                       <span className="font-display text-4xl font-semibold leading-none text-gold">
                         {p.stat.value}
                       </span>
@@ -119,16 +152,18 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                     </span>
                   )}
                 </span>
-                <span className="relative block shrink-0 basis-2/5 overflow-hidden xl:basis-1/2">
-                  <Image
-                    src={p.imageUrl}
-                    alt={p.imageAlt}
-                    fill
-                    sizes="(min-width: 1280px) 34vw, 26vw"
-                    className="object-cover"
-                  />
-                </span>
               </span>
+
+              {/* Gold auto-advance progress — drives the timer; pauses on
+                  hover/focus anywhere in the strip; hidden once stopped / reduced */}
+              {isActive && !stopped && !reduce && (
+                <span
+                  key={active}
+                  aria-hidden
+                  onAnimationEnd={() => setActive((a) => (a + 1) % pillars.length)}
+                  className="absolute inset-x-0 bottom-0 z-30 h-[3px] origin-left bg-gold [animation:pillar-progress_5500ms_linear_forwards] group-focus-within/strip:[animation-play-state:paused] group-hover/strip:[animation-play-state:paused]"
+                />
+              )}
             </button>
           )
         })}
@@ -144,19 +179,50 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                 type="button"
                 onClick={() => setActive(i)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center gap-4 px-6 py-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                className="relative flex w-full items-center gap-4 overflow-hidden px-6 py-5 text-left outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand"
               >
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand/10 text-sm font-semibold text-brand">
+                {/* Frosted image — collapsed only; opening reveals the white header */}
+                <span
+                  aria-hidden
+                  className={cn(
+                    'absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none',
+                    isOpen ? 'opacity-0' : 'opacity-100',
+                  )}
+                >
+                  <Image
+                    src={p.imageUrl}
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover brightness-[0.6] grayscale-[0.9]"
+                  />
+                  <span className="absolute inset-0 bg-brand/40" />
+                  {/* ghost number */}
+                  <span className="font-display absolute inset-y-0 right-4 flex items-center text-6xl font-bold leading-none text-white/10">
+                    {p.number}
+                  </span>
+                </span>
+                <span
+                  className={cn(
+                    'relative z-10 grid size-9 shrink-0 place-items-center rounded-full text-sm font-semibold transition-colors duration-500 motion-reduce:transition-none',
+                    isOpen ? 'bg-brand/10 text-brand' : 'border border-white/40 text-white',
+                  )}
+                >
                   {p.number}
                 </span>
-                <span className="font-display flex-1 text-xl font-medium text-foreground">
+                <span
+                  className={cn(
+                    'font-display relative z-10 flex-1 text-xl font-medium transition-colors duration-500 motion-reduce:transition-none',
+                    isOpen ? 'text-foreground' : 'text-white',
+                  )}
+                >
                   {p.title}
                 </span>
                 <ChevronDown
                   aria-hidden
                   className={cn(
-                    'size-5 shrink-0 text-muted-foreground transition-transform duration-300 motion-reduce:transition-none',
-                    isOpen && 'rotate-180',
+                    'relative z-10 size-5 shrink-0 transition-[transform,color] duration-300 motion-reduce:transition-none',
+                    isOpen ? 'rotate-180 text-muted-foreground' : 'text-white',
                   )}
                 />
               </button>

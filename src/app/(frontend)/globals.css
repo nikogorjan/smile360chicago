@@ -357,6 +357,16 @@ html {
   }
 }
 
+/* Pillars auto-advance progress line (gold) — fills left→right over its duration. */
+@keyframes pillar-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* ---------------------------------------------------------------------
    Footer — branded, theme-specific SOLID background (no gradients, to match
    the photo-first, gradient-free design language).
