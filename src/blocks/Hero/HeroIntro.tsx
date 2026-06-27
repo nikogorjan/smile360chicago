@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 
 type TextNode = { type?: string; text?: string; format?: number }
 type LexNode = { type?: string; children?: TextNode[] }
@@ -147,12 +147,12 @@ export const HeroIntro: React.FC<Props> = ({
   }, [play, introName])
 
   return (
-    <section data-hero className="relative">
+    <section data-hero className="relative bg-cream">
       <div className="p-3 sm:p-4">
         <div className="relative h-[92svh] min-h-[640px] max-h-[960px] overflow-hidden">
           {/* The one and only hero media — grows in place */}
           <motion.div
-            className="absolute inset-0 bg-[oklch(20%_0.04_262deg)]"
+            className="absolute inset-0 bg-cream"
             initial={{ clipPath: 'inset(50% 50% 50% 50%)', scale: 1.14 }}
             animate={mediaAnimate}
             transition={
@@ -207,8 +207,10 @@ export const HeroIntro: React.FC<Props> = ({
 
             <div className="mt-7">
               <Link href={callHref} className={buttonVariants({ variant: callVariant })}>
-                <Phone className="size-4" />
-                {callLabel}
+                <ButtonLabel>
+                  <Phone className="size-4" />
+                  {callLabel}
+                </ButtonLabel>
               </Link>
             </div>
           </motion.div>

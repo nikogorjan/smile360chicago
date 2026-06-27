@@ -26,6 +26,8 @@ import { MediaBanner } from '../../blocks/MediaBanner/config'
 import { SplitFeature } from '../../blocks/SplitFeature/config'
 import { Bento } from '../../blocks/Bento/config'
 import { Tabs } from '../../blocks/Tabs/config'
+import { Pillars } from '../../blocks/Pillars/config'
+import { ServicesList } from '../../blocks/ServicesList/config'
 import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { hero } from '@/heros/config'
@@ -100,9 +102,11 @@ export const Pages: CollectionConfig<'pages'> = {
                 SplitFeature,
                 Bento,
                 Tabs,
+                Pillars,
                 Stats,
                 InsuranceMarquee,
                 ServicesGrid,
+                ServicesList,
                 FeatureGrid,
                 BeforeAfter,
                 GalleryGrid,

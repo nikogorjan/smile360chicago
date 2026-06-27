@@ -23,7 +23,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import type { NavItem } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
@@ -75,7 +75,7 @@ export const SiteHeader: React.FC<{
 
   const triggerClass = (active: boolean) =>
     cn(
-      'inline-flex h-9 items-center gap-1 rounded-sm px-3 text-sm font-medium transition-colors hover:bg-foreground/5',
+      'inline-flex h-9 items-center gap-1 rounded-sm px-2 text-[13px] font-medium transition-colors hover:bg-foreground/5 min-[1100px]:px-3 min-[1100px]:text-sm',
       active ? 'text-foreground' : 'text-foreground/75 hover:text-foreground',
     )
 
@@ -104,7 +104,7 @@ export const SiteHeader: React.FC<{
               />
             </Link>
 
-            <nav className="hidden items-center gap-2 lg:flex">
+            <nav className="hidden items-center gap-1 lg:flex min-[1100px]:gap-2">
               {nav.map((item) => {
                 if (!item.children) {
                   return (
@@ -172,8 +172,10 @@ export const SiteHeader: React.FC<{
               href={phoneHref}
               className={buttonVariants({ variant: 'outline', size: 'sm' })}
             >
-              <Phone className="size-4" />
-              Call {phone}
+              <ButtonLabel>
+                <Phone className="size-4" />
+                Call {phone}
+              </ButtonLabel>
             </Link>
           </div>
 

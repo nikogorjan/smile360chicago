@@ -10,17 +10,11 @@ export const StatsBlock: React.FC<Props> = ({ items }) => {
   const stats = mapped.length ? mapped : fallback
 
   return (
-    <Section className="relative isolate">
-      {/* Bridge from the dark hero — a soft cobalt-tinted fade at the top so the
-          section doesn't jump straight from the dark video to flat gray. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-48 bg-gradient-to-b from-foreground/5 to-transparent"
-      />
-
+    <Section>
       <div className="container">
         <SectionHeading
           align="center"
+          className="max-w-xl"
           eyebrow="By the numbers"
           title="Chicago keeps smiling with us"
           description="Fifteen years, twenty thousand smiles, and a five-star reputation built one gentle visit at a time."

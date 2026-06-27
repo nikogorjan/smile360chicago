@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { FinalCtaBlock as Props } from '@/payload-types'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Panel, Section, emphasize } from '@/components/site/primitives'
 import { getSiteData } from '@/lib/getSiteSettings'
 import { practice } from '@/lib/practice'
@@ -37,15 +37,19 @@ export const FinalCtaBlock: React.FC<Props> = async ({
                 href={primaryHref || '/contact'}
                 className={buttonVariants({ variant: 'white', size: 'lg' })}
               >
-                <CalendarCheck className="size-5" />
-                {primaryLabel || 'Book Appointment'}
+                <ButtonLabel>
+                  <CalendarCheck className="size-5" />
+                  {primaryLabel || 'Book Appointment'}
+                </ButtonLabel>
               </Link>
               <Link
                 href={site.phoneHref}
                 className={buttonVariants({ variant: 'outlineWhite', size: 'lg' })}
               >
-                <Phone className="size-5" />
-                {site.phone}
+                <ButtonLabel>
+                  <Phone className="size-5" />
+                  {site.phone}
+                </ButtonLabel>
               </Link>
             </div>
 

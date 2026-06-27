@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Brand } from './Brand'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import type { SiteData } from '@/lib/getSiteSettings'
 import type { NavItem } from '@/lib/practice'
 import { services } from '@/lib/practice'
@@ -38,15 +38,19 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               href="/contact"
               className={buttonVariants({ variant: 'white', size: 'clear', className: 'px-6 py-3.5 font-bold' })}
             >
-              Book Appointment
-              <ArrowRight className="size-4" />
+              <ButtonLabel>
+                Book Appointment
+                <ArrowRight className="size-4" />
+              </ButtonLabel>
             </Link>
             <Link
               href={site.phoneHref}
               className={buttonVariants({ variant: 'outlineWhite', size: 'clear', className: 'px-6 py-3.5 font-bold' })}
             >
-              <Phone className="size-4" />
-              {site.phone}
+              <ButtonLabel>
+                <Phone className="size-4" />
+                {site.phone}
+              </ButtonLabel>
             </Link>
           </div>
         </div>

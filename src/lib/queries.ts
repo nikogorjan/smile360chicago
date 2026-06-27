@@ -52,6 +52,38 @@ export async function getServices(): Promise<Service[]> {
   }
 }
 
+/** Fetch specific services by id, preserving the given order (for relationship pickers). */
+export async function getServicesByIds(ids: string[]): Promise<Service[]> {
+  if (!ids.length) return []
+  try {
+    const p = await payload()
+    const res = await p.find({
+      collection: 'services',
+      where: { id: { in: ids } },
+      limit: 100,
+      depth: 0,
+    })
+    const byId = new Map(
+      (res.docs as unknown as Record<string, unknown>[]).map((d) => [String(d.id), d]),
+    )
+    return ids
+      .map((id) => byId.get(id))
+      .filter((d): d is Record<string, unknown> => Boolean(d))
+      .map((d) => ({
+        slug: String(d.slug || ''),
+        name: String(d.name || ''),
+        icon: String(d.icon || 'Stethoscope'),
+        category: (d.category as Service['category']) || 'Preventive',
+        excerpt: String(d.excerpt || ''),
+        from: (d.from as string) || undefined,
+        highlights: items(d.highlights),
+        featured: Boolean(d.featured),
+      }))
+  } catch {
+    return []
+  }
+}
+
 export async function getTeam(): Promise<TeamMember[]> {
   try {
     const p = await payload()

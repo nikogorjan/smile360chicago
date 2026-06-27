@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 import { Section, SectionHeading, buttonPrimary } from '@/components/site/primitives'
+import { ButtonLabel } from '@/components/ui/button'
 import type { Faq as FaqType } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
@@ -39,7 +40,7 @@ export const FaqAccordion: React.FC<{
           />
           {phone && phoneHref && (
             <Link href={phoneHref} className={cn(buttonPrimary, 'mt-8')}>
-              Call {phone}
+              <ButtonLabel>Call {phone}</ButtonLabel>
             </Link>
           )}
         </div>

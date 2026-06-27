@@ -11,6 +11,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
 import { StatsBlock } from '@/blocks/Stats/Component'
 import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
+import { ServicesListBlock } from '@/blocks/ServicesList/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
 import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
 import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
@@ -29,6 +30,7 @@ import { BentoBlock } from '@/blocks/Bento/Component'
 import { QuoteBlock } from '@/blocks/QuoteSpotlight/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { TabsBlock } from '@/blocks/Tabs/Component'
+import { PillarsBlock } from '@/blocks/Pillars/Component'
 
 const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
@@ -38,9 +40,11 @@ const blockComponents = {
   splitFeatureBlock: SplitFeatureBlock,
   bentoBlock: BentoBlock,
   tabsBlock: TabsBlock,
+  pillarsBlock: PillarsBlock,
   statsBlock: StatsBlock,
   insuranceBlock: InsuranceBlock,
   servicesGridBlock: ServicesGridBlock,
+  servicesListBlock: ServicesListBlock,
   featureGridBlock: FeatureGridBlock,
   beforeAfterBlock: BeforeAfterBlock,
   galleryGridBlock: GalleryGridBlock,

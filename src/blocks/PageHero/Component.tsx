@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { PageHeroBlock as Props } from '@/payload-types'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { resolveHref } from '@/lib/nav'
 
 export const PageHeroBlock: React.FC<Props> = ({
@@ -64,8 +64,10 @@ export const PageHeroBlock: React.FC<Props> = ({
                           : buttonVariants({ variant: 'outline', className: 'font-bold' })
                     }
                   >
-                    {i > 0 && <Phone className="size-4" />}
-                    {l.link.label}
+                    <ButtonLabel>
+                      {i > 0 && <Phone className="size-4" />}
+                      {l.link.label}
+                    </ButtonLabel>
                   </Link>
                 ) : null,
               )}

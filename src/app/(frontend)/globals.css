@@ -167,7 +167,7 @@
   --gold: oklch(84% 0.165 85deg);
   --gold-foreground: oklch(32% 0.06 80deg);
   /* cool neutral canvas (replaces warm cream — harmonizes with cobalt) */
-  --cream: oklch(97.2% 0.003 255deg);
+  --cream: #eef1f3;
   --emergency: oklch(60% 0.205 25deg);
   --emergency-foreground: oklch(99% 0.01 25deg);
 }
@@ -282,6 +282,12 @@
   }
   body {
     @apply bg-cream text-foreground min-h-[100vh] flex flex-col;
+  }
+
+  /* Clickable affordance — native buttons default to the arrow cursor. */
+  button:not(:disabled),
+  [role='button'] {
+    cursor: pointer;
   }
 }
 

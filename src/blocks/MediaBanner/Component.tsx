@@ -4,7 +4,7 @@ import React from 'react'
 
 import type { MediaBannerBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Section, emphasize } from '@/components/site/primitives'
 import { resolveHref } from '@/lib/nav'
 import { stockPhotos } from '@/lib/stockImages'
@@ -91,7 +91,7 @@ export const MediaBannerBlock: React.FC<Props> = ({
                           size: 'lg',
                         })}
                       >
-                        {l.link.label}
+                        <ButtonLabel>{l.link.label}</ButtonLabel>
                       </Link>
                     ) : null,
                   )}

@@ -13,6 +13,7 @@ import {
   cardSurface,
   emphasize,
 } from '@/components/site/primitives'
+import { ButtonLabel } from '@/components/ui/button'
 import { resolveHref } from '@/lib/nav'
 import { stockPhotos } from '@/lib/stockImages'
 import { cn } from '@/utilities/ui'
@@ -91,12 +92,12 @@ export const SplitFeatureBlock: React.FC<Props> = ({
             <div className="mt-9 flex flex-wrap items-center gap-3">
               {primaryCta && (
                 <Link href={resolveHref(primaryCta)} className={buttonPrimary}>
-                  {primaryCta.label}
+                  <ButtonLabel>{primaryCta.label}</ButtonLabel>
                 </Link>
               )}
               {secondaryCta && (
                 <Link href={resolveHref(secondaryCta)} className={buttonSecondary}>
-                  {secondaryCta.label}
+                  <ButtonLabel>{secondaryCta.label}</ButtonLabel>
                 </Link>
               )}
             </div>

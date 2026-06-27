@@ -5,6 +5,7 @@ import React from 'react'
 
 import type { ServicesGridBlock as Props } from '@/payload-types'
 import { Section, SectionHeading, buttonPrimary, cardSurface } from '@/components/site/primitives'
+import { ButtonLabel } from '@/components/ui/button'
 import { getServices } from '@/lib/queries'
 import { getServicePhoto } from '@/lib/stockImages'
 import { cn } from '@/utilities/ui'
@@ -45,7 +46,7 @@ export const ServicesGridBlock: React.FC<Props> = async ({
                 place.
               </p>
               <Link href="/contact" className={cn(buttonPrimary, 'mt-6')}>
-                Book appointment
+                <ButtonLabel>Book appointment</ButtonLabel>
               </Link>
             </div>
           </div>

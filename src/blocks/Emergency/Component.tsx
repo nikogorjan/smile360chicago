@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { EmergencyBlock as Props } from '@/payload-types'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Panel, Section, emphasize } from '@/components/site/primitives'
 import { practice } from '@/lib/practice'
 
@@ -42,11 +42,13 @@ export const EmergencyBlock: React.FC<Props> = ({
                 className: 'w-full gap-3 text-base sm:w-auto',
               })}
             >
-              <Phone className="size-5" />
-              <span>
-                {callLabel || 'Call now'}
-                <span className="ml-2 font-bold tracking-tight">{practice.phone}</span>
-              </span>
+              <ButtonLabel>
+                <Phone className="size-5" />
+                <span>
+                  {callLabel || 'Call now'}
+                  <span className="ml-2 font-bold tracking-tight">{practice.phone}</span>
+                </span>
+              </ButtonLabel>
             </Link>
             {secondaryLabel && secondaryHref && (
               <Link
@@ -57,7 +59,7 @@ export const EmergencyBlock: React.FC<Props> = ({
                   className: 'w-full text-base sm:w-auto',
                 })}
               >
-                {secondaryLabel}
+                <ButtonLabel>{secondaryLabel}</ButtonLabel>
               </Link>
             )}
             <p className="mt-1 text-center text-xs text-white/60 lg:text-right">

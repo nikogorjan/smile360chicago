@@ -140,7 +140,9 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       admin: {
         description: 'Choose how the link should be rendered.',
       },
-      defaultValue: 'default',
+      // Default to the first allowed appearance — when a field restricts the
+      // options (e.g. the Hero to white/outlineWhite), 'default' isn't valid.
+      defaultValue: appearanceOptionsToUse[0]?.value ?? 'default',
       options: appearanceOptionsToUse,
     })
   }

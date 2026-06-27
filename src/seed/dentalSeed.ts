@@ -76,6 +76,39 @@ const insuranceBlock = () => ({
   plans: [],
 })
 
+const pillarsBlock = () => ({
+  blockType: 'pillarsBlock',
+  eyebrow: 'Why patients choose us',
+  heading: 'Care built around your comfort',
+  intro: 'A few things our Chicago patients feel from the very first visit.',
+  pillars: [
+    {
+      title: 'Gentle, judgment-free care',
+      body: 'Anxious about the dentist? You set the pace. Sedation options, numbing that actually works, and a team that explains everything before we begin.',
+    },
+    {
+      title: 'Modern technology',
+      body: 'Digital scans instead of goopy molds, low-radiation 3D imaging, and same-visit crowns — faster, more comfortable, and more precise.',
+    },
+    {
+      title: 'Honest, transparent pricing',
+      body: 'Clear treatment plans with up-front costs. We file your PPO insurance for you and never push work you don’t actually need.',
+    },
+    {
+      title: 'Same-day emergencies',
+      body: 'In pain today? We keep slots open every day for toothaches, breaks, and swelling — fast, gentle relief when you need it most.',
+    },
+  ],
+})
+
+const servicesListBlock = () => ({
+  blockType: 'servicesListBlock',
+  eyebrow: 'Our services',
+  heading: 'Complete dental care, all in one place',
+  services: [], // empty → shows all services
+  links: [customLink('/services', 'View all services')],
+})
+
 const servicesGrid = (over: Record<string, unknown> = {}) => ({
   blockType: 'servicesGridBlock',
   eyebrow: 'What we do',
@@ -376,6 +409,7 @@ const pages = [
     layout: [
       hero(),
       statsBlock(),
+      pillarsBlock(),
       insuranceBlock(),
       splitFeature({
         imageSide: 'left',
@@ -393,6 +427,7 @@ const pages = [
         links: [bookLink],
       }),
       servicesGrid({ limit: 6, background: 'muted' }),
+      servicesListBlock(),
       tabsShowcase({ eyebrow: 'The Smile360 difference', heading: 'Why Chicago chooses us', tabs: differenceTabs }),
       beforeAfter(),
       emergency(),

@@ -220,9 +220,11 @@ export interface Page {
     | SplitFeatureBlock
     | BentoBlock
     | TabsBlock
+    | PillarsBlock
     | StatsBlock
     | InsuranceBlock
     | ServicesGridBlock
+    | ServicesListBlock
     | FeatureGridBlock
     | BeforeAfterBlock
     | GalleryGridBlock
@@ -784,6 +786,29 @@ export interface TabsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillarsBlock".
+ */
+export interface PillarsBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  /**
+   * Numbered automatically (01, 02…) on the site — no need to type a number.
+   */
+  pillars?:
+    | {
+        title: string;
+        body?: string | null;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pillarsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "StatsBlock".
  */
 export interface StatsBlock {
@@ -842,6 +867,88 @@ export interface ServicesGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'servicesGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesListBlock".
+ */
+export interface ServicesListBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Pick which services to show, in order. Leave empty to show all services.
+   */
+  services?: (string | Service)[] | null;
+  /**
+   * Optional “View all services” button shown top-right of the heading.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesListBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  name: string;
+  category: 'Preventive' | 'Cosmetic' | 'Restorative' | 'Orthodontics' | 'Emergency';
+  /**
+   * lucide-react icon name, e.g. "Sparkles"
+   */
+  icon?: string | null;
+  excerpt?: string | null;
+  from?: string | null;
+  featured?: boolean | null;
+  highlights?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1452,50 +1559,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services".
- */
-export interface Service {
-  id: string;
-  name: string;
-  category: 'Preventive' | 'Cosmetic' | 'Restorative' | 'Orthodontics' | 'Emergency';
-  /**
-   * lucide-react icon name, e.g. "Sparkles"
-   */
-  icon?: string | null;
-  excerpt?: string | null;
-  from?: string | null;
-  featured?: boolean | null;
-  highlights?:
-    | {
-        item?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  body?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team".
  */
 export interface Team {
@@ -1889,9 +1952,11 @@ export interface PagesSelect<T extends boolean = true> {
         splitFeatureBlock?: T | SplitFeatureBlockSelect<T>;
         bentoBlock?: T | BentoBlockSelect<T>;
         tabsBlock?: T | TabsBlockSelect<T>;
+        pillarsBlock?: T | PillarsBlockSelect<T>;
         statsBlock?: T | StatsBlockSelect<T>;
         insuranceBlock?: T | InsuranceBlockSelect<T>;
         servicesGridBlock?: T | ServicesGridBlockSelect<T>;
+        servicesListBlock?: T | ServicesListBlockSelect<T>;
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
         beforeAfterBlock?: T | BeforeAfterBlockSelect<T>;
         galleryGridBlock?: T | GalleryGridBlockSelect<T>;
@@ -2110,6 +2175,25 @@ export interface TabsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillarsBlock_select".
+ */
+export interface PillarsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  pillars?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "StatsBlock_select".
  */
 export interface StatsBlockSelect<T extends boolean = true> {
@@ -2151,6 +2235,31 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
   limit?: T;
   showViewAll?: T;
   background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesListBlock_select".
+ */
+export interface ServicesListBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  services?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Section, SectionHeading, buttonPrimary, cardSurface } from '@/components/site/primitives'
+import { ButtonLabel } from '@/components/ui/button'
 import type { BeforeAfterBlock as Props } from '@/payload-types'
 import { getGalleryCases } from '@/lib/queries'
 import { getPatientPhoto } from '@/lib/stockImages'
@@ -64,8 +65,10 @@ export const BeforeAfterBlock: React.FC<Props> = async ({
 
           {resolvedCtaLabel && resolvedCtaHref && (
             <Link href={resolvedCtaHref} className={cn(buttonPrimary, 'mt-10')}>
-              {resolvedCtaLabel}
-              <ArrowRight className="size-4" />
+              <ButtonLabel>
+                {resolvedCtaLabel}
+                <ArrowRight className="size-4" />
+              </ButtonLabel>
             </Link>
           )}
         </div>
