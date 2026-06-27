@@ -800,9 +800,43 @@ export interface PillarsBlock {
         title: string;
         body?: string | null;
         image?: (string | null) | Media;
+        /**
+         * Short bullet points (up to 6) — shown in two columns.
+         */
+        checklist?:
+          | {
+              item?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        stat?: {
+          /**
+           * e.g. "98%"
+           */
+          value?: string | null;
+          /**
+           * Short supporting line.
+           */
+          caption?: string | null;
+        };
         id?: string | null;
       }[]
     | null;
+  insurance?: {
+    /**
+     * Shown above the scrolling provider logos.
+     */
+    heading?: string | null;
+    /**
+     * Provider names in the marquee. Leave empty to use the defaults.
+     */
+    plans?:
+      | {
+          name?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'pillarsBlock';
@@ -2187,7 +2221,30 @@ export interface PillarsBlockSelect<T extends boolean = true> {
         title?: T;
         body?: T;
         image?: T;
+        checklist?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        stat?:
+          | T
+          | {
+              value?: T;
+              caption?: T;
+            };
         id?: T;
+      };
+  insurance?:
+    | T
+    | {
+        heading?: T;
+        plans?:
+          | T
+          | {
+              name?: T;
+              id?: T;
+            };
       };
   id?: T;
   blockName?: T;

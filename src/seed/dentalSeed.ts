@@ -80,25 +80,88 @@ const pillarsBlock = () => ({
   blockType: 'pillarsBlock',
   eyebrow: 'Why patients choose us',
   heading: 'Care built around your comfort',
-  intro: 'A few things our Chicago patients feel from the very first visit.',
+  intro: 'Six reasons Chicago families keep choosing Smile360.',
   pillars: [
     {
       title: 'Gentle, judgment-free care',
       body: 'Anxious about the dentist? You set the pace. Sedation options, numbing that actually works, and a team that explains everything before we begin.',
+      checklist: [
+        b('Sedation & comfort options'),
+        b('Numbing that actually works'),
+        b('A calm, unhurried pace'),
+        b('Zero judgment, ever'),
+        b('Breaks whenever you need'),
+        b('Headphones & blankets'),
+      ],
+      stat: { value: '97%', caption: 'of patients say they felt completely at ease' },
     },
     {
       title: 'Modern technology',
       body: 'Digital scans instead of goopy molds, low-radiation 3D imaging, and same-visit crowns — faster, more comfortable, and more precise.',
+      checklist: [
+        b('Digital scans, no goopy molds'),
+        b('Low-radiation 3D imaging'),
+        b('Same-visit crowns'),
+        b('Cameras you can see'),
+        b('Laser-assisted treatment'),
+        b('Paperless check-in'),
+      ],
+      stat: { value: '60%', caption: 'less time in the chair vs. traditional methods' },
     },
     {
       title: 'Honest, transparent pricing',
       body: 'Clear treatment plans with up-front costs. We file your PPO insurance for you and never push work you don’t actually need.',
+      checklist: [
+        b('Up-front written estimates'),
+        b('We file your PPO insurance'),
+        b('Flexible financing plans'),
+        b('No surprise add-ons'),
+        b('Second opinions welcome'),
+        b('Plan for the uninsured'),
+      ],
+      stat: { value: '$0', caption: 'surprise fees — what we quote is what you pay' },
     },
     {
       title: 'Same-day emergencies',
       body: 'In pain today? We keep slots open every day for toothaches, breaks, and swelling — fast, gentle relief when you need it most.',
+      checklist: [
+        b('Same-day appointments'),
+        b('Open every day'),
+        b('Fast pain relief'),
+        b('Broken & knocked-out teeth'),
+        b('Walk-ins welcome'),
+        b('After-hours guidance'),
+      ],
+      stat: { value: 'Same day', caption: 'relief when you need it most' },
+    },
+    {
+      title: 'Care for the whole family',
+      body: 'From first teeth to retirement, every smile is welcome under one roof — with care tailored to every age and stage.',
+      checklist: [
+        b('Kids & nervous first-timers'),
+        b('Cleanings & checkups'),
+        b('Cosmetic & whitening'),
+        b('Invisalign & orthodontics'),
+        b('Implants & restorations'),
+        b('Gum health & prevention'),
+      ],
+      stat: { value: '20k+', caption: 'Chicago smiles cared for and counting' },
+    },
+    {
+      title: 'A team Chicago trusts',
+      body: 'Experienced, gentle, and genuinely invested in your comfort — and the reviews show it, visit after visit.',
+      checklist: [
+        b('Highly-rated dentists & hygienists'),
+        b('Continuing-education driven'),
+        b('Warm, familiar faces'),
+        b('Hundreds of 5-star reviews'),
+        b('Most insurance accepted'),
+        b('Conveniently located'),
+      ],
+      stat: { value: '4.9★', caption: 'across 487+ Google reviews' },
     },
   ],
+  insurance: { heading: 'We accept most major PPO insurance plans', plans: [] },
 })
 
 const servicesListBlock = () => ({
@@ -410,7 +473,6 @@ const pages = [
       hero(),
       statsBlock(),
       pillarsBlock(),
-      insuranceBlock(),
       splitFeature({
         imageSide: 'left',
         eyebrow: 'Why Smile360',

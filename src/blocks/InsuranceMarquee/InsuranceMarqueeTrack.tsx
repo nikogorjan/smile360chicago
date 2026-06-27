@@ -42,7 +42,15 @@ export const InsuranceMarqueeTrack: React.FC<{ names: string[] }> = ({ names }) 
     )
 
   return (
-    <div ref={containerRef} className="relative mt-10 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative mt-10 overflow-hidden"
+      style={{
+        WebkitMaskImage:
+          'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+        maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+      }}
+    >
       {/* Hidden single pass — measures the width of one list run. */}
       <div
         ref={measureRef}
