@@ -56,7 +56,7 @@ export const PillarsBlock: React.FC<Props> = ({ eyebrow, heading, intro, pillars
       <div className="container">
         {heading && (
           <SectionHeading
-            align="left"
+            align="center"
             eyebrow={eyebrow || undefined}
             title={heading}
             description={intro || undefined}

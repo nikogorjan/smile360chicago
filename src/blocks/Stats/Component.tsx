@@ -13,8 +13,7 @@ export const StatsBlock: React.FC<Props> = ({ items }) => {
     <Section>
       <div className="container">
         <SectionHeading
-          align="left"
-          className="max-w-2xl"
+          align="center"
           eyebrow="By the numbers"
           title="Chicago keeps smiling with us"
           description="Fifteen years, twenty thousand smiles, and a five-star reputation built one gentle visit at a time."
