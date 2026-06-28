@@ -172,6 +172,16 @@ const servicesListBlock = () => ({
   links: [customLink('/services', 'View all services')],
 })
 
+const servicesBentoBlock = () => ({
+  blockType: 'servicesBentoBlock',
+  eyebrow: 'Our services',
+  heading: 'Explore our services',
+  // Filled with real service ids + a couple wide/tall sizes at seed time (see the
+  // ServicesBento tile injection below). Fully editable in admin afterwards.
+  tiles: [] as { service: string; size: string }[],
+  links: [customLink('/services', 'View all services')],
+})
+
 const servicesGrid = (over: Record<string, unknown> = {}) => ({
   blockType: 'servicesGridBlock',
   eyebrow: 'What we do',
@@ -472,6 +482,7 @@ const pages = [
     layout: [
       hero(),
       statsBlock(),
+      servicesBentoBlock(),
       pillarsBlock(),
       splitFeature({
         imageSide: 'left',
@@ -757,8 +768,9 @@ export async function dentalSeed(payload: Payload): Promise<void> {
   }
 
   log('Services…')
+  const serviceIds: string[] = []
   for (const s of services) {
-    await payload.create({
+    const created = await payload.create({
       collection: 'services',
       data: {
         name: s.name,
@@ -772,6 +784,7 @@ export async function dentalSeed(payload: Payload): Promise<void> {
         highlights: s.highlights.map((item) => ({ item })),
       } as never,
     })
+    serviceIds.push(String(created.id))
   }
 
   log('Team…')
@@ -824,6 +837,19 @@ export async function dentalSeed(payload: Payload): Promise<void> {
         consentOnFile: false,
       } as never,
     })
+  }
+
+  // Fill the homepage ServicesBento tiles now that service ids exist — a couple
+  // sized large for bento rhythm (tile 0 wide, tile 4 tall). Editable in admin.
+  const homeForBento = (
+    pages as unknown as Array<{ slug: string; layout: Array<Record<string, unknown>> }>
+  ).find((pg) => pg.slug === 'home')
+  const bentoBlock = homeForBento?.layout.find((bl) => bl.blockType === 'servicesBentoBlock')
+  if (bentoBlock) {
+    bentoBlock.tiles = serviceIds.map((id, i) => ({
+      service: id,
+      size: i === 0 ? 'wide' : i === 4 ? 'tall' : 'normal',
+    }))
   }
 
   // 4. Pages — clear the ones we manage, then create from blocks

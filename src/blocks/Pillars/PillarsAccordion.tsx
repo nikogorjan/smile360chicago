@@ -56,7 +56,7 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
   return (
     <>
       {/* Desktop — frosted filmstrip accordion */}
-      <div className="group/strip hidden overflow-hidden rounded-2xl border border-border lg:flex lg:h-[38rem]">
+      <div className="group/strip hidden overflow-hidden rounded-2xl border border-border lg:flex lg:h-[42rem]">
         {pillars.map((p, i) => {
           const isActive = i === active
           // `shown` = this panel is open AND past the exit phase (or reduced motion).
@@ -194,17 +194,22 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                       </span>
                     )}
                     {p.checklist && p.checklist.length > 0 && (
-                      <span className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2.5">
+                      <span className="mt-6 flex flex-col gap-2.5">
                         {p.checklist.map((c, j) => (
                           <span
                             key={j}
                             className={cn(
-                              'flex items-start gap-2 text-sm leading-snug text-foreground/85',
+                              'flex items-start gap-2.5 text-sm leading-relaxed text-foreground/85',
                               textState,
                             )}
                             style={elStyle(85 + j * 22)}
                           >
-                            <Check className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={2} />
+                            <span
+                              aria-hidden
+                              className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
+                            >
+                              <Check className="size-3" strokeWidth={2.5} />
+                            </span>
                             <span>{c}</span>
                           </span>
                         ))}
@@ -213,23 +218,22 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                   </span>
                   {p.stat?.value && (
                     <span
-                      className={cn(
-                        'flex items-center gap-4 border-t border-border pt-5',
-                        textState,
-                      )}
+                      className={cn('block border-t border-border pt-5', textState)}
                       style={elStyle(85 + listLen * 22 + 30)}
                     >
-                      <span className="font-display text-4xl font-semibold leading-none text-gold">
-                        {p.stat.value}
+                      <span className="flex items-center gap-4 rounded-[6px] bg-gold/10 px-4 py-3.5">
+                        <span className="font-display shrink-0 whitespace-nowrap text-4xl font-semibold leading-none text-gold">
+                          {p.stat.value}
+                        </span>
+                        {p.stat.caption && (
+                          <>
+                            <span aria-hidden className="h-9 w-px shrink-0 bg-gold/30" />
+                            <span className="text-sm leading-snug text-muted-foreground">
+                              {p.stat.caption}
+                            </span>
+                          </>
+                        )}
                       </span>
-                      {p.stat.caption && (
-                        <>
-                          <span aria-hidden className="h-9 w-px shrink-0 bg-border" />
-                          <span className="text-sm leading-snug text-muted-foreground">
-                            {p.stat.caption}
-                          </span>
-                        </>
-                      )}
                     </span>
                   )}
                 </span>
@@ -329,31 +333,38 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                         </p>
                       )}
                       {p.checklist && p.checklist.length > 0 && (
-                        <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
+                        <ul className="mt-4 flex flex-col gap-2.5">
                           {p.checklist.map((c, j) => (
                             <li
                               key={j}
-                              className="flex items-start gap-2 text-sm leading-snug text-foreground/85"
+                              className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/85"
                             >
-                              <Check className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={2} />
+                              <span
+                                aria-hidden
+                                className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
+                              >
+                                <Check className="size-3" strokeWidth={2.5} />
+                              </span>
                               <span>{c}</span>
                             </li>
                           ))}
                         </ul>
                       )}
                       {p.stat?.value && (
-                        <div className="mt-5 flex items-center gap-4 border-t border-border pt-4">
-                          <span className="font-display text-3xl font-semibold leading-none text-gold">
-                            {p.stat.value}
-                          </span>
-                          {p.stat.caption && (
-                            <>
-                              <span aria-hidden className="h-8 w-px shrink-0 bg-border" />
-                              <span className="text-sm leading-snug text-muted-foreground">
-                                {p.stat.caption}
-                              </span>
-                            </>
-                          )}
+                        <div className="mt-5 border-t border-border pt-4">
+                          <div className="flex items-center gap-4 rounded-[6px] bg-gold/10 px-4 py-3">
+                            <span className="font-display text-3xl font-semibold leading-none text-gold">
+                              {p.stat.value}
+                            </span>
+                            {p.stat.caption && (
+                              <>
+                                <span aria-hidden className="h-8 w-px shrink-0 bg-gold/30" />
+                                <span className="text-sm leading-snug text-muted-foreground">
+                                  {p.stat.caption}
+                                </span>
+                              </>
+                            )}
+                          </div>
                         </div>
                       )}
                     </div>

@@ -17,7 +17,7 @@ export const practice = {
   /** The client's signature line — also drives the emergency SEO angle. */
   emergencyTagline: 'Got a toothache? Just come to us.',
   description:
-    'Smile360 Chicago is a modern, patient-first dental practice offering family, cosmetic, and same-day emergency dentistry in the heart of Chicago. Gentle care, transparent pricing, and a team that actually listens.',
+    'Smile360 Chicago is a modern, patient-first dental practice offering family, cosmetic, and same-day emergency dentistry in the heart of Chicago.',
   email: 'hello@smile360chicago.com',
   phone: '(312) 555-0360',
   phoneHref: 'tel:+13125550360',
@@ -90,6 +90,8 @@ export const nav: NavItem[] = [
 ]
 
 export type Service = {
+  /** Collection doc id (present when fetched from the CMS; absent for fallbacks). */
+  id?: string
   slug: string
   name: string
   /** lucide-react icon name */

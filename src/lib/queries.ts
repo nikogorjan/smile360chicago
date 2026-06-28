@@ -38,6 +38,7 @@ export async function getServices(): Promise<Service[]> {
     const res = await p.find({ collection: 'services', limit: 100, depth: 0 })
     if (!res.docs.length) return fbServices
     return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
+      id: String(d.id || ''),
       slug: String(d.slug || ''),
       name: String(d.name || ''),
       icon: String(d.icon || 'Stethoscope'),
@@ -70,6 +71,7 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
       .map((id) => byId.get(id))
       .filter((d): d is Record<string, unknown> => Boolean(d))
       .map((d) => ({
+        id: String(d.id || ''),
         slug: String(d.slug || ''),
         name: String(d.name || ''),
         icon: String(d.icon || 'Stethoscope'),

@@ -30,6 +30,33 @@
   }
 }
 
+/* EXPERIMENT — all-Geist: render every heading in Geist Sans instead of Lora.
+   This unlayered :root rule outranks Tailwind's @layer theme --font-display token
+   (and, being plain CSS, hot-reloads reliably), so both the heading base rule and
+   the `font-display` utility resolve to Geist. Delete this block to restore Lora. */
+:root {
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* EXPERIMENT — regular weight site-wide (no bold/semibold/medium). Unlayered, so
+   it overrides the @layer base heading weights AND the Tailwind font-* weight
+   utilities. Delete this block to restore the original weights. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong,
+.font-medium,
+.font-semibold,
+.font-bold,
+.font-extrabold,
+.font-black {
+  font-weight: 400;
+}
+
 @plugin "@tailwindcss/typography";
 
 @source inline("lg:col-span-4");
@@ -378,12 +405,6 @@ html {
 
 [data-theme='dark'] .site-footer {
   background-color: oklch(10% 0.008 264deg);
-}
-
-.footer-watermark {
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: oklch(100% 0 0 / 0.05);
 }
 
 @keyframes float {

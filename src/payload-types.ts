@@ -225,6 +225,7 @@ export interface Page {
     | InsuranceBlock
     | ServicesGridBlock
     | ServicesListBlock
+    | ServicesBentoBlock
     | FeatureGridBlock
     | BeforeAfterBlock
     | GalleryGridBlock
@@ -983,6 +984,53 @@ export interface Service {
   slug: string;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBentoBlock".
+ */
+export interface ServicesBentoBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Pick services and set each tile size for the bento rhythm. Leave empty to show all services at normal size.
+   */
+  tiles?:
+    | {
+        service: string | Service;
+        /**
+         * Wide spans 2 columns; Tall spans 2 rows (desktop/tablet).
+         */
+        size?: ('normal' | 'wide' | 'tall') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional “View all services” button shown top-right of the heading.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesBentoBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1991,6 +2039,7 @@ export interface PagesSelect<T extends boolean = true> {
         insuranceBlock?: T | InsuranceBlockSelect<T>;
         servicesGridBlock?: T | ServicesGridBlockSelect<T>;
         servicesListBlock?: T | ServicesListBlockSelect<T>;
+        servicesBentoBlock?: T | ServicesBentoBlockSelect<T>;
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
         beforeAfterBlock?: T | BeforeAfterBlockSelect<T>;
         galleryGridBlock?: T | GalleryGridBlockSelect<T>;
@@ -2303,6 +2352,37 @@ export interface ServicesListBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   services?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBentoBlock_select".
+ */
+export interface ServicesBentoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  tiles?:
+    | T
+    | {
+        service?: T;
+        size?: T;
+        id?: T;
+      };
   links?:
     | T
     | {

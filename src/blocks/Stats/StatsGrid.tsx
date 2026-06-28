@@ -132,14 +132,17 @@ export const StatsGrid: React.FC<{ stats: Stat[] }> = ({ stats }) => {
   return (
     <div
       ref={ref}
-      className="mt-12 grid grid-cols-1 border-l border-t border-border bg-card sm:grid-cols-2 lg:grid-cols-4"
+      className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
     >
       {stats.map((s, i) => {
         const parsed = parseValue(s.value)
         const Icon = iconForLabel(s.label)
         const isRating = parsed.kind === 'number' && parsed.suffix.includes('★')
         return (
-          <div key={s.label} className="border-b border-r border-border">
+          <div
+            key={s.label}
+            className="rounded-[6px] border border-border bg-card"
+          >
             <div
               role="img"
               aria-label={`${s.value}, ${s.label}`}
@@ -155,7 +158,7 @@ export const StatsGrid: React.FC<{ stats: Stat[] }> = ({ stats }) => {
                    score; a 5-star row sits under the laurel, source below that. */
                 <>
                   <LaurelWreath className="size-40">
-                    <span className="-translate-y-4 -translate-x-2 text-4xl font-bold leading-none tracking-tight text-foreground">
+                    <span className="inline-block -translate-y-1 text-4xl font-bold leading-none tracking-tight text-foreground">
                       <CountUp
                         target={parsed.kind === 'number' ? parsed.target : 0}
                         decimals={parsed.kind === 'number' ? parsed.decimals : 1}

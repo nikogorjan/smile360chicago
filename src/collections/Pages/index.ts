@@ -28,6 +28,7 @@ import { Bento } from '../../blocks/Bento/config'
 import { Tabs } from '../../blocks/Tabs/config'
 import { Pillars } from '../../blocks/Pillars/config'
 import { ServicesList } from '../../blocks/ServicesList/config'
+import { ServicesBento } from '../../blocks/ServicesBento/config'
 import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { hero } from '@/heros/config'
@@ -107,6 +108,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 InsuranceMarquee,
                 ServicesGrid,
                 ServicesList,
+                ServicesBento,
                 FeatureGrid,
                 BeforeAfter,
                 GalleryGrid,

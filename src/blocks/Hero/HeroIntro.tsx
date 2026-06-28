@@ -149,7 +149,7 @@ export const HeroIntro: React.FC<Props> = ({
   return (
     <section data-hero className="relative bg-cream">
       <div className="p-3 sm:p-4">
-        <div className="relative h-[92svh] min-h-[640px] max-h-[960px] overflow-hidden">
+        <div className="relative h-[92svh] min-h-[640px] max-h-[960px] overflow-hidden rounded-[8px]">
           {/* The one and only hero media — grows in place */}
           <motion.div
             className="absolute inset-0 bg-cream"

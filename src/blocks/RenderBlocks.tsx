@@ -12,6 +12,7 @@ import { HeroBlock } from '@/blocks/Hero/Component'
 import { StatsBlock } from '@/blocks/Stats/Component'
 import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
 import { ServicesListBlock } from '@/blocks/ServicesList/Component'
+import { ServicesBentoBlock } from '@/blocks/ServicesBento/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
 import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
 import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
@@ -45,6 +46,7 @@ const blockComponents = {
   insuranceBlock: InsuranceBlock,
   servicesGridBlock: ServicesGridBlock,
   servicesListBlock: ServicesListBlock,
+  servicesBentoBlock: ServicesBentoBlock,
   featureGridBlock: FeatureGridBlock,
   beforeAfterBlock: BeforeAfterBlock,
   galleryGridBlock: GalleryGridBlock,
