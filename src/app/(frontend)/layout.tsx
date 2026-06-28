@@ -71,7 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <main className="pb-20 lg:pb-0">{children}</main>
           <SiteFooter site={site} nav={header.nav} />
-          <MobileCTA phoneHref={site.phoneHref} />
+          <MobileCTA phone={site.phone} phoneHref={site.phoneHref} />
         </Providers>
       </body>
     </html>

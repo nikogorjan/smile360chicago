@@ -181,13 +181,7 @@ export const SiteHeader: React.FC<{
 
           {/* RIGHT — actions (mobile) */}
           <div className="flex items-center gap-2 lg:hidden">
-            <Link
-              href={phoneHref}
-              aria-label={`Call ${phone}`}
-              className="grid size-10 place-items-center rounded-sm border border-border bg-background text-brand"
-            >
-              <Phone className="size-4" />
-            </Link>
+            <ThemeToggle className="size-10" />
             <button
               type="button"
               onClick={() => setMobileOpen(true)}

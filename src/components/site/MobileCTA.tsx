@@ -1,16 +1,19 @@
 'use client'
 
-import { CalendarCheck, Phone } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/utilities/ui'
 
 /**
- * Sticky bottom action bar (mobile only). Call + Book are the two highest-value
- * actions for a dental practice on a phone — kept one tap away at all times.
+ * Sticky bottom action bar (mobile only). A single tap-to-call button showing the
+ * number — the highest-value action for a dental practice on a phone.
  */
-export const MobileCTA: React.FC<{ phoneHref: string }> = ({ phoneHref }) => {
+export const MobileCTA: React.FC<{ phone: string; phoneHref: string }> = ({
+  phone,
+  phoneHref,
+}) => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -27,22 +30,13 @@ export const MobileCTA: React.FC<{ phoneHref: string }> = ({ phoneHref }) => {
       )}
       style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
     >
-      <div className="flex gap-2">
-        <Link
-          href={phoneHref}
-          className="flex flex-1 items-center justify-center gap-2 rounded-sm border border-border bg-background py-3 text-sm font-bold text-foreground"
-        >
-          <Phone className="size-4 text-brand" />
-          Call
-        </Link>
-        <Link
-          href="/contact"
-          className="flex flex-[1.4] items-center justify-center gap-2 rounded-sm bg-brand py-3 text-sm font-bold text-brand-foreground"
-        >
-          <CalendarCheck className="size-4" />
-          Book Appointment
-        </Link>
-      </div>
+      <Link
+        href={phoneHref}
+        className="flex w-full items-center justify-center gap-2 rounded-sm bg-brand py-3 text-sm font-bold text-brand-foreground"
+      >
+        <Phone className="size-4" />
+        Call {phone}
+      </Link>
     </div>
   )
 }
