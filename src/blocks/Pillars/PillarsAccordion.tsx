@@ -3,7 +3,7 @@
 import { Check, ChevronDown } from 'lucide-react'
 import { useReducedMotion } from 'motion/react'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/utilities/ui'
 
@@ -30,6 +30,20 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
   const reduce = useReducedMotion()
   const [active, setActive] = useState(0)
   const [stopped, setStopped] = useState(false)
+  // Two-phase content switch: when `active` changes, the new panel's content stays
+  // hidden for EXIT_MS (while the old one animates out), then enters as a stagger.
+  // The cleanup cancels a pending enter so rapid clicks restart cleanly.
+  const [revealed, setRevealed] = useState(false)
+
+  useEffect(() => {
+    if (reduce) {
+      setRevealed(true)
+      return
+    }
+    setRevealed(false)
+    const t = setTimeout(() => setRevealed(true), 130)
+    return () => clearTimeout(t)
+  }, [active, reduce])
 
   if (!pillars.length) return null
 
@@ -45,6 +59,27 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
       <div className="group/strip hidden overflow-hidden rounded-2xl border border-border lg:flex lg:h-[38rem]">
         {pillars.map((p, i) => {
           const isActive = i === active
+          // `shown` = this panel is open AND past the exit phase (or reduced motion).
+          const shown = isActive && (revealed || !!reduce)
+          const listLen = p.checklist?.length ?? 0
+          const ease = 'cubic-bezier(0.22, 1, 0.36, 1)'
+          const textState = shown
+            ? 'opacity-100 translate-y-0'
+            : isActive
+              ? 'opacity-0 translate-y-3'
+              : 'opacity-0 -translate-y-1'
+          // Staggered enter (quick uniform exit). Delay only applies while entering.
+          const elStyle = (delay: number): React.CSSProperties => ({
+            transitionProperty: 'opacity, transform',
+            transitionTimingFunction: ease,
+            transitionDuration: reduce ? '0ms' : shown ? '290ms' : '150ms',
+            transitionDelay: reduce ? '0ms' : shown ? `${delay}ms` : '0ms',
+          })
+          const cardStyle: React.CSSProperties = {
+            transitionProperty: 'opacity',
+            transitionTimingFunction: ease,
+            transitionDuration: reduce ? '0ms' : shown ? '260ms' : '150ms',
+          }
           return (
             <button
               key={i}
@@ -69,7 +104,7 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                 sizes="(min-width: 1280px) 50vw, 40vw"
                 className={cn(
                   'object-cover transition-[filter,transform] duration-700 ease-out motion-reduce:transition-none',
-                  isActive
+                  shown
                     ? 'scale-100 brightness-100 grayscale-0'
                     : 'scale-105 brightness-[0.5] grayscale-[0.9] group-hover:brightness-[0.6] group-hover:grayscale-[0.8]',
                 )}
@@ -80,7 +115,7 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                 aria-hidden
                 className={cn(
                   'pointer-events-none absolute inset-0 bg-brand transition-opacity duration-700 motion-reduce:transition-none',
-                  isActive ? 'opacity-0' : 'opacity-65 group-hover:opacity-55',
+                  shown ? 'opacity-0' : 'opacity-65 group-hover:opacity-55',
                 )}
               />
               {/* Flat dark floor — uniform, stays put on hover so the white title and
@@ -89,16 +124,17 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                 aria-hidden
                 className={cn(
                   'pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 motion-reduce:transition-none',
-                  isActive ? 'opacity-0' : 'opacity-[0.18]',
+                  shown ? 'opacity-0' : 'opacity-[0.18]',
                 )}
               />
 
-              {/* Collapsed rail — ghost number + small indicator + rotated title */}
+              {/* Collapsed rail — small indicator + rotated title (crossfades to the
+                  open content at phase 2) */}
               <span
                 aria-hidden
                 className={cn(
-                  'absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none',
-                  isActive ? 'pointer-events-none opacity-0' : 'opacity-100',
+                  'absolute inset-0 transition-opacity duration-300 motion-reduce:transition-none',
+                  shown ? 'pointer-events-none opacity-0' : 'opacity-100',
                 )}
               >
                 <span className="absolute inset-0 flex flex-col items-center gap-6 py-7">
@@ -111,24 +147,49 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                 </span>
               </span>
 
-              {/* Open content — white card (left) over the full-colour image (right) */}
+              {/* Open content — white card (left) over the full-colour image (right).
+                  The card reveals at phase 2; the text cascades in sequence. */}
               <span
                 aria-hidden
-                className={cn(
-                  'absolute inset-0 flex transition-opacity duration-500 motion-reduce:transition-none',
-                  isActive ? 'opacity-100 delay-150' : 'pointer-events-none opacity-0',
-                )}
+                className={cn('absolute inset-0', isActive ? '' : 'pointer-events-none')}
               >
-                <span className="flex h-full w-3/5 flex-col justify-between bg-card p-8 xl:w-1/2 xl:p-10">
+                {/* White card backdrop */}
+                <span
+                  className={cn(
+                    'absolute inset-y-0 left-0 w-3/5 bg-card xl:w-1/2',
+                    shown ? 'opacity-100' : 'opacity-0',
+                  )}
+                  style={cardStyle}
+                />
+                {/* Text column — each element fades + rises on its own delay */}
+                <span className="absolute inset-y-0 left-0 flex w-3/5 flex-col justify-between p-8 xl:w-1/2 xl:p-10">
                   <span className="flex flex-col">
-                    <span className="grid size-10 place-items-center rounded-full bg-brand/10 text-sm font-semibold text-brand">
+                    <span
+                      className={cn(
+                        'grid size-10 place-items-center rounded-full bg-brand/10 text-sm font-semibold text-brand',
+                        textState,
+                      )}
+                      style={elStyle(0)}
+                    >
                       {p.number}
                     </span>
-                    <span className="font-display mt-6 text-3xl font-medium leading-tight text-foreground">
+                    <span
+                      className={cn(
+                        'font-display mt-6 text-3xl font-medium leading-tight text-foreground',
+                        textState,
+                      )}
+                      style={elStyle(0)}
+                    >
                       {p.title}
                     </span>
                     {p.body && (
-                      <span className="mt-4 block text-base leading-relaxed text-muted-foreground">
+                      <span
+                        className={cn(
+                          'mt-4 block text-base leading-relaxed text-muted-foreground',
+                          textState,
+                        )}
+                        style={elStyle(45)}
+                      >
                         {p.body}
                       </span>
                     )}
@@ -137,7 +198,11 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                         {p.checklist.map((c, j) => (
                           <span
                             key={j}
-                            className="flex items-start gap-2 text-sm leading-snug text-foreground/85"
+                            className={cn(
+                              'flex items-start gap-2 text-sm leading-snug text-foreground/85',
+                              textState,
+                            )}
+                            style={elStyle(85 + j * 22)}
                           >
                             <Check className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={2} />
                             <span>{c}</span>
@@ -147,7 +212,13 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                     )}
                   </span>
                   {p.stat?.value && (
-                    <span className="flex items-center gap-4 border-t border-border pt-5">
+                    <span
+                      className={cn(
+                        'flex items-center gap-4 border-t border-border pt-5',
+                        textState,
+                      )}
+                      style={elStyle(85 + listLen * 22 + 30)}
+                    >
                       <span className="font-display text-4xl font-semibold leading-none text-gold">
                         {p.stat.value}
                       </span>
