@@ -24,9 +24,9 @@ const idOf = (v: unknown): string =>
  * divides into clean rows of three; otherwise the grid falls back to uniform equal-size
  * tiles (a partial final row, never a mid-grid hole).
  */
-const useMosaic = (n: number) => n >= 3 && n % 3 === 0
+const isMosaic = (n: number) => n >= 3 && n % 3 === 0
 const isWide = (i: number, n: number): boolean => {
-  if (!useMosaic(n)) return false
+  if (!isMosaic(n)) return false
   const row = Math.floor(i / 3)
   const col = i % 3
   return col === (row % 2 === 0 ? 0 : 2) // wide on the left of even rows, right of odd rows
