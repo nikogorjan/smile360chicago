@@ -18,6 +18,8 @@ import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
 import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
 import { ReviewsBlock } from '@/blocks/Reviews/Component'
 import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
+import { DentistFeatureBlock } from '@/blocks/DentistFeature/Component'
+import { ImageBandBlock } from '@/blocks/ImageBand/Component'
 import { ProcessBlock } from '@/blocks/ProcessSteps/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { EmergencyBlock } from '@/blocks/Emergency/Component'
@@ -30,6 +32,7 @@ import { SplitFeatureBlock } from '@/blocks/SplitFeature/Component'
 import { BentoBlock } from '@/blocks/Bento/Component'
 import { QuoteBlock } from '@/blocks/QuoteSpotlight/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
+import { PanelBlock } from '@/blocks/Panel/Component'
 import { TabsBlock } from '@/blocks/Tabs/Component'
 import { PillarsBlock } from '@/blocks/Pillars/Component'
 
@@ -38,6 +41,7 @@ const blockComponents = {
   heroBlock: HeroBlock,
   pageHeroBlock: PageHeroBlock,
   mediaBannerBlock: MediaBannerBlock,
+  imageBandBlock: ImageBandBlock,
   splitFeatureBlock: SplitFeatureBlock,
   bentoBlock: BentoBlock,
   tabsBlock: TabsBlock,
@@ -53,8 +57,10 @@ const blockComponents = {
   reviewsBlock: ReviewsBlock,
   quoteBlock: QuoteBlock,
   teamGridBlock: TeamGridBlock,
+  dentistFeatureBlock: DentistFeatureBlock,
   processBlock: ProcessBlock,
   timelineBlock: TimelineBlock,
+  panelBlock: PanelBlock,
   faqBlock: FaqBlock,
   emergencyBlock: EmergencyBlock,
   finalCtaBlock: FinalCtaBlock,

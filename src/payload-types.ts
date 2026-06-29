@@ -217,6 +217,7 @@ export interface Page {
     | PageHeroBlock
     | HeroBlock
     | MediaBannerBlock
+    | ImageBandBlock
     | SplitFeatureBlock
     | BentoBlock
     | TabsBlock
@@ -232,8 +233,10 @@ export interface Page {
     | ReviewsBlock
     | QuoteBlock
     | TeamGridBlock
+    | DentistFeatureBlock
     | ProcessBlock
     | TimelineBlock
+    | PanelBlock
     | FaqBlock
     | EmergencyBlock
     | FinalCtaBlock
@@ -645,6 +648,35 @@ export interface MediaBannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBannerBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBandBlock".
+ */
+export interface ImageBandBlock {
+  /**
+   * Full-bleed photo (e.g. the practice building / exterior). A stock photo is used if left empty.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Alt text for accessibility.
+   */
+  alt?: string | null;
+  /**
+   * Optional small caption shown in the corner of the image.
+   */
+  caption?: string | null;
+  height?: ('medium' | 'large' | 'full') | null;
+  /**
+   * Optional text shown over the image with a subtle dark scrim. Leave both empty for just the photo.
+   */
+  overlayText?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageBandBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1165,6 +1197,75 @@ export interface TeamGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DentistFeatureBlock".
+ */
+export interface DentistFeatureBlock {
+  /**
+   * Portrait of the dentist. If empty, a stock photo is used.
+   */
+  portrait?: (string | null) | Media;
+  imageSide?: ('left' | 'right') | null;
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * e.g. Dr. Mustafa Salam, DMD
+   */
+  name?: string | null;
+  /**
+   * e.g. Lead Dentist & Founder
+   */
+  credentials?: string | null;
+  bio?: string | null;
+  /**
+   * Short pill chips, e.g. Cosmetic Dentistry, Invisalign®, Implants.
+   */
+  specialties?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * e.g. 4.9★
+   */
+  statValue?: string | null;
+  /**
+   * e.g. 487+ Google reviews
+   */
+  statLabel?: string | null;
+  /**
+   * Call-to-action (e.g. Book Appointment).
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dentistFeatureBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ProcessBlock".
  */
 export interface ProcessBlock {
@@ -1220,6 +1321,19 @@ export interface TimelineBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'timelineBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PanelBlock".
+ */
+export interface PanelBlock {
+  /**
+   * Sections grouped inside one white rounded inset panel (e.g. roadmap + FAQ).
+   */
+  blocks?: (TimelineBlock | FaqBlock)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'panelBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2031,6 +2145,7 @@ export interface PagesSelect<T extends boolean = true> {
         pageHeroBlock?: T | PageHeroBlockSelect<T>;
         heroBlock?: T | HeroBlockSelect<T>;
         mediaBannerBlock?: T | MediaBannerBlockSelect<T>;
+        imageBandBlock?: T | ImageBandBlockSelect<T>;
         splitFeatureBlock?: T | SplitFeatureBlockSelect<T>;
         bentoBlock?: T | BentoBlockSelect<T>;
         tabsBlock?: T | TabsBlockSelect<T>;
@@ -2046,8 +2161,10 @@ export interface PagesSelect<T extends boolean = true> {
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
         teamGridBlock?: T | TeamGridBlockSelect<T>;
+        dentistFeatureBlock?: T | DentistFeatureBlockSelect<T>;
         processBlock?: T | ProcessBlockSelect<T>;
         timelineBlock?: T | TimelineBlockSelect<T>;
+        panelBlock?: T | PanelBlockSelect<T>;
         faqBlock?: T | FaqBlockSelect<T>;
         emergencyBlock?: T | EmergencyBlockSelect<T>;
         finalCtaBlock?: T | FinalCtaBlockSelect<T>;
@@ -2161,6 +2278,24 @@ export interface MediaBannerBlockSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBandBlock_select".
+ */
+export interface ImageBandBlockSelect<T extends boolean = true> {
+  image?: T;
+  alt?: T;
+  caption?: T;
+  height?: T;
+  overlayText?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
       };
   id?: T;
   blockName?: T;
@@ -2488,6 +2623,44 @@ export interface TeamGridBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DentistFeatureBlock_select".
+ */
+export interface DentistFeatureBlockSelect<T extends boolean = true> {
+  portrait?: T;
+  imageSide?: T;
+  eyebrow?: T;
+  heading?: T;
+  name?: T;
+  credentials?: T;
+  bio?: T;
+  specialties?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  statValue?: T;
+  statLabel?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ProcessBlock_select".
  */
 export interface ProcessBlockSelect<T extends boolean = true> {
@@ -2524,6 +2697,20 @@ export interface TimelineBlockSelect<T extends boolean = true> {
         id?: T;
       };
   background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PanelBlock_select".
+ */
+export interface PanelBlockSelect<T extends boolean = true> {
+  blocks?:
+    | T
+    | {
+        timelineBlock?: T | TimelineBlockSelect<T>;
+        faqBlock?: T | FaqBlockSelect<T>;
+      };
   id?: T;
   blockName?: T;
 }

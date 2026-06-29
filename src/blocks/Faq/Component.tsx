@@ -6,7 +6,7 @@ import { getFaqs } from '@/lib/queries'
 import type { Faq as FaqType } from '@/lib/practice'
 import { FaqAccordion } from './FaqAccordion'
 
-export const FaqBlock: React.FC<Props> = async ({
+export const FaqBlock: React.FC<Props & { bare?: boolean }> = async ({
   eyebrow,
   heading,
   description,
@@ -14,6 +14,7 @@ export const FaqBlock: React.FC<Props> = async ({
   limit,
   showCall,
   background,
+  bare,
 }) => {
   const cat = category && category !== 'all' ? (category as FaqType['category']) : undefined
   let items = await getFaqs(cat)
@@ -34,6 +35,7 @@ export const FaqBlock: React.FC<Props> = async ({
       phone={site?.phone}
       phoneHref={site?.phoneHref}
       tone={tone}
+      bare={bare}
     />
   )
 }

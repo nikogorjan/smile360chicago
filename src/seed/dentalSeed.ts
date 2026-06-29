@@ -341,6 +341,32 @@ const timeline = (o: Record<string, unknown>) => ({
 
 const b = (item: string) => ({ item })
 
+// Single-practitioner feature — replaces the multi-person team grid on the homepage.
+const dentistFeature = () => ({
+  blockType: 'dentistFeatureBlock',
+  imageSide: 'left',
+  eyebrow: 'Meet your dentist',
+  heading: 'The dentist *behind your smile*',
+  name: 'Dr. Mustafa Salam, DMD',
+  credentials: 'Lead Dentist & Founder',
+  bio: 'Dr. Salam founded Smile360 Chicago to bring gentle, judgment-free dentistry to the heart of the city — pairing modern technology with honest, up-front care. From routine checkups to full smile makeovers and same-day emergencies, he treats every patient like family.',
+  specialties: [b('Cosmetic Dentistry'), b('Invisalign®'), b('Implants'), b('Emergency Care')],
+  statValue: '4.9★',
+  statLabel: '487+ Google reviews',
+  links: [customLink('/about', 'Book Appointment')],
+})
+
+// Full-width edge-to-edge photo band (building/exterior). Image empty → stock fallback;
+// upload the real building photo in the CMS.
+const imageBand = () => ({
+  blockType: 'imageBandBlock',
+  height: 'large',
+  alt: 'The Smile360 Chicago practice',
+})
+
+// Groups several section blocks inside one shared white rounded inset panel.
+const panel = (blocks: Record<string, unknown>[]) => ({ blockType: 'panelBlock', blocks })
+
 /* --------------------------------------------------------------- value sets */
 const financingFeatures = [
   { icon: 'ShieldCheck', title: 'Most PPO insurance', body: 'We accept and file most major PPO plans for you, and verify your benefits before your visit.' },
@@ -479,43 +505,22 @@ const pages = [
       description:
         'Smile360 Chicago is a modern, gentle dental practice offering family, cosmetic, and same-day emergency dentistry. Most insurance accepted. Book your visit today.',
     },
+    // Reduced homepage — only the sections kept in the CMS (old sections removed).
     layout: [
       hero(),
       statsBlock(),
       servicesBentoBlock(),
       pillarsBlock(),
-      splitFeature({
-        imageSide: 'left',
-        eyebrow: 'Why Smile360',
-        heading: 'Care that actually *feels different*',
-        body: 'From your first hello to your follow-up, we focus on comfort, honesty, and getting you seen fast — the dental experience Chicago has been missing.',
-        bullets: [
-          b('Gentle, judgment-free team'),
-          b('Same-day emergency appointments'),
-          b('Transparent, upfront pricing'),
-          b('Most insurance accepted'),
-        ],
-        statValue: '4.9★',
-        statLabel: '487+ Google reviews',
-        links: [bookLink],
-      }),
-      servicesGrid({ limit: 6, background: 'muted' }),
-      servicesListBlock(),
-      tabsShowcase({ eyebrow: 'The Smile360 difference', heading: 'Why Chicago chooses us', tabs: differenceTabs }),
-      beforeAfter(),
-      emergency(),
+      imageBand(),
+      dentistFeature(),
       reviewsBlock({ limit: 6, heading: 'Real patient stories', eyebrow: 'Reviews' }),
-      teamGrid({ limit: 4, background: 'default' }),
-      timeline({ eyebrow: 'How it works', heading: 'Your first visit, *made easy*', background: 'muted', items: firstVisitTimeline }),
-      faqBlock({ limit: 6, background: 'default' }),
-      mediaBanner({
-        eyebrow: 'Comfort-first dentistry',
-        heading: 'Modern care that feels *calm, not clinical*',
-        text: 'A spa-like space, gentle technology, and a team trained to put even the most nervous patients at ease.',
-        height: 'tall',
-        links: [bookLink, callLink],
-      }),
-      finalCta(),
+      // Roadmap + FAQ grouped in one shared white rounded inset panel (Maven-style).
+      panel([
+        timeline({ eyebrow: 'How it works', heading: 'Your first visit, *made easy*', items: firstVisitTimeline }),
+        faqBlock({ limit: 6 }),
+      ]),
+      // Emergency CTA stays its own section, directly below the panel.
+      emergency(),
     ],
   },
   {

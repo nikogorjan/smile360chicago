@@ -15,6 +15,8 @@ import { BeforeAfter } from '../../blocks/BeforeAfter/config'
 import { GalleryGrid } from '../../blocks/GalleryGrid/config'
 import { Reviews } from '../../blocks/Reviews/config'
 import { TeamGrid } from '../../blocks/TeamGrid/config'
+import { DentistFeature } from '../../blocks/DentistFeature/config'
+import { ImageBand } from '../../blocks/ImageBand/config'
 import { ProcessSteps } from '../../blocks/ProcessSteps/config'
 import { Faq } from '../../blocks/Faq/config'
 import { Emergency } from '../../blocks/Emergency/config'
@@ -31,6 +33,7 @@ import { ServicesList } from '../../blocks/ServicesList/config'
 import { ServicesBento } from '../../blocks/ServicesBento/config'
 import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
+import { Panel } from '../../blocks/Panel/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -100,6 +103,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PageHero,
                 Hero,
                 MediaBanner,
+                ImageBand,
                 SplitFeature,
                 Bento,
                 Tabs,
@@ -115,8 +119,10 @@ export const Pages: CollectionConfig<'pages'> = {
                 Reviews,
                 QuoteSpotlight,
                 TeamGrid,
+                DentistFeature,
                 ProcessSteps,
                 Timeline,
+                Panel,
                 Faq,
                 Emergency,
                 FinalCta,
