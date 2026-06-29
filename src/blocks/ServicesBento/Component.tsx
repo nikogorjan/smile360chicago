@@ -82,7 +82,7 @@ export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, ti
             </div>
 
             {/* Balanced bento grid — one row height, wide tiles fill every row */}
-            <div className="mt-8 grid auto-rows-[12rem] grid-cols-1 gap-3 sm:auto-rows-[14rem] sm:grid-cols-2 sm:gap-4 lg:mt-10 lg:grid-cols-4">
+            <div className="mt-8 grid auto-rows-[13rem] grid-cols-1 gap-3 sm:auto-rows-[20rem] sm:grid-cols-2 sm:gap-4 lg:mt-10 lg:grid-cols-4">
               {rows.map((s, i) => (
                 <Link
                   key={s.slug || i}

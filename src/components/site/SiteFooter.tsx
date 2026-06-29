@@ -148,7 +148,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               </ul>
             </div>
 
-            <div>
+            <div className="col-span-2 md:col-span-1">
               <h3 className="flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wider text-white">
                 <Clock className="size-4 text-brand" />
                 Hours
