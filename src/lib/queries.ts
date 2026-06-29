@@ -146,12 +146,17 @@ export async function getFaqs(category?: Faq['category']): Promise<Faq[]> {
 export async function getGalleryCases(): Promise<GalleryCase[]> {
   try {
     const p = await payload()
-    const res = await p.find({ collection: 'gallery-cases', limit: 100, depth: 0 })
+    // depth 1 so the before/after upload relations are populated (we need their URLs).
+    const res = await p.find({ collection: 'gallery-cases', limit: 100, depth: 1 })
     if (!res.docs.length) return fbGallery
+    const urlOf = (v: unknown): string | undefined =>
+      v && typeof v === 'object' && 'url' in v ? (v as { url?: string }).url || undefined : undefined
     return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
       title: String(d.title || ''),
       treatment: String(d.treatment || ''),
       description: String(d.description || ''),
+      before: urlOf(d.beforeImage),
+      after: urlOf(d.afterImage),
     }))
   } catch {
     return fbGallery

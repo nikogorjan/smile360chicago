@@ -4,7 +4,7 @@ import { Minus, Plus } from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { Section, SectionHeading } from '@/components/site/primitives'
 import type { Faq as FaqType } from '@/lib/practice'
 
@@ -37,12 +37,12 @@ export const Faq: React.FC<{
               href={phoneHref}
               className={buttonVariants({ variant: 'outline', className: 'mt-6 font-bold' })}
             >
-              Call {phone}
+              <ButtonLabel>Call {phone}</ButtonLabel>
             </Link>
           )}
         </div>
 
-        <div className="divide-y divide-border rounded-2xl border border-border bg-card">
+        <div className="divide-y divide-border overflow-hidden rounded-[8px] border border-border bg-card">
           {items.map((f, i) => {
             const isOpen = open === i
             return (

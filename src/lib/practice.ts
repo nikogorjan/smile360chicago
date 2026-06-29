@@ -293,6 +293,9 @@ export type GalleryCase = {
   title: string
   treatment: string
   description: string
+  /** Before/after photo URLs (from the CMS upload fields); absent for placeholders. */
+  before?: string
+  after?: string
 }
 
 export const galleryCases: GalleryCase[] = [
