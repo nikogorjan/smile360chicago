@@ -14,7 +14,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
       {/* Transparent inset wrapper — its horizontal + bottom padding is the only thing
           that pushes the navy panel off the viewport edges, so the page background shows
           through on the left, right, and bottom. ~24px for now (fine-tune later). */}
-      <div className="bg-transparent px-6 pb-6">
+      <div className="bg-transparent px-3 pb-3 sm:px-4 sm:pb-4">
         {/* The navy background, rounded corners (all four — it floats) and overflow-hidden
             ALL live on THIS inset element (never a full-width parent), so the colour can
             only paint inside the inset box. `data-theme="dark"` + `.site-footer` stay on

@@ -25,12 +25,12 @@ export const PanelBlock: React.FC<Props> = ({ blocks }) => {
 
   return (
     <section className="px-3 sm:px-4">
-      <div className="rounded-[8px] bg-card py-16 md:py-24">
+      <div className="rounded-[8px] bg-card py-20 md:py-28">
         <div className="container">
           {list.map((b, i) => {
             const C = bareComponents[b.blockType as keyof typeof bareComponents]
             return (
-              <div key={b.id || i} className={i > 0 ? 'mt-20 md:mt-28' : ''}>
+              <div key={b.id || i} className={i > 0 ? 'mt-28 md:mt-40' : ''}>
                 {/* @ts-expect-error bare-mode block props are a union resolved at runtime */}
                 <C {...b} bare />
               </div>

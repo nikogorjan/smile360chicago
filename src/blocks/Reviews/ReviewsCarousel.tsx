@@ -4,8 +4,7 @@ import { ArrowLeft, ArrowRight, Star } from 'lucide-react'
 import Image from 'next/image'
 import React, { useRef } from 'react'
 
-import { Eyebrow, Section, cardSurface } from '@/components/site/primitives'
-import { practice } from '@/lib/practice'
+import { Eyebrow, Section } from '@/components/site/primitives'
 import { getPatientPhoto } from '@/lib/stockImages'
 import { cn } from '@/utilities/ui'
 
@@ -48,7 +47,7 @@ export const ReviewsCarousel: React.FC<{
               type="button"
               onClick={() => scroll(-1)}
               aria-label="Previous reviews"
-              className="grid size-11 place-items-center rounded-sm border border-border text-foreground transition-colors hover:border-foreground/30"
+              className="grid size-11 place-items-center rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
             >
               <ArrowLeft className="size-5" />
             </button>
@@ -56,7 +55,7 @@ export const ReviewsCarousel: React.FC<{
               type="button"
               onClick={() => scroll(1)}
               aria-label="More reviews"
-              className="grid size-11 place-items-center rounded-sm border border-border text-foreground transition-colors hover:border-foreground/30"
+              className="grid size-11 place-items-center rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
             >
               <ArrowRight className="size-5" />
             </button>
@@ -67,32 +66,10 @@ export const ReviewsCarousel: React.FC<{
           ref={ref}
           className="mt-12 flex snap-x gap-4 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {/* rating stat card — white surface, cobalt as accent only */}
-          <div
-            className={cn(
-              cardSurface,
-              'flex w-[280px] shrink-0 snap-start flex-col justify-between p-7 sm:w-[320px]',
-            )}
-          >
-            <div className="flex gap-1">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="size-5 fill-gold text-gold" />
-              ))}
-            </div>
-            <div>
-              <p className="text-6xl font-semibold tracking-tight text-brand">
-                {practice.rating.value}
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                from {practice.rating.count}+ Google reviews
-              </p>
-            </div>
-          </div>
-
           {reviews.map((t, i) => (
             <figure
               key={t.author}
-              className={cn(cardSurface, 'flex w-[280px] shrink-0 snap-start flex-col p-7 sm:w-[320px]')}
+              className="flex w-[280px] shrink-0 snap-start flex-col rounded-[6px] border border-border bg-card p-7 sm:w-[320px]"
             >
               <div className="flex gap-0.5" aria-label={`${t.rating} out of 5 stars`}>
                 {Array.from({ length: 5 }).map((_, j) => (
