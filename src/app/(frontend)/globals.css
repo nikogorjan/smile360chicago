@@ -417,6 +417,22 @@ html {
   }
 }
 
+/* Slow "living beacon" breathing for the emergency CTA glow — gentle scale + opacity
+   oscillation only (centring is handled by a static outer wrapper, so the pulse never
+   shifts position). Applied via `motion-safe:`, so reduced-motion users get the full
+   static glow. */
+@keyframes beacon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .animate-marquee,

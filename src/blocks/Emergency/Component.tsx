@@ -8,11 +8,12 @@ import { Eyebrow, Section, emphasize } from '@/components/site/primitives'
 import { practice } from '@/lib/practice'
 
 /**
- * Emergency CTA — an edgeless "soft-glow moment" (Maven-style): no flat panel. A large,
- * blurred radial glow (pale brand blue with a faint gold core) blooms behind centred
- * content and fades into the page; a couple of very faint orbital arcs add detail. Text
- * is dark for strong contrast on the light glow, and the red "Call now" stays the urgent
- * primary. Responsive — the glow scales and content stacks on mobile.
+ * Emergency CTA — a "living beacon". An edgeless radial bloom radiates from the red
+ * "Call now" button: a warm coral core (tint of --emergency) at the very centre,
+ * transitioning out through a brand-blue bloom and fading to the page; 2–3 faint
+ * concentric signal rings broadcast outward; a tight red halo lifts the call button.
+ * The whole beacon breathes with a slow, subtle pulse — wrapped in `motion-safe:` so
+ * reduced-motion users get the full glow, static. Content stays centred and accessible.
  */
 export const EmergencyBlock: React.FC<Props> = ({
   heading,
@@ -23,46 +24,7 @@ export const EmergencyBlock: React.FC<Props> = ({
 }) => {
   return (
     <Section className="relative overflow-hidden">
-      {/* Soft radial glow — pale brand blue, blurred + edgeless */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[90vw] max-w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/[0.14] blur-[90px]"
-      />
-      {/* Faint gold core for warmth */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[54vw] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/[0.10] blur-[72px]"
-      />
-      {/* Faint orbital arcs */}
-      <svg
-        aria-hidden
-        viewBox="0 0 900 460"
-        fill="none"
-        preserveAspectRatio="xMidYMid meet"
-        className="pointer-events-none absolute left-1/2 top-1/2 w-[120vw] max-w-[62rem] -translate-x-1/2 -translate-y-1/2 text-brand/[0.10]"
-      >
-        <ellipse
-          cx="450"
-          cy="230"
-          rx="430"
-          ry="195"
-          stroke="currentColor"
-          strokeWidth="1"
-          transform="rotate(-9 450 230)"
-        />
-        <ellipse
-          cx="450"
-          cy="230"
-          rx="320"
-          ry="125"
-          stroke="currentColor"
-          strokeWidth="1"
-          transform="rotate(8 450 230)"
-        />
-      </svg>
-
-      {/* Centred content floating on the glow */}
-      <div className="container relative">
+      <div className="container relative isolate">
         <div className="mx-auto max-w-2xl text-center">
           <Eyebrow>Dental emergency?</Eyebrow>
 
@@ -80,8 +42,30 @@ export const EmergencyBlock: React.FC<Props> = ({
             Same-day slots kept open daily — open 6 days a week.
           </p>
 
-          {/* Buttons — red Call now (urgent primary) + Same-day care, centred */}
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          {/* Button row — the beacon radiates from here */}
+          <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            {/* Living beacon: glow layers + concentric signal rings, centred on the buttons
+                and painted behind all content (isolate + -z-10). Breathes slowly; static
+                under reduced motion. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 aspect-square w-[34rem] max-w-[150vw] -translate-x-1/2 -translate-y-1/2 sm:w-[56rem]"
+            >
+              {/* Inner wrapper does the breathing (scale + opacity) around the centre */}
+              <span className="relative block size-full motion-safe:animate-[beacon-pulse_7s_ease-in-out_infinite]">
+                {/* outer brand-blue bloom */}
+                <span className="absolute inset-0 m-auto size-[74%] rounded-full bg-brand/[0.16] blur-[80px]" />
+                {/* warm coral core — the heat at the buttons */}
+                <span className="absolute inset-0 m-auto size-[34%] rounded-full bg-emergency/[0.20] blur-[55px]" />
+                {/* tight red halo lifting the call button off the surface */}
+                <span className="absolute inset-0 m-auto size-[20%] rounded-full bg-emergency/[0.28] blur-[30px]" />
+                {/* concentric signal rings broadcasting outward */}
+                <span className="absolute inset-0 m-auto size-[40%] rounded-full border border-emergency/[0.18]" />
+                <span className="absolute inset-0 m-auto size-[58%] rounded-full border border-brand/[0.12]" />
+                <span className="absolute inset-0 m-auto size-[78%] rounded-full border border-brand/[0.08]" />
+              </span>
+            </span>
+
             <Link
               href={practice.phoneHref}
               className={buttonVariants({
