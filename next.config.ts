@@ -22,9 +22,18 @@ const nextConfig: NextConfig = {
       {
         pathname: '/api/media/file/**',
       },
+      // static assets in /public (logo, etc.)
+      {
+        pathname: '/*.png',
+      },
+      {
+        pathname: '/*.svg',
+      },
     ],
-    qualities: [100],
+    qualities: [75, 90, 100],
     remotePatterns: [
+      // Stock photo placeholders (swap for CMS uploads before launch)
+      { hostname: 'images.unsplash.com', protocol: 'https' },
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
 
@@ -45,6 +54,11 @@ const nextConfig: NextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
+  // Allow loading the dev server from other devices on the LAN (e.g. testing on a
+  // phone at http://192.168.178.68:3000). Without this, Next 16 blocks the
+  // cross-origin /_next/* runtime requests, so the client never hydrates and the
+  // page renders blank. Add your machine's current LAN IP here if DHCP changes it.
+  allowedDevOrigins: ['192.168.178.68'],
   redirects,
   turbopack: {
     root: path.resolve(dirname),

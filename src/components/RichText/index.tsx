@@ -38,6 +38,16 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  // Render text marked "Brand blue" in the editor in the brand cobalt color.
+  text: (args: unknown) => {
+    const a = args as { node: { $?: { style?: string } } }
+    const baseText = defaultConverters.text as (x: unknown) => React.ReactNode
+    const rendered = baseText(args)
+    if (a.node?.$?.style === 'brand') {
+      return <span style={{ color: 'var(--brand)' }}>{rendered}</span>
+    }
+    return rendered
+  },
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
     mediaBlock: ({ node }) => (

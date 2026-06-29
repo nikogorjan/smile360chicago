@@ -1,8 +1,11 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { PageHero } from '@/components/sections/PageHero'
+import { BlogCard } from '@/components/site/BlogCard'
+import { Section } from '@/components/site/primitives'
+import { BreadcrumbSchema } from '@/components/site/Schema'
+import { practice } from '@/lib/practice'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -19,45 +22,55 @@ export default async function Page() {
     depth: 1,
     limit: 12,
     overrideAccess: false,
+    sort: '-publishedAt',
     select: {
       title: true,
       slug: true,
       categories: true,
       meta: true,
+      publishedAt: true,
+      heroImage: true,
     },
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div>
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+      <BreadcrumbSchema items={[{ name: 'Home', url: '/' }, { name: 'Blog', url: '/posts' }]} />
+      <PageHero
+        eyebrow="Smile360 blog"
+        title="Oral-health tips, news & guides"
+        description="Expert, easy-to-read advice from our Chicago dental team — from emergency toothache relief to whitening, Invisalign, and keeping your whole family’s smiles healthy."
+        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/posts' }]}
+      />
+
+      <Section>
+        <div className="container">
+          {posts.docs?.length ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {posts.docs.map((doc) => (
+                <BlogCard key={doc.slug} doc={doc} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground">No posts yet — check back soon.</p>
+          )}
+
+          {posts.totalPages > 1 && posts.page && (
+            <div className="mt-12">
+              <Pagination page={posts.page} totalPages={posts.totalPages} />
+            </div>
+          )}
         </div>
-      </div>
-
-      <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={12}
-          totalDocs={posts.totalDocs}
-        />
-      </div>
-
-      <CollectionArchive posts={posts.docs} />
-
-      <div className="container">
-        {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
-        )}
-      </div>
+      </Section>
     </div>
   )
 }
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: `Dental Blog — Oral-Health Tips | ${practice.name}`,
+    description:
+      'Oral-health tips, emergency dental advice, whitening, Invisalign, and family dentistry guides from the Smile360 Chicago team.',
   }
 }

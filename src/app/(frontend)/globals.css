@@ -19,7 +19,42 @@
   h6 {
     font-weight: unset;
     font-size: unset;
+    /* Editorial serif (Lora) for every heading across the site. */
+    font-family: var(--font-display);
   }
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: normal;
+  }
+}
+
+/* EXPERIMENT — all-Geist: render every heading in Geist Sans instead of Lora.
+   This unlayered :root rule outranks Tailwind's @layer theme --font-display token
+   (and, being plain CSS, hot-reloads reliably), so both the heading base rule and
+   the `font-display` utility resolve to Geist. Delete this block to restore Lora. */
+:root {
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* EXPERIMENT — regular weight site-wide (no bold/semibold/medium). Unlayered, so
+   it overrides the @layer base heading weights AND the Tailwind font-* weight
+   utilities. Delete this block to restore the original weights. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong,
+.font-medium,
+.font-semibold,
+.font-bold,
+.font-extrabold,
+.font-black {
+  font-weight: 400;
 }
 
 @plugin "@tailwindcss/typography";
@@ -36,6 +71,16 @@
 @source inline("bg-success/30");
 @source inline("border-warning");
 @source inline("bg-warning/30");
+@source inline("bg-brand");
+@source inline("bg-brand/10");
+@source inline("bg-brand-soft");
+@source inline("text-brand");
+@source inline("border-brand");
+@source inline("bg-emergency");
+@source inline("text-emergency");
+@source inline("border-emergency");
+@source inline("text-gold");
+@source inline("fill-gold");
 
 @theme {
   --breakpoint-sm: 40rem;
@@ -45,122 +90,163 @@
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  /* Editorial display serif for the hero headline. */
+  --font-display: var(--font-lora), Georgia, 'Times New Roman', serif;
+
+  /* Type scale — uniformly enlarged to suit the wider 1600px layout.
+     Every text-* utility reads these tokens, so bumping --text-scale grows
+     ALL site text together (line-heights are unitless ratios → auto-scale). */
+  --text-scale: 1.125;
+  --text-xs: calc(0.75rem * var(--text-scale));
+  --text-sm: calc(0.875rem * var(--text-scale));
+  --text-base: calc(1rem * var(--text-scale));
+  --text-lg: calc(1.125rem * var(--text-scale));
+  --text-xl: calc(1.25rem * var(--text-scale));
+  --text-2xl: calc(1.5rem * var(--text-scale));
+  --text-3xl: calc(1.875rem * var(--text-scale));
+  --text-4xl: calc(2.25rem * var(--text-scale));
+  --text-5xl: calc(3rem * var(--text-scale));
+  --text-6xl: calc(3.75rem * var(--text-scale));
+  --text-7xl: calc(4.5rem * var(--text-scale));
+  --text-8xl: calc(6rem * var(--text-scale));
+  --text-9xl: calc(8rem * var(--text-scale));
+
+  /* Regular letter-spacing everywhere — neutralize Tailwind's tight tracking. */
+  --tracking-tight: 0em;
+  /* No shadows anywhere — flat UI (rings/borders still work, they're separate). */
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-lg: 0 0 #0000;
+  --shadow-xl: 0 0 #0000;
+  --shadow-2xl: 0 0 #0000;
 }
 
 @layer utilities {
+  /* Single editorial content width — 1600px, consistent gutters. */
   .container {
     width: 100%;
+    max-width: 100rem; /* 1600px */
     margin-inline: auto;
-    padding-inline: 1rem;
-  }
-
-  @variant sm {
-    .container {
-      max-width: var(--breakpoint-sm);
-    }
+    padding-inline: 1.5rem; /* px-6 */
   }
 
   @variant md {
     .container {
-      max-width: var(--breakpoint-md);
-      padding-inline: 2rem;
-    }
-  }
-
-  @variant lg {
-    .container {
-      max-width: var(--breakpoint-lg);
-    }
-  }
-
-  @variant xl {
-    .container {
-      max-width: var(--breakpoint-xl);
-    }
-  }
-
-  @variant 2xl {
-    .container {
-      max-width: var(--breakpoint-2xl);
+      padding-inline: 2rem; /* px-8 */
     }
   }
 }
 
+/* =====================================================================
+   Smile360 Chicago — brand design system  ·  "Cobalt & Gold" (logo-exact)
+   Light is the PRIMARY theme. Every token has a dark counterpart below.
+   Brand = the logo's deep cobalt blue (#0048B4). Accent = the logo's gold
+   (#FCC024), used sparingly as a crisp pop (never blended into the blue).
+   --brand-2 = a lighter blue used for blue-only gradients/glows.
+   Surfaces are white. Emergency = coral, reserved for urgent CTAs.
+   ===================================================================== */
 :root {
-  --background: oklch(100% 0 0deg);
-  --foreground: oklch(14.5% 0 0deg);
-  --card: oklch(96.5% 0.005 265deg);
-  --card-foreground: oklch(14.5% 0 0deg);
+  --background: oklch(99.3% 0.0015 255deg);
+  --foreground: oklch(22% 0.03 262deg);
+  --card: oklch(100% 0 0deg);
+  --card-foreground: oklch(25% 0.04 262deg);
   --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(14.5% 0 0deg);
-  --primary: oklch(20.5% 0 0deg);
-  --primary-foreground: oklch(98.5% 0 0deg);
-  --secondary: oklch(97% 0 0deg);
-  --secondary-foreground: oklch(20.5% 0 0deg);
-  --muted: oklch(97% 0 0deg);
-  --muted-foreground: oklch(55.6% 0 0deg);
-  --accent: oklch(97% 0 0deg);
-  --accent-foreground: oklch(20.5% 0 0deg);
+  --popover-foreground: oklch(25% 0.04 262deg);
+  /* logo cobalt blue */
+  --primary: oklch(44% 0.183 260deg);
+  --primary-foreground: oklch(99% 0.01 260deg);
+  --secondary: oklch(96.5% 0.004 255deg);
+  --secondary-foreground: oklch(30% 0.04 262deg);
+  --muted: oklch(96.5% 0.004 255deg);
+  --muted-foreground: oklch(46% 0.018 262deg);
+  /* logo gold accent (use sparingly) */
+  --accent: oklch(84% 0.165 85deg);
+  --accent-foreground: oklch(32% 0.06 80deg);
   --destructive: oklch(57.7% 0.245 27.325deg);
-  --destructive-foreground: oklch(57.7% 0.245 27.325deg);
-  --border: oklch(92.2% 0 0deg);
-  --input: oklch(92.2% 0 0deg);
-  --ring: oklch(70.8% 0 0deg);
-  --chart-1: oklch(64.6% 0.222 41.116deg);
-  --chart-2: oklch(60% 0.118 184.704deg);
-  --chart-3: oklch(39.8% 0.07 227.392deg);
-  --chart-4: oklch(82.8% 0.189 84.429deg);
-  --chart-5: oklch(76.9% 0.188 70.08deg);
-  --radius: 0.625rem;
-  --sidebar: oklch(98.5% 0 0deg);
-  --sidebar-foreground: oklch(14.5% 0 0deg);
-  --sidebar-primary: oklch(20.5% 0 0deg);
-  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
-  --sidebar-accent: oklch(97% 0 0deg);
-  --sidebar-accent-foreground: oklch(20.5% 0 0deg);
-  --sidebar-border: oklch(92.2% 0 0deg);
-  --sidebar-ring: oklch(70.8% 0 0deg);
-  --success: oklch(78% 0.08 200deg);
-  --warning: oklch(89% 0.1 75deg);
-  --error: oklch(75% 0.15 25deg);
+  --destructive-foreground: oklch(98.5% 0 0deg);
+  --border: oklch(91.5% 0.004 255deg);
+  --input: oklch(91.5% 0.004 255deg);
+  --ring: oklch(44% 0.183 260deg);
+  --chart-1: oklch(44% 0.183 260deg);
+  --chart-2: oklch(84% 0.165 85deg);
+  --chart-3: oklch(62% 0.16 258deg);
+  --chart-4: oklch(55% 0.14 245deg);
+  --chart-5: oklch(70% 0.12 230deg);
+  --radius: 0.75rem;
+  --sidebar: oklch(98.5% 0.006 258deg);
+  --sidebar-foreground: oklch(25% 0.04 262deg);
+  --sidebar-primary: oklch(44% 0.183 260deg);
+  --sidebar-primary-foreground: oklch(99% 0.01 260deg);
+  --sidebar-accent: oklch(96% 0.02 258deg);
+  --sidebar-accent-foreground: oklch(34% 0.09 260deg);
+  --sidebar-border: oklch(90% 0.018 258deg);
+  --sidebar-ring: oklch(44% 0.183 260deg);
+  --success: oklch(70% 0.13 165deg);
+  --warning: oklch(84% 0.165 85deg);
+  --error: oklch(62% 0.2 25deg);
+  /* extended brand tokens */
+  --brand: oklch(44% 0.183 260deg);
+  --brand-foreground: oklch(99% 0.01 260deg);
+  --brand-soft: oklch(93% 0.045 260deg);
+  --brand-2: oklch(62% 0.16 258deg);
+  --gold: oklch(84% 0.165 85deg);
+  --gold-foreground: oklch(32% 0.06 80deg);
+  /* cool neutral canvas (replaces warm cream — harmonizes with cobalt) */
+  --cream: #eef1f3;
+  --emergency: oklch(60% 0.205 25deg);
+  --emergency-foreground: oklch(99% 0.01 25deg);
 }
 
 [data-theme='dark'] {
-  --background: oklch(14.5% 0 0deg);
-  --foreground: oklch(98.5% 0 0deg);
-  --card: oklch(17% 0 0deg);
-  --card-foreground: oklch(98.5% 0 0deg);
-  --popover: oklch(14.5% 0 0deg);
-  --popover-foreground: oklch(98.5% 0 0deg);
-  --primary: oklch(98.5% 0 0deg);
-  --primary-foreground: oklch(20.5% 0 0deg);
-  --secondary: oklch(26.9% 0 0deg);
-  --secondary-foreground: oklch(98.5% 0 0deg);
-  --muted: oklch(26.9% 0 0deg);
-  --muted-foreground: oklch(70.8% 0 0deg);
-  --accent: oklch(26.9% 0 0deg);
-  --accent-foreground: oklch(98.5% 0 0deg);
-  --destructive: oklch(39.6% 0.141 25.723deg);
-  --destructive-foreground: oklch(63.7% 0.237 25.331deg);
-  --border: oklch(26.9% 0 0deg);
-  --input: oklch(26.9% 0 0deg);
-  --ring: oklch(43.9% 0 0deg);
-  --chart-1: oklch(48.8% 0.243 264.376deg);
-  --chart-2: oklch(69.6% 0.17 162.48deg);
-  --chart-3: oklch(76.9% 0.188 70.08deg);
-  --chart-4: oklch(62.7% 0.265 303.9deg);
-  --chart-5: oklch(64.5% 0.246 16.439deg);
-  --sidebar: oklch(20.5% 0 0deg);
-  --sidebar-foreground: oklch(98.5% 0 0deg);
-  --sidebar-primary: oklch(48.8% 0.243 264.376deg);
-  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
-  --sidebar-accent: oklch(26.9% 0 0deg);
-  --sidebar-accent-foreground: oklch(98.5% 0 0deg);
-  --sidebar-border: oklch(26.9% 0 0deg);
-  --sidebar-ring: oklch(43.9% 0 0deg);
-  --success: oklch(28% 0.1 200deg);
-  --warning: oklch(35% 0.08 70deg);
-  --error: oklch(45% 0.1 25deg);
+  --background: oklch(13% 0.01 264deg);
+  --foreground: oklch(96% 0.012 258deg);
+  --card: oklch(20% 0.016 264deg);
+  --card-foreground: oklch(96% 0.012 258deg);
+  --popover: oklch(19% 0.016 264deg);
+  --popover-foreground: oklch(96% 0.012 258deg);
+  /* cobalt blue, brightened for dark surfaces */
+  --primary: oklch(64% 0.17 262deg);
+  --primary-foreground: oklch(17% 0.04 262deg);
+  --secondary: oklch(25% 0.02 264deg);
+  --secondary-foreground: oklch(96% 0.012 258deg);
+  --muted: oklch(23% 0.016 264deg);
+  --muted-foreground: oklch(72% 0.02 262deg);
+  /* gold accent for dark */
+  --accent: oklch(84% 0.165 85deg);
+  --accent-foreground: oklch(28% 0.06 80deg);
+  --destructive: oklch(62% 0.2 25deg);
+  --destructive-foreground: oklch(98.5% 0 0deg);
+  --border: oklch(27% 0.016 264deg);
+  --input: oklch(27% 0.016 264deg);
+  --ring: oklch(64% 0.17 262deg);
+  --chart-1: oklch(64% 0.17 262deg);
+  --chart-2: oklch(84% 0.165 85deg);
+  --chart-3: oklch(66% 0.16 258deg);
+  --chart-4: oklch(60% 0.14 245deg);
+  --chart-5: oklch(72% 0.12 230deg);
+  --sidebar: oklch(23% 0.042 262deg);
+  --sidebar-foreground: oklch(96% 0.014 258deg);
+  --sidebar-primary: oklch(64% 0.17 262deg);
+  --sidebar-primary-foreground: oklch(17% 0.04 262deg);
+  --sidebar-accent: oklch(29% 0.05 260deg);
+  --sidebar-accent-foreground: oklch(96% 0.014 258deg);
+  --sidebar-border: oklch(33% 0.045 260deg);
+  --sidebar-ring: oklch(64% 0.17 262deg);
+  --success: oklch(72% 0.13 165deg);
+  --warning: oklch(84% 0.165 85deg);
+  --error: oklch(65% 0.2 25deg);
+  /* extended brand tokens */
+  --brand: oklch(64% 0.17 262deg);
+  --brand-foreground: oklch(17% 0.04 262deg);
+  --brand-soft: oklch(30% 0.06 260deg);
+  --brand-2: oklch(66% 0.16 258deg);
+  --gold: oklch(84% 0.165 85deg);
+  --gold-foreground: oklch(28% 0.06 80deg);
+  --cream: oklch(15% 0.01 264deg);
+  --emergency: oklch(66% 0.2 25deg);
+  --emergency-foreground: oklch(99% 0.01 25deg);
 }
 
 @theme inline {
@@ -192,6 +278,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  /* Squared, editorial cards/images to match the hero — kill the large radii. */
+  --radius-2xl: 0rem;
+  --radius-3xl: 0rem;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -203,6 +292,15 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-2: var(--brand-2);
+  --color-emergency: var(--emergency);
+  --color-emergency-foreground: var(--emergency-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-cream: var(--cream);
 }
 
 @layer base {
@@ -210,7 +308,13 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-cream text-foreground min-h-[100vh] flex flex-col;
+  }
+
+  /* Clickable affordance — native buttons default to the arrow cursor. */
+  button:not(:disabled),
+  [role='button'] {
+    cursor: pointer;
   }
 }
 
@@ -221,4 +325,147 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Smile360 creative utilities
+   --------------------------------------------------------------------- */
+@layer utilities {
+  /* Plain uppercase section label (no pill, no border) — reference-accurate. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pillars auto-advance progress line (gold) — fills left→right over its duration. */
+@keyframes pillar-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Footer — branded, theme-specific SOLID background (no gradients, to match
+   the photo-first, gradient-free design language).
+   Light: deep cobalt.  Dark: near-black navy, deeper than the page.
+   --------------------------------------------------------------------- */
+.site-footer {
+  background-color: oklch(27% 0.12 263deg);
+}
+
+[data-theme='dark'] .site-footer {
+  background-color: oklch(10% 0.008 264deg);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Slow "living beacon" breathing for the emergency CTA glow — gentle scale + opacity
+   oscillation only (centring is handled by a static outer wrapper, so the pulse never
+   shifts position). Applied via `motion-safe:`, so reduced-motion users get the full
+   static glow. */
+@keyframes beacon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .animate-marquee,
+  .animate-float {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Hero intro gate — on the home load, hold the page chrome (nav, footer,
+   mobile CTA, and every section after the hero) at opacity 0 while the hero
+   plays its intro. The hero itself is never gated — its own media animates.
+   The hero clears data-intro when it finishes, fading the chrome in.
+   --------------------------------------------------------------------- */
+header,
+footer,
+[data-intro-hide],
+[data-hero] ~ * {
+  transition: opacity 0.7s ease;
+}
+html[data-intro='running'] header,
+html[data-intro='running'] footer,
+html[data-intro='running'] [data-intro-hide],
+html[data-intro='running'] [data-hero] ~ * {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro='running'] header,
+  html[data-intro='running'] footer,
+  html[data-intro='running'] [data-intro-hide],
+  html[data-intro='running'] [data-hero] ~ * {
+    opacity: 1;
+  }
 }

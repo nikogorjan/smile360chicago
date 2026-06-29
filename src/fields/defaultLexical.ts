@@ -3,9 +3,12 @@ import {
   BoldFeature,
   ItalicFeature,
   LinkFeature,
+  OrderedListFeature,
   ParagraphFeature,
   lexicalEditor,
+  TextStateFeature,
   UnderlineFeature,
+  UnorderedListFeature,
   type LinkFields,
 } from '@payloadcms/richtext-lexical'
 
@@ -15,6 +18,23 @@ export const defaultLexical = lexicalEditor({
     UnderlineFeature(),
     BoldFeature(),
     ItalicFeature(),
+    // Bulleted + numbered lists — required to parse/edit list content (e.g. seeded blog
+    // posts use ul/ol). Without these the editor throws `type "list" not found`.
+    UnorderedListFeature(),
+    OrderedListFeature(),
+    // Adds a "Style" dropdown to the toolbar with a "Brand blue" option.
+    // Select text and choose Brand blue to color it in the brand cobalt — same
+    // font, just the color. Rendered by the RichText converter on the frontend.
+    TextStateFeature({
+      state: {
+        style: {
+          brand: {
+            label: 'Brand blue',
+            css: { color: '#0048B4' },
+          },
+        },
+      },
+    }),
     LinkFeature({
       enabledCollections: ['pages', 'posts'],
       fields: ({ defaultFields }) => {

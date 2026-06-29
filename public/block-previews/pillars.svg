@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none">
+  <rect width="320" height="180" rx="12" fill="#EEF4FD"/>
+  <!-- expanded panel -->
+  <rect x="20" y="28" width="150" height="124" rx="8" fill="#ffffff" stroke="#cdddf3"/>
+  <circle cx="44" cy="52" r="9" fill="#3080D8"/>
+  <rect x="36" y="74" width="80" height="9" rx="4" fill="#0f2f5c"/>
+  <rect x="36" y="90" width="62" height="6" rx="3" fill="#9fb6bb"/>
+  <rect x="36" y="102" width="70" height="6" rx="3" fill="#9fb6bb"/>
+  <rect x="120" y="44" width="34" height="92" rx="6" fill="#cfe0f6"/>
+  <!-- collapsed rails -->
+  <g>
+    <rect x="182" y="28" width="34" height="124" rx="8" fill="#ffffff" stroke="#cdddf3"/>
+    <circle cx="199" cy="48" r="8" fill="#cfe0f6"/>
+    <rect x="196" y="72" width="6" height="62" rx="3" fill="#9fb6bb"/>
+  </g>
+  <g>
+    <rect x="228" y="28" width="34" height="124" rx="8" fill="#ffffff" stroke="#cdddf3"/>
+    <circle cx="245" cy="48" r="8" fill="#cfe0f6"/>
+    <rect x="242" y="72" width="6" height="62" rx="3" fill="#9fb6bb"/>
+  </g>
+  <g>
+    <rect x="274" y="28" width="34" height="124" rx="8" fill="#ffffff" stroke="#cdddf3"/>
+    <circle cx="291" cy="48" r="8" fill="#cfe0f6"/>
+    <rect x="288" y="72" width="6" height="62" rx="3" fill="#9fb6bb"/>
+  </g>
+</svg>

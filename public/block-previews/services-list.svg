@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none">
+  <rect width="320" height="180" rx="12" fill="#EEF4FD"/>
+  <!-- heading + button -->
+  <rect x="20" y="20" width="90" height="10" rx="5" fill="#0f2f5c"/>
+  <rect x="250" y="18" width="50" height="16" rx="8" fill="none" stroke="#3080D8"/>
+  <!-- rows -->
+  <g>
+    <line x1="20" y1="52" x2="300" y2="52" stroke="#cdddf3"/>
+    <rect x="20" y="60" width="40" height="28" rx="5" fill="#cfe0f6"/>
+    <rect x="74" y="64" width="70" height="9" rx="4" fill="#0f2f5c"/>
+    <rect x="170" y="66" width="100" height="6" rx="3" fill="#9fb6bb"/>
+    <rect x="170" y="78" width="80" height="6" rx="3" fill="#9fb6bb"/>
+    <circle cx="291" cy="74" r="8" fill="none" stroke="#3080D8"/>
+  </g>
+  <g>
+    <line x1="20" y1="100" x2="300" y2="100" stroke="#cdddf3"/>
+    <rect x="20" y="108" width="40" height="28" rx="5" fill="#cfe0f6"/>
+    <rect x="74" y="112" width="70" height="9" rx="4" fill="#0f2f5c"/>
+    <rect x="170" y="114" width="100" height="6" rx="3" fill="#9fb6bb"/>
+    <rect x="170" y="126" width="80" height="6" rx="3" fill="#9fb6bb"/>
+    <circle cx="291" cy="122" r="8" fill="none" stroke="#3080D8"/>
+  </g>
+  <line x1="20" y1="148" x2="300" y2="148" stroke="#cdddf3"/>
+</svg>

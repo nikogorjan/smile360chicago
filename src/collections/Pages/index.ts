@@ -7,6 +7,35 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Hero } from '../../blocks/Hero/config'
+import { Stats } from '../../blocks/Stats/config'
+import { ServicesGrid } from '../../blocks/ServicesGrid/config'
+import { FeatureGrid } from '../../blocks/FeatureGrid/config'
+import { BeforeAfter } from '../../blocks/BeforeAfter/config'
+import { GalleryGrid } from '../../blocks/GalleryGrid/config'
+import { Reviews } from '../../blocks/Reviews/config'
+import { TeamGrid } from '../../blocks/TeamGrid/config'
+import { DentistFeature } from '../../blocks/DentistFeature/config'
+import { ImageBand } from '../../blocks/ImageBand/config'
+import { ProcessSteps } from '../../blocks/ProcessSteps/config'
+import { Faq } from '../../blocks/Faq/config'
+import { Emergency } from '../../blocks/Emergency/config'
+import { FinalCta } from '../../blocks/FinalCta/config'
+import { PageHero } from '../../blocks/PageHero/config'
+import { InsuranceMarquee } from '../../blocks/InsuranceMarquee/config'
+import { Appointment } from '../../blocks/Appointment/config'
+import { MediaBanner } from '../../blocks/MediaBanner/config'
+import { SplitFeature } from '../../blocks/SplitFeature/config'
+import { Bento } from '../../blocks/Bento/config'
+import { Tabs } from '../../blocks/Tabs/config'
+import { Pillars } from '../../blocks/Pillars/config'
+import { ServicesList } from '../../blocks/ServicesList/config'
+import { ServicesBento } from '../../blocks/ServicesBento/config'
+import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
+import { Timeline } from '../../blocks/Timeline/config'
+import { Panel } from '../../blocks/Panel/config'
+import { LatestPosts } from '../../blocks/LatestPosts/config'
+import { GalleryPreview } from '../../blocks/GalleryPreview/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -72,7 +101,42 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                PageHero,
+                Hero,
+                MediaBanner,
+                ImageBand,
+                SplitFeature,
+                Bento,
+                Tabs,
+                Pillars,
+                Stats,
+                InsuranceMarquee,
+                ServicesGrid,
+                ServicesList,
+                ServicesBento,
+                FeatureGrid,
+                BeforeAfter,
+                GalleryGrid,
+                GalleryPreview,
+                Reviews,
+                LatestPosts,
+                QuoteSpotlight,
+                TeamGrid,
+                DentistFeature,
+                ProcessSteps,
+                Timeline,
+                Panel,
+                Faq,
+                Emergency,
+                FinalCta,
+                Appointment,
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
