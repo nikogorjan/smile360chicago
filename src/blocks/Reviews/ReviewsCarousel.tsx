@@ -49,17 +49,33 @@ export const ReviewsCarousel: React.FC<{
               type="button"
               onClick={() => scroll(-1)}
               aria-label="Previous reviews"
-              className="grid size-11 place-items-center rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
+              className="group grid size-11 place-items-center overflow-hidden rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
             >
-              <ArrowLeft className="size-5" />
+              {/* Arrow swap: resting arrow exits left, a second slides in from the right */}
+              <ArrowLeft
+                aria-hidden
+                className="size-5 [grid-area:1/1] transition-transform duration-300 ease-out group-hover:-translate-x-[150%] motion-reduce:transition-none"
+              />
+              <ArrowLeft
+                aria-hidden
+                className="size-5 translate-x-[150%] [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-0 motion-reduce:transition-none"
+              />
             </button>
             <button
               type="button"
               onClick={() => scroll(1)}
               aria-label="More reviews"
-              className="grid size-11 place-items-center rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
+              className="group grid size-11 place-items-center overflow-hidden rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
             >
-              <ArrowRight className="size-5" />
+              {/* Arrow swap: resting arrow exits right, a second slides in from the left */}
+              <ArrowRight
+                aria-hidden
+                className="size-5 [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-[150%] motion-reduce:transition-none"
+              />
+              <ArrowRight
+                aria-hidden
+                className="size-5 -translate-x-[150%] [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-0 motion-reduce:transition-none"
+              />
             </button>
           </div>
         </div>
