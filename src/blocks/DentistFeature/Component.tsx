@@ -28,6 +28,8 @@ export const DentistFeatureBlock: React.FC<Props> = ({
   quote,
   links,
   background,
+  paddingTop,
+  paddingBottom,
 }) => {
   const hasPortrait = portrait && typeof portrait !== 'string'
   const imageLeft = imageSide !== 'right' // default: portrait on the left
@@ -35,7 +37,7 @@ export const DentistFeatureBlock: React.FC<Props> = ({
   const credentialLine = [name, credentials].filter(Boolean).join(' · ')
 
   return (
-    <Section tone={background}>
+    <Section tone={background} paddingTop={paddingTop} paddingBottom={paddingBottom}>
       <div className="container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Portrait — plain full-colour image (no blue tint, no hover effects) */}
         <div className={cn('relative', imageLeft ? 'lg:order-1' : 'lg:order-2')}>

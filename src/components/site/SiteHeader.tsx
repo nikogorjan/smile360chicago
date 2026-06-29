@@ -24,7 +24,7 @@ import React, { useEffect, useState } from 'react'
 import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
-import type { NavItem } from '@/lib/practice'
+import type { NavChild, NavItem } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
 /** Pick a relevant icon for a dropdown item from its label. */
@@ -113,50 +113,58 @@ export const SiteHeader: React.FC<{
                     </Link>
                   )
                 }
-                const wide = item.children.length > 4
+                // Split the menu into columns of at most 3 items each.
+                const columns: NavChild[][] = []
+                for (let c = 0; c < item.children.length; c += 3) {
+                  columns.push(item.children.slice(c, c + 3))
+                }
                 return (
                   <div key={item.label} className="group relative">
-                    <Link href={item.href} className={triggerClass(isActive(item.href))}>
+                    {/* Dropdown trigger only — does not navigate (opens on hover/focus). */}
+                    <button
+                      type="button"
+                      aria-haspopup="true"
+                      className={triggerClass(isActive(item.href))}
+                    >
                       {item.label}
                       <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-hover:rotate-180" />
-                    </Link>
+                    </button>
                     <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                      <div
-                        className={cn(
-                          'rounded-md border border-border bg-popover p-1 shadow-xl',
-                          wide ? 'relative grid w-136 grid-cols-2 gap-x-2 gap-y-1' : 'w-80',
-                        )}
-                      >
-                        {wide && (
-                          <span
-                            aria-hidden
-                            className="pointer-events-none absolute inset-y-2 left-1/2 w-px -translate-x-1/2 bg-border"
-                          />
-                        )}
-                        {item.children.map((child) => {
-                          const Icon = iconForLabel(child.label)
-                          return (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className="flex items-start gap-3 rounded-[6px] p-3 transition-colors hover:bg-foreground/5"
-                            >
-                              <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
-                                <Icon className="size-5" />
-                              </span>
-                              <span className="min-w-0">
-                                <span className="block text-sm font-semibold text-foreground">
-                                  {child.label}
-                                </span>
-                                {child.description && (
-                                  <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-                                    {child.description}
+                      <div className="flex rounded-md border border-border bg-popover p-1 shadow-xl">
+                        {columns.map((col, ci) => (
+                          <div
+                            key={ci}
+                            className={cn(
+                              'flex w-64 flex-col',
+                              ci > 0 && 'ml-1 border-l border-border pl-1',
+                            )}
+                          >
+                            {col.map((child) => {
+                              const Icon = iconForLabel(child.label)
+                              return (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  className="flex items-center gap-3 rounded-[6px] p-3 transition-colors hover:bg-foreground/5"
+                                >
+                                  <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
+                                    <Icon className="size-5" />
                                   </span>
-                                )}
-                              </span>
-                            </Link>
-                          )
-                        })}
+                                  <span className="min-w-0">
+                                    <span className="block text-sm font-semibold text-foreground">
+                                      {child.label}
+                                    </span>
+                                    {child.description && (
+                                      <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
+                                        {child.description}
+                                      </span>
+                                    )}
+                                  </span>
+                                </Link>
+                              )
+                            })}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

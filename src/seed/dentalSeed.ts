@@ -363,6 +363,8 @@ const dentistFeature = () => ({
   quote:
     "I became a dentist to take the fear out of the dental chair — when an anxious patient leaves smiling, that's the best part of my day.",
   links: [customLink('/about', 'Book Appointment')],
+  // Tighter gap toward the reviews section below.
+  paddingBottom: 'sm',
 })
 
 // Full-width edge-to-edge photo band (building/exterior). Image empty → stock fallback;
@@ -522,9 +524,15 @@ const pages = [
       pillarsBlock(),
       imageBand(),
       dentistFeature(),
-      reviewsBlock({ limit: 6, heading: 'Real patient stories', eyebrow: 'Reviews' }),
-      // Latest blog posts — two square image cards under the reviews.
-      latestPosts(),
+      reviewsBlock({
+        limit: 6,
+        heading: 'Real patient stories',
+        eyebrow: 'Reviews',
+        paddingTop: 'sm',
+        paddingBottom: 'sm',
+      }),
+      // Latest blog posts — two square image cards under the reviews (tight top gap).
+      latestPosts({ paddingTop: 'sm' }),
       // Roadmap + FAQ grouped in one shared white rounded inset panel (Maven-style).
       panel([
         timeline({ eyebrow: 'How it works', heading: 'Your first visit, *made easy*', items: firstVisitTimeline }),

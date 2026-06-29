@@ -38,15 +38,37 @@ export function emphasize(text: React.ReactNode): React.ReactNode {
   return text.replace(/\*/g, '')
 }
 
+/** Per-side vertical padding presets — kept as full literal class strings so Tailwind
+ *  detects them. Driven by the CMS `spacingFields` (paddingTop / paddingBottom). */
+const PAD_TOP = { none: 'pt-0', sm: 'pt-10 md:pt-14', md: 'pt-20 md:pt-28', lg: 'pt-28 md:pt-36' } as const
+const PAD_BOTTOM = { none: 'pb-0', sm: 'pb-10 md:pb-14', md: 'pb-20 md:pb-28', lg: 'pb-28 md:pb-36' } as const
+type Pad = keyof typeof PAD_TOP
+
 /** Vertical-rhythm wrapper. Transparent (cream canvas shows through) — color
- *  comes from <Panel> and cards, not from section backgrounds. */
+ *  comes from <Panel> and cards, not from section backgrounds. CMS-controlled
+ *  paddingTop/paddingBottom override the default rhythm when provided. */
 export const Section: React.FC<
-  React.PropsWithChildren<{ className?: string; id?: string; tone?: string | null; tight?: boolean }>
-> = ({ children, className, id, tight }) => (
-  <section id={id} className={cn(tight ? 'py-10 md:py-14' : 'py-20 md:py-28', className)}>
-    {children}
-  </section>
-)
+  React.PropsWithChildren<{
+    className?: string
+    id?: string
+    tone?: string | null
+    tight?: boolean
+    paddingTop?: string | null
+    paddingBottom?: string | null
+  }>
+> = ({ children, className, id, tight, paddingTop, paddingBottom }) => {
+  const custom = paddingTop || paddingBottom
+  const pad = custom
+    ? cn(PAD_TOP[paddingTop as Pad] || PAD_TOP.md, PAD_BOTTOM[paddingBottom as Pad] || PAD_BOTTOM.md)
+    : tight
+      ? 'py-10 md:py-14'
+      : 'py-20 md:py-28'
+  return (
+    <section id={id} className={cn(pad, className)}>
+      {children}
+    </section>
+  )
+}
 
 /** The one card style for the whole site (§4): rounded-2xl, hairline border,
  *  subtle shadow that lifts on hover, consistent padding. Dark-mode aware. */

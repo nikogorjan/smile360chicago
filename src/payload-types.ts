@@ -1151,6 +1151,14 @@ export interface ReviewsBlock {
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewsBlock';
@@ -1194,6 +1202,14 @@ export interface LatestPostsBlock {
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'latestPostsBlock';
@@ -1291,6 +1307,14 @@ export interface DentistFeatureBlock {
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'dentistFeatureBlock';
@@ -2623,6 +2647,8 @@ export interface ReviewsBlockSelect<T extends boolean = true> {
   align?: T;
   limit?: T;
   background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   id?: T;
   blockName?: T;
 }
@@ -2650,6 +2676,8 @@ export interface LatestPostsBlockSelect<T extends boolean = true> {
         id?: T;
       };
   background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   id?: T;
   blockName?: T;
 }
@@ -2708,6 +2736,8 @@ export interface DentistFeatureBlockSelect<T extends boolean = true> {
         id?: T;
       };
   background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   id?: T;
   blockName?: T;
 }

@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -21,6 +21,8 @@ export const LatestPostsBlock: React.FC<Props> = async ({
   limit,
   links,
   background,
+  paddingTop,
+  paddingBottom,
 }) => {
   const posts = await getLatestPosts(limit || 2)
   if (!posts.length) return null
@@ -28,7 +30,7 @@ export const LatestPostsBlock: React.FC<Props> = async ({
   const cta = links?.[0]?.link
 
   return (
-    <Section tone={background}>
+    <Section tone={background} paddingTop={paddingTop} paddingBottom={paddingBottom}>
       <div className="container">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-2xl">
@@ -79,7 +81,7 @@ export const LatestPostsBlock: React.FC<Props> = async ({
                   <Media
                     resource={image}
                     fill
-                    imgClassName="object-cover size-full"
+                    imgClassName="object-cover size-full transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     size="(min-width: 640px) 50vw, 100vw"
                   />
                 ) : (
@@ -94,6 +96,15 @@ export const LatestPostsBlock: React.FC<Props> = async ({
                   aria-hidden
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/45 to-transparent"
                 />
+
+                {/* Unified arrow chip (top-right) — arrow-swap on hover, like ServicesBento */}
+                <span
+                  aria-hidden
+                  className="absolute right-5 top-5 z-10 grid size-9 place-items-center overflow-hidden rounded-full bg-card/95 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white motion-reduce:transition-none"
+                >
+                  <ArrowUpRight className="size-[1.1rem] [grid-area:1/1] transition-transform duration-300 ease-out group-hover:-translate-y-[150%] group-hover:translate-x-[150%] motion-reduce:transition-none" />
+                  <ArrowUpRight className="size-[1.1rem] -translate-x-[150%] translate-y-[150%] [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 motion-reduce:transition-none" />
+                </span>
 
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                   {category && (

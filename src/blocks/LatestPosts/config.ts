@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
-import { backgroundField } from '../_shared/fields'
+import { backgroundField, spacingFields } from '../_shared/fields'
 
 export const LatestPosts: Block = {
   slug: 'latestPostsBlock',
@@ -26,5 +26,6 @@ export const LatestPosts: Block = {
       overrides: { maxRows: 1, admin: { description: 'Optional “view all” link (e.g. /posts).' } },
     }),
     backgroundField,
+    spacingFields,
   ],
 }

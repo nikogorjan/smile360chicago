@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { backgroundField, sectionHeaderFields } from '../_shared/fields'
+import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/fields'
 
 export const Reviews: Block = {
   slug: 'reviewsBlock',
@@ -12,5 +12,6 @@ export const Reviews: Block = {
     ...sectionHeaderFields,
     { name: 'limit', type: 'number', admin: { description: 'Max reviews to show.' } },
     backgroundField,
+    spacingFields,
   ],
 }

@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
-import { backgroundField } from '../_shared/fields'
+import { backgroundField, spacingFields } from '../_shared/fields'
 
 export const DentistFeature: Block = {
   slug: 'dentistFeatureBlock',
@@ -40,5 +40,6 @@ export const DentistFeature: Block = {
       overrides: { maxRows: 1, admin: { description: 'Call-to-action (e.g. Book Appointment).' } },
     }),
     backgroundField,
+    spacingFields,
   ],
 }

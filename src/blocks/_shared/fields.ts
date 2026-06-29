@@ -40,6 +40,46 @@ export const sectionHeaderFields: Field[] = [
   },
 ]
 
+/** Per-section vertical spacing controls (top + bottom), so the same block can be
+ *  reused with tighter or looser gaps wherever it's placed. Maps to the `Section`
+ *  primitive's paddingTop/paddingBottom. Defaults to the standard rhythm. */
+const spacingOptions = [
+  { label: 'None', value: 'none' },
+  { label: 'Small', value: 'sm' },
+  { label: 'Default', value: 'md' },
+  { label: 'Large', value: 'lg' },
+]
+
+export const spacingFields: Field = {
+  type: 'collapsible',
+  label: 'Spacing',
+  admin: {
+    initCollapsed: true,
+    description: 'Vertical padding above and below this section (controls the gap to neighbours).',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'paddingTop',
+          type: 'select',
+          defaultValue: 'md',
+          options: spacingOptions,
+          admin: { width: '50%', description: 'Padding above' },
+        },
+        {
+          name: 'paddingBottom',
+          type: 'select',
+          defaultValue: 'md',
+          options: spacingOptions,
+          admin: { width: '50%', description: 'Padding below' },
+        },
+      ],
+    },
+  ],
+}
+
 /** A constrained rich-text editor for short body copy inside blocks. */
 export const richTextField = (name = 'richText'): Field => ({
   name,
