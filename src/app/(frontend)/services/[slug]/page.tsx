@@ -1,17 +1,18 @@
 import type { Metadata } from 'next'
-import { CalendarCheck, CheckCircle2, Phone } from 'lucide-react'
+import { CalendarCheck, CheckCircle2, ChevronRight, Phone } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import { PageHero } from '@/components/sections/PageHero'
 import { Faq } from '@/components/sections/Faq'
-import { buttonVariants } from '@/components/ui/button'
-import { Section, SectionHeading, DynamicIcon } from '@/components/site/primitives'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
+import { Eyebrow, Section, SectionHeading, DynamicIcon } from '@/components/site/primitives'
 import { ServiceCard, ReviewCard } from '@/components/site/cards'
 import { BreadcrumbSchema, ServiceSchema } from '@/components/site/Schema'
 import { getSiteData } from '@/lib/getSiteSettings'
 import { getServices, getFaqs, getTestimonials } from '@/lib/queries'
+import { getServicePhoto } from '@/lib/stockImages'
 import { practice } from '@/lib/practice'
 
 type Args = { params: Promise<{ slug: string }> }
@@ -61,31 +62,67 @@ export default async function ServiceDetailPage({ params }: Args) {
           { name: service.name, url: `/services/${service.slug}` },
         ]}
       />
-      <PageHero
-        eyebrow={service.category}
-        title={service.name}
-        description={service.excerpt}
-        breadcrumb={[
-          { label: 'Home', href: '/' },
-          { label: 'Services', href: '/services' },
-          { label: service.name, href: `/services/${service.slug}` },
-        ]}
-      >
-        <Link
-          href="/contact"
-          className={buttonVariants({ variant: 'default', className: 'font-bold' })}
-        >
-          <CalendarCheck className="size-4" />
-          Book this treatment
-        </Link>
-        <Link
-          href={site.phoneHref}
-          className={buttonVariants({ variant: 'outline', className: 'font-bold' })}
-        >
-          <Phone className="size-4" />
-          {site.phone}
-        </Link>
-      </PageHero>
+      {/* Image hero — service photo with the title + meta overlaid, like blog posts
+          (dark scrim, rounded floating panel). */}
+      <header className="relative">
+        <div className="p-3 sm:p-4">
+          <div className="relative h-[58vh] min-h-[460px] max-h-[660px] overflow-hidden rounded-[8px] bg-muted">
+            <Image
+              src={getServicePhoto(service.slug, 0)}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
+          </div>
+        </div>
+        <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 sm:pb-12 lg:pb-16">
+          <div className="container">
+            <div className="max-w-3xl text-white">
+              <nav className="mb-5 flex items-center gap-1 text-xs text-white/70">
+                <Link href="/" className="transition-colors hover:text-white">
+                  Home
+                </Link>
+                <ChevronRight className="size-3" />
+                <Link href="/services" className="transition-colors hover:text-white">
+                  Services
+                </Link>
+                <ChevronRight className="size-3" />
+                <span className="text-white/90">{service.name}</span>
+              </nav>
+              <Eyebrow tone="dark">{service.category}</Eyebrow>
+              <h1 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+                {service.name}
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">
+                {service.excerpt}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/contact"
+                  className={buttonVariants({ variant: 'white', className: 'font-bold text-brand' })}
+                >
+                  <ButtonLabel>
+                    <CalendarCheck className="size-4" />
+                    Book this treatment
+                  </ButtonLabel>
+                </Link>
+                <Link
+                  href={site.phoneHref}
+                  className={buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })}
+                >
+                  <ButtonLabel>
+                    <Phone className="size-4" />
+                    {site.phone}
+                  </ButtonLabel>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
       <Section>
         <div className="container grid gap-12 lg:grid-cols-[1.4fr_0.6fr]">
@@ -127,7 +164,7 @@ export default async function ServiceDetailPage({ params }: Args) {
           </div>
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-2xl border border-border bg-card p-7">
+            <div className="rounded-[8px] border border-border bg-card p-7">
               {service.from && (
                 <>
                   <p className="text-sm text-muted-foreground">Starting from</p>
@@ -142,15 +179,19 @@ export default async function ServiceDetailPage({ params }: Args) {
                 href="/contact"
                 className={buttonVariants({ variant: 'default', className: 'mt-6 flex font-bold' })}
               >
-                <CalendarCheck className="size-4" />
-                Book a consultation
+                <ButtonLabel>
+                  <CalendarCheck className="size-4" />
+                  Book a consultation
+                </ButtonLabel>
               </Link>
               <Link
                 href={site.phoneHref}
                 className={buttonVariants({ variant: 'outline', className: 'mt-2 flex font-bold' })}
               >
-                <Phone className="size-4" />
-                Call {site.phone}
+                <ButtonLabel>
+                  <Phone className="size-4" />
+                  Call {site.phone}
+                </ButtonLabel>
               </Link>
             </div>
           </aside>

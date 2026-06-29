@@ -13,7 +13,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
   <Link
     href={`/services/${service.slug}`}
     className={cn(
-      'group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors hover:border-brand/40',
+      'group relative flex flex-col overflow-hidden rounded-[8px] border border-border bg-card p-6 transition-colors hover:border-brand/40',
       featured && 'ring-1 ring-brand/20',
     )}
   >
@@ -45,7 +45,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
 export const ReviewCard: React.FC<{ t: Testimonial; className?: string }> = ({ t, className }) => (
   <figure
     className={cn(
-      'flex break-inside-avoid flex-col rounded-2xl border border-border bg-card p-6',
+      'flex break-inside-avoid flex-col rounded-[8px] border border-border bg-card p-6',
       className,
     )}
   >
@@ -79,7 +79,7 @@ const memberInitials = (name: string) =>
     .join('')
 
 export const TeamCard: React.FC<{ m: TeamMember }> = ({ m }) => (
-  <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/20">
+  <div className="group overflow-hidden rounded-[8px] border border-border bg-card transition-colors hover:border-foreground/20">
     <div className="relative flex aspect-[4/5] items-center justify-center bg-secondary">
       <span className="grid size-24 place-items-center rounded-full bg-card text-3xl font-semibold text-brand">
         {memberInitials(m.name)}

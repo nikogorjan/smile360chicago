@@ -39,7 +39,7 @@ export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({
   return (
     <article
       className={cn(
-        'group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/20',
+        'group flex flex-col overflow-hidden rounded-[8px] border border-border bg-card transition-colors hover:border-foreground/20',
         className,
       )}
     >
