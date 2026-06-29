@@ -35,6 +35,7 @@ import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { Panel } from '../../blocks/Panel/config'
 import { LatestPosts } from '../../blocks/LatestPosts/config'
+import { GalleryPreview } from '../../blocks/GalleryPreview/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -117,6 +118,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FeatureGrid,
                 BeforeAfter,
                 GalleryGrid,
+                GalleryPreview,
                 Reviews,
                 LatestPosts,
                 QuoteSpotlight,

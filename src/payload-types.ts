@@ -230,6 +230,7 @@ export interface Page {
     | FeatureGridBlock
     | BeforeAfterBlock
     | GalleryGridBlock
+    | GalleryPreviewBlock
     | ReviewsBlock
     | LatestPostsBlock
     | QuoteBlock
@@ -1130,6 +1131,57 @@ export interface GalleryGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'galleryGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryPreviewBlock".
+ */
+export interface GalleryPreviewBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * How many of the latest before/after cases to show (3 recommended).
+   */
+  limit?: number | null;
+  /**
+   * “View full gallery” link (e.g. /smile-gallery).
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'galleryPreviewBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2213,6 +2265,7 @@ export interface PagesSelect<T extends boolean = true> {
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
         beforeAfterBlock?: T | BeforeAfterBlockSelect<T>;
         galleryGridBlock?: T | GalleryGridBlockSelect<T>;
+        galleryPreviewBlock?: T | GalleryPreviewBlockSelect<T>;
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         latestPostsBlock?: T | LatestPostsBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
@@ -2633,6 +2686,35 @@ export interface BeforeAfterBlockSelect<T extends boolean = true> {
  */
 export interface GalleryGridBlockSelect<T extends boolean = true> {
   background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryPreviewBlock_select".
+ */
+export interface GalleryPreviewBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  limit?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   id?: T;
   blockName?: T;
 }

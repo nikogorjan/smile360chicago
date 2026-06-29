@@ -231,16 +231,26 @@ const posts: PostSpec[] = [
   },
 ]
 
-export async function seedBlog(payload: Payload): Promise<void> {
+export async function seedBlog(payload: Payload, opts: { force?: boolean } = {}): Promise<void> {
   const log = (m: string) => payload.logger.info(`[blogSeed] ${m}`)
+  const force = !!opts.force
+
+  // Non-destructive: if posts already exist, leave them (and their images) alone.
+  const existing = (await payload.count({ collection: 'posts' })).totalDocs
+  if (existing > 0 && !force) {
+    log(`posts: ${existing} already present — skipped (your posts & images are preserved).`)
+    return
+  }
 
   // author = first user (the admin)
   const users = await payload.find({ collection: 'users', limit: 1, depth: 0 })
   const author = users.docs[0]
 
-  // clear posts + categories
-  await payload.delete({ collection: 'posts', where: {} })
-  await payload.delete({ collection: 'categories', where: {} })
+  // Full reset only when forced (otherwise we got here because there were no posts yet).
+  if (force) {
+    await payload.delete({ collection: 'posts', where: {} })
+    await payload.delete({ collection: 'categories', where: {} })
+  }
 
   // categories
   log('Categories…')

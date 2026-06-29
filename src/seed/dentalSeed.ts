@@ -245,6 +245,16 @@ const latestPosts = (over: Record<string, unknown> = {}) => ({
   ...over,
 })
 
+const galleryPreview = (over: Record<string, unknown> = {}) => ({
+  blockType: 'galleryPreviewBlock',
+  eyebrow: 'Smile gallery',
+  heading: 'Real smiles, *real results*',
+  description: 'Drag any slider to see the transformation — whitening, bonding, veneers, and full smile makeovers.',
+  limit: 3,
+  links: [customLink('/smile-gallery', 'View full gallery')],
+  ...over,
+})
+
 const teamGrid = (over: Record<string, unknown> = {}) => ({
   blockType: 'teamGridBlock',
   eyebrow: 'Meet your team',
@@ -522,6 +532,8 @@ const pages = [
       statsBlock(),
       servicesBentoBlock(),
       pillarsBlock(),
+      // Latest smile-gallery before/after cases (sliders) + view-all, under the pillars/marquee.
+      galleryPreview(),
       imageBand(),
       dentistFeature(),
       reviewsBlock({
@@ -687,8 +699,16 @@ const pages = [
 ]
 
 /* -------------------------------------------------------------------- runner */
-export async function dentalSeed(payload: Payload): Promise<void> {
+/**
+ * Non-destructive by default: collections and blog posts are only seeded when EMPTY,
+ * so re-running never wipes content/photos you've added or edited in the admin. Pass
+ * `{ force: true }` (via /dental-seed?key=…&force=1) to wipe and re-create everything
+ * from the placeholder data — use only when you really want a clean reset.
+ */
+export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {}): Promise<void> {
+  const force = !!opts.force
   const log = (m: string) => payload.logger.info(`[dentalSeed] ${m}`)
+  log(force ? 'Mode: FORCE (full reset).' : 'Mode: safe (existing content preserved).')
 
   // 1. Site Settings global
   log('Site Settings…')
@@ -744,89 +764,105 @@ export async function dentalSeed(payload: Payload): Promise<void> {
     } as never,
   })
 
-  // 3. Collections — clear then create
-  const collClear: { slug: 'services' | 'team' | 'testimonials' | 'faqs' | 'gallery-cases' }[] = [
-    { slug: 'services' },
-    { slug: 'team' },
-    { slug: 'testimonials' },
-    { slug: 'faqs' },
-    { slug: 'gallery-cases' },
-  ]
-  for (const c of collClear) {
-    await payload.delete({ collection: c.slug, where: {} })
+  // 3. Collections — non-destructive: only seed a collection when it's empty (or when
+  //    forced), so re-running never deletes content/photos you've added in the admin.
+  const seedCollection = async (
+    slug: 'services' | 'team' | 'testimonials' | 'faqs' | 'gallery-cases',
+    createFn: () => Promise<void>,
+  ) => {
+    const existing = (await payload.count({ collection: slug })).totalDocs
+    if (existing > 0 && !force) {
+      log(`${slug}: ${existing} docs already present — skipped (your content is preserved).`)
+      return
+    }
+    if (force && existing > 0) await payload.delete({ collection: slug, where: {} })
+    await createFn()
   }
 
-  log('Services…')
-  const serviceIds: string[] = []
-  for (const s of services) {
-    const created = await payload.create({
-      collection: 'services',
-      data: {
-        name: s.name,
-        slug: s.slug,
-        generateSlug: false,
-        category: s.category,
-        icon: s.icon,
-        excerpt: s.excerpt,
-        from: s.from,
-        featured: !!s.featured,
-        highlights: s.highlights.map((item) => ({ item })),
-      } as never,
-    })
-    serviceIds.push(String(created.id))
-  }
+  await seedCollection('services', async () => {
+    log('Services…')
+    for (const s of services) {
+      await payload.create({
+        collection: 'services',
+        data: {
+          name: s.name,
+          slug: s.slug,
+          generateSlug: false,
+          category: s.category,
+          icon: s.icon,
+          excerpt: s.excerpt,
+          from: s.from,
+          featured: !!s.featured,
+          highlights: s.highlights.map((item) => ({ item })),
+        } as never,
+      })
+    }
+  })
 
-  log('Team…')
-  for (let i = 0; i < team.length; i++) {
-    const m = team[i]
-    await payload.create({
-      collection: 'team',
-      data: {
-        name: m.name,
-        role: m.role,
-        credentials: m.credentials,
-        bio: m.bio,
-        specialties: m.specialties.map((item) => ({ item })),
-        order: i,
-      } as never,
-    })
-  }
+  await seedCollection('team', async () => {
+    log('Team…')
+    for (let i = 0; i < team.length; i++) {
+      const m = team[i]
+      await payload.create({
+        collection: 'team',
+        data: {
+          name: m.name,
+          role: m.role,
+          credentials: m.credentials,
+          bio: m.bio,
+          specialties: m.specialties.map((item) => ({ item })),
+          order: i,
+        } as never,
+      })
+    }
+  })
 
-  log('Testimonials…')
-  for (const t of testimonials) {
-    await payload.create({
-      collection: 'testimonials',
-      data: {
-        author: t.author,
-        rating: t.rating,
-        quote: t.quote,
-        treatment: t.treatment,
-        source: t.source,
-        featured: true,
-      } as never,
-    })
-  }
+  await seedCollection('testimonials', async () => {
+    log('Testimonials…')
+    for (const t of testimonials) {
+      await payload.create({
+        collection: 'testimonials',
+        data: {
+          author: t.author,
+          rating: t.rating,
+          quote: t.quote,
+          treatment: t.treatment,
+          source: t.source,
+          featured: true,
+        } as never,
+      })
+    }
+  })
 
-  log('FAQs…')
-  for (const f of faqs) {
-    await payload.create({
-      collection: 'faqs',
-      data: { question: f.question, answer: f.answer, category: f.category } as never,
-    })
-  }
+  await seedCollection('faqs', async () => {
+    log('FAQs…')
+    for (const f of faqs) {
+      await payload.create({
+        collection: 'faqs',
+        data: { question: f.question, answer: f.answer, category: f.category } as never,
+      })
+    }
+  })
 
-  log('Gallery…')
-  for (const g of galleryCases) {
-    await payload.create({
-      collection: 'gallery-cases',
-      data: {
-        title: g.title,
-        treatment: g.treatment,
-        description: g.description,
-        consentOnFile: false,
-      } as never,
-    })
-  }
+  await seedCollection('gallery-cases', async () => {
+    log('Gallery…')
+    for (const g of galleryCases) {
+      await payload.create({
+        collection: 'gallery-cases',
+        data: {
+          title: g.title,
+          treatment: g.treatment,
+          description: g.description,
+          consentOnFile: false,
+        } as never,
+      })
+    }
+  })
+
+  // Service ids for the homepage bento — whether just seeded or already present.
+  const serviceIds = (
+    await payload.find({ collection: 'services', limit: 100, depth: 0, sort: 'createdAt' })
+  ).docs.map((d) => String(d.id))
 
   // Fill the homepage ServicesBento tiles now that service ids exist — a couple
   // sized large for bento rhythm (tile 0 wide, tile 4 tall). Editable in admin.
@@ -867,8 +903,8 @@ export async function dentalSeed(payload: Payload): Promise<void> {
     })
   }
 
-  // 5. Blog — categories + SEO posts
-  await seedBlog(payload)
+  // 5. Blog — categories + SEO posts (non-destructive unless forced)
+  await seedBlog(payload, { force })
 
   log('Done ✅')
 }

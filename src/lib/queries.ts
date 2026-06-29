@@ -143,11 +143,19 @@ export async function getFaqs(category?: Faq['category']): Promise<Faq[]> {
   }
 }
 
-export async function getGalleryCases(): Promise<GalleryCase[]> {
+export async function getGalleryCases(
+  opts: { limit?: number; sort?: string } = {},
+): Promise<GalleryCase[]> {
+  const { limit = 100, sort } = opts
   try {
     const p = await payload()
     // depth 1 so the before/after upload relations are populated (we need their URLs).
-    const res = await p.find({ collection: 'gallery-cases', limit: 100, depth: 1 })
+    const res = await p.find({
+      collection: 'gallery-cases',
+      limit,
+      depth: 1,
+      ...(sort ? { sort } : {}),
+    })
     if (!res.docs.length) return fbGallery
     const urlOf = (v: unknown): string | undefined =>
       v && typeof v === 'object' && 'url' in v ? (v as { url?: string }).url || undefined : undefined

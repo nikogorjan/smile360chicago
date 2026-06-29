@@ -16,6 +16,7 @@ import { ServicesBentoBlock } from '@/blocks/ServicesBento/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
 import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
 import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
+import { GalleryPreviewBlock } from '@/blocks/GalleryPreview/Component'
 import { ReviewsBlock } from '@/blocks/Reviews/Component'
 import { LatestPostsBlock } from '@/blocks/LatestPosts/Component'
 import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
@@ -55,6 +56,7 @@ const blockComponents = {
   featureGridBlock: FeatureGridBlock,
   beforeAfterBlock: BeforeAfterBlock,
   galleryGridBlock: GalleryGridBlock,
+  galleryPreviewBlock: GalleryPreviewBlock,
   reviewsBlock: ReviewsBlock,
   latestPostsBlock: LatestPostsBlock,
   quoteBlock: QuoteBlock,
