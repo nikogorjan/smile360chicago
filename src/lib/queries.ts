@@ -162,3 +162,21 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
   const all = await getServices()
   return all.find((s) => s.slug === slug) || null
 }
+
+/** Latest published blog posts (newest first) for homepage/section highlights. */
+export async function getLatestPosts(limit = 2) {
+  try {
+    const p = await payload()
+    const res = await p.find({
+      collection: 'posts',
+      depth: 1,
+      limit,
+      overrideAccess: false,
+      sort: '-publishedAt',
+      select: { title: true, slug: true, categories: true, meta: true, publishedAt: true, heroImage: true },
+    })
+    return res.docs
+  } catch {
+    return []
+  }
+}

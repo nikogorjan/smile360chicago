@@ -31,29 +31,9 @@ export const DentistFeature: Block = {
     { name: 'credentials', type: 'text', admin: { description: 'e.g. Lead Dentist & Founder' } },
     { name: 'bio', type: 'textarea' },
     {
-      name: 'specialties',
-      type: 'array',
-      labels: { singular: 'Specialty', plural: 'Specialties' },
-      admin: { description: 'Short pill chips, e.g. Cosmetic Dentistry, Invisalign®, Implants.' },
-      fields: [{ name: 'item', type: 'text' }],
-    },
-    {
-      type: 'collapsible',
-      label: 'Proof badge (optional)',
-      admin: { initCollapsed: true },
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            { name: 'statValue', type: 'text', admin: { width: '40%', description: 'e.g. 4.9★' } },
-            {
-              name: 'statLabel',
-              type: 'text',
-              admin: { width: '60%', description: 'e.g. 487+ Google reviews' },
-            },
-          ],
-        },
-      ],
+      name: 'quote',
+      type: 'textarea',
+      admin: { description: 'Optional short personal quote from the dentist, shown under the bio.' },
     },
     linkGroup({
       appearances: false,

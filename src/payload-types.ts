@@ -231,6 +231,7 @@ export interface Page {
     | BeforeAfterBlock
     | GalleryGridBlock
     | ReviewsBlock
+    | LatestPostsBlock
     | QuoteBlock
     | TeamGridBlock
     | DentistFeatureBlock
@@ -1156,6 +1157,49 @@ export interface ReviewsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestPostsBlock".
+ */
+export interface LatestPostsBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * How many of the newest posts to show (2 recommended).
+   */
+  limit?: number | null;
+  /**
+   * Optional “view all” link (e.g. /posts).
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section background style.
+   */
+  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'latestPostsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "QuoteBlock".
  */
 export interface QuoteBlock {
@@ -1217,22 +1261,9 @@ export interface DentistFeatureBlock {
   credentials?: string | null;
   bio?: string | null;
   /**
-   * Short pill chips, e.g. Cosmetic Dentistry, Invisalign®, Implants.
+   * Optional short personal quote from the dentist, shown under the bio.
    */
-  specialties?:
-    | {
-        item?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * e.g. 4.9★
-   */
-  statValue?: string | null;
-  /**
-   * e.g. 487+ Google reviews
-   */
-  statLabel?: string | null;
+  quote?: string | null;
   /**
    * Call-to-action (e.g. Book Appointment).
    */
@@ -2159,6 +2190,7 @@ export interface PagesSelect<T extends boolean = true> {
         beforeAfterBlock?: T | BeforeAfterBlockSelect<T>;
         galleryGridBlock?: T | GalleryGridBlockSelect<T>;
         reviewsBlock?: T | ReviewsBlockSelect<T>;
+        latestPostsBlock?: T | LatestPostsBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
         teamGridBlock?: T | TeamGridBlockSelect<T>;
         dentistFeatureBlock?: T | DentistFeatureBlockSelect<T>;
@@ -2596,6 +2628,33 @@ export interface ReviewsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestPostsBlock_select".
+ */
+export interface LatestPostsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  limit?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "QuoteBlock_select".
  */
 export interface QuoteBlockSelect<T extends boolean = true> {
@@ -2633,14 +2692,7 @@ export interface DentistFeatureBlockSelect<T extends boolean = true> {
   name?: T;
   credentials?: T;
   bio?: T;
-  specialties?:
-    | T
-    | {
-        item?: T;
-        id?: T;
-      };
-  statValue?: T;
-  statLabel?: T;
+  quote?: T;
   links?:
     | T
     | {

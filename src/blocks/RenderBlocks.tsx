@@ -17,6 +17,7 @@ import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
 import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
 import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
 import { ReviewsBlock } from '@/blocks/Reviews/Component'
+import { LatestPostsBlock } from '@/blocks/LatestPosts/Component'
 import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
 import { DentistFeatureBlock } from '@/blocks/DentistFeature/Component'
 import { ImageBandBlock } from '@/blocks/ImageBand/Component'
@@ -55,6 +56,7 @@ const blockComponents = {
   beforeAfterBlock: BeforeAfterBlock,
   galleryGridBlock: GalleryGridBlock,
   reviewsBlock: ReviewsBlock,
+  latestPostsBlock: LatestPostsBlock,
   quoteBlock: QuoteBlock,
   teamGridBlock: TeamGridBlock,
   dentistFeatureBlock: DentistFeatureBlock,

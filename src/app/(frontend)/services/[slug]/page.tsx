@@ -90,7 +90,7 @@ export default async function ServiceDetailPage({ params }: Args) {
       <Section>
         <div className="container grid gap-12 lg:grid-cols-[1.4fr_0.6fr]">
           <div>
-            <span className="grid size-14 place-items-center rounded-2xl bg-brand/10 text-brand">
+            <span className="grid size-14 place-items-center rounded-full bg-brand/10 text-brand">
               <DynamicIcon name={service.icon} className="size-7" />
             </span>
             <h2 className="mt-6 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
@@ -127,7 +127,7 @@ export default async function ServiceDetailPage({ params }: Args) {
           </div>
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-3xl border border-border bg-card p-7 shadow-sm">
+            <div className="rounded-2xl border border-border bg-card p-7">
               {service.from && (
                 <>
                   <p className="text-sm text-muted-foreground">Starting from</p>

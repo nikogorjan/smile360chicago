@@ -34,6 +34,7 @@ import { ServicesBento } from '../../blocks/ServicesBento/config'
 import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { Panel } from '../../blocks/Panel/config'
+import { LatestPosts } from '../../blocks/LatestPosts/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -117,6 +118,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 BeforeAfter,
                 GalleryGrid,
                 Reviews,
+                LatestPosts,
                 QuoteSpotlight,
                 TeamGrid,
                 DentistFeature,

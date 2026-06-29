@@ -25,16 +25,13 @@ export const DentistFeatureBlock: React.FC<Props> = ({
   name,
   credentials,
   bio,
-  specialties,
-  statValue,
-  statLabel,
+  quote,
   links,
   background,
 }) => {
   const hasPortrait = portrait && typeof portrait !== 'string'
   const imageLeft = imageSide !== 'right' // default: portrait on the left
   const cta = links?.[0]?.link
-  const chips = (specialties || []).map((s) => s.item).filter(Boolean)
   const credentialLine = [name, credentials].filter(Boolean).join(' · ')
 
   return (
@@ -54,25 +51,6 @@ export const DentistFeatureBlock: React.FC<Props> = ({
                 className="object-cover"
               />
             )}
-
-            {/* Proof badge — gold star (gold = proof only), matches the SplitFeature badge */}
-            {statValue && (
-              <div className="absolute bottom-5 left-5 rounded-2xl bg-card px-5 py-3.5 ring-1 ring-border">
-                <p className="font-semibold text-2xl leading-none text-foreground">
-                  {statValue.includes('★') ? (
-                    <>
-                      {statValue.replace('★', '')}
-                      <span className="text-gold">★</span>
-                    </>
-                  ) : (
-                    statValue
-                  )}
-                </p>
-                {statLabel && (
-                  <p className="mt-1.5 text-xs leading-tight text-muted-foreground">{statLabel}</p>
-                )}
-              </div>
-            )}
           </div>
         </div>
 
@@ -90,21 +68,14 @@ export const DentistFeatureBlock: React.FC<Props> = ({
             <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">{bio}</p>
           )}
 
-          {credentialLine && (
-            <p className="mt-6 text-sm font-semibold text-foreground">{credentialLine}</p>
+          {quote && (
+            <blockquote className="mt-6 border-l-2 border-brand/40 pl-5 text-lg leading-relaxed text-foreground">
+              &ldquo;{quote}&rdquo;
+            </blockquote>
           )}
 
-          {chips.length > 0 && (
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {chips.map((c) => (
-                <li
-                  key={c}
-                  className="rounded-full border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground"
-                >
-                  {c}
-                </li>
-              ))}
-            </ul>
+          {credentialLine && (
+            <p className="mt-6 text-sm font-semibold text-foreground">{credentialLine}</p>
           )}
 
           {cta && (

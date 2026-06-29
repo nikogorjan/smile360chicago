@@ -62,15 +62,7 @@ export type NavItem = { label: string; href: string; children?: NavChild[] }
 
 export const nav: NavItem[] = [
   { label: 'Home', href: '/' },
-  {
-    label: 'About',
-    href: '/about',
-    children: [
-      { label: 'Our Practice', href: '/about', description: 'Our story, values & technology' },
-      { label: 'Meet the Team', href: '/team', description: 'The dentists & hygienists' },
-      { label: 'Patient Reviews', href: '/reviews', description: 'Real stories from real smiles' },
-    ],
-  },
+  { label: 'About', href: '/about' },
   {
     label: 'Services',
     href: '/services',

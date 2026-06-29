@@ -235,6 +235,16 @@ const reviewsBlock = (over: Record<string, unknown> = {}) => ({
   ...over,
 })
 
+const latestPosts = (over: Record<string, unknown> = {}) => ({
+  blockType: 'latestPostsBlock',
+  eyebrow: 'From the blog',
+  heading: 'Latest from our blog',
+  description: 'Practical, easy-to-read oral-health advice from our Chicago dental team.',
+  limit: 2,
+  links: [customLink('/posts', 'View all articles')],
+  ...over,
+})
+
 const teamGrid = (over: Record<string, unknown> = {}) => ({
   blockType: 'teamGridBlock',
   eyebrow: 'Meet your team',
@@ -350,9 +360,8 @@ const dentistFeature = () => ({
   name: 'Dr. Mustafa Salam, DMD',
   credentials: 'Lead Dentist & Founder',
   bio: 'Dr. Salam founded Smile360 Chicago to bring gentle, judgment-free dentistry to the heart of the city — pairing modern technology with honest, up-front care. From routine checkups to full smile makeovers and same-day emergencies, he treats every patient like family.',
-  specialties: [b('Cosmetic Dentistry'), b('Invisalign®'), b('Implants'), b('Emergency Care')],
-  statValue: '4.9★',
-  statLabel: '487+ Google reviews',
+  quote:
+    "I became a dentist to take the fear out of the dental chair — when an anxious patient leaves smiling, that's the best part of my day.",
   links: [customLink('/about', 'Book Appointment')],
 })
 
@@ -514,6 +523,8 @@ const pages = [
       imageBand(),
       dentistFeature(),
       reviewsBlock({ limit: 6, heading: 'Real patient stories', eyebrow: 'Reviews' }),
+      // Latest blog posts — two square image cards under the reviews.
+      latestPosts(),
       // Roadmap + FAQ grouped in one shared white rounded inset panel (Maven-style).
       panel([
         timeline({ eyebrow: 'How it works', heading: 'Your first visit, *made easy*', items: firstVisitTimeline }),
@@ -545,24 +556,12 @@ const pages = [
       bento({ eyebrow: 'What we stand for', heading: 'Our values', tiles: differenceTiles, background: 'muted' }),
       statsBlock(),
       timeline({ eyebrow: 'The experience', heading: 'What it’s like to be our patient', items: firstVisitTimeline }),
-      teamGrid({ limit: 4, background: 'muted' }),
+      // Merged from the former standalone /team page — the full team grid.
+      teamGrid({ background: 'muted' }),
+      // Merged from the former standalone /reviews page — spotlight quote + reviews carousel.
       featuredQuote,
+      reviewsBlock(),
       faqBlock({ category: 'General' }),
-      finalCta(),
-    ],
-  },
-  {
-    slug: 'team',
-    title: 'Meet the Team',
-    meta: {
-      title: 'Meet the Team',
-      description:
-        'Meet the dentists and hygienists at Smile360 Chicago — experienced, gentle, and genuinely invested in your comfort.',
-    },
-    layout: [
-      pageHero('Meet the team', 'The people behind your smile', 'A warm, highly-trained team that treats you like family — and makes every visit easy.'),
-      teamGrid(),
-      reviewsBlock({ limit: 3, background: 'muted' }),
       finalCta(),
     ],
   },
@@ -615,22 +614,6 @@ const pages = [
         text: 'Book a cosmetic consultation and see your potential results with a free 3D preview.',
         links: [bookLink],
       }),
-      finalCta(),
-    ],
-  },
-  {
-    slug: 'reviews',
-    title: 'Patient Reviews',
-    meta: {
-      title: 'Patient Reviews & Stories',
-      description:
-        'Read why Chicago patients rate Smile360 4.9/5 across 487+ Google reviews. Real stories about gentle care and stunning results.',
-    },
-    layout: [
-      pageHero('Patient stories', 'Don’t take our word for it', 'Thousands of Chicago smiles, one promise kept: gentle, honest, exceptional care.'),
-      featuredQuote,
-      statsBlock(),
-      reviewsBlock(),
       finalCta(),
     ],
   },
@@ -734,22 +717,15 @@ export async function dentalSeed(payload: Payload): Promise<void> {
       ctaLabel: 'Book Now',
       navItems: [
         { link: { type: 'custom', url: '/', label: 'Home' } },
+        // About is now a single consolidated page (team + reviews merged in) — no dropdown.
+        { link: { type: 'custom', url: '/about', label: 'About' } },
         {
-          link: { type: 'custom', url: '/about', label: 'About' },
-          children: [
-            { link: { type: 'custom', url: '/about', label: 'Our Practice' }, description: 'Our story, values & technology' },
-            { link: { type: 'custom', url: '/team', label: 'Meet the Team' }, description: 'The dentists & hygienists' },
-            { link: { type: 'custom', url: '/reviews', label: 'Patient Reviews' }, description: 'Real stories from real smiles' },
-          ],
-        },
-        {
+          // The Services dropdown children are populated dynamically from the Services
+          // collection at render time (see getHeaderNav → withDynamicServices). This
+          // seeded child is just a fallback if that query ever fails.
           link: { type: 'custom', url: '/services', label: 'Services' },
           children: [
             { link: { type: 'custom', url: '/services', label: 'All Services' }, description: 'Browse every treatment' },
-            { link: { type: 'custom', url: '/services/whitening', label: 'Teeth Whitening' }, description: 'Brighten in one visit' },
-            { link: { type: 'custom', url: '/services/invisalign', label: 'Invisalign®' }, description: 'Clear, removable aligners' },
-            { link: { type: 'custom', url: '/services/implants', label: 'Dental Implants' }, description: 'Permanent tooth replacement' },
-            { link: { type: 'custom', url: '/emergency-dentist', label: 'Emergency Dentist' }, description: 'Same-day toothache relief' },
           ],
         },
         { link: { type: 'custom', url: '/smile-gallery', label: 'Smile Gallery' } },
@@ -859,6 +835,12 @@ export async function dentalSeed(payload: Payload): Promise<void> {
 
   // 4. Pages — clear the ones we manage, then create from blocks
   log('Pages…')
+  // Retired pages — content merged into /about. Delete any leftover docs so they
+  // don't linger in the DB (redirects in redirects.ts send /team & /reviews → /about).
+  const retiredSlugs = ['team', 'reviews']
+  for (const slug of retiredSlugs) {
+    await payload.delete({ collection: 'pages', where: { slug: { equals: slug } } })
+  }
   for (const p of pages) {
     await payload.delete({ collection: 'pages', where: { slug: { equals: p.slug } } })
   }

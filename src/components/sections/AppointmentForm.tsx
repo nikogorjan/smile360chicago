@@ -30,7 +30,7 @@ export const AppointmentForm: React.FC = () => {
   }
 
   return (
-    <form action={action} className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+    <form action={action} className="rounded-2xl border border-border bg-card p-6 sm:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelCls}>

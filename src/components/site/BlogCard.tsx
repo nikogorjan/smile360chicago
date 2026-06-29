@@ -9,7 +9,7 @@ import { cn } from '@/utilities/ui'
 
 export type BlogCardData = Pick<
   Post,
-  'slug' | 'categories' | 'meta' | 'title' | 'publishedAt'
+  'slug' | 'categories' | 'meta' | 'title' | 'publishedAt' | 'heroImage'
 >
 
 /** Deterministic on-brand gradient per category, used when a post has no image. */
@@ -28,9 +28,9 @@ export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({
   doc,
   className,
 }) => {
-  const { slug, categories, meta, title, publishedAt } = doc
+  const { slug, categories, meta, title, publishedAt, heroImage } = doc
   const href = `/posts/${slug}`
-  const image = meta?.image
+  const image = heroImage && typeof heroImage !== 'string' ? heroImage : meta?.image
   const category =
     categories && categories.length && typeof categories[0] === 'object'
       ? categories[0].title
@@ -39,7 +39,7 @@ export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({
   return (
     <article
       className={cn(
-        'group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+        'group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/20',
         className,
       )}
     >
@@ -87,7 +87,7 @@ export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({
           className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand"
         >
           Read article
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
         </Link>
       </div>
     </article>

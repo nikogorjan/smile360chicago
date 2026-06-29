@@ -12,6 +12,8 @@ import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
 import { getSiteData } from '@/lib/getSiteSettings'
+import { Media } from '@/components/Media'
+import { Eyebrow } from '@/components/site/primitives'
 import { formatDateTime } from '@/utilities/formatDateTime'
 import { formatAuthors } from '@/utilities/formatAuthors'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -43,6 +45,13 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects url={url} />
 
   const site = await getSiteData()
+  // Featured image: prefer the post's heroImage, fall back to the SEO meta image.
+  const heroImg =
+    post.heroImage && typeof post.heroImage !== 'string'
+      ? post.heroImage
+      : post.meta?.image && typeof post.meta.image !== 'string'
+        ? post.meta.image
+        : null
   const category =
     post.categories && post.categories.length && typeof post.categories[0] === 'object'
       ? post.categories[0].title
@@ -58,41 +67,86 @@ export default async function Post({ params: paramsPromise }: Args) {
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
 
-      {/* Branded header */}
-      <header className="relative overflow-hidden border-b border-border bg-brand-glow">
-        <div className="pointer-events-none absolute inset-0 bg-dot-grid opacity-25 [mask-image:radial-gradient(60%_60%_at_50%_0%,black,transparent)]" />
-        <div className="container relative py-14 lg:py-20">
-          <nav className="mb-5 flex items-center gap-1 text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-brand">
-              Home
-            </Link>
-            <ChevronRight className="size-3" />
-            <Link href="/posts" className="hover:text-brand">
-              Blog
-            </Link>
-          </nav>
-          <div className="max-w-3xl">
-            {category && <span className="eyebrow">{category}</span>}
-            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-              {post.title}
-            </h1>
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              {hasAuthors && (
-                <span className="inline-flex items-center gap-1.5">
-                  <UserRound className="size-4 text-brand" />
-                  {formatAuthors(post.populatedAuthors!)}
-                </span>
-              )}
-              {post.publishedAt && (
-                <span className="inline-flex items-center gap-1.5">
-                  <CalendarDays className="size-4 text-brand" />
-                  <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
-                </span>
-              )}
+      {heroImg ? (
+        /* Hero header — full image with the title + meta overlaid, like the home hero
+           (dark scrim, no blue tint). Floating rounded panel matching the hero. */
+        <header className="relative">
+          <div className="p-3 sm:p-4">
+            <div className="relative h-[58vh] min-h-[460px] max-h-[660px] overflow-hidden rounded-[8px] bg-muted">
+              <Media resource={heroImg} fill imgClassName="object-cover" size="100vw" priority />
+              <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
             </div>
           </div>
-        </div>
-      </header>
+          <div className="absolute inset-0 z-10 flex flex-col justify-end pb-10 sm:pb-12 lg:pb-16">
+            <div className="container">
+              <div className="max-w-3xl text-white">
+                <nav className="mb-5 flex items-center gap-1 text-xs text-white/70">
+                  <Link href="/" className="transition-colors hover:text-white">
+                    Home
+                  </Link>
+                  <ChevronRight className="size-3" />
+                  <Link href="/posts" className="transition-colors hover:text-white">
+                    Blog
+                  </Link>
+                </nav>
+                {category && <Eyebrow tone="dark">{category}</Eyebrow>}
+                <h1 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+                  {post.title}
+                </h1>
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
+                  {hasAuthors && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <UserRound className="size-4" />
+                      {formatAuthors(post.populatedAuthors!)}
+                    </span>
+                  )}
+                  {post.publishedAt && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <CalendarDays className="size-4" />
+                      <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+      ) : (
+        /* Text header for posts without an image — open on the page canvas, left-aligned */
+        <header className="border-b border-border/60">
+          <div className="container py-14 lg:py-20">
+            <nav className="mb-6 flex items-center gap-1 text-xs text-muted-foreground">
+              <Link href="/" className="transition-colors hover:text-brand">
+                Home
+              </Link>
+              <ChevronRight className="size-3" />
+              <Link href="/posts" className="transition-colors hover:text-brand">
+                Blog
+              </Link>
+            </nav>
+            <div className="max-w-3xl">
+              {category && <Eyebrow>{category}</Eyebrow>}
+              <h1 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                {post.title}
+              </h1>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {hasAuthors && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <UserRound className="size-4 text-brand" />
+                    {formatAuthors(post.populatedAuthors!)}
+                  </span>
+                )}
+                {post.publishedAt && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <CalendarDays className="size-4 text-brand" />
+                    <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </header>
+      )}
 
       {/* Content */}
       <div className="container py-12 lg:py-16">

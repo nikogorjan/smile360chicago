@@ -13,7 +13,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
   <Link
     href={`/services/${service.slug}`}
     className={cn(
-      'group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl',
+      'group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors hover:border-brand/40',
       featured && 'ring-1 ring-brand/20',
     )}
   >
@@ -22,7 +22,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
         Same-day
       </span>
     )}
-    <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
+    <span className="grid size-12 place-items-center rounded-full bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
       <DynamicIcon name={service.icon} className="size-6" />
     </span>
     <h3 className="mt-5 text-lg font-semibold text-foreground">{service.name}</h3>
@@ -36,7 +36,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
       )}
       <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
         Learn more
-        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
       </span>
     </div>
   </Link>
@@ -45,7 +45,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
 export const ReviewCard: React.FC<{ t: Testimonial; className?: string }> = ({ t, className }) => (
   <figure
     className={cn(
-      'flex break-inside-avoid flex-col rounded-2xl border border-border bg-card p-6 shadow-sm',
+      'flex break-inside-avoid flex-col rounded-2xl border border-border bg-card p-6',
       className,
     )}
   >
@@ -79,9 +79,9 @@ const memberInitials = (name: string) =>
     .join('')
 
 export const TeamCard: React.FC<{ m: TeamMember }> = ({ m }) => (
-  <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+  <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/20">
     <div className="relative flex aspect-[4/5] items-center justify-center bg-secondary">
-      <span className="grid size-24 place-items-center rounded-full bg-card text-3xl font-semibold text-brand shadow-sm">
+      <span className="grid size-24 place-items-center rounded-full bg-card text-3xl font-semibold text-brand">
         {memberInitials(m.name)}
       </span>
       {m.credentials && (
