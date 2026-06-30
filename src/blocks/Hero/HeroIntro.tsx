@@ -162,7 +162,7 @@ export const HeroIntro: React.FC<Props> = ({
             }
           >
             {showVideo ? (
-              // eslint-disable-next-line jsx-a11y/media-has-caption
+               
               <video
                 className="absolute inset-0 size-full object-cover"
                 autoPlay

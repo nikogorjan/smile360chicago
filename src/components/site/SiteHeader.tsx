@@ -210,10 +210,12 @@ export const SiteHeader: React.FC<{
         )}
         aria-hidden={!mobileOpen}
       >
-        <div
+        <button
+          type="button"
+          aria-label="Close menu"
           onClick={() => setMobileOpen(false)}
           className={cn(
-            'absolute inset-0 bg-foreground/40 backdrop-blur-sm transition-opacity',
+            'absolute inset-0 w-full bg-foreground/40 backdrop-blur-sm transition-opacity',
             mobileOpen ? 'opacity-100' : 'opacity-0',
           )}
         />

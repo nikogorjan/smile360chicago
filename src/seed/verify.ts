@@ -9,7 +9,7 @@ const run = async () => {
   const faqs = await payload.count({ collection: 'faqs' })
   const reviews = await payload.count({ collection: 'testimonials' })
   const gallery = await payload.count({ collection: 'gallery-cases' })
-  // eslint-disable-next-line no-console
+   
   console.log(
     JSON.stringify(
       {
@@ -28,7 +28,7 @@ const run = async () => {
 }
 
 run().catch((e) => {
-  // eslint-disable-next-line no-console
+   
   console.error('VERIFY ERROR:', e)
   process.exit(1)
 })
