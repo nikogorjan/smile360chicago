@@ -3,6 +3,7 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
@@ -22,6 +23,12 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 
   return doc?.slug ? `${url}/${doc.slug}` : url
 }
+
+// Enable S3 media storage only when the bucket/credentials are present (i.e. production).
+// Without them, Payload keeps using local disk (fine for local dev).
+const hasS3 = Boolean(
+  process.env.S3_BUCKET && process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY,
+)
 
 export const plugins: Plugin[] = [
   redirectsPlugin({
@@ -89,4 +96,25 @@ export const plugins: Plugin[] = [
       },
     },
   }),
+  // Media → S3 (only in production, where the env vars are set). Required on Vercel
+  // because its filesystem is read-only — uploads to local disk would fail there.
+  ...(hasS3
+    ? [
+        s3Storage({
+          collections: { media: true },
+          bucket: process.env.S3_BUCKET as string,
+          config: {
+            region: process.env.S3_REGION,
+            credentials: {
+              accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
+              secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
+            },
+            // Only for non-AWS S3-compatible providers (Cloudflare R2, DO Spaces, MinIO):
+            ...(process.env.S3_ENDPOINT
+              ? { endpoint: process.env.S3_ENDPOINT, forcePathStyle: true }
+              : {}),
+          },
+        }),
+      ]
+    : []),
 ]
