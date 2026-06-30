@@ -102,6 +102,10 @@ export const plugins: Plugin[] = [
     ? [
         s3Storage({
           collections: { media: true },
+          // Browser uploads straight to S3 via a presigned URL, bypassing Vercel's
+          // 4.5MB serverless request-body limit (FUNCTION_PAYLOAD_TOO_LARGE). Required
+          // for videos/large images. Needs CORS (PUT) configured on the bucket.
+          clientUploads: true,
           bucket: process.env.S3_BUCKET as string,
           config: {
             region: process.env.S3_REGION,
