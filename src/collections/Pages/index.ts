@@ -36,6 +36,11 @@ import { Timeline } from '../../blocks/Timeline/config'
 import { Panel } from '../../blocks/Panel/config'
 import { LatestPosts } from '../../blocks/LatestPosts/config'
 import { GalleryPreview } from '../../blocks/GalleryPreview/config'
+import { AboutHero } from '../../blocks/AboutHero/config'
+import { Statement } from '../../blocks/Statement/config'
+import { FounderStory } from '../../blocks/FounderStory/config'
+import { MosaicBento } from '../../blocks/MosaicBento/config'
+import { MetricRings } from '../../blocks/MetricRings/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -103,6 +108,11 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: [
                 PageHero,
+                AboutHero,
+                Statement,
+                FounderStory,
+                MosaicBento,
+                MetricRings,
                 Hero,
                 MediaBanner,
                 ImageBand,

@@ -516,6 +516,94 @@ const featuredQuote = quote({
   role: 'Emergency visit · Google review',
 })
 
+/* ---------------------------------------------- new About-page block makers */
+const aboutHero = () => ({
+  blockType: 'aboutHeroBlock',
+  eyebrow: 'About Smile360 Chicago',
+  heading: 'Dentistry with a human touch',
+  highlight: 'human touch',
+  intro:
+    'We built Smile360 Chicago to be the dental office we always wished existed — gentle, honest, modern, and genuinely on your side.',
+  imageSide: 'right',
+  ratingValue: 5,
+  ratingLabel: `${practice.rating.value} from ${practice.rating.count}+ Google reviews`,
+  chips: [
+    { icon: 'CalendarCheck', label: '15+ years in Chicago' },
+    { icon: 'Users', label: '20k+ smiles cared for' },
+    { icon: 'Clock', label: 'Same-day emergencies' },
+  ],
+  links: [bookLink, customLink('/services', 'Explore services')],
+  background: 'default',
+})
+
+const aboutStatement = () => ({
+  blockType: 'statementBlock',
+  eyebrow: 'Our mission',
+  statement: 'Everyone deserves a dentist they actually look forward to seeing.',
+  highlight: 'look forward to seeing',
+  subline:
+    'No rushing, no surprise bills, no judgment — just calm, modern care from a team that treats you like family.',
+  attribution: 'Dr. Mustafa Salam — Founder & Lead Dentist',
+  align: 'center',
+  background: 'glow',
+})
+
+const founderStory = () => ({
+  blockType: 'founderStoryBlock',
+  imageSide: 'left',
+  eyebrow: 'Our story',
+  heading: 'Care that feels different from the first hello',
+  highlight: 'first hello',
+  body: 'Dr. Mustafa Salam founded Smile360 Chicago to bring gentle, judgment-free dentistry to the heart of the city — pairing modern technology with honest, up-front care.\n\nFrom routine checkups to full smile makeovers and same-day emergencies, he treats every patient like family — and built a practice where you always know exactly what’s happening, and why.',
+  quote:
+    'I became a dentist to take the fear out of the dental chair — when an anxious patient leaves smiling, that’s the best part of my day.',
+  signature: 'Dr. Mustafa Salam',
+  role: 'Founder & Lead Dentist · DMD',
+  bullets: [
+    b('Founded on comfort & honesty'),
+    b('15+ years serving Chicago'),
+    b('Thousands of happy families'),
+    b('One calm roof for everyone'),
+  ],
+  links: [bookLink],
+  background: 'default',
+})
+
+const valuesMosaic = () => ({
+  blockType: 'mosaicBentoBlock',
+  eyebrow: 'What we stand for',
+  heading: 'The Smile360 difference',
+  highlight: 'difference',
+  description:
+    'A few beliefs shape every visit — from your first hello to your brightest smile.',
+  tiles: [
+    { type: 'value', size: 'wide', tone: 'brand', icon: 'HeartHandshake', title: 'Genuinely gentle care', body: 'Anxious about the dentist? You’re our specialty — sedation options and a no-judgment team that moves at your pace.' },
+    { type: 'photo', size: 'tall', label: 'Inside our practice' },
+    { type: 'value', size: 'normal', tone: 'default', icon: 'MonitorSmartphone', title: 'Modern technology', body: 'Digital scans and same-day crowns — faster, clearer, more comfortable.' },
+    { type: 'stat', size: 'normal', tone: 'glow', statValue: '20k+', statLabel: 'Chicago smiles cared for' },
+    { type: 'value', size: 'normal', tone: 'default', icon: 'Wallet', title: 'Transparent pricing', body: 'Clear estimates up front. Most PPO insurance accepted and filed for you.' },
+    { type: 'value', size: 'normal', tone: 'muted', icon: 'ShieldCheck', title: 'Honest, never pushy', body: 'Photo-backed findings, so you see exactly what we see — then you decide.' },
+    { type: 'photo', size: 'wide', label: 'A calm, modern space' },
+    { type: 'stat', size: 'normal', tone: 'brand', statValue: 'Same-day', statLabel: 'emergency care, every day we’re open' },
+  ],
+  background: 'default',
+})
+
+const aboutMetrics = () => ({
+  blockType: 'metricRingsBlock',
+  eyebrow: 'By the numbers',
+  heading: 'Care Chicago keeps coming back to',
+  highlight: 'coming back',
+  description: 'Fifteen years of gentle, honest dentistry — and the trust that comes with it.',
+  metrics: [
+    { value: '15+', label: 'Years caring for Chicago', percent: 80 },
+    { value: '20k+', label: 'Smiles transformed', percent: 90 },
+    { value: '4.9★', label: `${practice.rating.count}+ Google reviews`, percent: 98 },
+    { value: 'Same-day', label: 'Emergency appointments', percent: 100 },
+  ],
+  background: 'muted',
+})
+
 /* ---------------------------------------------------------------- the pages */
 const pages = [
   {
@@ -562,26 +650,15 @@ const pages = [
       description:
         'Meet Smile360 Chicago — a modern, patient-first dental practice built on gentle care, honesty, and technology.',
     },
+    // Rebuilt with the new custom About blocks (AboutHero → Statement → Founder
+    // Story → Mosaic Bento → Metric Rings → Reviews → Final CTA). Add photos in admin.
     layout: [
-      pageHero('Our practice', 'Dentistry with a human touch', 'We built Smile360 Chicago to be the dental office we always wished existed — gentle, honest, modern, and genuinely on your side.', { links: [bookLink] }),
-      splitFeature({
-        imageSide: 'right',
-        eyebrow: 'Our story',
-        heading: 'Care that feels different from the first hello',
-        body: 'Dr. Mia Chen founded Smile360 to combine the warmth of a neighborhood practice with the precision of modern dentistry — no rushing, no surprise bills, no judgment.',
-        bullets: [b('Founded on comfort & honesty'), b('15+ years serving Chicago'), b('Thousands of happy families'), b('One calm roof for everyone')],
-        statValue: '15+',
-        statLabel: 'years caring for Chicago smiles',
-      }),
-      bento({ eyebrow: 'What we stand for', heading: 'Our values', tiles: differenceTiles, background: 'muted' }),
-      statsBlock(),
-      timeline({ eyebrow: 'The experience', heading: 'What it’s like to be our patient', items: firstVisitTimeline }),
-      // Merged from the former standalone /team page — the full team grid.
-      teamGrid({ background: 'muted' }),
-      // Merged from the former standalone /reviews page — spotlight quote + reviews carousel.
-      featuredQuote,
+      aboutHero(),
+      aboutStatement(),
+      founderStory(),
+      valuesMosaic(),
+      aboutMetrics(),
       reviewsBlock(),
-      faqBlock({ category: 'General' }),
       finalCta(),
     ],
   },
@@ -700,10 +777,11 @@ const pages = [
 
 /* -------------------------------------------------------------------- runner */
 /**
- * Non-destructive by default: collections and blog posts are only seeded when EMPTY,
- * so re-running never wipes content/photos you've added or edited in the admin. Pass
- * `{ force: true }` (via /dental-seed?key=…&force=1) to wipe and re-create everything
- * from the placeholder data — use only when you really want a clean reset.
+ * Non-destructive by default: pages are only CREATED when missing, and collections
+ * and blog posts are only seeded when EMPTY — so re-running never wipes the blocks,
+ * copy, or photos you've added or edited in the admin. Pass `{ force: true }` (via
+ * /dental-seed?key=…&force=1) to wipe and re-create everything from the placeholder
+ * data — use only when you really want a clean reset.
  */
 export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {}): Promise<void> {
   const force = !!opts.force
@@ -877,18 +955,31 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
     }))
   }
 
-  // 4. Pages — clear the ones we manage, then create from blocks
+  // 4. Pages — non-destructive by default: only CREATE a managed page when it's
+  //    missing. Existing pages are left untouched, so re-running never wipes the
+  //    blocks, copy, or images you've edited in the admin. `force` restores the
+  //    clean-reset behaviour (wipe every managed page and rebuild from placeholders).
   log('Pages…')
-  // Retired pages — content merged into /about. Delete any leftover docs so they
-  // don't linger in the DB (redirects in redirects.ts send /team & /reviews → /about).
+  // Retired pages — always removed (content merged into /about; redirects send
+  // /team & /reviews → /about).
   const retiredSlugs = ['team', 'reviews']
   for (const slug of retiredSlugs) {
     await payload.delete({ collection: 'pages', where: { slug: { equals: slug } } })
   }
   for (const p of pages) {
-    await payload.delete({ collection: 'pages', where: { slug: { equals: p.slug } } })
-  }
-  for (const p of pages) {
+    const existing = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: p.slug } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existing.totalDocs > 0) {
+      if (!force) {
+        log(`${p.slug}: page exists — skipped (your edits & images preserved).`)
+        continue
+      }
+      await payload.delete({ collection: 'pages', where: { slug: { equals: p.slug } } })
+    }
     await payload.create({
       collection: 'pages',
       data: {
@@ -907,4 +998,61 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
   await seedBlog(payload, { force })
 
   log('Done ✅')
+}
+
+/**
+ * Seed ONLY the given page slug(s) — create-if-missing (or, with `force`, wipe and
+ * recreate just those pages). Globals, collections and blog are left untouched, so
+ * you can scaffold one page (e.g. About) without reseeding the whole site.
+ * Powers `/dental-seed?key=…&only=about`.
+ */
+export async function seedPages(
+  payload: Payload,
+  slugs: string[],
+  opts: { force?: boolean } = {},
+): Promise<{ created: string[]; skipped: string[]; unknown: string[] }> {
+  const force = !!opts.force
+  const log = (m: string) => payload.logger.info(`[dentalSeed] ${m}`)
+  const created: string[] = []
+  const skipped: string[] = []
+  const unknown: string[] = []
+
+  for (const slug of slugs) {
+    const def = pages.find((p) => p.slug === slug)
+    if (!def) {
+      unknown.push(slug)
+      log(`only: no managed page named "${slug}" — skipped.`)
+      continue
+    }
+    const existing = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existing.totalDocs > 0) {
+      if (!force) {
+        skipped.push(slug)
+        log(`${slug}: page exists — skipped (your edits & images preserved).`)
+        continue
+      }
+      await payload.delete({ collection: 'pages', where: { slug: { equals: slug } } })
+    }
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: def.title,
+        slug: def.slug,
+        generateSlug: false,
+        _status: 'published',
+        hero: { type: 'none' },
+        layout: def.layout,
+        meta: { title: def.meta.title, description: def.meta.description },
+      } as never,
+    })
+    created.push(slug)
+    log(`${slug}: ${force ? 'reset' : 'created'}.`)
+  }
+
+  return { created, skipped, unknown }
 }

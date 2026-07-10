@@ -37,11 +37,21 @@ import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { PanelBlock } from '@/blocks/Panel/Component'
 import { TabsBlock } from '@/blocks/Tabs/Component'
 import { PillarsBlock } from '@/blocks/Pillars/Component'
+import { AboutHeroBlock } from '@/blocks/AboutHero/Component'
+import { StatementBlock } from '@/blocks/Statement/Component'
+import { FounderStoryBlock } from '@/blocks/FounderStory/Component'
+import { MosaicBentoBlock } from '@/blocks/MosaicBento/Component'
+import { MetricRingsBlock } from '@/blocks/MetricRings/Component'
 
 const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
   heroBlock: HeroBlock,
   pageHeroBlock: PageHeroBlock,
+  aboutHeroBlock: AboutHeroBlock,
+  statementBlock: StatementBlock,
+  founderStoryBlock: FounderStoryBlock,
+  mosaicBentoBlock: MosaicBentoBlock,
+  metricRingsBlock: MetricRingsBlock,
   mediaBannerBlock: MediaBannerBlock,
   imageBandBlock: ImageBandBlock,
   splitFeatureBlock: SplitFeatureBlock,
