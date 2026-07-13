@@ -25,13 +25,13 @@ export const MastheadBlock: React.FC<Props> = ({
 
   return (
     <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
-      <div className="max-w-4xl">
+      <div className="mx-auto max-w-4xl text-center">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
 
         {facts && facts.length > 0 && (
           <ul
             className={cn(
-              'mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm',
+              'mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm',
               invert ? 'text-white/70' : 'text-muted-foreground',
             )}
           >
@@ -60,7 +60,7 @@ export const MastheadBlock: React.FC<Props> = ({
         {lead && (
           <p
             className={cn(
-              'mt-6 max-w-2xl text-lg leading-relaxed',
+              'mx-auto mt-6 max-w-2xl text-lg leading-relaxed',
               invert ? 'text-white/80' : 'text-muted-foreground',
             )}
           >

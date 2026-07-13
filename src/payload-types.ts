@@ -624,9 +624,14 @@ export interface FounderLetterBlock {
    */
   body: string;
   /**
-   * Circular portrait of the founder.
+   * Small circular portrait shown beside the signature.
    */
   portrait?: (string | null) | Media;
+  /**
+   * Large photo shown on the opposite side of the letter (e.g. the founder). If empty, a branded panel shows.
+   */
+  image?: (string | null) | Media;
+  imageSide?: ('right' | 'left') | null;
   /**
    * e.g. “Dr. Mustafa Salam”.
    */
@@ -3096,6 +3101,8 @@ export interface FounderLetterBlockSelect<T extends boolean = true> {
   heading?: T;
   body?: T;
   portrait?: T;
+  image?: T;
+  imageSide?: T;
   signature?: T;
   role?: T;
   surface?: T;
