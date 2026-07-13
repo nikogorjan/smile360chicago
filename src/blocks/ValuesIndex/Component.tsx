@@ -49,47 +49,25 @@ export const ValuesIndexBlock: React.FC<Props> = ({
         </div>
       )}
 
-      <ul className={cn('border-b', invert ? 'border-white/15' : 'border-border')}>
+      {/* Each value is its own white card, floating on the canvas with a gap between.
+          Hover brightens the border and fills the icon cobalt. */}
+      <ul className="space-y-3 md:space-y-4">
         {list.map((it, i) => (
           <li
             key={i}
-            className={cn(
-              'group grid grid-cols-[auto_1fr] items-center gap-5 rounded-md border-t px-2 py-7 transition-colors md:grid-cols-[auto_1fr_auto] md:gap-10 md:py-9',
-              invert ? 'border-white/15 hover:bg-white/5' : 'border-border hover:bg-brand-soft',
-            )}
+            className="group flex items-center gap-5 rounded-[8px] border border-border bg-card px-5 py-5 transition-colors hover:border-brand/40 md:gap-8 md:px-8 md:py-6"
           >
-            <span
-              className={cn(
-                'font-display text-2xl tabular-nums md:text-3xl',
-                invert ? 'text-white/50' : 'text-brand',
-              )}
-            >
+            <span className="font-display text-3xl tabular-nums text-brand md:text-4xl">
               {String(i + 1).padStart(2, '0')}
             </span>
-            <div>
+            <div className="flex-1">
               {it.title && (
-                <h3
-                  className={cn(
-                    'font-display text-2xl leading-tight md:text-3xl',
-                    invert ? 'text-white' : 'text-foreground',
-                  )}
-                >
-                  {it.title}
-                </h3>
+                <h3 className="font-display text-xl leading-tight text-foreground md:text-2xl">{it.title}</h3>
               )}
-              {it.body && (
-                <p className={cn('mt-1 text-sm md:text-base', invert ? 'text-white/70' : 'text-muted-foreground')}>
-                  {it.body}
-                </p>
-              )}
+              {it.body && <p className="mt-1 text-sm text-muted-foreground md:text-base">{it.body}</p>}
             </div>
             {it.icon && (
-              <span
-                className={cn(
-                  'hidden size-12 place-items-center rounded-full md:grid',
-                  invert ? 'bg-white/10 text-white' : 'bg-brand/10 text-brand',
-                )}
-              >
+              <span className="hidden size-11 shrink-0 place-items-center rounded-full bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-white sm:grid">
                 <DynamicIcon name={it.icon} className="size-5" />
               </span>
             )}
