@@ -689,6 +689,37 @@ const aboutCollage = () => ({
   surface: 'canvas',
 })
 
+const aboutFirstVisit = () => ({
+  blockType: 'firstVisitBlock',
+  eyebrow: 'Your first visit',
+  heading: rtHeading("Relax — we'll take it from here.", 'Relax'),
+  intro:
+    "From your first click to your finished plan, here's exactly what to expect — calm, unhurried, and completely pressure-free.",
+  steps: [
+    {
+      icon: 'CalendarCheck',
+      title: 'Book in about a minute',
+      description: 'Book online or call us — new patients and same-day emergencies are always welcome.',
+    },
+    {
+      icon: 'Coffee',
+      title: 'Settle in',
+      description: 'Arrive to a warm hello, fresh coffee, and quick paperwork. Come ten minutes early on your first visit.',
+    },
+    {
+      icon: 'Stethoscope',
+      title: 'A gentle, thorough exam',
+      description: 'Digital X-rays and a careful look, then a clear, honest walk-through — in plain language, never rushed.',
+    },
+    {
+      icon: 'HeartHandshake',
+      title: 'A plan that fits you',
+      description: "We map out your options and costs together, then you decide what's next. No pressure, ever.",
+    },
+  ],
+  surface: 'panel',
+})
+
 const aboutInvitation = () => ({
   blockType: 'invitationBlock',
   eyebrow: 'Come say hi',
@@ -760,6 +791,7 @@ const pages = [
       aboutValues(),
       aboutManifesto(),
       aboutCollage(),
+      aboutFirstVisit(),
       aboutInvitation(),
     ],
   },

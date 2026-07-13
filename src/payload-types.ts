@@ -220,6 +220,7 @@ export interface Page {
     | ValuesIndexBlock
     | ManifestoBlock
     | PhotoCollageBlock
+    | FirstVisitBlock
     | InvitationBlock
     | AboutHeroBlock
     | StatementBlock
@@ -807,6 +808,68 @@ export interface PhotoCollageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'photoCollageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FirstVisitBlock".
+ */
+export interface FirstVisitBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it in cobalt.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Optional sentence under the heading.
+   */
+  intro?: string | null;
+  /**
+   * 2–5 steps, shown left-to-right as a connected journey.
+   */
+  steps?:
+    | {
+        /**
+         * lucide icon (e.g. CalendarCheck, Coffee, Stethoscope, Sparkles).
+         */
+        icon?: string | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'firstVisitBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2972,6 +3035,7 @@ export interface PagesSelect<T extends boolean = true> {
         valuesIndexBlock?: T | ValuesIndexBlockSelect<T>;
         manifestoBlock?: T | ManifestoBlockSelect<T>;
         photoCollageBlock?: T | PhotoCollageBlockSelect<T>;
+        firstVisitBlock?: T | FirstVisitBlockSelect<T>;
         invitationBlock?: T | InvitationBlockSelect<T>;
         aboutHeroBlock?: T | AboutHeroBlockSelect<T>;
         statementBlock?: T | StatementBlockSelect<T>;
@@ -3141,6 +3205,29 @@ export interface PhotoCollageBlockSelect<T extends boolean = true> {
     | {
         image?: T;
         caption?: T;
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FirstVisitBlock_select".
+ */
+export interface FirstVisitBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  steps?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
         id?: T;
       };
   surface?: T;

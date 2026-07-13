@@ -47,6 +47,7 @@ import { FounderLetterBlock } from '@/blocks/FounderLetter/Component'
 import { ValuesIndexBlock } from '@/blocks/ValuesIndex/Component'
 import { ManifestoBlock } from '@/blocks/Manifesto/Component'
 import { PhotoCollageBlock } from '@/blocks/PhotoCollage/Component'
+import { FirstVisitBlock } from '@/blocks/FirstVisit/Component'
 import { InvitationBlock } from '@/blocks/Invitation/Component'
 
 const blockComponents = {
@@ -63,6 +64,7 @@ const blockComponents = {
   valuesIndexBlock: ValuesIndexBlock,
   manifestoBlock: ManifestoBlock,
   photoCollageBlock: PhotoCollageBlock,
+  firstVisitBlock: FirstVisitBlock,
   invitationBlock: InvitationBlock,
   mediaBannerBlock: MediaBannerBlock,
   imageBandBlock: ImageBandBlock,

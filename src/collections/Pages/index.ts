@@ -46,6 +46,7 @@ import { FounderLetter } from '../../blocks/FounderLetter/config'
 import { ValuesIndex } from '../../blocks/ValuesIndex/config'
 import { Manifesto } from '../../blocks/Manifesto/config'
 import { PhotoCollage } from '../../blocks/PhotoCollage/config'
+import { FirstVisit } from '../../blocks/FirstVisit/config'
 import { Invitation } from '../../blocks/Invitation/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -119,6 +120,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ValuesIndex,
                 Manifesto,
                 PhotoCollage,
+                FirstVisit,
                 Invitation,
                 AboutHero,
                 Statement,
