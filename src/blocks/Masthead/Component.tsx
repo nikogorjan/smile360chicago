@@ -35,7 +35,7 @@ export const MastheadBlock: React.FC<Props> = ({ facts, heading, lead, image, ca
           )}
 
           {/* Tall dark gradient rising from the bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-4/5 bg-gradient-to-t from-black/90 via-black/30 via-35% to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-[90%] bg-gradient-to-t from-black/90 via-black/30 via-35% to-transparent" />
 
           {caption && (
             <span className="absolute left-5 top-5 z-10 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white ring-1 ring-white/20 backdrop-blur">
