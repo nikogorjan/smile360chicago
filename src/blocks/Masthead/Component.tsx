@@ -2,97 +2,74 @@ import React from 'react'
 
 import type { MastheadBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
-import { DynamicIcon, Eyebrow } from '@/components/site/primitives'
-import { SectionShell, surfaceInvert } from '../_shared/surface'
+import { DynamicIcon } from '@/components/site/primitives'
 import { renderRichHeading } from '../_shared/richHeading'
-import { cn } from '@/utilities/ui'
 
-export const MastheadBlock: React.FC<Props> = ({
-  eyebrow,
-  facts,
-  heading,
-  lead,
-  image,
-  caption,
-  surface,
-  paddingTop,
-  paddingBottom,
-  bottomGap,
-}) => {
-  const invert = surfaceInvert(surface)
+/**
+ * About-page hero — mirrors the home hero: a full-bleed image card with a little
+ * inset padding all around (p-3/p-4), the same tall height (92svh, clamped
+ * 640–960px) and 8px radius, a tall dark gradient rising from the bottom, and the
+ * content anchored bottom-left in the page container. The image settles from a
+ * slight zoom on load.
+ */
+export const MastheadBlock: React.FC<Props> = ({ facts, heading, lead, image, caption }) => {
   const hasImage = image && typeof image !== 'string'
-  const headingEl = renderRichHeading(heading, invert)
+  // Content sits on the (dark) image — render the accent as the inverted underline.
+  const headingEl = renderRichHeading(heading, true)
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
-      <div className="mx-auto max-w-4xl text-center">
-        {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
-
-        {facts && facts.length > 0 && (
-          <ul
-            className={cn(
-              'mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm',
-              invert ? 'text-white/70' : 'text-muted-foreground',
-            )}
-          >
-            {facts.map((f, i) => (
-              <li key={i} className="flex items-center gap-3">
-                {i > 0 && (
-                  <span className={cn('size-1 rounded-full', invert ? 'bg-white/40' : 'bg-muted-foreground/40')} />
-                )}
-                {f.text}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {headingEl && (
-          <h1
-            className={cn(
-              'mt-6 text-pretty font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl',
-              invert ? 'text-white' : 'text-foreground',
-            )}
-          >
-            {headingEl}
-          </h1>
-        )}
-
-        {lead && (
-          <p
-            className={cn(
-              'mx-auto mt-6 max-w-2xl text-lg leading-relaxed',
-              invert ? 'text-white/80' : 'text-muted-foreground',
-            )}
-          >
-            {lead}
-          </p>
-        )}
-      </div>
-
-      <div className="group relative mt-12 overflow-hidden rounded-[8px] border border-border md:mt-16">
-        <div className="relative aspect-[16/7]">
+    <section className="relative">
+      <div className="p-3 sm:p-4">
+        <div className="relative h-[92svh] max-h-[960px] min-h-[640px] overflow-hidden rounded-[8px]">
           {hasImage ? (
             <Media
               resource={image}
               fill
-              imgClassName="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              imgClassName="object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]"
               className="absolute inset-0"
             />
           ) : (
-            <div className="absolute inset-0 grid place-items-center bg-brand-soft text-brand">
-              <DynamicIcon name="Image" className="size-10 opacity-40" />
+            <div className="absolute inset-0 grid place-items-center bg-primary">
+              <DynamicIcon name="Image" className="size-12 text-white/30" />
             </div>
           )}
+
+          {/* Tall dark gradient rising from the bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-4/5 bg-gradient-to-t from-black/90 via-black/30 via-35% to-transparent" />
+
           {caption && (
-            <>
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
-              <span className="absolute bottom-4 left-4 rounded-full bg-card px-3.5 py-1.5 text-sm font-medium text-foreground">
-                {caption}
-              </span>
-            </>
+            <span className="absolute left-5 top-5 z-10 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white ring-1 ring-white/20 backdrop-blur">
+              {caption}
+            </span>
           )}
+
+          {/* Content — bottom-left, in the page container */}
+          <div className="absolute inset-0 z-10 flex flex-col justify-end pb-12 sm:pb-14 lg:pb-20">
+            <div className="container">
+              <div className="max-w-3xl text-white">
+                {headingEl && (
+                  <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
+                    {headingEl}
+                  </h1>
+                )}
+
+                {lead && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">{lead}</p>}
+
+                {facts && facts.length > 0 && (
+                  <ul className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/70">
+                    {facts.map((f, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        {i > 0 && <span className="size-1 rounded-full bg-white/40" />}
+                        {f.text}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </SectionShell>
+    </section>
   )
 }

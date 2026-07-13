@@ -433,6 +433,16 @@ html {
   }
 }
 
+/* One-time cinematic settle for hero images — starts slightly zoomed, eases to rest. */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .animate-marquee,

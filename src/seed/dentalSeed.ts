@@ -632,12 +632,10 @@ const rtHeading = (text: string, brand?: string) => {
 
 const aboutMasthead = () => ({
   blockType: 'mastheadBlock',
-  eyebrow: 'Our story',
   facts: [{ text: 'On Michigan Ave' }, { text: 'Est. 2009' }, { text: '4.9★ · 487 reviews' }],
   heading: rtHeading('The dentist Chicago actually looks forward to.', 'looks forward to'),
   lead: 'Smile360 began with a simple idea: a dental office should feel calm, honest, and genuinely on your side. Fifteen years later, that’s still the whole point.',
   caption: 'The Smile360 team',
-  surface: 'canvas',
 })
 
 const aboutFounderLetter = () => ({

@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { headingEditor, spacingFields, surfaceField } from '../_shared/fields'
+import { headingEditor } from '../_shared/fields'
 
 /**
  * Type-led editorial masthead — the About page's cover. A big serif headline (with
@@ -14,7 +14,6 @@ export const Masthead: Block = {
   imageAltText: 'Large editorial headline over a wide panoramic photo',
   labels: { singular: 'Masthead', plural: 'Mastheads' },
   fields: [
-    { name: 'eyebrow', type: 'text' },
     {
       name: 'facts',
       type: 'array',
@@ -38,7 +37,5 @@ export const Masthead: Block = {
       admin: { description: 'Wide panoramic photo (team / practice). If empty, a branded panel shows.' },
     },
     { name: 'caption', type: 'text', admin: { description: 'Optional small caption over the photo.' } },
-    surfaceField,
-    spacingFields,
   ],
 }

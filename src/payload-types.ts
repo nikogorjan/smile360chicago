@@ -535,7 +535,6 @@ export interface PageHeroBlock {
  * via the `definition` "MastheadBlock".
  */
 export interface MastheadBlock {
-  eyebrow?: string | null;
   /**
    * Small dot-separated meta facts (e.g. “Est. 2009”, “Michigan Ave”).
    */
@@ -575,22 +574,6 @@ export interface MastheadBlock {
    * Optional small caption over the photo.
    */
   caption?: string | null;
-  /**
-   * How this section sits on the page.
-   */
-  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mastheadBlock';
@@ -3074,7 +3057,6 @@ export interface PageHeroBlockSelect<T extends boolean = true> {
  * via the `definition` "MastheadBlock_select".
  */
 export interface MastheadBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
   facts?:
     | T
     | {
@@ -3085,10 +3067,6 @@ export interface MastheadBlockSelect<T extends boolean = true> {
   lead?: T;
   image?: T;
   caption?: T;
-  surface?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
