@@ -603,9 +603,9 @@ export interface FounderLetterBlock {
     [k: string]: unknown;
   } | null;
   /**
-   * The letter. Separate paragraphs with a blank line — the first letter becomes a cobalt drop-cap.
+   * The founder’s words. Leave a blank line between paragraphs — each renders as its own paragraph, shown beside an oversized quote mark.
    */
-  body: string;
+  quote?: string | null;
   /**
    * Small circular portrait shown beside the signature.
    */
@@ -3077,7 +3077,7 @@ export interface MastheadBlockSelect<T extends boolean = true> {
 export interface FounderLetterBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
-  body?: T;
+  quote?: T;
   portrait?: T;
   image?: T;
   imageSide?: T;

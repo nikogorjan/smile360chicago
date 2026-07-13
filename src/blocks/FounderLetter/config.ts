@@ -3,9 +3,9 @@ import type { Block } from 'payload'
 import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/fields'
 
 /**
- * A personal, signed letter from the founder — drop-cap opening, first-person prose,
- * a circular portrait and a signature + role. Warmer and more editorial than a
- * portrait+bio split. Defaults to the white panel surface.
+ * A personal, signed letter from the founder — the founder's words set beside an
+ * oversized quote mark, with a photo, a circular portrait and a signature + role.
+ * Warmer and more editorial than a portrait+bio split. Defaults to the white panel surface.
  */
 export const FounderLetter: Block = {
   slug: 'founderLetterBlock',
@@ -22,11 +22,11 @@ export const FounderLetter: Block = {
       admin: { description: 'Optional heading. Select a phrase, then Style → Brand blue to accent it.' },
     },
     {
-      name: 'body',
+      name: 'quote',
       type: 'textarea',
-      required: true,
       admin: {
-        description: 'The letter. Separate paragraphs with a blank line — the first letter becomes a cobalt drop-cap.',
+        description:
+          'The founder’s words. Leave a blank line between paragraphs — each renders as its own paragraph, shown beside an oversized quote mark.',
       },
     },
     {

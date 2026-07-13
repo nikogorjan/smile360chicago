@@ -10,7 +10,7 @@ import { cn } from '@/utilities/ui'
 export const FounderLetterBlock: React.FC<Props> = ({
   eyebrow,
   heading,
-  body,
+  quote,
   portrait,
   signature,
   role,
@@ -26,15 +26,17 @@ export const FounderLetterBlock: React.FC<Props> = ({
   const hasImage = image && typeof image !== 'string'
   const imageLeft = imageSide === 'left'
   const headingEl = renderRichHeading(heading, invert)
-  const paras = (body || '')
-    .split(/\n{2,}/)
+  // Split on any run of newlines so paragraphs separate whether the founder pressed
+  // Enter once or twice between them.
+  const quoteParas = (quote || '')
+    .split(/\n+/)
     .map((s) => s.trim())
     .filter(Boolean)
 
   return (
     <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        {/* Letter content */}
+        {/* Content */}
         <div className={cn('max-w-xl', imageLeft ? 'lg:order-2' : 'lg:order-1')}>
           {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
 
@@ -49,23 +51,34 @@ export const FounderLetterBlock: React.FC<Props> = ({
             </h2>
           )}
 
-          <div className={cn('mt-8 space-y-5 text-lg leading-relaxed', invert ? 'text-white/85' : 'text-foreground/85')}>
-            {paras.map((p, i) => (
-              <p
-                key={i}
-                className={
-                  i === 0
-                    ? 'first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:font-display first-letter:text-6xl first-letter:font-bold first-letter:leading-[0.7] first-letter:text-brand'
-                    : undefined
-                }
+          {/* The founder's words, with an oversized quote mark. Renders paragraphs at
+              a readable body size (works for a short pull-quote or a longer note). */}
+          {quoteParas.length > 0 && (
+            <figure className="relative mt-6">
+              <span
+                aria-hidden
+                className={cn(
+                  'pointer-events-none absolute -left-2 -top-6 select-none font-display text-6xl leading-none',
+                  invert ? 'text-white/15' : 'text-brand/15',
+                )}
               >
-                {p}
-              </p>
-            ))}
-          </div>
+                &ldquo;
+              </span>
+              <blockquote
+                className={cn(
+                  'relative space-y-4 pl-2 text-base leading-relaxed md:text-xl',
+                  invert ? 'text-white/90' : 'text-foreground/90',
+                )}
+              >
+                {quoteParas.map((p, i) => (
+                  <p key={i}>{p.replace(/\*/g, '')}</p>
+                ))}
+              </blockquote>
+            </figure>
+          )}
 
           {(signature || role || hasPortrait) && (
-            <div className="mt-10 flex items-center gap-4">
+            <div className="mt-9 flex items-center gap-4">
               {hasPortrait && (
                 <div className="relative size-16 shrink-0 overflow-hidden rounded-full border border-border">
                   <Media resource={portrait} fill imgClassName="object-cover" className="absolute inset-0" />
