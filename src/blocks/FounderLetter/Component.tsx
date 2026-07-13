@@ -3,6 +3,7 @@ import React from 'react'
 import type { FounderLetterBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { DynamicIcon, Eyebrow } from '@/components/site/primitives'
+import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { SectionShell, surfaceInvert } from '../_shared/surface'
 import { renderRichHeading } from '../_shared/richHeading'
 import { cn } from '@/utilities/ui'
@@ -105,22 +106,19 @@ export const FounderLetterBlock: React.FC<Props> = ({
           )}
         </div>
 
-        {/* Photo */}
-        <div className={cn('group relative', imageLeft ? 'lg:order-1' : 'lg:order-2')}>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[8px] border border-border">
-            {hasImage ? (
-              <Media
-                resource={image}
-                fill
-                imgClassName="object-cover transition-transform duration-700 group-hover:scale-105"
-                className="absolute inset-0"
-              />
-            ) : (
+        {/* Photo — drifts with scroll (parallax), no hover scale */}
+        <div className={cn('relative', imageLeft ? 'lg:order-1' : 'lg:order-2')}>
+          {hasImage ? (
+            <ScrollParallax className="aspect-[4/5] rounded-[8px] border border-border" amount={0.06}>
+              <Media resource={image} fill imgClassName="object-cover" className="absolute inset-0" />
+            </ScrollParallax>
+          ) : (
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[8px] border border-border">
               <div className="absolute inset-0 grid place-items-center bg-brand-soft text-brand">
                 <DynamicIcon name="Image" className="size-10 opacity-40" />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </SectionShell>

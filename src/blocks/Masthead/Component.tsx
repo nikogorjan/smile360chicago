@@ -3,6 +3,7 @@ import React from 'react'
 import type { MastheadBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { DynamicIcon } from '@/components/site/primitives'
+import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { renderRichHeading } from '../_shared/richHeading'
 
 /**
@@ -22,12 +23,14 @@ export const MastheadBlock: React.FC<Props> = ({ facts, heading, lead, image, ca
       <div className="p-3 sm:p-4">
         <div className="relative h-[92svh] max-h-[960px] min-h-[640px] overflow-hidden rounded-[8px]">
           {hasImage ? (
-            <Media
-              resource={image}
-              fill
-              imgClassName="object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]"
-              className="absolute inset-0"
-            />
+            <ScrollParallax className="absolute inset-0" amount={0.05}>
+              <Media
+                resource={image}
+                fill
+                imgClassName="object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]"
+                className="absolute inset-0"
+              />
+            </ScrollParallax>
           ) : (
             <div className="absolute inset-0 grid place-items-center bg-primary">
               <DynamicIcon name="Image" className="size-12 text-white/30" />
