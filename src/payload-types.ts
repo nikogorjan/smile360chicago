@@ -587,6 +587,10 @@ export interface MastheadBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mastheadBlock';
@@ -643,6 +647,10 @@ export interface FounderLetterBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'founderLetterBlock';
@@ -698,6 +706,10 @@ export interface ValuesIndexBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'valuesIndexBlock';
@@ -742,6 +754,10 @@ export interface ManifestoBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'manifestoBlock';
@@ -772,12 +788,11 @@ export interface PhotoCollageBlock {
   } | null;
   description?: string | null;
   /**
-   * Mix sizes (wide, tall, big) for an offset, editorial collage.
+   * A clean, aligned grid of photos — 3 across on desktop, 2 on tablet.
    */
   items?:
     | {
         image?: (string | null) | Media;
-        size?: ('normal' | 'wide' | 'tall' | 'big') | null;
         /**
          * Optional caption over the photo.
          */
@@ -797,6 +812,10 @@ export interface PhotoCollageBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'photoCollageBlock';
@@ -841,7 +860,11 @@ export interface InvitationBlock {
       }[]
     | null;
   /**
-   * Photo of the entrance, or a map image. If empty, a branded panel shows.
+   * Enter an address to show a live Google map (e.g. 360 N Michigan Ave, Suite 1200, Chicago, IL 60601). Takes priority over the image.
+   */
+  mapAddress?: string | null;
+  /**
+   * Fallback photo (e.g. the entrance) — shown only when no map address is set.
    */
   image?: (string | null) | Media;
   links?:
@@ -876,6 +899,10 @@ export interface InvitationBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'invitationBlock';
@@ -956,6 +983,10 @@ export interface AboutHeroBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutHeroBlock';
@@ -998,6 +1029,10 @@ export interface StatementBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'statementBlock';
@@ -1072,6 +1107,10 @@ export interface FounderStoryBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'founderStoryBlock';
@@ -1139,6 +1178,10 @@ export interface MosaicBentoBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mosaicBentoBlock';
@@ -1181,6 +1224,10 @@ export interface MetricRingsBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'metricRingsBlock';
@@ -1845,6 +1892,10 @@ export interface GalleryPreviewBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'galleryPreviewBlock';
@@ -1877,6 +1928,10 @@ export interface ReviewsBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewsBlock';
@@ -1928,6 +1983,10 @@ export interface LatestPostsBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'latestPostsBlock';
@@ -2033,6 +2092,10 @@ export interface DentistFeatureBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'dentistFeatureBlock';
@@ -3020,6 +3083,7 @@ export interface MastheadBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3037,6 +3101,7 @@ export interface FounderLetterBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3059,6 +3124,7 @@ export interface ValuesIndexBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3073,6 +3139,7 @@ export interface ManifestoBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3088,13 +3155,13 @@ export interface PhotoCollageBlockSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
-        size?: T;
         caption?: T;
         id?: T;
       };
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3114,6 +3181,7 @@ export interface InvitationBlockSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
+  mapAddress?: T;
   image?: T;
   links?:
     | T
@@ -3132,6 +3200,7 @@ export interface InvitationBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3172,6 +3241,7 @@ export interface AboutHeroBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3189,6 +3259,7 @@ export interface StatementBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3229,6 +3300,7 @@ export interface FounderStoryBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3259,6 +3331,7 @@ export interface MosaicBentoBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3282,6 +3355,7 @@ export interface MetricRingsBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3676,6 +3750,7 @@ export interface GalleryPreviewBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3692,6 +3767,7 @@ export interface ReviewsBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3721,6 +3797,7 @@ export interface LatestPostsBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3781,6 +3858,7 @@ export interface DentistFeatureBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }

@@ -26,7 +26,15 @@ export function renderRichHeading(data: unknown, invert = false): React.ReactNod
       let el: React.ReactNode = n.text
       if (n.format && n.format & 1) el = <strong>{el}</strong>
       if (n.$?.style === 'brand') {
-        el = <span className={invert ? 'text-white/60' : 'text-brand'}>{el}</span>
+        // On a cobalt (inverted) surface, accent with an underline so the phrase is
+        // emphasised, not dimmed; on light surfaces, colour it cobalt.
+        el = invert ? (
+          <span className="underline decoration-white/45 decoration-[0.055em] underline-offset-[0.14em]">
+            {el}
+          </span>
+        ) : (
+          <span className="text-brand">{el}</span>
+        )
       }
       out.push(<React.Fragment key={`${bi}-${i}`}>{el}</React.Fragment>)
     })

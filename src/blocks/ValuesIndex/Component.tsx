@@ -14,13 +14,14 @@ export const ValuesIndexBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
   const headingEl = renderRichHeading(heading, invert)
   const list = items || []
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
       {(eyebrow || headingEl || description) && (
         <div className="mb-10 grid gap-6 md:mb-14 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-2xl">

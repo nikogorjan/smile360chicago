@@ -41,10 +41,18 @@ export const Invitation: Block = {
       ],
     },
     {
+      name: 'mapAddress',
+      type: 'text',
+      admin: {
+        description:
+          'Enter an address to show a live Google map (e.g. 360 N Michigan Ave, Suite 1200, Chicago, IL 60601). Takes priority over the image.',
+      },
+    },
+    {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Photo of the entrance, or a map image. If empty, a branded panel shows.' },
+      admin: { description: 'Fallback photo (e.g. the entrance) — shown only when no map address is set.' },
     },
     linkGroup({ appearances: false, overrides: { maxRows: 2 } }),
     surfaceFieldWith('panel'),

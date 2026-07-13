@@ -671,6 +671,8 @@ const aboutManifesto = () => ({
   statement: rtHeading('We treat the person, not just the tooth.', 'the person'),
   footnote: 'Fifteen years, twenty thousand smiles, one belief: care should feel human.',
   surface: 'brand',
+  paddingTop: 'lg',
+  paddingBottom: 'lg',
 })
 
 const aboutCollage = () => ({
@@ -679,11 +681,11 @@ const aboutCollage = () => ({
   heading: rtHeading('A calm place to be', 'calm'),
   description: 'Bright rooms, friendly faces, and the little details that make a visit feel easy.',
   items: [
-    { size: 'big', caption: 'Our Michigan Ave practice' },
-    { size: 'normal', caption: 'Reception' },
-    { size: 'tall', caption: 'A treatment room' },
-    { size: 'normal', caption: 'The team' },
-    { size: 'wide', caption: 'Same-day crown lab' },
+    { caption: 'Our Michigan Ave practice' },
+    { caption: 'Reception' },
+    { caption: 'A treatment room' },
+    { caption: 'The team' },
+    { caption: 'Same-day crown lab' },
   ],
   surface: 'canvas',
 })
@@ -693,6 +695,7 @@ const aboutInvitation = () => ({
   eyebrow: 'Come say hi',
   heading: rtHeading('We saved you a seat.', 'a seat'),
   body: 'New patients and same-day emergencies are always welcome. Book online in under a minute, or just give us a call.',
+  mapAddress: practice.address.full,
   details: [
     { icon: 'MapPin', label: 'Visit', value: practice.address.full },
     { icon: 'Clock', label: 'Hours', value: 'Mon–Thu 8–7 · Fri 8–4 · Sat 9–2' },
@@ -700,6 +703,7 @@ const aboutInvitation = () => ({
   ],
   links: [bookLink, callLink],
   surface: 'panel',
+  bottomGap: 'lg',
 })
 
 /* ---------------------------------------------------------------- the pages */

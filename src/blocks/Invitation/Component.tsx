@@ -16,10 +16,12 @@ export const InvitationBlock: React.FC<Props> = ({
   body,
   details,
   image,
+  mapAddress,
   links,
   surface,
   paddingTop,
   paddingBottom,
+  bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
   const hasImage = image && typeof image !== 'string'
@@ -29,7 +31,7 @@ export const InvitationBlock: React.FC<Props> = ({
   const secondary = links?.[1]?.link
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Content */}
         <div className="max-w-xl">
@@ -102,10 +104,18 @@ export const InvitationBlock: React.FC<Props> = ({
           )}
         </div>
 
-        {/* Photo */}
+        {/* Live map, or fallback photo */}
         <div className="relative overflow-hidden rounded-[8px] border border-border">
           <div className="relative aspect-[4/3]">
-            {hasImage ? (
+            {mapAddress ? (
+              <iframe
+                title="Practice location map"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`}
+                className="absolute inset-0 size-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            ) : hasImage ? (
               <Media resource={image} fill imgClassName="object-cover" className="absolute inset-0" />
             ) : (
               <div className="absolute inset-0 grid place-items-center bg-brand-soft text-brand">

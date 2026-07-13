@@ -27,26 +27,9 @@ export const PhotoCollage: Block = {
       type: 'array',
       minRows: 1,
       labels: { singular: 'Photo', plural: 'Photos' },
-      admin: { description: 'Mix sizes (wide, tall, big) for an offset, editorial collage.' },
+      admin: { description: 'A clean, aligned grid of photos — 3 across on desktop, 2 on tablet.' },
       fields: [
-        {
-          type: 'row',
-          fields: [
-            { name: 'image', type: 'upload', relationTo: 'media', admin: { width: '60%' } },
-            {
-              name: 'size',
-              type: 'select',
-              defaultValue: 'normal',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Wide (2 cols)', value: 'wide' },
-                { label: 'Tall (2 rows)', value: 'tall' },
-                { label: 'Big (2×2)', value: 'big' },
-              ],
-              admin: { width: '40%' },
-            },
-          ],
-        },
+        { name: 'image', type: 'upload', relationTo: 'media' },
         { name: 'caption', type: 'text', admin: { description: 'Optional caption over the photo.' } },
       ],
     },

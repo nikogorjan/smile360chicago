@@ -17,13 +17,14 @@ export const MastheadBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
   const hasImage = image && typeof image !== 'string'
   const headingEl = renderRichHeading(heading, invert)
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
       <div className="max-w-4xl">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
 

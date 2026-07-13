@@ -59,7 +59,7 @@ export const spacingFields: Field = {
   label: 'Spacing',
   admin: {
     initCollapsed: true,
-    description: 'Vertical padding above and below this section (controls the gap to neighbours).',
+    description: 'Vertical padding inside this section, plus an optional gap below it.',
   },
   fields: [
     {
@@ -70,14 +70,21 @@ export const spacingFields: Field = {
           type: 'select',
           defaultValue: 'md',
           options: spacingOptions,
-          admin: { width: '50%', description: 'Padding above' },
+          admin: { width: '33%', description: 'Padding above' },
         },
         {
           name: 'paddingBottom',
           type: 'select',
           defaultValue: 'md',
           options: spacingOptions,
-          admin: { width: '50%', description: 'Padding below' },
+          admin: { width: '33%', description: 'Padding below' },
+        },
+        {
+          name: 'bottomGap',
+          type: 'select',
+          defaultValue: 'none',
+          options: [...spacingOptions, { label: 'Extra large', value: 'xl' }],
+          admin: { width: '34%', description: 'Gap below (lift off the footer / next section)' },
         },
       ],
     },

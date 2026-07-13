@@ -17,6 +17,7 @@ export const FounderLetterBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
   const hasPortrait = portrait && typeof portrait !== 'string'
@@ -27,7 +28,7 @@ export const FounderLetterBlock: React.FC<Props> = ({
     .filter(Boolean)
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
       <div className="mx-auto max-w-3xl">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
 

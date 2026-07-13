@@ -7,15 +7,12 @@ import { SectionShell, surfaceInvert } from '../_shared/surface'
 import { renderRichHeading } from '../_shared/richHeading'
 import { cn } from '@/utilities/ui'
 
-const span = (s?: string | null) =>
-  s === 'wide'
-    ? 'sm:col-span-2'
-    : s === 'tall'
-      ? 'lg:row-span-2'
-      : s === 'big'
-        ? 'sm:col-span-2 lg:row-span-2'
-        : ''
-
+/**
+ * A uniform, aligned photo grid — every tile the same 4:3 shape, so rows line up
+ * (no ragged masonry bottoms). Flex + `justify-center` centers the last, partial
+ * row, so there's never an awkward empty cell. 3 across on desktop, 2 on tablet.
+ * Widths use exact calc() so tiles + gaps always sum to 100% (no wrapping).
+ */
 export const PhotoCollageBlock: React.FC<Props> = ({
   eyebrow,
   heading,
@@ -24,13 +21,14 @@ export const PhotoCollageBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
   const headingEl = renderRichHeading(heading, invert)
   const list = items || []
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
       {(eyebrow || headingEl || description) && (
         <div className="mb-10 max-w-2xl md:mb-14">
           {eyebrow && (
@@ -56,13 +54,13 @@ export const PhotoCollageBlock: React.FC<Props> = ({
         </div>
       )}
 
-      <div className="grid auto-rows-[220px] grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="flex flex-wrap justify-center gap-4">
         {list.map((it, i) => {
           const hasImage = it.image && typeof it.image !== 'string'
           return (
             <div
               key={i}
-              className={cn('group relative overflow-hidden rounded-[8px] border border-border', span(it.size))}
+              className="group relative aspect-[4/3] w-full overflow-hidden rounded-[8px] border border-border sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)]"
             >
               {hasImage ? (
                 <Media
