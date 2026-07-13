@@ -604,6 +604,104 @@ const aboutMetrics = () => ({
   background: 'muted',
 })
 
+/* ------------------------------------ bespoke About-page block makers (v2) */
+// Build a rich-text heading value; marks the `brand` phrase as "Brand blue" if present.
+const rtHeading = (text: string, brand?: string) => {
+  const children: Array<Record<string, unknown>> = []
+  const idx = brand ? text.indexOf(brand) : -1
+  if (brand && idx !== -1) {
+    if (idx > 0) children.push(t(text.slice(0, idx)))
+    children.push(t(brand, { $: { style: 'brand' } }))
+    if (idx + brand.length < text.length) children.push(t(text.slice(idx + brand.length)))
+  } else {
+    children.push(t(text))
+  }
+  return {
+    root: {
+      type: 'root',
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      version: 1,
+      children: [
+        { type: 'paragraph', direction: 'ltr', format: '', indent: 0, version: 1, textFormat: 0, children },
+      ],
+    },
+  }
+}
+
+const aboutMasthead = () => ({
+  blockType: 'mastheadBlock',
+  eyebrow: 'Our story',
+  facts: [{ text: 'On Michigan Ave' }, { text: 'Est. 2009' }, { text: '4.9★ · 487 reviews' }],
+  heading: rtHeading('The dentist Chicago actually looks forward to.', 'looks forward to'),
+  lead: 'Smile360 began with a simple idea: a dental office should feel calm, honest, and genuinely on your side. Fifteen years later, that’s still the whole point.',
+  caption: 'The Smile360 team',
+  surface: 'canvas',
+})
+
+const aboutFounderLetter = () => ({
+  blockType: 'founderLetterBlock',
+  eyebrow: 'A note from our founder',
+  heading: rtHeading('Why I built Smile360'),
+  body: 'When I started out, I kept meeting people who were quietly terrified of the dentist — not because of the work, but because of how they’d been treated. Rushed. Judged. Surprised by the bill.\n\nI wanted to build the opposite of that. A place where you set the pace, where we show you photos of exactly what we see, and where the price you’re quoted is the price you pay. No lectures, no pressure — just gentle, modern care from people who genuinely like their jobs.\n\nIf you’re nervous, tell us. We’ll go slow. And when you leave smiling, that’s the best part of our day.',
+  signature: 'Dr. Mustafa Salam',
+  role: 'Founder & Lead Dentist · DMD',
+  surface: 'panel',
+})
+
+const aboutValues = () => ({
+  blockType: 'valuesIndexBlock',
+  eyebrow: 'What we believe',
+  heading: rtHeading('Five things we never compromise on', 'never compromise'),
+  description: 'The principles behind every visit — from your first hello to your brightest smile.',
+  items: [
+    { icon: 'HeartHandshake', title: 'Gentle, judgment-free care', body: 'You set the pace. Sedation options, and a team trained for nervous patients.' },
+    { icon: 'Eye', title: 'Show, don’t tell', body: 'Photo-backed findings so you see exactly what we see — then you decide.' },
+    { icon: 'Wallet', title: 'Honest, up-front pricing', body: 'Written estimates before we begin. The quote is the price. Most PPO accepted.' },
+    { icon: 'MonitorSmartphone', title: 'Modern, comfortable tech', body: 'Digital scans and same-day crowns — fewer visits, clearer answers.' },
+    { icon: 'Clock', title: 'Here when it hurts', body: 'Same-day emergency slots held open every day we’re open.' },
+  ],
+  surface: 'canvas',
+})
+
+const aboutManifesto = () => ({
+  blockType: 'manifestoBlock',
+  eyebrow: 'Our promise',
+  statement: rtHeading('We treat the person, not just the tooth.', 'the person'),
+  footnote: 'Fifteen years, twenty thousand smiles, one belief: care should feel human.',
+  surface: 'brand',
+})
+
+const aboutCollage = () => ({
+  blockType: 'photoCollageBlock',
+  eyebrow: 'Inside Smile360',
+  heading: rtHeading('A calm place to be', 'calm'),
+  description: 'Bright rooms, friendly faces, and the little details that make a visit feel easy.',
+  items: [
+    { size: 'big', caption: 'Our Michigan Ave practice' },
+    { size: 'normal', caption: 'Reception' },
+    { size: 'tall', caption: 'A treatment room' },
+    { size: 'normal', caption: 'The team' },
+    { size: 'wide', caption: 'Same-day crown lab' },
+  ],
+  surface: 'canvas',
+})
+
+const aboutInvitation = () => ({
+  blockType: 'invitationBlock',
+  eyebrow: 'Come say hi',
+  heading: rtHeading('We saved you a seat.', 'a seat'),
+  body: 'New patients and same-day emergencies are always welcome. Book online in under a minute, or just give us a call.',
+  details: [
+    { icon: 'MapPin', label: 'Visit', value: practice.address.full },
+    { icon: 'Clock', label: 'Hours', value: 'Mon–Thu 8–7 · Fri 8–4 · Sat 9–2' },
+    { icon: 'Phone', label: 'Call', value: practice.phone },
+  ],
+  links: [bookLink, callLink],
+  surface: 'panel',
+})
+
 /* ---------------------------------------------------------------- the pages */
 const pages = [
   {
@@ -650,16 +748,16 @@ const pages = [
       description:
         'Meet Smile360 Chicago — a modern, patient-first dental practice built on gentle care, honesty, and technology.',
     },
-    // Rebuilt with the new custom About blocks (AboutHero → Statement → Founder
-    // Story → Mosaic Bento → Metric Rings → Reviews → Final CTA). Add photos in admin.
+    // Bespoke editorial About page — distinct vocabulary from the homepage:
+    // Masthead → Founder's Letter (white panel) → Values Index → Manifesto (cobalt
+    // band) → Photo Collage → Invitation (white panel). Add photos in admin.
     layout: [
-      aboutHero(),
-      aboutStatement(),
-      founderStory(),
-      valuesMosaic(),
-      aboutMetrics(),
-      reviewsBlock(),
-      finalCta(),
+      aboutMasthead(),
+      aboutFounderLetter(),
+      aboutValues(),
+      aboutManifesto(),
+      aboutCollage(),
+      aboutInvitation(),
     ],
   },
   {

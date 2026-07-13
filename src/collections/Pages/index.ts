@@ -41,6 +41,12 @@ import { Statement } from '../../blocks/Statement/config'
 import { FounderStory } from '../../blocks/FounderStory/config'
 import { MosaicBento } from '../../blocks/MosaicBento/config'
 import { MetricRings } from '../../blocks/MetricRings/config'
+import { Masthead } from '../../blocks/Masthead/config'
+import { FounderLetter } from '../../blocks/FounderLetter/config'
+import { ValuesIndex } from '../../blocks/ValuesIndex/config'
+import { Manifesto } from '../../blocks/Manifesto/config'
+import { PhotoCollage } from '../../blocks/PhotoCollage/config'
+import { Invitation } from '../../blocks/Invitation/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -108,6 +114,12 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: [
                 PageHero,
+                Masthead,
+                FounderLetter,
+                ValuesIndex,
+                Manifesto,
+                PhotoCollage,
+                Invitation,
                 AboutHero,
                 Statement,
                 FounderStory,

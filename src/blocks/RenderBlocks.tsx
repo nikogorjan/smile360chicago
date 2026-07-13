@@ -42,6 +42,12 @@ import { StatementBlock } from '@/blocks/Statement/Component'
 import { FounderStoryBlock } from '@/blocks/FounderStory/Component'
 import { MosaicBentoBlock } from '@/blocks/MosaicBento/Component'
 import { MetricRingsBlock } from '@/blocks/MetricRings/Component'
+import { MastheadBlock } from '@/blocks/Masthead/Component'
+import { FounderLetterBlock } from '@/blocks/FounderLetter/Component'
+import { ValuesIndexBlock } from '@/blocks/ValuesIndex/Component'
+import { ManifestoBlock } from '@/blocks/Manifesto/Component'
+import { PhotoCollageBlock } from '@/blocks/PhotoCollage/Component'
+import { InvitationBlock } from '@/blocks/Invitation/Component'
 
 const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
@@ -52,6 +58,12 @@ const blockComponents = {
   founderStoryBlock: FounderStoryBlock,
   mosaicBentoBlock: MosaicBentoBlock,
   metricRingsBlock: MetricRingsBlock,
+  mastheadBlock: MastheadBlock,
+  founderLetterBlock: FounderLetterBlock,
+  valuesIndexBlock: ValuesIndexBlock,
+  manifestoBlock: ManifestoBlock,
+  photoCollageBlock: PhotoCollageBlock,
+  invitationBlock: InvitationBlock,
   mediaBannerBlock: MediaBannerBlock,
   imageBandBlock: ImageBandBlock,
   splitFeatureBlock: SplitFeatureBlock,

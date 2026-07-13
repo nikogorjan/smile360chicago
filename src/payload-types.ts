@@ -215,6 +215,12 @@ export interface Page {
   };
   layout: (
     | PageHeroBlock
+    | MastheadBlock
+    | FounderLetterBlock
+    | ValuesIndexBlock
+    | ManifestoBlock
+    | PhotoCollageBlock
+    | InvitationBlock
     | AboutHeroBlock
     | StatementBlock
     | FounderStoryBlock
@@ -523,6 +529,356 @@ export interface PageHeroBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'pageHeroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MastheadBlock".
+ */
+export interface MastheadBlock {
+  eyebrow?: string | null;
+  /**
+   * Small dot-separated meta facts (e.g. “Est. 2009”, “Michigan Ave”).
+   */
+  facts?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The large headline. Select a phrase, then Style → Brand blue to accent it in cobalt.
+   */
+  heading: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Short lead paragraph under the headline.
+   */
+  lead?: string | null;
+  /**
+   * Wide panoramic photo (team / practice). If empty, a branded panel shows.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Optional small caption over the photo.
+   */
+  caption?: string | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mastheadBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FounderLetterBlock".
+ */
+export interface FounderLetterBlock {
+  eyebrow?: string | null;
+  /**
+   * Optional heading. Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The letter. Separate paragraphs with a blank line — the first letter becomes a cobalt drop-cap.
+   */
+  body: string;
+  /**
+   * Circular portrait of the founder.
+   */
+  portrait?: (string | null) | Media;
+  /**
+   * e.g. “Dr. Mustafa Salam”.
+   */
+  signature?: string | null;
+  /**
+   * e.g. “Founder & Lead Dentist · DMD”.
+   */
+  role?: string | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'founderLetterBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesIndexBlock".
+ */
+export interface ValuesIndexBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it in cobalt.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  description?: string | null;
+  items?:
+    | {
+        /**
+         * lucide-react icon name.
+         */
+        icon?: string | null;
+        title: string;
+        /**
+         * One short supporting line.
+         */
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'valuesIndexBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ManifestoBlock".
+ */
+export interface ManifestoBlock {
+  eyebrow?: string | null;
+  /**
+   * The one big line. Select a phrase, then Style → Brand blue to accent it.
+   */
+  statement: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Optional small line below the statement.
+   */
+  footnote?: string | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'manifestoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhotoCollageBlock".
+ */
+export interface PhotoCollageBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it in cobalt.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  description?: string | null;
+  /**
+   * Mix sizes (wide, tall, big) for an offset, editorial collage.
+   */
+  items?:
+    | {
+        image?: (string | null) | Media;
+        size?: ('normal' | 'wide' | 'tall' | 'big') | null;
+        /**
+         * Optional caption over the photo.
+         */
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'photoCollageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InvitationBlock".
+ */
+export interface InvitationBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it in cobalt.
+   */
+  heading: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  body?: string | null;
+  /**
+   * Address / hours / phone, shown as an editorial list.
+   */
+  details?:
+    | {
+        /**
+         * lucide icon (MapPin, Clock, Phone).
+         */
+        icon?: string | null;
+        label?: string | null;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Photo of the entrance, or a map image. If empty, a branded panel shows.
+   */
+  image?: (string | null) | Media;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'invitationBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2560,6 +2916,12 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         pageHeroBlock?: T | PageHeroBlockSelect<T>;
+        mastheadBlock?: T | MastheadBlockSelect<T>;
+        founderLetterBlock?: T | FounderLetterBlockSelect<T>;
+        valuesIndexBlock?: T | ValuesIndexBlockSelect<T>;
+        manifestoBlock?: T | ManifestoBlockSelect<T>;
+        photoCollageBlock?: T | PhotoCollageBlockSelect<T>;
+        invitationBlock?: T | InvitationBlockSelect<T>;
         aboutHeroBlock?: T | AboutHeroBlockSelect<T>;
         statementBlock?: T | StatementBlockSelect<T>;
         founderStoryBlock?: T | FounderStoryBlockSelect<T>;
@@ -2636,6 +2998,140 @@ export interface PageHeroBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MastheadBlock_select".
+ */
+export interface MastheadBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  facts?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  heading?: T;
+  lead?: T;
+  image?: T;
+  caption?: T;
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FounderLetterBlock_select".
+ */
+export interface FounderLetterBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  body?: T;
+  portrait?: T;
+  signature?: T;
+  role?: T;
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesIndexBlock_select".
+ */
+export interface ValuesIndexBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ManifestoBlock_select".
+ */
+export interface ManifestoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  statement?: T;
+  footnote?: T;
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhotoCollageBlock_select".
+ */
+export interface PhotoCollageBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        image?: T;
+        size?: T;
+        caption?: T;
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InvitationBlock_select".
+ */
+export interface InvitationBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  body?: T;
+  details?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  image?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   id?: T;
   blockName?: T;
 }
