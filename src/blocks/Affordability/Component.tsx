@@ -65,11 +65,11 @@ export const AffordabilityBlock: React.FC<Props> = ({
             >
               <span
                 className={cn(
-                  'grid size-12 place-items-center rounded-[8px]',
+                  'grid size-11 place-items-center rounded-full',
                   invert ? 'bg-white/10 text-white' : 'bg-brand/10 text-brand',
                 )}
               >
-                <DynamicIcon name={p.icon || 'ShieldCheck'} className="size-6" />
+                <DynamicIcon name={p.icon || 'ShieldCheck'} className="size-5" />
               </span>
               <h3 className={cn('mt-5 font-display text-lg font-bold', invert ? 'text-white' : 'text-foreground')}>
                 {p.title}
