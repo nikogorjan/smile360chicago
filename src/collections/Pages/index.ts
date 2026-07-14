@@ -48,6 +48,11 @@ import { Manifesto } from '../../blocks/Manifesto/config'
 import { PhotoCollage } from '../../blocks/PhotoCollage/config'
 import { FirstVisit } from '../../blocks/FirstVisit/config'
 import { Invitation } from '../../blocks/Invitation/config'
+import { NewPatientHero } from '../../blocks/NewPatientHero/config'
+import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
+import { GetReady } from '../../blocks/GetReady/config'
+import { Affordability } from '../../blocks/Affordability/config'
+import { MapBand } from '../../blocks/MapBand/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -122,6 +127,11 @@ export const Pages: CollectionConfig<'pages'> = {
                 PhotoCollage,
                 FirstVisit,
                 Invitation,
+                NewPatientHero,
+                OfferSpotlight,
+                GetReady,
+                Affordability,
+                MapBand,
                 AboutHero,
                 Statement,
                 FounderStory,

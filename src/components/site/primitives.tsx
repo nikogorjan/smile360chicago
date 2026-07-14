@@ -23,7 +23,7 @@ import { cn } from '@/utilities/ui'
  *  wrappers where the <Card> element isn't convenient. Pair with `overflow-hidden`
  *  for image-fill tiles or `p-6 md:p-8` for padded content cards. */
 export const cardSurface =
-  'rounded-2xl border border-border bg-card transition-colors hover:border-foreground/20'
+  'rounded-[8px] border border-border bg-card transition-colors hover:border-foreground/20'
 
 export const DynamicIcon: React.FC<{ name: string; className?: string }> = ({ name, className }) => {
   const Cmp = (Icons as unknown as Record<string, React.FC<{ className?: string }>>)[name]

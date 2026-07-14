@@ -49,6 +49,11 @@ import { ManifestoBlock } from '@/blocks/Manifesto/Component'
 import { PhotoCollageBlock } from '@/blocks/PhotoCollage/Component'
 import { FirstVisitBlock } from '@/blocks/FirstVisit/Component'
 import { InvitationBlock } from '@/blocks/Invitation/Component'
+import { NewPatientHeroBlock } from '@/blocks/NewPatientHero/Component'
+import { OfferSpotlightBlock } from '@/blocks/OfferSpotlight/Component'
+import { GetReadyBlock } from '@/blocks/GetReady/Component'
+import { AffordabilityBlock } from '@/blocks/Affordability/Component'
+import { MapBandBlock } from '@/blocks/MapBand/Component'
 
 const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
@@ -66,6 +71,11 @@ const blockComponents = {
   photoCollageBlock: PhotoCollageBlock,
   firstVisitBlock: FirstVisitBlock,
   invitationBlock: InvitationBlock,
+  newPatientHeroBlock: NewPatientHeroBlock,
+  offerSpotlightBlock: OfferSpotlightBlock,
+  getReadyBlock: GetReadyBlock,
+  affordabilityBlock: AffordabilityBlock,
+  mapBandBlock: MapBandBlock,
   mediaBannerBlock: MediaBannerBlock,
   imageBandBlock: ImageBandBlock,
   splitFeatureBlock: SplitFeatureBlock,

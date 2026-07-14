@@ -30,7 +30,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
           {showContactInfo && (
             <div className="space-y-4">
               <a href={site.phoneHref} className={cn(cardSurface, 'flex items-center gap-4 p-5')}>
-                <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand">
+                <span className="grid size-12 place-items-center rounded-[8px] bg-brand/10 text-brand">
                   <Phone className="size-6" />
                 </span>
                 <span>
@@ -40,9 +40,9 @@ export const AppointmentBlock: React.FC<Props> = async ({
               </a>
               <a
                 href={site.emergencyPhoneHref}
-                className="flex items-center gap-4 rounded-2xl border border-emergency/30 bg-emergency/5 p-5 transition-colors hover:border-emergency"
+                className="flex items-center gap-4 rounded-[8px] border border-emergency/30 bg-emergency/5 p-5 transition-colors hover:border-emergency"
               >
-                <span className="grid size-12 place-items-center rounded-xl bg-emergency/10 text-emergency">
+                <span className="grid size-12 place-items-center rounded-[8px] bg-emergency/10 text-emergency">
                   <Siren className="size-6" />
                 </span>
                 <span>
@@ -56,7 +56,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
                 href={`mailto:${site.email}`}
                 className={cn(cardSurface, 'flex items-center gap-4 p-5')}
               >
-                <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand">
+                <span className="grid size-12 place-items-center rounded-[8px] bg-brand/10 text-brand">
                   <Mail className="size-6" />
                 </span>
                 <span>
@@ -65,7 +65,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
                 </span>
               </a>
               <div className={cn(cardSurface, 'flex items-start gap-4 p-5')}>
-                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand/10 text-brand">
+                <span className="grid size-12 shrink-0 place-items-center rounded-[8px] bg-brand/10 text-brand">
                   <MapPin className="size-6" />
                 </span>
                 <span>

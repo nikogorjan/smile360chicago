@@ -222,6 +222,11 @@ export interface Page {
     | PhotoCollageBlock
     | FirstVisitBlock
     | InvitationBlock
+    | NewPatientHeroBlock
+    | OfferSpotlightBlock
+    | GetReadyBlock
+    | AffordabilityBlock
+    | MapBandBlock
     | AboutHeroBlock
     | StatementBlock
     | FounderStoryBlock
@@ -957,6 +962,357 @@ export interface InvitationBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'invitationBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewPatientHeroBlock".
+ */
+export interface NewPatientHeroBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it in cobalt.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * One or two welcoming sentences.
+   */
+  lead?: string | null;
+  /**
+   * Short trust badges, e.g. “Most insurance accepted”.
+   */
+  chips?:
+    | {
+        /**
+         * lucide icon (e.g. ShieldCheck, Clock, HeartHandshake).
+         */
+        icon?: string | null;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tall photo (e.g. the reception or a welcoming face). Drifts with scroll.
+   */
+  image?: (string | null) | Media;
+  imageSide?: ('right' | 'left') | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newPatientHeroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferSpotlightBlock".
+ */
+export interface OfferSpotlightBlock {
+  eyebrow?: string | null;
+  /**
+   * The offer, e.g. “$99 exam, X-rays & cleaning”. Style a phrase for emphasis.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * One line on who it’s for / what’s included.
+   */
+  subline?: string | null;
+  /**
+   * Short text inside the gold seal.
+   */
+  seal?: string | null;
+  /**
+   * Small print — restrictions, expiry.
+   */
+  finePrint?: string | null;
+  /**
+   * lucide icon shown in the seal.
+   */
+  sealIcon?: string | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'offerSpotlightBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GetReadyBlock".
+ */
+export interface GetReadyBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  intro?: string | null;
+  columns?:
+    | {
+        /**
+         * lucide icon (e.g. ClipboardList, Laptop).
+         */
+        icon?: string | null;
+        title: string;
+        /**
+         * Emphasise in cobalt + show the CTA here.
+         */
+        highlight?: boolean | null;
+        items?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'getReadyBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AffordabilityBlock".
+ */
+export interface AffordabilityBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  intro?: string | null;
+  points?:
+    | {
+        /**
+         * lucide icon (e.g. ShieldCheck, CreditCard, ReceiptText).
+         */
+        icon?: string | null;
+        title: string;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Accepted-plan names, shown as small chips.
+   */
+  insurers?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  insurersLabel?: string | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'affordabilityBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBandBlock".
+ */
+export interface MapBandBlock {
+  /**
+   * Address for the map. Leave empty to use the practice address.
+   */
+  mapAddress?: string | null;
+  height?: ('medium' | 'large' | 'tall') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mapBandBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3037,6 +3393,11 @@ export interface PagesSelect<T extends boolean = true> {
         photoCollageBlock?: T | PhotoCollageBlockSelect<T>;
         firstVisitBlock?: T | FirstVisitBlockSelect<T>;
         invitationBlock?: T | InvitationBlockSelect<T>;
+        newPatientHeroBlock?: T | NewPatientHeroBlockSelect<T>;
+        offerSpotlightBlock?: T | OfferSpotlightBlockSelect<T>;
+        getReadyBlock?: T | GetReadyBlockSelect<T>;
+        affordabilityBlock?: T | AffordabilityBlockSelect<T>;
+        mapBandBlock?: T | MapBandBlockSelect<T>;
         aboutHeroBlock?: T | AboutHeroBlockSelect<T>;
         statementBlock?: T | StatementBlockSelect<T>;
         founderStoryBlock?: T | FounderStoryBlockSelect<T>;
@@ -3273,6 +3634,173 @@ export interface InvitationBlockSelect<T extends boolean = true> {
   paddingTop?: T;
   paddingBottom?: T;
   bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewPatientHeroBlock_select".
+ */
+export interface NewPatientHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  chips?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
+  image?: T;
+  imageSide?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferSpotlightBlock_select".
+ */
+export interface OfferSpotlightBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  subline?: T;
+  seal?: T;
+  finePrint?: T;
+  sealIcon?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GetReadyBlock_select".
+ */
+export interface GetReadyBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  columns?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        highlight?: T;
+        items?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AffordabilityBlock_select".
+ */
+export interface AffordabilityBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  points?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  insurers?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  insurersLabel?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBandBlock_select".
+ */
+export interface MapBandBlockSelect<T extends boolean = true> {
+  mapAddress?: T;
+  height?: T;
   id?: T;
   blockName?: T;
 }

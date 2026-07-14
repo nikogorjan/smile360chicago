@@ -736,6 +736,103 @@ const aboutInvitation = () => ({
   bottomGap: 'lg',
 })
 
+/* ------------------------------------------------ new-patients page blocks */
+const newPatientHero = () => ({
+  blockType: 'newPatientHeroBlock',
+  eyebrow: 'New patients',
+  heading: rtHeading('Welcome — you’re going to like it here.', 'like it here'),
+  lead: 'From your first hello to your finished plan, we make being a new patient calm, clear, and refreshingly easy.',
+  chips: [
+    { icon: 'ShieldCheck', text: 'Most insurance accepted' },
+    { icon: 'Clock', text: 'Same-day emergencies' },
+    { icon: 'HeartHandshake', text: 'Judgment-free care' },
+  ],
+  links: [bookLink],
+  surface: 'canvas',
+})
+
+const offerSpotlight = () => ({
+  blockType: 'offerSpotlightBlock',
+  eyebrow: 'New patient special',
+  heading: rtHeading('Your first visit, made affordable.', 'affordable'),
+  subline:
+    'A new-patient exam, digital X-rays and a gentle cleaning — everything you need to get started on the right foot.',
+  seal: 'New patients only',
+  sealIcon: 'BadgePercent',
+  finePrint:
+    'For new patients without dental insurance. Cannot be combined with other offers. Call for full details.',
+  links: [bookLink],
+  surface: 'canvas',
+})
+
+const getReady = () => ({
+  blockType: 'getReadyBlock',
+  eyebrow: 'Before you arrive',
+  heading: rtHeading('A little prep, a smoother visit.', 'smoother visit'),
+  intro: 'Two minutes now saves time in the chair later.',
+  columns: [
+    {
+      icon: 'ClipboardList',
+      title: 'Bring these along',
+      items: [
+        { text: 'Your photo ID and insurance card' },
+        { text: 'A list of any medications you take' },
+        { text: 'Recent dental X-rays, if you have them' },
+        { text: 'Arrive about 10 minutes early' },
+      ],
+    },
+    {
+      icon: 'Laptop',
+      title: 'Do this online',
+      highlight: true,
+      items: [
+        { text: 'Complete your new-patient forms' },
+        { text: 'Add your insurance details' },
+        { text: 'Tell us about any dental anxiety' },
+      ],
+    },
+  ],
+  links: [customLink('/contact', 'Start your forms')],
+  surface: 'muted',
+})
+
+const affordability = () => ({
+  blockType: 'affordabilityBlock',
+  eyebrow: 'Insurance & payment',
+  heading: rtHeading('Care that fits your budget.', 'fits your budget'),
+  intro: 'No surprises, no pressure — just honest, upfront answers about cost.',
+  points: [
+    {
+      icon: 'ShieldCheck',
+      title: 'We file your insurance',
+      body: 'We handle the paperwork and make the most of your benefits — you don’t lift a finger.',
+    },
+    {
+      icon: 'CreditCard',
+      title: 'Flexible financing',
+      body: 'Spread treatment over time with low- and no-interest CareCredit plans.',
+    },
+    {
+      icon: 'ReceiptText',
+      title: 'No surprise bills',
+      body: 'You’ll see the full cost and your options before we begin anything.',
+    },
+  ],
+  insurersLabel: 'Accepting most major plans',
+  insurers: [
+    { text: 'Delta Dental' },
+    { text: 'Cigna' },
+    { text: 'MetLife' },
+    { text: 'Aetna' },
+    { text: 'Guardian' },
+    { text: 'United Concordia' },
+  ],
+  links: [bookLink],
+  surface: 'canvas',
+})
+
+const mapBand = () => ({ blockType: 'mapBandBlock', height: 'large' })
+
 /* ---------------------------------------------------------------- the pages */
 const pages = [
   {
@@ -856,12 +953,13 @@ const pages = [
         'New to Smile360 Chicago? See what to expect at your first visit, the insurance we accept, and flexible financing options.',
     },
     layout: [
-      pageHero('New patients', 'Welcome — let’s make this easy', 'Everything you need to know before your first visit, from insurance to financing to what to expect.', { links: [bookLink] }),
-      timeline({ eyebrow: 'How it works', heading: 'Your first visit, made easy', items: firstVisitTimeline }),
-      featureGrid('Care that fits your budget', 'Insurance & financing', financingFeatures, 'muted'),
-      featuredQuote,
+      newPatientHero(),
+      offerSpotlight(),
+      aboutFirstVisit(),
+      getReady(),
+      affordability(),
       faqBlock({ category: 'Insurance' }),
-      finalCta(),
+      aboutInvitation(),
     ],
   },
   {
@@ -875,7 +973,8 @@ const pages = [
     layout: [
       pageHero('Get in touch', 'Book your appointment', 'Request a time online and we’ll confirm fast — or call us directly. New patients and same-day emergencies always welcome.'),
       appointmentBlock(),
-      finalCta(),
+      mapBand(),
+      faqBlock(),
     ],
   },
   {

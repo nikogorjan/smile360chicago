@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { CalendarCheck, CalendarDays, ChevronRight, Phone, UserRound } from 'lucide-react'
 import Link from 'next/link'
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
+import type { Post } from '@/payload-types'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { buttonVariants } from '@/components/ui/button'
 import configPromise from '@payload-config'
@@ -13,6 +13,7 @@ import RichText from '@/components/RichText'
 
 import { getSiteData } from '@/lib/getSiteSettings'
 import { Media } from '@/components/Media'
+import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { Eyebrow } from '@/components/site/primitives'
 import { formatDateTime } from '@/utilities/formatDateTime'
 import { formatAuthors } from '@/utilities/formatAuthors'
@@ -60,6 +61,26 @@ export default async function Post({ params: paramsPromise }: Args) {
     post.populatedAuthors &&
     post.populatedAuthors.length > 0 &&
     formatAuthors(post.populatedAuthors) !== ''
+  const relatedList = ((post.relatedPosts || []).filter(
+    (p) => p && typeof p === 'object',
+  ) as Post[]).slice(0, 4)
+  // Fall back to the latest posts so the sidebar is never empty.
+  let sidebarPosts: Post[] = relatedList
+  if (sidebarPosts.length === 0) {
+    const payload = await getPayload({ config: configPromise })
+    const recent = await payload.find({
+      collection: 'posts',
+      draft: false,
+      depth: 2,
+      limit: 4,
+      overrideAccess: false,
+      pagination: false,
+      sort: '-publishedAt',
+      where: { slug: { not_equals: decodedSlug } },
+    })
+    sidebarPosts = recent.docs as Post[]
+  }
+  const hasSidebar = sidebarPosts.length > 0
 
   return (
     <article>
@@ -73,7 +94,9 @@ export default async function Post({ params: paramsPromise }: Args) {
         <header className="relative">
           <div className="p-3 sm:p-4">
             <div className="relative h-[58vh] min-h-[460px] max-h-[660px] overflow-hidden rounded-[8px] bg-muted">
-              <Media resource={heroImg} fill imgClassName="object-cover" size="100vw" priority />
+              <ScrollParallax className="absolute inset-0" amount={0.05}>
+                <Media resource={heroImg} fill imgClassName="object-cover" size="100vw" priority />
+              </ScrollParallax>
               <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
             </div>
           </div>
@@ -148,50 +171,121 @@ export default async function Post({ params: paramsPromise }: Args) {
         </header>
       )}
 
-      {/* Content */}
+      {/* Content — the article on the left (wide), related posts on the right */}
       <div className="container py-12 lg:py-16">
-        <RichText
-          className="prose prose-slate mx-auto max-w-[44rem] dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-brand"
-          data={post.content}
-          enableGutter={false}
-        />
+        <div
+          className={
+            hasSidebar
+              ? 'grid gap-y-12 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-x-16'
+              : 'mx-auto max-w-[46rem]'
+          }
+        >
+          {/* Article */}
+          <div className="min-w-0">
+            <RichText
+              className="prose prose-slate max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-brand"
+              data={post.content}
+              enableGutter={false}
+            />
 
-        {/* CTA band */}
-        <div className="mx-auto mt-12 max-w-[44rem]">
-          <div className="overflow-hidden rounded-2xl border border-border bg-primary p-7 text-primary-foreground sm:p-8">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              In pain or due for a visit?
-            </h2>
-            <p className="mt-2 text-primary-foreground/80">
-              Same-day emergency appointments and new patients welcome at {site.practiceName}.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className={buttonVariants({ variant: 'white', className: 'font-bold' })}
-              >
-                <CalendarCheck className="size-4" />
-                Book Appointment
-              </Link>
-              <Link
-                href={site.phoneHref}
-                className={buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })}
-              >
-                <Phone className="size-4" />
-                {site.phone}
-              </Link>
+            {/* CTA — cobalt card with a soft cobalt/gold glow */}
+            <div className="relative mt-14 overflow-hidden rounded-[8px] bg-primary p-8 text-primary-foreground sm:p-10">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-white/10 blur-3xl"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -bottom-20 -left-10 size-56 rounded-full bg-gold/15 blur-3xl"
+              />
+              <div className="relative">
+                <span className="inline-flex size-11 items-center justify-center rounded-full bg-white/15 text-white">
+                  <CalendarCheck className="size-5" />
+                </span>
+                <h2 className="mt-5 font-display text-2xl font-bold tracking-tight text-white sm:text-[1.75rem]">
+                  In pain or due for a visit?
+                </h2>
+                <p className="mt-2 max-w-lg leading-relaxed text-primary-foreground/80">
+                  Same-day emergency appointments and new patients welcome at {site.practiceName}.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <Link
+                    href="/contact"
+                    className={buttonVariants({ variant: 'white', className: 'font-bold' })}
+                  >
+                    <CalendarCheck className="size-4" />
+                    Book Appointment
+                  </Link>
+                  <Link
+                    href={site.phoneHref}
+                    className={buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })}
+                  >
+                    <Phone className="size-4" />
+                    {site.phone}
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {post.relatedPosts && post.relatedPosts.length > 0 && (
-          <div className="mx-auto mt-16 max-w-[44rem]">
-            <RelatedPosts
-              className=""
-              docs={post.relatedPosts.filter((p) => typeof p === 'object')}
-            />
-          </div>
-        )}
+          {/* Sidebar — related (or latest) posts */}
+          {hasSidebar && (
+            <aside className="lg:sticky lg:top-28 lg:self-start">
+              <h2 className="font-display text-xl font-bold tracking-tight text-foreground">
+                Keep reading
+              </h2>
+              <ul className="mt-6 space-y-8">
+                {sidebarPosts.map((p) => {
+                  const thumb =
+                    p.heroImage && typeof p.heroImage !== 'string'
+                      ? p.heroImage
+                      : p.meta?.image && typeof p.meta.image !== 'string'
+                        ? p.meta.image
+                        : null
+                  const cat =
+                    p.categories &&
+                    p.categories.length &&
+                    typeof p.categories[0] === 'object'
+                      ? p.categories[0].title
+                      : undefined
+                  return (
+                    <li key={p.id}>
+                      <Link href={`/posts/${p.slug}`} className="group block">
+                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[8px] border border-border bg-muted">
+                          {thumb && (
+                            <Media
+                              resource={thumb}
+                              fill
+                              imgClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          )}
+                        </div>
+                        <div className="mt-3.5">
+                          {cat && (
+                            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-brand">
+                              {cat}
+                            </span>
+                          )}
+                          <h3 className="mt-1 line-clamp-2 font-display text-base font-bold leading-snug text-foreground transition-colors group-hover:text-brand">
+                            {p.title}
+                          </h3>
+                          {p.publishedAt && (
+                            <time
+                              dateTime={p.publishedAt}
+                              className="mt-2 block text-xs text-muted-foreground"
+                            >
+                              {formatDateTime(p.publishedAt)}
+                            </time>
+                          )}
+                        </div>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </aside>
+          )}
+        </div>
       </div>
     </article>
   )
