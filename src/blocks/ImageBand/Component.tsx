@@ -4,6 +4,7 @@ import React from 'react'
 import type { ImageBandBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { Eyebrow } from '@/components/site/primitives'
+import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { stockPhotos } from '@/lib/stockImages'
 import { cn } from '@/utilities/ui'
 
@@ -19,7 +20,7 @@ const heightClass: Record<string, string> = {
  * Full-bleed (NOT inside the 1600px container, no inset, no rounded corners), object-cover
  * cropped at any width with a fixed responsive height, and lazy-loaded. Optional overlay
  * text (eyebrow + heading) renders over a subtle dark scrim; leave it empty for just the
- * photo. Static for now — no parallax / zoom.
+ * photo. The photo drifts with scroll (parallax).
  */
 export const ImageBandBlock: React.FC<Props> = ({ image, alt, caption, height, overlayText }) => {
   const hasImage = image && typeof image !== 'string'
@@ -30,27 +31,29 @@ export const ImageBandBlock: React.FC<Props> = ({ image, alt, caption, height, o
 
   return (
     <section className={cn('relative w-full overflow-hidden', h)}>
-      {/* Full-bleed cover photo (lazy-loaded) */}
-      {hasImage ? (
-        <Media
-          resource={image}
-          alt={alt || undefined}
-          fill
-          size="100vw"
-          loading="lazy"
-          imgClassName="object-cover"
-          className="absolute inset-0"
-        />
-      ) : (
-        <Image
-          src={stockPhotos.officeBright}
-          alt={alt || ''}
-          fill
-          sizes="100vw"
-          loading="lazy"
-          className="object-cover"
-        />
-      )}
+      {/* Full-bleed cover photo (lazy-loaded), drifting with scroll */}
+      <ScrollParallax className="absolute inset-0" amount={0.1}>
+        {hasImage ? (
+          <Media
+            resource={image}
+            alt={alt || undefined}
+            fill
+            size="100vw"
+            loading="lazy"
+            imgClassName="object-cover"
+            className="absolute inset-0"
+          />
+        ) : (
+          <Image
+            src={stockPhotos.officeBright}
+            alt={alt || ''}
+            fill
+            sizes="100vw"
+            loading="lazy"
+            className="object-cover"
+          />
+        )}
+      </ScrollParallax>
 
       {/* Optional overlay text over a subtle dark scrim for legibility */}
       {hasOverlay && (

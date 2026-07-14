@@ -4,6 +4,7 @@ import React from 'react'
 
 import type { DentistFeatureBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { Eyebrow, Section, buttonPrimary, emphasize } from '@/components/site/primitives'
 import { ButtonLabel } from '@/components/ui/button'
 import { resolveHref } from '@/lib/nav'
@@ -39,9 +40,12 @@ export const DentistFeatureBlock: React.FC<Props> = ({
   return (
     <Section tone={background} paddingTop={paddingTop} paddingBottom={paddingBottom}>
       <div className="container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        {/* Portrait — plain full-colour image (no blue tint, no hover effects) */}
+        {/* Portrait — plain full-colour image (drifts with scroll, no hover effects) */}
         <div className={cn('relative', imageLeft ? 'lg:order-1' : 'lg:order-2')}>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[8px] border border-border bg-muted">
+          <ScrollParallax
+            className="aspect-[4/5] rounded-[8px] border border-border bg-muted"
+            amount={0.06}
+          >
             {hasPortrait ? (
               <Media resource={portrait} fill imgClassName="object-cover" className="absolute inset-0" />
             ) : (
@@ -53,7 +57,7 @@ export const DentistFeatureBlock: React.FC<Props> = ({
                 className="object-cover"
               />
             )}
-          </div>
+          </ScrollParallax>
         </div>
 
         {/* Content */}
