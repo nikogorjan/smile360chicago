@@ -2108,6 +2108,10 @@ export interface Service {
    */
   icon?: string | null;
   excerpt?: string | null;
+  /**
+   * Main service photo — shown on the Services bento/cards and as the header image on the service page. Falls back to a stock photo if left empty.
+   */
+  image?: (string | null) | Media;
   from?: string | null;
   featured?: boolean | null;
   highlights?:
@@ -2134,6 +2138,10 @@ export interface Service {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Hand-pick the treatments shown in “Related treatments” on this page. Leave empty to auto-fill from the same category.
+   */
+  relatedServices?: (string | Service)[] | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -4706,6 +4714,7 @@ export interface ServicesSelect<T extends boolean = true> {
   category?: T;
   icon?: T;
   excerpt?: T;
+  image?: T;
   from?: T;
   featured?: T;
   highlights?:
@@ -4715,6 +4724,7 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   body?: T;
+  relatedServices?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

@@ -15,7 +15,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { getSiteData } from '@/lib/getSiteSettings'
 import { getServices, getFaqs, getServiceBySlug, getFaqsForService } from '@/lib/queries'
 import { getServicePhoto } from '@/lib/stockImages'
-import { practice } from '@/lib/practice'
+import { practice, type Service } from '@/lib/practice'
 
 type Args = { params: Promise<{ slug: string }> }
 
@@ -60,7 +60,15 @@ export default async function ServiceDetailPage({ params }: Args) {
   const serviceFaqs = service.id ? await getFaqsForService(service.id) : []
   const faqItems = serviceFaqs.length ? serviceFaqs : generalFaqs.slice(0, 5)
 
-  const related = services.filter((s) => s.slug !== slug && s.category === service.category).slice(0, 3)
+  // Related treatments: hand-picked (CMS) first — resolved against the full list
+  // to keep the editor's order — then same-category, then any other services.
+  const picked = (service.relatedServices ?? [])
+    .map((id) => services.find((s) => s.id === id))
+    .filter((s): s is Service => Boolean(s) && s!.slug !== slug)
+    .slice(0, 3)
+  const related = picked.length
+    ? picked
+    : services.filter((s) => s.slug !== slug && s.category === service.category).slice(0, 3)
   const relatedList = related.length
     ? related
     : services.filter((s) => s.slug !== slug).slice(0, 3)
@@ -80,7 +88,7 @@ export default async function ServiceDetailPage({ params }: Args) {
         <div className="p-3 sm:p-4">
           <div className="relative h-[58vh] min-h-[460px] max-h-[660px] overflow-hidden rounded-[8px] bg-muted">
             <Image
-              src={getServicePhoto(service.slug, 0)}
+              src={service.image || getServicePhoto(service.slug, 0)}
               alt=""
               fill
               priority

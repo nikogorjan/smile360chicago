@@ -90,11 +90,15 @@ export type Service = {
   icon: string
   category: 'Preventive' | 'Cosmetic' | 'Restorative' | 'Orthodontics' | 'Emergency'
   excerpt: string
+  /** CMS-uploaded main photo URL (falls back to a stock photo when empty). */
+  image?: string
   from?: string
   highlights: string[]
   featured?: boolean
   /** Rich-text body (Lexical editor state) — present when fetched for the detail page. */
   body?: unknown
+  /** Hand-picked related-service ids (empty ⇒ auto-fill by category). */
+  relatedServices?: string[]
 }
 
 export const services: Service[] = [

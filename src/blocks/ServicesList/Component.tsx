@@ -32,7 +32,7 @@ export const ServicesListBlock: React.FC<Props> = async ({ eyebrow, heading, ser
     name: s.name,
     excerpt: s.excerpt,
     category: s.category,
-    imageUrl: getServicePhoto(s.slug, i),
+    imageUrl: s.image || getServicePhoto(s.slug, i),
   }))
 
   const cta = links?.[0]?.link

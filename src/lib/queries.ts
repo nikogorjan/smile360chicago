@@ -28,6 +28,26 @@ const initialsOf = (name: string) =>
     .join('')
     .toUpperCase()
 
+/** URL of an upload/relationship field once populated (depth ≥ 1); undefined otherwise. */
+const mediaUrl = (v: unknown): string | undefined => {
+  const u = v && typeof v === 'object' ? (v as { url?: unknown }).url : undefined
+  return typeof u === 'string' && u ? u : undefined
+}
+
+/** Ids of a hasMany relationship, whether it comes back as ids or populated docs. */
+const relIds = (v: unknown): string[] =>
+  Array.isArray(v)
+    ? v
+        .map((x) =>
+          typeof x === 'string'
+            ? x
+            : x && typeof x === 'object'
+              ? String((x as { id?: unknown }).id || '')
+              : '',
+        )
+        .filter(Boolean)
+    : []
+
 async function payload() {
   return getPayload({ config: configPromise })
 }
@@ -35,7 +55,7 @@ async function payload() {
 export async function getServices(): Promise<Service[]> {
   try {
     const p = await payload()
-    const res = await p.find({ collection: 'services', limit: 100, depth: 0 })
+    const res = await p.find({ collection: 'services', limit: 100, depth: 1 })
     if (!res.docs.length) return fbServices
     return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
       id: String(d.id || ''),
@@ -44,6 +64,7 @@ export async function getServices(): Promise<Service[]> {
       icon: String(d.icon || 'Stethoscope'),
       category: (d.category as Service['category']) || 'Preventive',
       excerpt: String(d.excerpt || ''),
+      image: mediaUrl(d.image),
       from: (d.from as string) || undefined,
       highlights: items(d.highlights),
       featured: Boolean(d.featured),
@@ -73,10 +94,12 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
       icon: String(d.icon || 'Stethoscope'),
       category: (d.category as Service['category']) || 'Preventive',
       excerpt: String(d.excerpt || ''),
+      image: mediaUrl(d.image),
       from: (d.from as string) || undefined,
       highlights: items(d.highlights),
       featured: Boolean(d.featured),
       body: d.body ?? null,
+      relatedServices: relIds(d.relatedServices),
     }
   } catch {
     return null
@@ -112,7 +135,7 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
       collection: 'services',
       where: { id: { in: ids } },
       limit: 100,
-      depth: 0,
+      depth: 1,
     })
     const byId = new Map(
       (res.docs as unknown as Record<string, unknown>[]).map((d) => [String(d.id), d]),
@@ -127,6 +150,7 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
         icon: String(d.icon || 'Stethoscope'),
         category: (d.category as Service['category']) || 'Preventive',
         excerpt: String(d.excerpt || ''),
+        image: mediaUrl(d.image),
         from: (d.from as string) || undefined,
         highlights: items(d.highlights),
         featured: Boolean(d.featured),
