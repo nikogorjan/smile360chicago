@@ -11,8 +11,8 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 
-export const dynamic = 'force-static'
-export const revalidate = 600
+// Rendered dynamically (inherited from the (frontend) layout) so newly published
+// or edited posts appear in the list immediately — no static 10-minute cache.
 
 export default async function Page() {
   const payload = await getPayload({ config: configPromise })

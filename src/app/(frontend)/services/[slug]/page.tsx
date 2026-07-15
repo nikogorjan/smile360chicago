@@ -85,7 +85,7 @@ export default async function ServiceDetailPage({ params }: Args) {
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className="object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]"
             />
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
           </div>
@@ -177,17 +177,8 @@ export default async function ServiceDetailPage({ params }: Args) {
                 treatment. Most insurance accepted, financing available.
               </p>
               <Link
-                href="/contact"
-                className={buttonVariants({ variant: 'default', className: 'mt-6 flex font-bold' })}
-              >
-                <ButtonLabel>
-                  <CalendarCheck className="size-4" />
-                  Book a consultation
-                </ButtonLabel>
-              </Link>
-              <Link
                 href={site.phoneHref}
-                className={buttonVariants({ variant: 'outline', className: 'mt-2 flex font-bold' })}
+                className={buttonVariants({ variant: 'default', className: 'mt-6 flex font-bold' })}
               >
                 <ButtonLabel>
                   <Phone className="size-4" />

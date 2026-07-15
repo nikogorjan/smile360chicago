@@ -38,10 +38,15 @@ export const Posts: CollectionConfig<'posts'> = {
   // This config controls what's populated by default when a post is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
   // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
+  // Fields pulled through when a Post is referenced from another document
+  // (e.g. the "Related posts" sidebar). heroImage + publishedAt are needed so
+  // related-post cards show their thumbnail and date, not just the title.
   defaultPopulate: {
     title: true,
     slug: true,
     categories: true,
+    heroImage: true,
+    publishedAt: true,
     meta: {
       image: true,
       description: true,

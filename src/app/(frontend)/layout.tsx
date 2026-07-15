@@ -38,6 +38,12 @@ import { getServerSideURL } from '@/utilities/getURL'
 import { getSiteData } from '@/lib/getSiteSettings'
 import { getHeaderNav } from '@/lib/nav'
 
+// Render the whole site on every request so any CMS edit — pages, posts, blocks,
+// related posts, header, footer, site settings — shows up immediately, with no
+// rebuild and no stale full-route cache. (Low-traffic practice site: the small
+// per-request DB cost is worth always-fresh content.)
+export const dynamic = 'force-dynamic'
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const [site, header] = await Promise.all([getSiteData(), getHeaderNav()])

@@ -1,5 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
+import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
+
 /**
  * Site Settings — the proposal's CMS-editable "Site settings" section.
  * Single place for the practice's NAP, hours, social links, and the
@@ -11,6 +13,9 @@ export const SiteSettings: GlobalConfig = {
   label: 'Site Settings',
   access: { read: () => true },
   admin: { group: 'Configuration' },
+  hooks: {
+    afterChange: [revalidateSiteSettings],
+  },
   fields: [
     {
       type: 'tabs',

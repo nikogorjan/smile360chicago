@@ -81,7 +81,13 @@ export default async function Post({ params: paramsPromise }: Args) {
           <div className="p-3 sm:p-4">
             <div className="relative h-[58vh] min-h-[460px] max-h-[660px] overflow-hidden rounded-[8px] bg-muted">
               <ScrollParallax className="absolute inset-0" amount={0.05}>
-                <Media resource={heroImg} fill imgClassName="object-cover" size="100vw" priority />
+                <Media
+                  resource={heroImg}
+                  fill
+                  imgClassName="object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]"
+                  size="100vw"
+                  priority
+                />
               </ScrollParallax>
               <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
             </div>
