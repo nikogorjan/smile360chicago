@@ -69,7 +69,9 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
           centred beside the photo. */}
       <div
         className={cn(
-          'flex max-w-xl flex-col justify-center lg:min-h-128',
+          // Cap the copy to the left half minus a gutter on lg so it never runs
+          // under the photo (which starts at 50vw), while staying readable width.
+          'flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,calc(50%-4rem))] lg:min-h-128',
           imageLeft ? 'lg:ml-auto' : 'lg:mr-auto',
         )}
       >

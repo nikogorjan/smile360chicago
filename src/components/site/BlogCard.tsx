@@ -45,7 +45,12 @@ export const BlogCard: React.FC<{ doc: BlogCardData; className?: string }> = ({
     >
       <Link href={href} className="relative block aspect-[16/10] overflow-hidden">
         {image && typeof image !== 'string' ? (
-          <Media resource={image} size="33vw" imgClassName="object-cover size-full" fill />
+          <Media
+            resource={image}
+            size="33vw"
+            imgClassName="object-cover size-full transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+            fill
+          />
         ) : (
           <div
             className={cn(

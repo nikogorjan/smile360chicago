@@ -49,6 +49,7 @@ export const sectionHeaderFields: Field[] = [
  *  primitive's paddingTop/paddingBottom. Defaults to the standard rhythm. */
 const spacingOptions = [
   { label: 'None', value: 'none' },
+  { label: 'Extra small', value: 'xs' },
   { label: 'Small', value: 'sm' },
   { label: 'Default', value: 'md' },
   { label: 'Large', value: 'lg' },

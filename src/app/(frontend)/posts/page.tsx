@@ -44,7 +44,9 @@ export default async function Page() {
         breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/posts' }]}
       />
 
-      <Section>
+      {/* No top padding — PageHero already supplies the space above the grid, so
+          the hero's bottom padding alone sets the gap (avoids a double gap). */}
+      <Section paddingTop="none">
         <div className="container">
           {posts.docs?.length ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

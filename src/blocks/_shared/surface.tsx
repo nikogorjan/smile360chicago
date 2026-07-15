@@ -16,9 +16,9 @@ import { cn } from '@/utilities/ui'
  * the content — clipped to the section/card edges, not the inner 1600px container —
  * so background effects fill the band instead of being sliced at the container.
  */
-const PAD_T = { none: 'pt-0', sm: 'pt-10 md:pt-14', md: 'pt-20 md:pt-28', lg: 'pt-28 md:pt-36' } as const
-const PAD_B = { none: 'pb-0', sm: 'pb-10 md:pb-14', md: 'pb-20 md:pb-28', lg: 'pb-28 md:pb-36' } as const
-const MB = { none: '', sm: 'mb-10', md: 'mb-16', lg: 'mb-28', xl: 'mb-40' } as const
+const PAD_T = { none: 'pt-0', xs: 'pt-6', sm: 'pt-10 md:pt-14', md: 'pt-20 md:pt-28', lg: 'pt-28 md:pt-36' } as const
+const PAD_B = { none: 'pb-0', xs: 'pb-6', sm: 'pb-10 md:pb-14', md: 'pb-20 md:pb-28', lg: 'pb-28 md:pb-36' } as const
+const MB = { none: '', xs: 'mb-6', sm: 'mb-10', md: 'mb-16', lg: 'mb-28', xl: 'mb-40' } as const
 type Pad = keyof typeof PAD_T
 type Gap = keyof typeof MB
 

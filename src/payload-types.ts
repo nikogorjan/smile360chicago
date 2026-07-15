@@ -636,15 +636,15 @@ export interface FounderLetterBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'founderLetterBlock';
@@ -695,15 +695,15 @@ export interface ValuesIndexBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'valuesIndexBlock';
@@ -743,15 +743,15 @@ export interface ManifestoBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'manifestoBlock';
@@ -801,15 +801,15 @@ export interface PhotoCollageBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'photoCollageBlock';
@@ -863,15 +863,15 @@ export interface FirstVisitBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'firstVisitBlock';
@@ -950,15 +950,15 @@ export interface InvitationBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'invitationBlock';
@@ -1036,15 +1036,15 @@ export interface NewPatientHeroBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newPatientHeroBlock';
@@ -1116,15 +1116,15 @@ export interface OfferSpotlightBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'offerSpotlightBlock';
@@ -1201,15 +1201,15 @@ export interface GetReadyBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'getReadyBlock';
@@ -1287,15 +1287,15 @@ export interface AffordabilityBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'affordabilityBlock';
@@ -1385,15 +1385,15 @@ export interface AboutHeroBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutHeroBlock';
@@ -1431,15 +1431,15 @@ export interface StatementBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'statementBlock';
@@ -1509,15 +1509,15 @@ export interface FounderStoryBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'founderStoryBlock';
@@ -1580,15 +1580,15 @@ export interface MosaicBentoBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mosaicBentoBlock';
@@ -1626,15 +1626,15 @@ export interface MetricRingsBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'metricRingsBlock';
@@ -2297,15 +2297,15 @@ export interface GalleryPreviewBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'galleryPreviewBlock';
@@ -2333,15 +2333,15 @@ export interface ReviewsBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewsBlock';
@@ -2388,15 +2388,15 @@ export interface LatestPostsBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'latestPostsBlock';
@@ -2497,15 +2497,15 @@ export interface DentistFeatureBlock {
   /**
    * Padding above
    */
-  paddingTop?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Padding below
    */
-  paddingBottom?: ('none' | 'sm' | 'md' | 'lg') | null;
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
-  bottomGap?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'dentistFeatureBlock';

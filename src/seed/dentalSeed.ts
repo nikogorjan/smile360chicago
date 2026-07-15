@@ -761,7 +761,10 @@ const offerSpotlight = () => ({
   finePrint:
     'For new patients without dental insurance. Cannot be combined with other offers. Call for full details.',
   links: [bookLink],
-  surface: 'canvas',
+  // Sits flush under Get Ready as the wide bottom row of one bento — same muted
+  // band, no top padding, so the gap to the cards above equals the column gap.
+  surface: 'muted',
+  paddingTop: 'none',
 })
 
 const getReady = () => ({
@@ -792,7 +795,11 @@ const getReady = () => ({
     },
   ],
   links: [customLink('/contact', 'Start your forms')],
+  // Bottom padding trimmed to one column-gap (24px) so the offer card below reads
+  // as the same bento's wide bottom row.
   surface: 'muted',
+  paddingBottom: 'xs',
+  bottomGap: 'none',
 })
 
 const affordability = () => ({
@@ -953,9 +960,9 @@ const pages = [
     },
     layout: [
       newPatientHero(),
-      offerSpotlight(),
       aboutFirstVisit(),
       getReady(),
+      offerSpotlight(),
       affordability(),
       faqBlock(),
       aboutInvitation(),
