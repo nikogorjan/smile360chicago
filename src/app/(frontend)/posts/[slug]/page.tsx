@@ -61,25 +61,11 @@ export default async function Post({ params: paramsPromise }: Args) {
     post.populatedAuthors &&
     post.populatedAuthors.length > 0 &&
     formatAuthors(post.populatedAuthors) !== ''
-  const relatedList = ((post.relatedPosts || []).filter(
+  // Sidebar shows ONLY the posts explicitly chosen in the "Related posts" field
+  // (Meta tab) — no auto-fill with other posts. Empty selection ⇒ no sidebar.
+  const sidebarPosts = ((post.relatedPosts || []).filter(
     (p) => p && typeof p === 'object',
   ) as Post[]).slice(0, 4)
-  // Fall back to the latest posts so the sidebar is never empty.
-  let sidebarPosts: Post[] = relatedList
-  if (sidebarPosts.length === 0) {
-    const payload = await getPayload({ config: configPromise })
-    const recent = await payload.find({
-      collection: 'posts',
-      draft: false,
-      depth: 2,
-      limit: 4,
-      overrideAccess: false,
-      pagination: false,
-      sort: '-publishedAt',
-      where: { slug: { not_equals: decodedSlug } },
-    })
-    sidebarPosts = recent.docs as Post[]
-  }
   const hasSidebar = sidebarPosts.length > 0
 
   return (
@@ -177,7 +163,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           className={
             hasSidebar
               ? 'grid gap-y-12 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-x-16'
-              : 'mx-auto max-w-[46rem]'
+              : 'max-w-184'
           }
         >
           {/* Article */}
@@ -304,6 +290,9 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const result = await payload.find({
     collection: 'posts',
     draft,
+    // depth 2 so relatedPosts populate as full objects, along with their
+    // thumbnail (heroImage / meta.image) and category used in the sidebar.
+    depth: 2,
     limit: 1,
     overrideAccess: draft,
     pagination: false,
