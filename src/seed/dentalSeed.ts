@@ -272,7 +272,6 @@ const faqBlock = (over: Record<string, unknown> = {}) => ({
   heading: 'Frequently *asked questions*',
   description: 'Can’t find your answer? We’re happy to help — give us a call.',
   align: 'left',
-  category: 'all',
   showCall: true,
   background: 'default',
   ...over,
@@ -516,6 +515,330 @@ const featuredQuote = quote({
   role: 'Emergency visit · Google review',
 })
 
+/* ---------------------------------------------- new About-page block makers */
+const aboutHero = () => ({
+  blockType: 'aboutHeroBlock',
+  eyebrow: 'About Smile360 Chicago',
+  heading: 'Dentistry with a human touch',
+  highlight: 'human touch',
+  intro:
+    'We built Smile360 Chicago to be the dental office we always wished existed — gentle, honest, modern, and genuinely on your side.',
+  imageSide: 'right',
+  ratingValue: 5,
+  ratingLabel: `${practice.rating.value} from ${practice.rating.count}+ Google reviews`,
+  chips: [
+    { icon: 'CalendarCheck', label: '15+ years in Chicago' },
+    { icon: 'Users', label: '20k+ smiles cared for' },
+    { icon: 'Clock', label: 'Same-day emergencies' },
+  ],
+  links: [bookLink, customLink('/services', 'Explore services')],
+  background: 'default',
+})
+
+const aboutStatement = () => ({
+  blockType: 'statementBlock',
+  eyebrow: 'Our mission',
+  statement: 'Everyone deserves a dentist they actually look forward to seeing.',
+  highlight: 'look forward to seeing',
+  subline:
+    'No rushing, no surprise bills, no judgment — just calm, modern care from a team that treats you like family.',
+  attribution: 'Dr. Mustafa Salam — Founder & Lead Dentist',
+  align: 'center',
+  background: 'glow',
+})
+
+const founderStory = () => ({
+  blockType: 'founderStoryBlock',
+  imageSide: 'left',
+  eyebrow: 'Our story',
+  heading: 'Care that feels different from the first hello',
+  highlight: 'first hello',
+  body: 'Dr. Mustafa Salam founded Smile360 Chicago to bring gentle, judgment-free dentistry to the heart of the city — pairing modern technology with honest, up-front care.\n\nFrom routine checkups to full smile makeovers and same-day emergencies, he treats every patient like family — and built a practice where you always know exactly what’s happening, and why.',
+  quote:
+    'I became a dentist to take the fear out of the dental chair — when an anxious patient leaves smiling, that’s the best part of my day.',
+  signature: 'Dr. Mustafa Salam',
+  role: 'Founder & Lead Dentist · DMD',
+  bullets: [
+    b('Founded on comfort & honesty'),
+    b('15+ years serving Chicago'),
+    b('Thousands of happy families'),
+    b('One calm roof for everyone'),
+  ],
+  links: [bookLink],
+  background: 'default',
+})
+
+const valuesMosaic = () => ({
+  blockType: 'mosaicBentoBlock',
+  eyebrow: 'What we stand for',
+  heading: 'The Smile360 difference',
+  highlight: 'difference',
+  description:
+    'A few beliefs shape every visit — from your first hello to your brightest smile.',
+  tiles: [
+    { type: 'value', size: 'wide', tone: 'brand', icon: 'HeartHandshake', title: 'Genuinely gentle care', body: 'Anxious about the dentist? You’re our specialty — sedation options and a no-judgment team that moves at your pace.' },
+    { type: 'photo', size: 'tall', label: 'Inside our practice' },
+    { type: 'value', size: 'normal', tone: 'default', icon: 'MonitorSmartphone', title: 'Modern technology', body: 'Digital scans and same-day crowns — faster, clearer, more comfortable.' },
+    { type: 'stat', size: 'normal', tone: 'glow', statValue: '20k+', statLabel: 'Chicago smiles cared for' },
+    { type: 'value', size: 'normal', tone: 'default', icon: 'Wallet', title: 'Transparent pricing', body: 'Clear estimates up front. Most PPO insurance accepted and filed for you.' },
+    { type: 'value', size: 'normal', tone: 'muted', icon: 'ShieldCheck', title: 'Honest, never pushy', body: 'Photo-backed findings, so you see exactly what we see — then you decide.' },
+    { type: 'photo', size: 'wide', label: 'A calm, modern space' },
+    { type: 'stat', size: 'normal', tone: 'brand', statValue: 'Same-day', statLabel: 'emergency care, every day we’re open' },
+  ],
+  background: 'default',
+})
+
+const aboutMetrics = () => ({
+  blockType: 'metricRingsBlock',
+  eyebrow: 'By the numbers',
+  heading: 'Care Chicago keeps coming back to',
+  highlight: 'coming back',
+  description: 'Fifteen years of gentle, honest dentistry — and the trust that comes with it.',
+  metrics: [
+    { value: '15+', label: 'Years caring for Chicago', percent: 80 },
+    { value: '20k+', label: 'Smiles transformed', percent: 90 },
+    { value: '4.9★', label: `${practice.rating.count}+ Google reviews`, percent: 98 },
+    { value: 'Same-day', label: 'Emergency appointments', percent: 100 },
+  ],
+  background: 'muted',
+})
+
+/* ------------------------------------ bespoke About-page block makers (v2) */
+// Build a rich-text heading value; marks the `brand` phrase as "Brand blue" if present.
+const rtHeading = (text: string, brand?: string) => {
+  const children: Array<Record<string, unknown>> = []
+  const idx = brand ? text.indexOf(brand) : -1
+  if (brand && idx !== -1) {
+    if (idx > 0) children.push(t(text.slice(0, idx)))
+    children.push(t(brand, { $: { style: 'brand' } }))
+    if (idx + brand.length < text.length) children.push(t(text.slice(idx + brand.length)))
+  } else {
+    children.push(t(text))
+  }
+  return {
+    root: {
+      type: 'root',
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      version: 1,
+      children: [
+        { type: 'paragraph', direction: 'ltr', format: '', indent: 0, version: 1, textFormat: 0, children },
+      ],
+    },
+  }
+}
+
+const aboutMasthead = () => ({
+  blockType: 'mastheadBlock',
+  facts: [{ text: 'On Michigan Ave' }, { text: 'Est. 2009' }, { text: '4.9★ · 487 reviews' }],
+  heading: rtHeading('The dentist Chicago actually looks forward to.', 'looks forward to'),
+  lead: 'Smile360 began with a simple idea: a dental office should feel calm, honest, and genuinely on your side. Fifteen years later, that’s still the whole point.',
+  caption: 'The Smile360 team',
+})
+
+const aboutFounderLetter = () => ({
+  blockType: 'founderLetterBlock',
+  eyebrow: 'A note from our founder',
+  heading: rtHeading('Why I built Smile360'),
+  body: 'When I started out, I kept meeting people who were quietly terrified of the dentist — not because of the work, but because of how they’d been treated. Rushed. Judged. Surprised by the bill.\n\nI set out to build the opposite: a place where you set the pace, where we show you photos of exactly what we see, and where the price you’re quoted is the price you pay — gentle, modern care from people who genuinely like their jobs.',
+  quote: 'I became a dentist to take the fear out of the dental chair. When an anxious patient leaves smiling, that’s the best part of my day.',
+  signature: 'Dr. Mustafa Salam',
+  role: 'Founder & Lead Dentist · DMD',
+  surface: 'panel',
+})
+
+const aboutValues = () => ({
+  blockType: 'valuesIndexBlock',
+  eyebrow: 'What we believe',
+  heading: rtHeading('Five things we never compromise on', 'never compromise'),
+  description: 'The principles behind every visit — from your first hello to your brightest smile.',
+  items: [
+    { icon: 'HeartHandshake', title: 'Gentle, judgment-free care', body: 'You set the pace. Sedation options, and a team trained for nervous patients.' },
+    { icon: 'Eye', title: 'Show, don’t tell', body: 'Photo-backed findings so you see exactly what we see — then you decide.' },
+    { icon: 'Wallet', title: 'Honest, up-front pricing', body: 'Written estimates before we begin. The quote is the price. Most PPO accepted.' },
+    { icon: 'MonitorSmartphone', title: 'Modern, comfortable tech', body: 'Digital scans and same-day crowns — fewer visits, clearer answers.' },
+    { icon: 'Clock', title: 'Here when it hurts', body: 'Same-day emergency slots held open every day we’re open.' },
+  ],
+  surface: 'canvas',
+})
+
+const aboutManifesto = () => ({
+  blockType: 'manifestoBlock',
+  eyebrow: 'Our promise',
+  statement: rtHeading('We treat the person, not just the tooth.', 'the person'),
+  footnote: 'Fifteen years, twenty thousand smiles, one belief: care should feel human.',
+  surface: 'brand',
+  paddingTop: 'lg',
+  paddingBottom: 'lg',
+})
+
+const aboutCollage = () => ({
+  blockType: 'photoCollageBlock',
+  eyebrow: 'Inside Smile360',
+  heading: rtHeading('A calm place to be', 'calm'),
+  description: 'Bright rooms, friendly faces, and the little details that make a visit feel easy.',
+  items: [
+    { caption: 'Our Michigan Ave practice' },
+    { caption: 'Reception' },
+    { caption: 'A treatment room' },
+    { caption: 'The team' },
+    { caption: 'Same-day crown lab' },
+  ],
+  surface: 'canvas',
+})
+
+const aboutFirstVisit = () => ({
+  blockType: 'firstVisitBlock',
+  eyebrow: 'Your first visit',
+  heading: rtHeading("Relax — we'll take it from here.", 'Relax'),
+  intro:
+    "From your first click to your finished plan, here's exactly what to expect — calm, unhurried, and completely pressure-free.",
+  steps: [
+    {
+      icon: 'CalendarCheck',
+      title: 'Book in about a minute',
+      description: 'Book online or call us — new patients and same-day emergencies are always welcome.',
+    },
+    {
+      icon: 'Coffee',
+      title: 'Settle in',
+      description: 'Arrive to a warm hello, fresh coffee, and quick paperwork. Come ten minutes early on your first visit.',
+    },
+    {
+      icon: 'Stethoscope',
+      title: 'A gentle, thorough exam',
+      description: 'Digital X-rays and a careful look, then a clear, honest walk-through — in plain language, never rushed.',
+    },
+    {
+      icon: 'HeartHandshake',
+      title: 'A plan that fits you',
+      description: "We map out your options and costs together, then you decide what's next. No pressure, ever.",
+    },
+  ],
+  surface: 'panel',
+})
+
+const aboutInvitation = () => ({
+  blockType: 'invitationBlock',
+  eyebrow: 'Come say hi',
+  heading: rtHeading('We saved you a seat.', 'a seat'),
+  body: 'New patients and same-day emergencies are always welcome. Book online in under a minute, or just give us a call.',
+  mapAddress: practice.address.full,
+  details: [
+    { icon: 'MapPin', label: 'Visit', value: practice.address.full },
+    { icon: 'Clock', label: 'Hours', value: 'Mon–Thu 8–7 · Fri 8–4 · Sat 9–2' },
+    { icon: 'Phone', label: 'Call', value: practice.phone },
+  ],
+  links: [bookLink, callLink],
+  surface: 'panel',
+  bottomGap: 'lg',
+})
+
+/* ------------------------------------------------ new-patients page blocks */
+const newPatientHero = () => ({
+  blockType: 'newPatientHeroBlock',
+  eyebrow: 'New patients',
+  heading: rtHeading('Welcome — you’re going to like it here.', 'like it here'),
+  lead: 'From your first hello to your finished plan, we make being a new patient calm, clear, and refreshingly easy.',
+  chips: [
+    { icon: 'ShieldCheck', text: 'Most insurance accepted' },
+    { icon: 'Clock', text: 'Same-day emergencies' },
+    { icon: 'HeartHandshake', text: 'Judgment-free care' },
+  ],
+  links: [bookLink],
+  surface: 'canvas',
+})
+
+const offerSpotlight = () => ({
+  blockType: 'offerSpotlightBlock',
+  eyebrow: 'New patient special',
+  heading: rtHeading('Your first visit, made affordable.', 'affordable'),
+  subline:
+    'A new-patient exam, digital X-rays and a gentle cleaning — everything you need to get started on the right foot.',
+  seal: 'New patients only',
+  sealIcon: 'BadgePercent',
+  finePrint:
+    'For new patients without dental insurance. Cannot be combined with other offers. Call for full details.',
+  links: [bookLink],
+  // Sits flush under Get Ready as the wide bottom row of one bento — same muted
+  // band, no top padding, so the gap to the cards above equals the column gap.
+  surface: 'muted',
+  paddingTop: 'none',
+})
+
+const getReady = () => ({
+  blockType: 'getReadyBlock',
+  eyebrow: 'Before you arrive',
+  heading: rtHeading('A little prep, a smoother visit.', 'smoother visit'),
+  intro: 'Two minutes now saves time in the chair later.',
+  columns: [
+    {
+      icon: 'ClipboardList',
+      title: 'Bring these along',
+      items: [
+        { text: 'Your photo ID and insurance card' },
+        { text: 'A list of any medications you take' },
+        { text: 'Recent dental X-rays, if you have them' },
+        { text: 'Arrive about 10 minutes early' },
+      ],
+    },
+    {
+      icon: 'Laptop',
+      title: 'Do this online',
+      highlight: true,
+      items: [
+        { text: 'Complete your new-patient forms' },
+        { text: 'Add your insurance details' },
+        { text: 'Tell us about any dental anxiety' },
+      ],
+    },
+  ],
+  links: [customLink('/contact', 'Start your forms')],
+  // Bottom padding trimmed to one column-gap (24px) so the offer card below reads
+  // as the same bento's wide bottom row.
+  surface: 'muted',
+  paddingBottom: 'xs',
+  bottomGap: 'none',
+})
+
+const affordability = () => ({
+  blockType: 'affordabilityBlock',
+  eyebrow: 'Insurance & payment',
+  heading: rtHeading('Care that fits your budget.', 'fits your budget'),
+  intro: 'No surprises, no pressure — just honest, upfront answers about cost.',
+  points: [
+    {
+      icon: 'ShieldCheck',
+      title: 'We file your insurance',
+      body: 'We handle the paperwork and make the most of your benefits — you don’t lift a finger.',
+    },
+    {
+      icon: 'CreditCard',
+      title: 'Flexible financing',
+      body: 'Spread treatment over time with low- and no-interest CareCredit plans.',
+    },
+    {
+      icon: 'ReceiptText',
+      title: 'No surprise bills',
+      body: 'You’ll see the full cost and your options before we begin anything.',
+    },
+  ],
+  insurersLabel: 'Accepting most major plans',
+  insurers: [
+    { text: 'Delta Dental' },
+    { text: 'Cigna' },
+    { text: 'MetLife' },
+    { text: 'Aetna' },
+    { text: 'Guardian' },
+    { text: 'United Concordia' },
+  ],
+  links: [bookLink],
+  surface: 'canvas',
+})
+
+const mapBand = () => ({ blockType: 'mapBandBlock', height: 'large' })
+
 /* ---------------------------------------------------------------- the pages */
 const pages = [
   {
@@ -562,27 +885,17 @@ const pages = [
       description:
         'Meet Smile360 Chicago — a modern, patient-first dental practice built on gentle care, honesty, and technology.',
     },
+    // Bespoke editorial About page — distinct vocabulary from the homepage:
+    // Masthead → Founder's Letter (white panel) → Values Index → Manifesto (cobalt
+    // band) → Photo Collage → Invitation (white panel). Add photos in admin.
     layout: [
-      pageHero('Our practice', 'Dentistry with a human touch', 'We built Smile360 Chicago to be the dental office we always wished existed — gentle, honest, modern, and genuinely on your side.', { links: [bookLink] }),
-      splitFeature({
-        imageSide: 'right',
-        eyebrow: 'Our story',
-        heading: 'Care that feels different from the first hello',
-        body: 'Dr. Mia Chen founded Smile360 to combine the warmth of a neighborhood practice with the precision of modern dentistry — no rushing, no surprise bills, no judgment.',
-        bullets: [b('Founded on comfort & honesty'), b('15+ years serving Chicago'), b('Thousands of happy families'), b('One calm roof for everyone')],
-        statValue: '15+',
-        statLabel: 'years caring for Chicago smiles',
-      }),
-      bento({ eyebrow: 'What we stand for', heading: 'Our values', tiles: differenceTiles, background: 'muted' }),
-      statsBlock(),
-      timeline({ eyebrow: 'The experience', heading: 'What it’s like to be our patient', items: firstVisitTimeline }),
-      // Merged from the former standalone /team page — the full team grid.
-      teamGrid({ background: 'muted' }),
-      // Merged from the former standalone /reviews page — spotlight quote + reviews carousel.
-      featuredQuote,
-      reviewsBlock(),
-      faqBlock({ category: 'General' }),
-      finalCta(),
+      aboutMasthead(),
+      aboutFounderLetter(),
+      aboutValues(),
+      aboutManifesto(),
+      aboutCollage(),
+      aboutFirstVisit(),
+      aboutInvitation(),
     ],
   },
   {
@@ -646,12 +959,13 @@ const pages = [
         'New to Smile360 Chicago? See what to expect at your first visit, the insurance we accept, and flexible financing options.',
     },
     layout: [
-      pageHero('New patients', 'Welcome — let’s make this easy', 'Everything you need to know before your first visit, from insurance to financing to what to expect.', { links: [bookLink] }),
-      timeline({ eyebrow: 'How it works', heading: 'Your first visit, made easy', items: firstVisitTimeline }),
-      featureGrid('Care that fits your budget', 'Insurance & financing', financingFeatures, 'muted'),
-      featuredQuote,
-      faqBlock({ category: 'Insurance' }),
-      finalCta(),
+      newPatientHero(),
+      aboutFirstVisit(),
+      getReady(),
+      offerSpotlight(),
+      affordability(),
+      faqBlock(),
+      aboutInvitation(),
     ],
   },
   {
@@ -665,7 +979,8 @@ const pages = [
     layout: [
       pageHero('Get in touch', 'Book your appointment', 'Request a time online and we’ll confirm fast — or call us directly. New patients and same-day emergencies always welcome.'),
       appointmentBlock(),
-      finalCta(),
+      mapBand(),
+      faqBlock(),
     ],
   },
   {
@@ -690,7 +1005,7 @@ const pages = [
         overlay: 'dark',
         links: [callLink, customLink('/contact', 'Request a time')],
       }),
-      faqBlock({ category: 'Emergency' }),
+      faqBlock(),
       featuredQuote,
       emergency(),
       finalCta(),
@@ -700,10 +1015,11 @@ const pages = [
 
 /* -------------------------------------------------------------------- runner */
 /**
- * Non-destructive by default: collections and blog posts are only seeded when EMPTY,
- * so re-running never wipes content/photos you've added or edited in the admin. Pass
- * `{ force: true }` (via /dental-seed?key=…&force=1) to wipe and re-create everything
- * from the placeholder data — use only when you really want a clean reset.
+ * Non-destructive by default: pages are only CREATED when missing, and collections
+ * and blog posts are only seeded when EMPTY — so re-running never wipes the blocks,
+ * copy, or photos you've added or edited in the admin. Pass `{ force: true }` (via
+ * /dental-seed?key=…&force=1) to wipe and re-create everything from the placeholder
+ * data — use only when you really want a clean reset.
  */
 export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {}): Promise<void> {
   const force = !!opts.force
@@ -839,7 +1155,7 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
     for (const f of faqs) {
       await payload.create({
         collection: 'faqs',
-        data: { question: f.question, answer: f.answer, category: f.category } as never,
+        data: { question: f.question, answer: f.answer, isGeneral: f.isGeneral } as never,
       })
     }
   })
@@ -877,18 +1193,31 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
     }))
   }
 
-  // 4. Pages — clear the ones we manage, then create from blocks
+  // 4. Pages — non-destructive by default: only CREATE a managed page when it's
+  //    missing. Existing pages are left untouched, so re-running never wipes the
+  //    blocks, copy, or images you've edited in the admin. `force` restores the
+  //    clean-reset behaviour (wipe every managed page and rebuild from placeholders).
   log('Pages…')
-  // Retired pages — content merged into /about. Delete any leftover docs so they
-  // don't linger in the DB (redirects in redirects.ts send /team & /reviews → /about).
+  // Retired pages — always removed (content merged into /about; redirects send
+  // /team & /reviews → /about).
   const retiredSlugs = ['team', 'reviews']
   for (const slug of retiredSlugs) {
     await payload.delete({ collection: 'pages', where: { slug: { equals: slug } } })
   }
   for (const p of pages) {
-    await payload.delete({ collection: 'pages', where: { slug: { equals: p.slug } } })
-  }
-  for (const p of pages) {
+    const existing = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: p.slug } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existing.totalDocs > 0) {
+      if (!force) {
+        log(`${p.slug}: page exists — skipped (your edits & images preserved).`)
+        continue
+      }
+      await payload.delete({ collection: 'pages', where: { slug: { equals: p.slug } } })
+    }
     await payload.create({
       collection: 'pages',
       data: {
@@ -907,4 +1236,61 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
   await seedBlog(payload, { force })
 
   log('Done ✅')
+}
+
+/**
+ * Seed ONLY the given page slug(s) — create-if-missing (or, with `force`, wipe and
+ * recreate just those pages). Globals, collections and blog are left untouched, so
+ * you can scaffold one page (e.g. About) without reseeding the whole site.
+ * Powers `/dental-seed?key=…&only=about`.
+ */
+export async function seedPages(
+  payload: Payload,
+  slugs: string[],
+  opts: { force?: boolean } = {},
+): Promise<{ created: string[]; skipped: string[]; unknown: string[] }> {
+  const force = !!opts.force
+  const log = (m: string) => payload.logger.info(`[dentalSeed] ${m}`)
+  const created: string[] = []
+  const skipped: string[] = []
+  const unknown: string[] = []
+
+  for (const slug of slugs) {
+    const def = pages.find((p) => p.slug === slug)
+    if (!def) {
+      unknown.push(slug)
+      log(`only: no managed page named "${slug}" — skipped.`)
+      continue
+    }
+    const existing = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existing.totalDocs > 0) {
+      if (!force) {
+        skipped.push(slug)
+        log(`${slug}: page exists — skipped (your edits & images preserved).`)
+        continue
+      }
+      await payload.delete({ collection: 'pages', where: { slug: { equals: slug } } })
+    }
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: def.title,
+        slug: def.slug,
+        generateSlug: false,
+        _status: 'published',
+        hero: { type: 'none' },
+        layout: def.layout,
+        meta: { title: def.meta.title, description: def.meta.description },
+      } as never,
+    })
+    created.push(slug)
+    log(`${slug}: ${force ? 'reset' : 'created'}.`)
+  }
+
+  return { created, skipped, unknown }
 }

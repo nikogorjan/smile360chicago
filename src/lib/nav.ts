@@ -88,8 +88,7 @@ async function withDynamicServices(nav: NavItem[]): Promise<NavItem[]> {
 /** Short taglines for the Services dropdown (fall back to the service's category). */
 const SERVICE_TAGLINES: Record<string, string> = {
   cleanings: 'Preventive care & checkups',
-  whitening: 'Brighten in one visit',
-  invisalign: 'Clear, removable aligners',
+  suresmile: 'Clear, removable aligners',
   implants: 'Permanent tooth replacement',
   veneers: 'A custom-designed smile',
   'crowns-bridges': 'Restore damaged teeth',

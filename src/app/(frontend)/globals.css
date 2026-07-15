@@ -397,10 +397,11 @@ html {
 /* ---------------------------------------------------------------------
    Footer — branded, theme-specific SOLID background (no gradients, to match
    the photo-first, gradient-free design language).
-   Light: deep cobalt.  Dark: near-black navy, deeper than the page.
+   Light: cool dark ink (same blue family as the brand, low chroma so it reads as a
+   refined near-neutral dark).  Dark: near-black navy, deeper than the page.
    --------------------------------------------------------------------- */
 .site-footer {
-  background-color: oklch(27% 0.12 263deg);
+  background-color: oklch(19% 0.013 260deg);
 }
 
 [data-theme='dark'] .site-footer {
@@ -430,6 +431,16 @@ html {
   50% {
     transform: scale(1.06);
     opacity: 1;
+  }
+}
+
+/* One-time cinematic settle for hero images — starts slightly zoomed, eases to rest. */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
   }
 }
 

@@ -30,7 +30,7 @@ export const BeforeAfterBlock: React.FC<Props> = async ({
 
   const resolvedDescription =
     description ||
-    'From single-visit whitening to digitally designed veneers, our results speak for themselves — every smile shaped around the person behind it.'
+    'From digitally designed veneers to natural-looking implants, our results speak for themselves — every smile shaped around the person behind it.'
   const resolvedCtaLabel = ctaLabel || 'Explore the smile gallery'
   const resolvedCtaHref = ctaHref || '/smile-gallery'
 

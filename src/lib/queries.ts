@@ -28,6 +28,26 @@ const initialsOf = (name: string) =>
     .join('')
     .toUpperCase()
 
+/** URL of an upload/relationship field once populated (depth ≥ 1); undefined otherwise. */
+const mediaUrl = (v: unknown): string | undefined => {
+  const u = v && typeof v === 'object' ? (v as { url?: unknown }).url : undefined
+  return typeof u === 'string' && u ? u : undefined
+}
+
+/** Ids of a hasMany relationship, whether it comes back as ids or populated docs. */
+const relIds = (v: unknown): string[] =>
+  Array.isArray(v)
+    ? v
+        .map((x) =>
+          typeof x === 'string'
+            ? x
+            : x && typeof x === 'object'
+              ? String((x as { id?: unknown }).id || '')
+              : '',
+        )
+        .filter(Boolean)
+    : []
+
 async function payload() {
   return getPayload({ config: configPromise })
 }
@@ -35,7 +55,7 @@ async function payload() {
 export async function getServices(): Promise<Service[]> {
   try {
     const p = await payload()
-    const res = await p.find({ collection: 'services', limit: 100, depth: 0 })
+    const res = await p.find({ collection: 'services', limit: 100, depth: 1 })
     if (!res.docs.length) return fbServices
     return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
       id: String(d.id || ''),
@@ -44,6 +64,7 @@ export async function getServices(): Promise<Service[]> {
       icon: String(d.icon || 'Stethoscope'),
       category: (d.category as Service['category']) || 'Preventive',
       excerpt: String(d.excerpt || ''),
+      image: mediaUrl(d.image),
       from: (d.from as string) || undefined,
       highlights: items(d.highlights),
       featured: Boolean(d.featured),
@@ -54,6 +75,58 @@ export async function getServices(): Promise<Service[]> {
 }
 
 /** Fetch specific services by id, preserving the given order (for relationship pickers). */
+/** Fetch a single service by slug WITH its rich-text body (depth 2 populates media blocks). */
+export async function getServiceBySlug(slug: string): Promise<Service | null> {
+  try {
+    const p = await payload()
+    const res = await p.find({
+      collection: 'services',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      depth: 2,
+    })
+    const d = res.docs?.[0] as unknown as Record<string, unknown> | undefined
+    if (!d) return null
+    return {
+      id: String(d.id || ''),
+      slug: String(d.slug || ''),
+      name: String(d.name || ''),
+      icon: String(d.icon || 'Stethoscope'),
+      category: (d.category as Service['category']) || 'Preventive',
+      excerpt: String(d.excerpt || ''),
+      image: mediaUrl(d.image),
+      from: (d.from as string) || undefined,
+      highlights: items(d.highlights),
+      featured: Boolean(d.featured),
+      body: d.body ?? null,
+      relatedServices: relIds(d.relatedServices),
+    }
+  } catch {
+    return null
+  }
+}
+
+/** FAQs assigned to a specific service (via the FAQ's `services` relationship). */
+export async function getFaqsForService(serviceId: string): Promise<Faq[]> {
+  if (!serviceId) return []
+  try {
+    const p = await payload()
+    const res = await p.find({
+      collection: 'faqs',
+      limit: 50,
+      depth: 0,
+      where: { services: { in: [serviceId] } },
+    })
+    return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
+      question: String(d.question || ''),
+      answer: String(d.answer || ''),
+      isGeneral: Boolean(d.isGeneral),
+    }))
+  } catch {
+    return []
+  }
+}
+
 export async function getServicesByIds(ids: string[]): Promise<Service[]> {
   if (!ids.length) return []
   try {
@@ -62,7 +135,7 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
       collection: 'services',
       where: { id: { in: ids } },
       limit: 100,
-      depth: 0,
+      depth: 1,
     })
     const byId = new Map(
       (res.docs as unknown as Record<string, unknown>[]).map((d) => [String(d.id), d]),
@@ -77,6 +150,7 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
         icon: String(d.icon || 'Stethoscope'),
         category: (d.category as Service['category']) || 'Preventive',
         excerpt: String(d.excerpt || ''),
+        image: mediaUrl(d.image),
         from: (d.from as string) || undefined,
         highlights: items(d.highlights),
         featured: Boolean(d.featured),
@@ -121,25 +195,24 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   }
 }
 
-export async function getFaqs(category?: Faq['category']): Promise<Faq[]> {
+/** General FAQs (marked "General FAQ" in admin) for the homepage and the FAQ block. */
+export async function getFaqs(): Promise<Faq[]> {
   try {
     const p = await payload()
     const res = await p.find({
       collection: 'faqs',
       limit: 100,
       depth: 0,
-      where: category ? { category: { equals: category } } : undefined,
+      where: { isGeneral: { equals: true } },
     })
-    if (!res.docs.length) {
-      return category ? fbFaqs.filter((f) => f.category === category) : fbFaqs
-    }
+    if (!res.docs.length) return fbFaqs.filter((f) => f.isGeneral)
     return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
       question: String(d.question || ''),
       answer: String(d.answer || ''),
-      category: (d.category as Faq['category']) || 'General',
+      isGeneral: Boolean(d.isGeneral),
     }))
   } catch {
-    return category ? fbFaqs.filter((f) => f.category === category) : fbFaqs
+    return fbFaqs.filter((f) => f.isGeneral)
   }
 }
 
@@ -169,11 +242,6 @@ export async function getGalleryCases(
   } catch {
     return fbGallery
   }
-}
-
-export async function getServiceBySlug(slug: string): Promise<Service | null> {
-  const all = await getServices()
-  return all.find((s) => s.slug === slug) || null
 }
 
 /** Latest published blog posts (newest first) for homepage/section highlights. */

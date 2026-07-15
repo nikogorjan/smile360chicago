@@ -1,9 +1,13 @@
 import type { Field } from 'payload'
 
 import {
+  BoldFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
+  ItalicFeature,
+  ParagraphFeature,
+  TextStateFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
@@ -45,6 +49,7 @@ export const sectionHeaderFields: Field[] = [
  *  primitive's paddingTop/paddingBottom. Defaults to the standard rhythm. */
 const spacingOptions = [
   { label: 'None', value: 'none' },
+  { label: 'Extra small', value: 'xs' },
   { label: 'Small', value: 'sm' },
   { label: 'Default', value: 'md' },
   { label: 'Large', value: 'lg' },
@@ -55,7 +60,7 @@ export const spacingFields: Field = {
   label: 'Spacing',
   admin: {
     initCollapsed: true,
-    description: 'Vertical padding above and below this section (controls the gap to neighbours).',
+    description: 'Vertical padding inside this section, plus an optional gap below it.',
   },
   fields: [
     {
@@ -66,14 +71,21 @@ export const spacingFields: Field = {
           type: 'select',
           defaultValue: 'md',
           options: spacingOptions,
-          admin: { width: '50%', description: 'Padding above' },
+          admin: { width: '33%', description: 'Padding above' },
         },
         {
           name: 'paddingBottom',
           type: 'select',
           defaultValue: 'md',
           options: spacingOptions,
-          admin: { width: '50%', description: 'Padding below' },
+          admin: { width: '33%', description: 'Padding below' },
+        },
+        {
+          name: 'bottomGap',
+          type: 'select',
+          defaultValue: 'none',
+          options: [...spacingOptions, { label: 'Extra large', value: 'xl' }],
+          admin: { width: '34%', description: 'Gap below (lift off the footer / next section)' },
         },
       ],
     },
@@ -96,3 +108,48 @@ export const richTextField = (name = 'richText'): Field => ({
 })
 
 export type BlockBackground = 'default' | 'muted' | 'brand' | 'glow'
+
+/**
+ * How a section sits on the page — used by the About-page blocks. `panel` renders
+ * the white rounded inset card (same as the homepage Panel); `brand`/`muted` are
+ * full-width colour bands; `canvas` sits open on the page. See `_shared/surface`.
+ */
+export type SectionSurface = 'canvas' | 'panel' | 'muted' | 'brand'
+
+export const surfaceFieldWith = (defaultValue: SectionSurface): Field => ({
+  name: 'surface',
+  type: 'select',
+  defaultValue,
+  options: [
+    { label: 'Canvas (open on page)', value: 'canvas' },
+    { label: 'White panel (inset rounded card)', value: 'panel' },
+    { label: 'Muted band (full-width grey)', value: 'muted' },
+    { label: 'Cobalt band (full-width brand)', value: 'brand' },
+  ],
+  admin: { description: 'How this section sits on the page.' },
+})
+
+export const surfaceField: Field = surfaceFieldWith('canvas')
+
+/**
+ * Editor for the About-page headings: a fixed toolbar (always visible) plus an inline
+ * toolbar on selection, with Bold/Italic and the "Brand blue" Style dropdown. Select a
+ * phrase, then Style → Brand blue to accent it in cobalt (the same brand text style used
+ * by the Hero). Rendered on the frontend by `_shared/richHeading`.
+ */
+export const headingEditor = lexicalEditor({
+  features: [
+    ParagraphFeature(),
+    BoldFeature(),
+    ItalicFeature(),
+    InlineToolbarFeature(),
+    FixedToolbarFeature(),
+    TextStateFeature({
+      state: {
+        style: {
+          brand: { label: 'Brand blue', css: { color: '#0048B4' } },
+        },
+      },
+    }),
+  ],
+})

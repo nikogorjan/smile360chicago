@@ -11,8 +11,8 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 
-export const dynamic = 'force-static'
-export const revalidate = 600
+// Rendered dynamically (inherited from the (frontend) layout) so newly published
+// or edited posts appear in the list immediately — no static 10-minute cache.
 
 export default async function Page() {
   const payload = await getPayload({ config: configPromise })
@@ -40,11 +40,13 @@ export default async function Page() {
       <PageHero
         eyebrow="Smile360 blog"
         title="Oral-health tips, news & guides"
-        description="Expert, easy-to-read advice from our Chicago dental team — from emergency toothache relief to whitening, Invisalign, and keeping your whole family’s smiles healthy."
+        description="Expert, easy-to-read advice from our Chicago dental team — from emergency toothache relief to SureSmile clear aligners and keeping your whole family’s smiles healthy."
         breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/posts' }]}
       />
 
-      <Section>
+      {/* No top padding — PageHero already supplies the space above the grid, so
+          the hero's bottom padding alone sets the gap (avoids a double gap). */}
+      <Section paddingTop="none">
         <div className="container">
           {posts.docs?.length ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -71,6 +73,6 @@ export function generateMetadata(): Metadata {
   return {
     title: `Dental Blog — Oral-Health Tips | ${practice.name}`,
     description:
-      'Oral-health tips, emergency dental advice, whitening, Invisalign, and family dentistry guides from the Smile360 Chicago team.',
+      'Oral-health tips, emergency dental advice, SureSmile clear aligners, and family dentistry guides from the Smile360 Chicago team.',
   }
 }

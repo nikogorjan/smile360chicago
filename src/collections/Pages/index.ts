@@ -36,6 +36,23 @@ import { Timeline } from '../../blocks/Timeline/config'
 import { Panel } from '../../blocks/Panel/config'
 import { LatestPosts } from '../../blocks/LatestPosts/config'
 import { GalleryPreview } from '../../blocks/GalleryPreview/config'
+import { AboutHero } from '../../blocks/AboutHero/config'
+import { Statement } from '../../blocks/Statement/config'
+import { FounderStory } from '../../blocks/FounderStory/config'
+import { MosaicBento } from '../../blocks/MosaicBento/config'
+import { MetricRings } from '../../blocks/MetricRings/config'
+import { Masthead } from '../../blocks/Masthead/config'
+import { FounderLetter } from '../../blocks/FounderLetter/config'
+import { ValuesIndex } from '../../blocks/ValuesIndex/config'
+import { Manifesto } from '../../blocks/Manifesto/config'
+import { PhotoCollage } from '../../blocks/PhotoCollage/config'
+import { FirstVisit } from '../../blocks/FirstVisit/config'
+import { Invitation } from '../../blocks/Invitation/config'
+import { NewPatientHero } from '../../blocks/NewPatientHero/config'
+import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
+import { GetReady } from '../../blocks/GetReady/config'
+import { Affordability } from '../../blocks/Affordability/config'
+import { MapBand } from '../../blocks/MapBand/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -103,6 +120,23 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: [
                 PageHero,
+                Masthead,
+                FounderLetter,
+                ValuesIndex,
+                Manifesto,
+                PhotoCollage,
+                FirstVisit,
+                Invitation,
+                NewPatientHero,
+                OfferSpotlight,
+                GetReady,
+                Affordability,
+                MapBand,
+                AboutHero,
+                Statement,
+                FounderStory,
+                MosaicBento,
+                MetricRings,
                 Hero,
                 MediaBanner,
                 ImageBand,

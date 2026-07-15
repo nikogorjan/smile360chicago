@@ -60,7 +60,7 @@ export const ServicesGridBlock: React.FC<Props> = async ({
                 className={cn(cardSurface, 'group relative aspect-[3/2] overflow-hidden')}
               >
                 <Image
-                  src={getServicePhoto(service.slug, index)}
+                  src={service.image || getServicePhoto(service.slug, index)}
                   alt={service.name}
                   fill
                   sizes="(min-width: 1024px) 28vw, 50vw"

@@ -90,9 +90,15 @@ export type Service = {
   icon: string
   category: 'Preventive' | 'Cosmetic' | 'Restorative' | 'Orthodontics' | 'Emergency'
   excerpt: string
+  /** CMS-uploaded main photo URL (falls back to a stock photo when empty). */
+  image?: string
   from?: string
   highlights: string[]
   featured?: boolean
+  /** Rich-text body (Lexical editor state) — present when fetched for the detail page. */
+  body?: unknown
+  /** Hand-picked related-service ids (empty ⇒ auto-fill by category). */
+  relatedServices?: string[]
 }
 
 export const services: Service[] = [
@@ -307,56 +313,44 @@ export const galleryCases: GalleryCase[] = [
   { title: 'Coffee-stain reversal', treatment: 'Whitening', description: 'Take-home professional whitening.' },
 ]
 
-export type Faq = { question: string; answer: string; category: 'General' | 'Insurance' | 'Emergency' | 'Treatments' }
+export type Faq = { question: string; answer: string; isGeneral?: boolean }
 
 export const faqs: Faq[] = [
   {
-    question: 'Do you take walk-ins or same-day emergency appointments?',
+    question: 'Are you accepting new patients?',
     answer:
-      'Yes. If you’re in pain, call us and we’ll get you seen the same day whenever possible — we keep emergency slots open every day we’re open. Walk-ins are welcome during business hours.',
-    category: 'Emergency',
+      'We’d love to meet you. New patients can book online or by phone, and your first visit includes a full exam, digital X-rays, and a personalized plan.',
+    isGeneral: true,
   },
   {
-    question: 'What should I do for a sudden toothache before I get there?',
+    question: 'I’m anxious about the dentist. Can you help?',
     answer:
-      'Rinse with warm salt water, gently floss to remove any trapped food, and take an over-the-counter pain reliever as directed. Avoid very hot or cold foods. Then call us — don’t wait for it to “pass.”',
-    category: 'Emergency',
+      'You’re in the right place. Many of our patients used to dread dental visits — we keep things calm and judgment-free, explain every step, and go entirely at your pace.',
+    isGeneral: true,
   },
   {
     question: 'What insurance do you accept?',
     answer:
       'We accept most major PPO dental plans and will file your claims for you. Not sure if you’re covered? Send us your plan details and we’ll verify your benefits before your visit — no surprises.',
-    category: 'Insurance',
+    isGeneral: true,
   },
   {
     question: 'No insurance? Do you offer payment plans?',
     answer:
-      'Absolutely. We offer an in-house membership plan and flexible monthly financing (CareCredit and similar) so you can get the care you need without paying it all at once.',
-    category: 'Insurance',
+      'Absolutely. We offer flexible, low- and no-interest financing through CareCredit so you can get the care you need without paying it all at once.',
+    isGeneral: true,
   },
   {
-    question: 'Are you accepting new patients?',
+    question: 'Do you take walk-ins or same-day emergency appointments?',
     answer:
-      'We’d love to meet you. New patients can book online or by phone, and our new-patient visit includes a full exam, digital X-rays, and a personalized plan.',
-    category: 'General',
+      'Yes. If you’re in pain, call us and we’ll get you seen the same day whenever possible — we keep emergency slots open every day we’re open. Walk-ins are welcome during business hours.',
+    isGeneral: true,
   },
   {
-    question: 'I’m anxious about the dentist. Can you help?',
+    question: 'What should I do for a sudden toothache before I get there?',
     answer:
-      'You’re in the right place. Many of our patients used to dread dental visits. We offer sedation options, noise-canceling headphones, and a team trained to go at your pace.',
-    category: 'General',
-  },
-  {
-    question: 'How long does teeth whitening last?',
-    answer:
-      'Professional whitening typically lasts 1–3 years depending on your habits (coffee, tea, wine, smoking). We’ll give you a take-home kit and tips to keep it bright longer.',
-    category: 'Treatments',
-  },
-  {
-    question: 'Is Invisalign as effective as braces?',
-    answer:
-      'For most cases, yes. Invisalign treats crowding, gaps, and many bite issues — often faster and far more discreetly than metal braces. Book a free 3D preview to see your result.',
-    category: 'Treatments',
+      'Rinse with warm salt water, gently floss to remove any trapped food, and take an over-the-counter pain reliever as directed. Avoid very hot or cold foods, then call us — don’t wait for it to “pass.”',
+    isGeneral: true,
   },
 ]
 

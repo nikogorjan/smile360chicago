@@ -3,6 +3,8 @@
 import {
   Anchor,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   HeartPulse,
   LayoutGrid,
   Menu,
@@ -24,7 +26,7 @@ import React, { useEffect, useState } from 'react'
 import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
-import type { NavChild, NavItem } from '@/lib/practice'
+import { practice, type NavItem } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
 /** Pick a relevant icon for a dropdown item from its label. */
@@ -57,14 +59,21 @@ export const SiteHeader: React.FC<{
 }> = ({ nav, phone, phoneHref, logo }) => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [openGroup, setOpenGroup] = useState<string | null>(null)
+  // Which nav group's sub-panel is showing on mobile (drill-down). null = main level.
+  const [submenu, setSubmenu] = useState<string | null>(null)
+  // Which desktop dropdown is open. Hover/focus controlled (not pure CSS :hover)
+  // so it can be force-closed on navigation — otherwise the panel stays open
+  // after a client-side route change because the pointer is still over it.
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
 
   useEffect(() => {
     setMobileOpen(false)
+    setOpenMenu(null)
   }, [pathname])
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    if (!mobileOpen) setSubmenu(null)
     return () => {
       document.body.style.overflow = ''
     }
@@ -113,58 +122,117 @@ export const SiteHeader: React.FC<{
                     </Link>
                   )
                 }
-                // Split the menu into columns of at most 3 items each.
-                const columns: NavChild[][] = []
-                for (let c = 0; c < item.children.length; c += 3) {
-                  columns.push(item.children.slice(c, c + 3))
-                }
+                // Services mega-menu: a branded promo rail beside a 2-column grid
+                // of service tiles. Hover/focus controlled so it closes on nav.
+                const open = openMenu === item.label
                 return (
-                  <div key={item.label} className="group relative">
-                    {/* Dropdown trigger only — does not navigate (opens on hover/focus). */}
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => setOpenMenu(item.label)}
+                    onMouseLeave={() => setOpenMenu(null)}
+                    onFocus={() => setOpenMenu(item.label)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenMenu(null)
+                    }}
+                  >
+                    {/* Trigger only — does not navigate (opens on hover/focus). */}
                     <button
                       type="button"
                       aria-haspopup="true"
+                      aria-expanded={open}
                       className={triggerClass(isActive(item.href))}
                     >
                       {item.label}
-                      <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-hover:rotate-180" />
+                      <ChevronDown
+                        className={cn(
+                          'size-3.5 text-muted-foreground transition-transform',
+                          open && 'rotate-180',
+                        )}
+                      />
                     </button>
-                    <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                      <div className="flex rounded-md border border-border bg-popover p-1 shadow-xl">
-                        {columns.map((col, ci) => (
+
+                    <div
+                      className={cn(
+                        'absolute left-0 top-full z-50 w-176 pt-3 transition-all duration-200 ease-out',
+                        open
+                          ? 'visible translate-y-0 opacity-100'
+                          : 'invisible translate-y-1 opacity-0',
+                      )}
+                    >
+                      <div className="grid grid-cols-[15rem_1fr] overflow-hidden rounded-[10px] border border-border bg-popover shadow-2xl">
+                        {/* Left — branded promo rail */}
+                        <div className="relative flex flex-col justify-between overflow-hidden bg-primary p-6 text-primary-foreground">
                           <div
-                            key={ci}
-                            className={cn(
-                              'flex w-64 flex-col',
-                              ci > 0 && 'ml-1 border-l border-border pl-1',
-                            )}
-                          >
-                            {col.map((child) => {
-                              const Icon = iconForLabel(child.label)
-                              return (
-                                <Link
-                                  key={child.href}
-                                  href={child.href}
-                                  className="flex items-center gap-3 rounded-[6px] p-3 transition-colors hover:bg-foreground/5"
-                                >
-                                  <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
-                                    <Icon className="size-5" />
-                                  </span>
-                                  <span className="min-w-0">
-                                    <span className="block text-sm font-semibold text-foreground">
-                                      {child.label}
-                                    </span>
-                                    {child.description && (
-                                      <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-                                        {child.description}
-                                      </span>
-                                    )}
-                                  </span>
-                                </Link>
-                              )
-                            })}
+                            aria-hidden
+                            className="pointer-events-none absolute -right-10 -top-12 size-40 rounded-full bg-white/10 blur-3xl"
+                          />
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute -bottom-14 -left-8 size-40 rounded-full bg-gold/20 blur-3xl"
+                          />
+                          <div className="relative">
+                            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-gold">
+                              Our services
+                            </span>
+                            <h3 className="mt-2 font-display text-2xl font-bold leading-tight text-white">
+                              Care for every smile
+                            </h3>
+                            <p className="mt-2 text-sm leading-relaxed text-white/75">
+                              From same-day emergencies to a full smile makeover — expert care, all
+                              under one roof.
+                            </p>
+                            <div className="mt-4 flex items-center gap-1.5 text-xs text-white/80">
+                              <Star className="size-3.5 fill-gold text-gold" />
+                              <span>
+                                {practice.rating.value} · {practice.rating.count}+ Google reviews
+                              </span>
+                            </div>
                           </div>
-                        ))}
+                          <div className="relative mt-6">
+                            <Link
+                              href={phoneHref}
+                              className={buttonVariants({
+                                variant: 'white',
+                                size: 'sm',
+                                className: 'w-full font-bold',
+                              })}
+                            >
+                              <ButtonLabel>
+                                <Phone className="size-4" />
+                                Call {phone}
+                              </ButtonLabel>
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Right — services grid */}
+                        <div className="grid grid-cols-2 gap-1 p-3">
+                          {item.children.map((child) => {
+                            const Icon = iconForLabel(child.label)
+                            return (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                className="group/item flex items-start gap-3 rounded-[8px] p-3 transition-colors hover:bg-brand/5"
+                              >
+                                <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand transition-colors group-hover/item:bg-brand group-hover/item:text-white">
+                                  <Icon className="size-5" />
+                                </span>
+                                <span className="min-w-0">
+                                  <span className="block text-sm font-semibold text-foreground">
+                                    {child.label}
+                                  </span>
+                                  {child.description && (
+                                    <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
+                                      {child.description}
+                                    </span>
+                                  )}
+                                </span>
+                              </Link>
+                            )
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -239,48 +307,68 @@ export const SiteHeader: React.FC<{
               </button>
             </div>
           </div>
-          <nav className="flex-1 overflow-y-auto px-3 py-4">
-            {nav.map((item) =>
-              item.children ? (
-                <div key={item.label} className="mb-1">
+          {/* Body — a drill-down: the main list, with each group's sub-panel
+              sliding in from the right on top of it (with a Back button). */}
+          <div className="relative flex-1 overflow-hidden">
+            {/* Level 1 — main menu */}
+            <nav className="absolute inset-0 overflow-y-auto px-3 py-4">
+              {nav.map((item) =>
+                item.children ? (
                   <button
+                    key={item.label}
                     type="button"
-                    onClick={() => setOpenGroup(openGroup === item.label ? null : item.label)}
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-base font-semibold text-foreground"
+                    onClick={() => setSubmenu(item.label)}
+                    className="mb-1 flex w-full items-center justify-between rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5"
                   >
                     {item.label}
-                    <ChevronDown
-                      className={cn(
-                        'size-4 transition-transform',
-                        openGroup === item.label && 'rotate-180',
-                      )}
-                    />
+                    <ChevronRight className="size-4 text-muted-foreground" />
                   </button>
-                  {openGroup === item.label && (
-                    <div className="ml-3 border-l border-border pl-3">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
+            </nav>
+
+            {/* Level 2 — one sliding sub-panel per group with children */}
+            {nav
+              .filter((item) => item.children)
+              .map((group) => (
+                <div
+                  key={group.label}
+                  aria-hidden={submenu !== group.label}
+                  className={cn(
+                    'absolute inset-0 overflow-y-auto bg-background px-3 py-4 transition-transform duration-300 ease-out',
+                    submenu === group.label
+                      ? 'translate-x-0'
+                      : 'pointer-events-none translate-x-full',
                   )}
-                </div>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
                 >
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </nav>
+                  <button
+                    type="button"
+                    onClick={() => setSubmenu(null)}
+                    className="mb-2 flex w-full items-center gap-2 rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5"
+                  >
+                    <ChevronLeft className="size-4 text-muted-foreground" />
+                    {group.label}
+                  </button>
+                  {group.children!.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+          </div>
           <div className="border-t border-border p-4">
             <Link
               href={phoneHref}

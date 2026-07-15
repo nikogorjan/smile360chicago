@@ -37,11 +37,45 @@ import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { PanelBlock } from '@/blocks/Panel/Component'
 import { TabsBlock } from '@/blocks/Tabs/Component'
 import { PillarsBlock } from '@/blocks/Pillars/Component'
+import { AboutHeroBlock } from '@/blocks/AboutHero/Component'
+import { StatementBlock } from '@/blocks/Statement/Component'
+import { FounderStoryBlock } from '@/blocks/FounderStory/Component'
+import { MosaicBentoBlock } from '@/blocks/MosaicBento/Component'
+import { MetricRingsBlock } from '@/blocks/MetricRings/Component'
+import { MastheadBlock } from '@/blocks/Masthead/Component'
+import { FounderLetterBlock } from '@/blocks/FounderLetter/Component'
+import { ValuesIndexBlock } from '@/blocks/ValuesIndex/Component'
+import { ManifestoBlock } from '@/blocks/Manifesto/Component'
+import { PhotoCollageBlock } from '@/blocks/PhotoCollage/Component'
+import { FirstVisitBlock } from '@/blocks/FirstVisit/Component'
+import { InvitationBlock } from '@/blocks/Invitation/Component'
+import { NewPatientHeroBlock } from '@/blocks/NewPatientHero/Component'
+import { OfferSpotlightBlock } from '@/blocks/OfferSpotlight/Component'
+import { GetReadyBlock } from '@/blocks/GetReady/Component'
+import { AffordabilityBlock } from '@/blocks/Affordability/Component'
+import { MapBandBlock } from '@/blocks/MapBand/Component'
 
 const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
   heroBlock: HeroBlock,
   pageHeroBlock: PageHeroBlock,
+  aboutHeroBlock: AboutHeroBlock,
+  statementBlock: StatementBlock,
+  founderStoryBlock: FounderStoryBlock,
+  mosaicBentoBlock: MosaicBentoBlock,
+  metricRingsBlock: MetricRingsBlock,
+  mastheadBlock: MastheadBlock,
+  founderLetterBlock: FounderLetterBlock,
+  valuesIndexBlock: ValuesIndexBlock,
+  manifestoBlock: ManifestoBlock,
+  photoCollageBlock: PhotoCollageBlock,
+  firstVisitBlock: FirstVisitBlock,
+  invitationBlock: InvitationBlock,
+  newPatientHeroBlock: NewPatientHeroBlock,
+  offerSpotlightBlock: OfferSpotlightBlock,
+  getReadyBlock: GetReadyBlock,
+  affordabilityBlock: AffordabilityBlock,
+  mapBandBlock: MapBandBlock,
   mediaBannerBlock: MediaBannerBlock,
   imageBandBlock: ImageBandBlock,
   splitFeatureBlock: SplitFeatureBlock,

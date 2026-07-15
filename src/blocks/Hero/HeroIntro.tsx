@@ -7,6 +7,7 @@ import Link from 'next/link'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
+import { ScrollParallax } from '@/components/site/ScrollParallax'
 
 type TextNode = { type?: string; text?: string; format?: number }
 type LexNode = { type?: string; children?: TextNode[] }
@@ -161,21 +162,22 @@ export const HeroIntro: React.FC<Props> = ({
                 : { duration: 0 }
             }
           >
-            {showVideo ? (
-               
-              <video
-                className="absolute inset-0 size-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster={imageUrl}
-              >
-                <source src={videoUrl ?? undefined} />
-              </video>
-            ) : (
-              <Image src={imageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
-            )}
+            <ScrollParallax className="absolute inset-0" amount={0.05}>
+              {showVideo ? (
+                <video
+                  className="absolute inset-0 size-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster={imageUrl}
+                >
+                  <source src={videoUrl ?? undefined} />
+                </video>
+              ) : (
+                <Image src={imageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
+              )}
+            </ScrollParallax>
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/30 via-30% to-transparent" />
           </motion.div>
         </div>

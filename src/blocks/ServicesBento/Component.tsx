@@ -47,7 +47,7 @@ export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, ti
   const rows: Tile[] = list.map((s, i) => ({
     slug: s.slug,
     name: s.name,
-    imageUrl: getServicePhoto(s.slug, i),
+    imageUrl: s.image || getServicePhoto(s.slug, i),
   }))
 
   if (!rows.length) return null

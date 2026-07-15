@@ -5,10 +5,12 @@ import React, { useActionState } from 'react'
 
 import { submitAppointment, type AppointmentState } from '@/app/(frontend)/contact/actions'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { services } from '@/lib/practice'
+import { cn } from '@/utilities/ui'
 
 const field =
-  'w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand focus:outline-none focus:ring-2 focus:ring-ring'
+  'w-full rounded-sm border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand focus:outline-none focus:ring-2 focus:ring-ring'
 const labelCls = 'mb-1.5 block text-sm font-semibold text-foreground'
 
 export const AppointmentForm: React.FC = () => {
@@ -19,7 +21,7 @@ export const AppointmentForm: React.FC = () => {
 
   if (state?.ok) {
     return (
-      <div className="rounded-2xl border border-success/40 bg-success/10 p-10 text-center">
+      <div className="rounded-[8px] border border-success/40 bg-success/10 p-10 text-center">
         <span className="mx-auto grid size-14 place-items-center rounded-full bg-success/20 text-success">
           <CheckCircle2 className="size-8" />
         </span>
@@ -30,7 +32,7 @@ export const AppointmentForm: React.FC = () => {
   }
 
   return (
-    <form action={action} className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+    <form action={action} className="rounded-[8px] border border-border bg-card p-6 sm:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelCls}>
@@ -78,26 +80,33 @@ export const AppointmentForm: React.FC = () => {
           <label htmlFor="service" className={labelCls}>
             Service
           </label>
-          <select id="service" name="service" className={field} defaultValue="">
-            <option value="" disabled>
-              Choose a service…
-            </option>
-            {services.map((s) => (
-              <option key={s.slug} value={s.name}>
-                {s.name}
-              </option>
-            ))}
-            <option value="Not sure">Not sure yet</option>
-          </select>
+          <Select name="service">
+            <SelectTrigger id="service" className={cn(field, 'h-auto shadow-none')}>
+              <SelectValue placeholder="Choose a service…" />
+            </SelectTrigger>
+            <SelectContent>
+              {services.map((s) => (
+                <SelectItem key={s.slug} value={s.name}>
+                  {s.name}
+                </SelectItem>
+              ))}
+              <SelectItem value="Not sure">Not sure yet</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div>
           <label htmlFor="patientType" className={labelCls}>
             Are you a…
           </label>
-          <select id="patientType" name="patientType" className={field} defaultValue="New patient">
-            <option value="New patient">New patient</option>
-            <option value="Existing patient">Existing patient</option>
-          </select>
+          <Select name="patientType" defaultValue="New patient">
+            <SelectTrigger id="patientType" className={cn(field, 'h-auto shadow-none')}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="New patient">New patient</SelectItem>
+              <SelectItem value="Existing patient">Existing patient</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -128,7 +137,7 @@ export const AppointmentForm: React.FC = () => {
       </label>
 
       {state && !state.ok && (
-        <p className="mt-4 rounded-xl border border-error/40 bg-error/10 px-4 py-3 text-sm text-foreground">
+        <p className="mt-4 rounded-sm border border-error/40 bg-error/10 px-4 py-3 text-sm text-foreground">
           {state.message}
         </p>
       )}
