@@ -3,6 +3,8 @@
 import {
   Anchor,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   HeartPulse,
   LayoutGrid,
   Menu,
@@ -57,7 +59,8 @@ export const SiteHeader: React.FC<{
 }> = ({ nav, phone, phoneHref, logo }) => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [openGroup, setOpenGroup] = useState<string | null>(null)
+  // Which nav group's sub-panel is showing on mobile (drill-down). null = main level.
+  const [submenu, setSubmenu] = useState<string | null>(null)
 
   useEffect(() => {
     setMobileOpen(false)
@@ -65,6 +68,7 @@ export const SiteHeader: React.FC<{
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    if (!mobileOpen) setSubmenu(null)
     return () => {
       document.body.style.overflow = ''
     }
@@ -239,48 +243,68 @@ export const SiteHeader: React.FC<{
               </button>
             </div>
           </div>
-          <nav className="flex-1 overflow-y-auto px-3 py-4">
-            {nav.map((item) =>
-              item.children ? (
-                <div key={item.label} className="mb-1">
+          {/* Body — a drill-down: the main list, with each group's sub-panel
+              sliding in from the right on top of it (with a Back button). */}
+          <div className="relative flex-1 overflow-hidden">
+            {/* Level 1 — main menu */}
+            <nav className="absolute inset-0 overflow-y-auto px-3 py-4">
+              {nav.map((item) =>
+                item.children ? (
                   <button
+                    key={item.label}
                     type="button"
-                    onClick={() => setOpenGroup(openGroup === item.label ? null : item.label)}
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-base font-semibold text-foreground"
+                    onClick={() => setSubmenu(item.label)}
+                    className="mb-1 flex w-full items-center justify-between rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5"
                   >
                     {item.label}
-                    <ChevronDown
-                      className={cn(
-                        'size-4 transition-transform',
-                        openGroup === item.label && 'rotate-180',
-                      )}
-                    />
+                    <ChevronRight className="size-4 text-muted-foreground" />
                   </button>
-                  {openGroup === item.label && (
-                    <div className="ml-3 border-l border-border pl-3">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
+            </nav>
+
+            {/* Level 2 — one sliding sub-panel per group with children */}
+            {nav
+              .filter((item) => item.children)
+              .map((group) => (
+                <div
+                  key={group.label}
+                  aria-hidden={submenu !== group.label}
+                  className={cn(
+                    'absolute inset-0 overflow-y-auto bg-background px-3 py-4 transition-transform duration-300 ease-out',
+                    submenu === group.label
+                      ? 'translate-x-0'
+                      : 'pointer-events-none translate-x-full',
                   )}
-                </div>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
                 >
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </nav>
+                  <button
+                    type="button"
+                    onClick={() => setSubmenu(null)}
+                    className="mb-2 flex w-full items-center gap-2 rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5"
+                  >
+                    <ChevronLeft className="size-4 text-muted-foreground" />
+                    {group.label}
+                  </button>
+                  {group.children!.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      className="block rounded-xl px-3 py-3 text-base font-semibold text-foreground transition-colors hover:bg-foreground/5 hover:text-brand"
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+          </div>
           <div className="border-t border-border p-4">
             <Link
               href={phoneHref}
