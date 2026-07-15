@@ -32,79 +32,102 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   const primary = links?.[0]?.link
   const secondary = links?.[1]?.link
 
+  // The photo, filling whatever frame it's given (backdrop on lg, in-flow on mobile).
+  const photo = (className: string) =>
+    hasImage ? (
+      <ScrollParallax className={cn('overflow-hidden rounded-[8px] border border-border', className)} amount={0.06}>
+        <Media resource={image} fill imgClassName="object-cover" className="absolute inset-0" />
+      </ScrollParallax>
+    ) : (
+      <div className={cn('relative overflow-hidden rounded-[8px] border border-border', className)}>
+        <div className="absolute inset-0 grid place-items-center bg-brand-soft text-brand">
+          <DynamicIcon name="Smile" className="size-10 opacity-40" />
+        </div>
+      </div>
+    )
+
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        {/* Content */}
-        <div className={cn('max-w-xl', imageLeft ? 'lg:order-2' : 'lg:order-1')}>
-          {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
-
-          {headingEl && (
-            <h1
-              className={cn(
-                'mt-4 font-display text-4xl font-bold leading-[1.04] tracking-tight sm:text-5xl',
-                invert ? 'text-white' : 'text-foreground',
-              )}
-            >
-              {headingEl}
-            </h1>
+    <SectionShell
+      surface={surface}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      bottomGap={bottomGap}
+      // Desktop photo — a full-height panel on one half, inset by the same small
+      // padding on top/right/bottom (like the home/About hero), bleeding to the edge.
+      backdrop={
+        <div
+          className={cn(
+            'absolute inset-y-0 hidden w-1/2 p-3 sm:p-4 lg:block',
+            imageLeft ? 'left-0' : 'right-0',
           )}
-
-          {lead && (
-            <p className={cn('mt-5 text-lg leading-relaxed', invert ? 'text-white/80' : 'text-muted-foreground')}>
-              {lead}
-            </p>
-          )}
-
-          {chipList.length > 0 && (
-            <ul className="mt-7 flex flex-wrap gap-2.5">
-              {chipList.map((c, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    'inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium',
-                    invert
-                      ? 'border-white/20 bg-white/5 text-white'
-                      : 'border-border bg-card text-foreground',
-                  )}
-                >
-                  <DynamicIcon name={c.icon || 'Check'} className="size-3.5 text-brand" />
-                  {c.text}
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {(primary || secondary) && (
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              {primary && (
-                <Link href={resolveHref(primary)} className={buttonPrimary}>
-                  <ButtonLabel>{primary.label}</ButtonLabel>
-                </Link>
-              )}
-              {secondary && (
-                <Link href={resolveHref(secondary)} className={buttonSecondary}>
-                  <ButtonLabel>{secondary.label}</ButtonLabel>
-                </Link>
-              )}
-            </div>
-          )}
+        >
+          {photo('h-full')}
         </div>
+      }
+    >
+      {/* Copy — kept in the container (aligned to the site edge) and vertically
+          centred beside the photo. */}
+      <div
+        className={cn(
+          'flex max-w-xl flex-col justify-center lg:min-h-128',
+          imageLeft ? 'lg:ml-auto' : 'lg:mr-auto',
+        )}
+      >
+        {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
 
-        {/* Photo — drifts with scroll */}
-        <div className={cn('relative', imageLeft ? 'lg:order-1' : 'lg:order-2')}>
-          {hasImage ? (
-            <ScrollParallax className="aspect-[4/5] rounded-[8px] border border-border" amount={0.06}>
-              <Media resource={image} fill imgClassName="object-cover" className="absolute inset-0" />
-            </ScrollParallax>
-          ) : (
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[8px] border border-border">
-              <div className="absolute inset-0 grid place-items-center bg-brand-soft text-brand">
-                <DynamicIcon name="Smile" className="size-10 opacity-40" />
-              </div>
-            </div>
-          )}
-        </div>
+        {headingEl && (
+          <h1
+            className={cn(
+              'mt-4 font-display text-4xl font-bold leading-[1.04] tracking-tight sm:text-5xl',
+              invert ? 'text-white' : 'text-foreground',
+            )}
+          >
+            {headingEl}
+          </h1>
+        )}
+
+        {lead && (
+          <p className={cn('mt-5 text-lg leading-relaxed', invert ? 'text-white/80' : 'text-muted-foreground')}>
+            {lead}
+          </p>
+        )}
+
+        {chipList.length > 0 && (
+          <ul className="mt-7 flex flex-wrap gap-2.5">
+            {chipList.map((c, i) => (
+              <li
+                key={i}
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium',
+                  invert
+                    ? 'border-white/20 bg-white/5 text-white'
+                    : 'border-border bg-card text-foreground',
+                )}
+              >
+                <DynamicIcon name={c.icon || 'Check'} className="size-3.5 text-brand" />
+                {c.text}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {(primary || secondary) && (
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            {primary && (
+              <Link href={resolveHref(primary)} className={buttonPrimary}>
+                <ButtonLabel>{primary.label}</ButtonLabel>
+              </Link>
+            )}
+            {secondary && (
+              <Link href={resolveHref(secondary)} className={buttonSecondary}>
+                <ButtonLabel>{secondary.label}</ButtonLabel>
+              </Link>
+            )}
+          </div>
+        )}
+
+        {/* Mobile photo — below the copy (the desktop photo is the backdrop) */}
+        <div className="mt-10 lg:hidden">{photo('aspect-[4/5]')}</div>
       </div>
     </SectionShell>
   )
