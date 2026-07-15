@@ -2,6 +2,7 @@
 
 import {
   Anchor,
+  CalendarCheck,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -26,7 +27,7 @@ import React, { useEffect, useState } from 'react'
 import { Brand } from './Brand'
 import { ThemeToggle } from './ThemeToggle'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
-import type { NavChild, NavItem } from '@/lib/practice'
+import { practice, type NavItem } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
 
 /** Pick a relevant icon for a dropdown item from its label. */
@@ -117,14 +118,11 @@ export const SiteHeader: React.FC<{
                     </Link>
                   )
                 }
-                // Split the menu into columns of at most 3 items each.
-                const columns: NavChild[][] = []
-                for (let c = 0; c < item.children.length; c += 3) {
-                  columns.push(item.children.slice(c, c + 3))
-                }
+                // Services mega-menu: a branded promo rail beside a 2-column grid
+                // of service tiles. Opens on hover/focus (CSS only, no JS state).
                 return (
                   <div key={item.label} className="group relative">
-                    {/* Dropdown trigger only — does not navigate (opens on hover/focus). */}
+                    {/* Trigger only — does not navigate (opens on hover/focus). */}
                     <button
                       type="button"
                       aria-haspopup="true"
@@ -133,42 +131,82 @@ export const SiteHeader: React.FC<{
                       {item.label}
                       <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-hover:rotate-180" />
                     </button>
-                    <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                      <div className="flex rounded-md border border-border bg-popover p-1 shadow-xl">
-                        {columns.map((col, ci) => (
+
+                    <div className="invisible absolute left-0 top-full z-50 w-176 translate-y-1 pt-3 opacity-0 transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                      <div className="grid grid-cols-[15rem_1fr] overflow-hidden rounded-[10px] border border-border bg-popover shadow-2xl">
+                        {/* Left — branded promo rail */}
+                        <div className="relative flex flex-col justify-between overflow-hidden bg-primary p-6 text-primary-foreground">
                           <div
-                            key={ci}
-                            className={cn(
-                              'flex w-64 flex-col',
-                              ci > 0 && 'ml-1 border-l border-border pl-1',
-                            )}
-                          >
-                            {col.map((child) => {
-                              const Icon = iconForLabel(child.label)
-                              return (
-                                <Link
-                                  key={child.href}
-                                  href={child.href}
-                                  className="flex items-center gap-3 rounded-[6px] p-3 transition-colors hover:bg-foreground/5"
-                                >
-                                  <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
-                                    <Icon className="size-5" />
-                                  </span>
-                                  <span className="min-w-0">
-                                    <span className="block text-sm font-semibold text-foreground">
-                                      {child.label}
-                                    </span>
-                                    {child.description && (
-                                      <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-                                        {child.description}
-                                      </span>
-                                    )}
-                                  </span>
-                                </Link>
-                              )
-                            })}
+                            aria-hidden
+                            className="pointer-events-none absolute -right-10 -top-12 size-40 rounded-full bg-white/10 blur-3xl"
+                          />
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute -bottom-14 -left-8 size-40 rounded-full bg-gold/20 blur-3xl"
+                          />
+                          <div className="relative">
+                            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-gold">
+                              Our services
+                            </span>
+                            <h3 className="mt-2 font-display text-2xl font-bold leading-tight text-white">
+                              Care for every smile
+                            </h3>
+                            <p className="mt-2 text-sm leading-relaxed text-white/75">
+                              From same-day emergencies to a full smile makeover — expert care, all
+                              under one roof.
+                            </p>
+                            <div className="mt-4 flex items-center gap-1.5 text-xs text-white/80">
+                              <Star className="size-3.5 fill-gold text-gold" />
+                              <span>
+                                {practice.rating.value} · {practice.rating.count}+ Google reviews
+                              </span>
+                            </div>
                           </div>
-                        ))}
+                          <div className="relative mt-6">
+                            <Link
+                              href="/contact"
+                              className="flex items-center justify-center gap-2 rounded-sm bg-white px-4 py-2.5 text-sm font-bold text-brand transition-colors hover:bg-white/90"
+                            >
+                              <CalendarCheck className="size-4" />
+                              Book a visit
+                            </Link>
+                            <Link
+                              href={phoneHref}
+                              className="mt-2 block text-center text-xs font-medium text-white/70 transition-colors hover:text-white"
+                            >
+                              or call {phone}
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Right — services grid */}
+                        <div className="grid grid-cols-2 gap-1 p-3">
+                          {item.children.map((child) => {
+                            const Icon = iconForLabel(child.label)
+                            return (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                className="group/item flex items-start gap-3 rounded-[8px] p-3 transition-colors hover:bg-brand/5"
+                              >
+                                <span className="grid size-9 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand transition-colors group-hover/item:bg-brand group-hover/item:text-white">
+                                  <Icon className="size-5" />
+                                </span>
+                                <span className="min-w-0">
+                                  <span className="flex items-center gap-1 text-sm font-semibold text-foreground">
+                                    {child.label}
+                                    <ChevronRight className="size-3.5 -translate-x-1 text-brand opacity-0 transition-all group-hover/item:translate-x-0 group-hover/item:opacity-100" />
+                                  </span>
+                                  {child.description && (
+                                    <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
+                                      {child.description}
+                                    </span>
+                                  )}
+                                </span>
+                              </Link>
+                            )
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>
