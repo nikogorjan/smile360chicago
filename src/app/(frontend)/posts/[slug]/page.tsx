@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { CalendarCheck, CalendarDays, ChevronRight, Phone, UserRound } from 'lucide-react'
+import { CalendarCheck, CalendarDays, ChevronRight, Phone, Star, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import type { Post } from '@/payload-types'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import { buttonVariants } from '@/components/ui/button'
+import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
@@ -12,6 +12,7 @@ import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
 import { getSiteData } from '@/lib/getSiteSettings'
+import { practice } from '@/lib/practice'
 import { Media } from '@/components/Media'
 import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { Eyebrow } from '@/components/site/primitives'
@@ -180,41 +181,76 @@ export default async function Post({ params: paramsPromise }: Args) {
               enableGutter={false}
             />
 
-            {/* CTA — cobalt card with a soft cobalt/gold glow */}
-            <div className="relative mt-14 overflow-hidden rounded-[8px] bg-primary p-8 text-primary-foreground sm:p-10">
+            {/* CTA — a closing cobalt card: editorial pitch + animated buttons on the
+                left, a rotated gold "rated" seal on the right, over layered glows. */}
+            <div className="relative mt-16 overflow-hidden rounded-[8px] bg-primary text-primary-foreground shadow-[0_30px_80px_-45px_rgb(0_0_0/0.55)]">
               <div
                 aria-hidden
-                className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-white/10 blur-3xl"
+                className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-white/10 blur-3xl"
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute -bottom-20 -left-10 size-56 rounded-full bg-gold/15 blur-3xl"
+                className="pointer-events-none absolute -bottom-24 -left-16 size-72 rounded-full bg-gold/20 blur-3xl"
               />
-              <div className="relative">
-                <span className="inline-flex size-11 items-center justify-center rounded-full bg-white/15 text-white">
-                  <CalendarCheck className="size-5" />
-                </span>
-                <h2 className="mt-5 font-display text-2xl font-bold tracking-tight text-white sm:text-[1.75rem]">
-                  In pain or due for a visit?
-                </h2>
-                <p className="mt-2 max-w-lg leading-relaxed text-primary-foreground/80">
-                  Same-day emergency appointments and new patients welcome at {site.practiceName}.
-                </p>
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <Link
-                    href="/contact"
-                    className={buttonVariants({ variant: 'white', className: 'font-bold' })}
-                  >
-                    <CalendarCheck className="size-4" />
-                    Book Appointment
-                  </Link>
-                  <Link
-                    href={site.phoneHref}
-                    className={buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })}
-                  >
-                    <Phone className="size-4" />
-                    {site.phone}
-                  </Link>
+
+              <div className="relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:p-12">
+                {/* Pitch */}
+                <div className="max-w-xl">
+                  <span className="inline-flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold">
+                    <span aria-hidden className="h-px w-7 bg-gold/60" />
+                    Book your visit
+                  </span>
+                  <h2 className="mt-4 font-display text-3xl font-bold leading-[1.04] tracking-tight text-white sm:text-4xl">
+                    In pain — or just overdue?{' '}
+                    <span className="text-gold">We&apos;ll get you in.</span>
+                  </h2>
+                  <p className="mt-4 max-w-md leading-relaxed text-primary-foreground/80">
+                    Same-day emergency appointments and new patients are always welcome at{' '}
+                    {site.practiceName}.
+                  </p>
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <Link
+                      href="/contact"
+                      className={buttonVariants({ variant: 'white', className: 'font-bold' })}
+                    >
+                      <ButtonLabel>
+                        <CalendarCheck className="size-4" />
+                        Book Appointment
+                      </ButtonLabel>
+                    </Link>
+                    <Link
+                      href={site.phoneHref}
+                      className={buttonVariants({ variant: 'outlineWhite', className: 'font-bold' })}
+                    >
+                      <ButtonLabel>
+                        <Phone className="size-4" />
+                        {site.phone}
+                      </ButtonLabel>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Gold "rated" seal — a rotated stamp echoing the offer block */}
+                <div className="relative hidden justify-self-end lg:block">
+                  <div className="relative grid size-40 -rotate-6 place-items-center rounded-full bg-gold text-gold-foreground shadow-xl">
+                    <span
+                      aria-hidden
+                      className="absolute inset-2.5 rounded-full border-2 border-dashed border-gold-foreground/25"
+                    />
+                    <div className="flex flex-col items-center gap-1 px-6 text-center">
+                      <div aria-hidden className="flex gap-0.5">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className="size-3 fill-current" />
+                        ))}
+                      </div>
+                      <span className="font-display text-3xl font-extrabold leading-none">
+                        {practice.rating.value}
+                      </span>
+                      <span className="text-[0.6rem] font-bold uppercase leading-tight tracking-widest">
+                        {practice.rating.count}+ Google reviews
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
