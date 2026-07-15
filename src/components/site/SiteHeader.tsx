@@ -2,7 +2,6 @@
 
 import {
   Anchor,
-  CalendarCheck,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -164,17 +163,17 @@ export const SiteHeader: React.FC<{
                           </div>
                           <div className="relative mt-6">
                             <Link
-                              href="/contact"
-                              className="flex items-center justify-center gap-2 rounded-sm bg-white px-4 py-2.5 text-sm font-bold text-brand transition-colors hover:bg-white/90"
-                            >
-                              <CalendarCheck className="size-4" />
-                              Book a visit
-                            </Link>
-                            <Link
                               href={phoneHref}
-                              className="mt-2 block text-center text-xs font-medium text-white/70 transition-colors hover:text-white"
+                              className={buttonVariants({
+                                variant: 'white',
+                                size: 'sm',
+                                className: 'w-full font-bold',
+                              })}
                             >
-                              or call {phone}
+                              <ButtonLabel>
+                                <Phone className="size-4" />
+                                Call {phone}
+                              </ButtonLabel>
                             </Link>
                           </div>
                         </div>
@@ -193,9 +192,8 @@ export const SiteHeader: React.FC<{
                                   <Icon className="size-5" />
                                 </span>
                                 <span className="min-w-0">
-                                  <span className="flex items-center gap-1 text-sm font-semibold text-foreground">
+                                  <span className="block text-sm font-semibold text-foreground">
                                     {child.label}
-                                    <ChevronRight className="size-3.5 -translate-x-1 text-brand opacity-0 transition-all group-hover/item:translate-x-0 group-hover/item:opacity-100" />
                                   </span>
                                   {child.description && (
                                     <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
