@@ -118,7 +118,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Explore</h3>
               <ul className="mt-4 space-y-2.5 text-sm">
                 {nav
-                  .filter((n) => n.href !== '/')
+                  .filter((n) => n.href !== '/' && n.href !== '/services')
                   .map((item) => (
                     <li key={item.href}>
                       <Link

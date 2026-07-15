@@ -76,8 +76,8 @@ export const LocalBusinessSchema: React.FC = () => {
   return <JsonLd data={data} />
 }
 
-export const FaqSchema: React.FC<{ category?: string }> = ({ category }) => {
-  const list = category ? faqs.filter((f) => f.category === category) : faqs
+export const FaqSchema: React.FC = () => {
+  const list = faqs
   const data = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',

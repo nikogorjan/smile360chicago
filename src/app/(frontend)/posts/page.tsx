@@ -40,7 +40,7 @@ export default async function Page() {
       <PageHero
         eyebrow="Smile360 blog"
         title="Oral-health tips, news & guides"
-        description="Expert, easy-to-read advice from our Chicago dental team — from emergency toothache relief to whitening, Invisalign, and keeping your whole family’s smiles healthy."
+        description="Expert, easy-to-read advice from our Chicago dental team — from emergency toothache relief to SureSmile clear aligners and keeping your whole family’s smiles healthy."
         breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/posts' }]}
       />
 
@@ -71,6 +71,6 @@ export function generateMetadata(): Metadata {
   return {
     title: `Dental Blog — Oral-Health Tips | ${practice.name}`,
     description:
-      'Oral-health tips, emergency dental advice, whitening, Invisalign, and family dentistry guides from the Smile360 Chicago team.',
+      'Oral-health tips, emergency dental advice, SureSmile clear aligners, and family dentistry guides from the Smile360 Chicago team.',
   }
 }

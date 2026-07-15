@@ -3,21 +3,18 @@ import React from 'react'
 import type { FaqBlock as Props } from '@/payload-types'
 import { getSiteData } from '@/lib/getSiteSettings'
 import { getFaqs } from '@/lib/queries'
-import type { Faq as FaqType } from '@/lib/practice'
 import { FaqAccordion } from './FaqAccordion'
 
 export const FaqBlock: React.FC<Props & { bare?: boolean }> = async ({
   eyebrow,
   heading,
   description,
-  category,
   limit,
   showCall,
   background,
   bare,
 }) => {
-  const cat = category && category !== 'all' ? (category as FaqType['category']) : undefined
-  let items = await getFaqs(cat)
+  let items = await getFaqs()
   if (limit) items = items.slice(0, limit)
   const site = showCall ? await getSiteData() : null
 

@@ -5,13 +5,15 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import { Faq } from '@/components/sections/Faq'
+import { FaqAccordion } from '@/blocks/Faq/FaqAccordion'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Section, SectionHeading, DynamicIcon } from '@/components/site/primitives'
-import { ServiceCard, ReviewCard } from '@/components/site/cards'
+import { ServiceCard } from '@/components/site/cards'
 import { BreadcrumbSchema, ServiceSchema } from '@/components/site/Schema'
+import RichText from '@/components/RichText'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { getSiteData } from '@/lib/getSiteSettings'
-import { getServices, getFaqs, getTestimonials } from '@/lib/queries'
+import { getServices, getFaqs, getServiceBySlug, getFaqsForService } from '@/lib/queries'
 import { getServicePhoto } from '@/lib/stockImages'
 import { practice } from '@/lib/practice'
 
@@ -36,16 +38,27 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
   }
 }
 
+/** True only when the rich-text body has real content (not an empty editor state). */
+function hasBodyContent(body: unknown): boolean {
+  const root = (body as { root?: { children?: Array<{ type?: string; children?: unknown[] }> } })?.root
+  if (!root?.children?.length) return false
+  return root.children.some((c) => (c.type && c.type !== 'paragraph') || (c.children?.length || 0) > 0)
+}
+
 export default async function ServiceDetailPage({ params }: Args) {
   const { slug } = await params
-  const [services, faqItems, reviews, site] = await Promise.all([
+  const [services, generalFaqs, site, fullService] = await Promise.all([
     getServices(),
     getFaqs(),
-    getTestimonials(),
     getSiteData(),
+    getServiceBySlug(slug),
   ])
-  const service = services.find((s) => s.slug === slug)
+  const service = fullService ?? services.find((s) => s.slug === slug)
   if (!service) notFound()
+
+  // Show the FAQs assigned to this service (the FAQ's "Services" field); else the general set.
+  const serviceFaqs = service.id ? await getFaqsForService(service.id) : []
+  const faqItems = serviceFaqs.length ? serviceFaqs : generalFaqs.slice(0, 5)
 
   const related = services.filter((s) => s.slug !== slug && s.category === service.category).slice(0, 3)
   const relatedList = related.length
@@ -58,7 +71,6 @@ export default async function ServiceDetailPage({ params }: Args) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },
-          { name: 'Services', url: '/services' },
           { name: service.name, url: `/services/${service.slug}` },
         ]}
       />
@@ -84,10 +96,6 @@ export default async function ServiceDetailPage({ params }: Args) {
               <nav className="mb-5 flex items-center gap-1 text-xs text-white/70">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
-                </Link>
-                <ChevronRight className="size-3" />
-                <Link href="/services" className="transition-colors hover:text-white">
-                  Services
                 </Link>
                 <ChevronRight className="size-3" />
                 <span className="text-white/90">{service.name}</span>
@@ -130,20 +138,13 @@ export default async function ServiceDetailPage({ params }: Args) {
             <span className="grid size-14 place-items-center rounded-full bg-brand/10 text-brand">
               <DynamicIcon name={service.icon} className="size-7" />
             </span>
-            <h2 className="mt-6 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-              Gentle, modern {service.name.toLowerCase()} in Chicago
-            </h2>
-            <div className="mt-4 space-y-4 text-muted-foreground">
-              <p>
-                At {site.practiceName}, {service.name.toLowerCase()} is delivered with the comfort and
-                precision you deserve. We take time to explain every step, answer your questions, and
-                make sure you feel at ease from start to finish.
-              </p>
-              <p>
-                Using modern digital technology, we keep your visit efficient and your results
-                natural-looking and long-lasting — all at transparent, upfront pricing.
-              </p>
-            </div>
+            {hasBodyContent(service.body) && (
+              <RichText
+                className="prose prose-slate mt-6 max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-brand"
+                data={service.body as DefaultTypedEditorState}
+                enableGutter={false}
+              />
+            )}
 
             {service.highlights.length > 0 && (
               <>
@@ -198,8 +199,11 @@ export default async function ServiceDetailPage({ params }: Args) {
         </div>
       </Section>
 
-      {/* related */}
-      <Section tone="muted">
+      <FaqAccordion items={faqItems} phone={site.phone} phoneHref={site.phoneHref} tone="muted" />
+
+      {/* Related treatments — at the very end. Standard section spacing (matches the homepage
+          rhythm), with ~1.5× bottom padding for extra breathing room before the footer. */}
+      <Section className="pb-30 md:pb-42">
         <div className="container">
           <SectionHeading eyebrow="Keep exploring" title="Related treatments" />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -209,20 +213,6 @@ export default async function ServiceDetailPage({ params }: Args) {
           </div>
         </div>
       </Section>
-
-      {/* reviews */}
-      <Section>
-        <div className="container">
-          <SectionHeading eyebrow="Patient stories" title="What our patients say" />
-          <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-            {reviews.slice(0, 3).map((t) => (
-              <ReviewCard key={t.author} t={t} />
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      <Faq items={faqItems.slice(0, 5)} phone={site.phone} phoneHref={site.phoneHref} tone="muted" />
     </>
   )
 }

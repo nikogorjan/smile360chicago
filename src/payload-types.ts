@@ -2116,6 +2116,9 @@ export interface Service {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Full service write-up — supports headings, media, and blocks, like the blog.
+   */
   body?: {
     root: {
       type: string;
@@ -2590,7 +2593,6 @@ export interface FaqBlock {
   heading?: string | null;
   description?: string | null;
   align?: ('center' | 'left') | null;
-  category?: ('all' | 'General' | 'Insurance' | 'Emergency' | 'Treatments') | null;
   limit?: number | null;
   showCall?: boolean | null;
   /**
@@ -3058,7 +3060,14 @@ export interface Faq {
   id: string;
   question: string;
   answer: string;
-  category?: ('General' | 'Insurance' | 'Emergency' | 'Treatments') | null;
+  /**
+   * Show this FAQ in general spots (the homepage and the FAQ block). For a service-specific FAQ, leave this off and use the Services field below instead.
+   */
+  isGeneral?: boolean | null;
+  /**
+   * Assign this FAQ to the service page(s) it should appear on. Leave empty for a general FAQ.
+   */
+  services?: (string | Service)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4526,7 +4535,6 @@ export interface FaqBlockSelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   align?: T;
-  category?: T;
   limit?: T;
   showCall?: T;
   background?: T;
@@ -4767,7 +4775,8 @@ export interface TestimonialsSelect<T extends boolean = true> {
 export interface FaqsSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
-  category?: T;
+  isGeneral?: T;
+  services?: T;
   updatedAt?: T;
   createdAt?: T;
 }

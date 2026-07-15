@@ -272,7 +272,6 @@ const faqBlock = (over: Record<string, unknown> = {}) => ({
   heading: 'Frequently *asked questions*',
   description: 'Can’t find your answer? We’re happy to help — give us a call.',
   align: 'left',
-  category: 'all',
   showCall: true,
   background: 'default',
   ...over,
@@ -958,7 +957,7 @@ const pages = [
       aboutFirstVisit(),
       getReady(),
       affordability(),
-      faqBlock({ category: 'Insurance' }),
+      faqBlock(),
       aboutInvitation(),
     ],
   },
@@ -999,7 +998,7 @@ const pages = [
         overlay: 'dark',
         links: [callLink, customLink('/contact', 'Request a time')],
       }),
-      faqBlock({ category: 'Emergency' }),
+      faqBlock(),
       featuredQuote,
       emergency(),
       finalCta(),
@@ -1149,7 +1148,7 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
     for (const f of faqs) {
       await payload.create({
         collection: 'faqs',
-        data: { question: f.question, answer: f.answer, category: f.category } as never,
+        data: { question: f.question, answer: f.answer, isGeneral: f.isGeneral } as never,
       })
     }
   })

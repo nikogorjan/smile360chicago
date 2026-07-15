@@ -57,7 +57,7 @@ export const BeforeAfter: React.FC<{
   cases,
   eyebrow = 'Real results',
   heading = 'See the difference a Smile360 smile makes',
-  description = 'Drag the slider to reveal a real-world transformation. From whitening and bonding to full smile makeovers, our before-and-afters speak for themselves.',
+  description = 'Drag the slider to reveal a real-world transformation. From bonding and veneers to full smile makeovers, our before-and-afters speak for themselves.',
   ctaLabel = 'Explore the full smile gallery',
   ctaHref = '/smile-gallery',
   tone = 'muted',
