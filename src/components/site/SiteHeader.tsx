@@ -61,9 +61,14 @@ export const SiteHeader: React.FC<{
   const [mobileOpen, setMobileOpen] = useState(false)
   // Which nav group's sub-panel is showing on mobile (drill-down). null = main level.
   const [submenu, setSubmenu] = useState<string | null>(null)
+  // Which desktop dropdown is open. Hover/focus controlled (not pure CSS :hover)
+  // so it can be force-closed on navigation — otherwise the panel stays open
+  // after a client-side route change because the pointer is still over it.
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
 
   useEffect(() => {
     setMobileOpen(false)
+    setOpenMenu(null)
   }, [pathname])
 
   useEffect(() => {
@@ -118,20 +123,43 @@ export const SiteHeader: React.FC<{
                   )
                 }
                 // Services mega-menu: a branded promo rail beside a 2-column grid
-                // of service tiles. Opens on hover/focus (CSS only, no JS state).
+                // of service tiles. Hover/focus controlled so it closes on nav.
+                const open = openMenu === item.label
                 return (
-                  <div key={item.label} className="group relative">
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => setOpenMenu(item.label)}
+                    onMouseLeave={() => setOpenMenu(null)}
+                    onFocus={() => setOpenMenu(item.label)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenMenu(null)
+                    }}
+                  >
                     {/* Trigger only — does not navigate (opens on hover/focus). */}
                     <button
                       type="button"
                       aria-haspopup="true"
+                      aria-expanded={open}
                       className={triggerClass(isActive(item.href))}
                     >
                       {item.label}
-                      <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-hover:rotate-180" />
+                      <ChevronDown
+                        className={cn(
+                          'size-3.5 text-muted-foreground transition-transform',
+                          open && 'rotate-180',
+                        )}
+                      />
                     </button>
 
-                    <div className="invisible absolute left-0 top-full z-50 w-176 translate-y-1 pt-3 opacity-0 transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    <div
+                      className={cn(
+                        'absolute left-0 top-full z-50 w-176 pt-3 transition-all duration-200 ease-out',
+                        open
+                          ? 'visible translate-y-0 opacity-100'
+                          : 'invisible translate-y-1 opacity-0',
+                      )}
+                    >
                       <div className="grid grid-cols-[15rem_1fr] overflow-hidden rounded-[10px] border border-border bg-popover shadow-2xl">
                         {/* Left — branded promo rail */}
                         <div className="relative flex flex-col justify-between overflow-hidden bg-primary p-6 text-primary-foreground">
