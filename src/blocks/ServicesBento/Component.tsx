@@ -20,9 +20,7 @@ const idOf = (v: unknown): string =>
  * Balanced bento mosaic (computed, not per-tile): a fixed 4-column grid with one
  * consistent row height, where every row is [wide (2 cols) + normal + normal] and the
  * wide tile alternates left/right per row — so each row fills exactly 4 columns with no
- * orphan cells, and no tall tiles to leave height holes. Only used when the count
- * divides into clean rows of three; otherwise the grid falls back to uniform equal-size
- * tiles (a partial final row, never a mid-grid hole).
+ * orphan cells. Used when the count divides into clean rows of three.
  */
 const isMosaic = (n: number) => n >= 3 && n % 3 === 0
 const isWide = (i: number, n: number): boolean => {
@@ -30,6 +28,23 @@ const isWide = (i: number, n: number): boolean => {
   const row = Math.floor(i / 3)
   const col = i % 3
   return col === (row % 2 === 0 ? 0 : 2) // wide on the left of even rows, right of odd rows
+}
+
+/**
+ * Column-span classes for tile i of n. Mosaic counts (multiples of three) keep the
+ * alternating layout above; any other count widens just the trailing tile(s) to fill
+ * the final row — the lone odd tile on the 2-col layout, and the empty cell(s) in the
+ * last row on the 4-col layout — so there's never an orphan hole (e.g. 7 services →
+ * the last tile spans two columns and closes the bottom-right gap).
+ */
+const wideClass = (i: number, n: number): string => {
+  if (isMosaic(n)) return isWide(i, n) ? 'sm:col-span-2' : ''
+  const parts: string[] = []
+  if (n % 2 === 1 && i === n - 1) parts.push('sm:col-span-2') // 2-col: fill the lone last tile
+  const lastRow = n % 4 // 4-col: fill the empty cell(s) in the last row
+  if (lastRow === 1 && i === n - 1) parts.push('lg:col-span-4')
+  else if (lastRow > 1 && i >= n - (4 - lastRow)) parts.push('lg:col-span-2')
+  return parts.join(' ')
 }
 
 /**
@@ -90,7 +105,7 @@ export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, ti
                   aria-label={s.name}
                   className={cn(
                     'group/tile relative block h-full overflow-hidden rounded-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card',
-                    isWide(i, n) && 'sm:col-span-2',
+                    wideClass(i, n),
                   )}
                 >
                   {/* Full-bleed image — LIGHT frosted-blue duotone at rest → full colour on

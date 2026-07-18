@@ -2,7 +2,7 @@ import type { Metadata } from 'next/types'
 
 import { Pagination } from '@/components/Pagination'
 import { PageHero } from '@/components/sections/PageHero'
-import { BlogCard } from '@/components/site/BlogCard'
+import { PostFeatureCard } from '@/components/site/PostFeatureCard'
 import { Section } from '@/components/site/primitives'
 import { BreadcrumbSchema } from '@/components/site/Schema'
 import { practice } from '@/lib/practice'
@@ -49,9 +49,9 @@ export default async function Page() {
       <Section paddingTop="none">
         <div className="container">
           {posts.docs?.length ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2">
               {posts.docs.map((doc) => (
-                <BlogCard key={doc.slug} doc={doc} />
+                <PostFeatureCard key={doc.slug} post={doc} />
               ))}
             </div>
           ) : (
