@@ -1184,6 +1184,14 @@ export interface GetReadyBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional photo shown beside the checklist so a single column never feels empty.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Which side the photo sits on (desktop).
+   */
+  imageSide?: ('right' | 'left') | null;
   links?:
     | {
         link: {
@@ -3884,6 +3892,8 @@ export interface GetReadyBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  image?: T;
+  imageSide?: T;
   links?:
     | T
     | {

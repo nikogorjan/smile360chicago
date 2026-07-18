@@ -758,18 +758,10 @@ const getReady = () => ({
         { text: 'Arrive about 10 minutes early' },
       ],
     },
-    {
-      icon: 'Laptop',
-      title: 'Do this online',
-      highlight: true,
-      items: [
-        { text: 'Complete your new-patient forms' },
-        { text: 'Add your insurance details' },
-        { text: 'Tell us about any dental anxiety' },
-      ],
-    },
   ],
-  links: [customLink('/contact', 'Start your forms')],
+  // Add a photo in admin (Image field) → the checklist renders as a split card with the
+  // photo filling the other half, so a single column never feels empty.
+  imageSide: 'right',
   // Bottom padding trimmed to one column-gap (24px) so the offer card below reads
   // as the same bento's wide bottom row.
   surface: 'muted',
