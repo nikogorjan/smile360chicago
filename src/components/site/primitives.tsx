@@ -208,7 +208,7 @@ export const SpecList: React.FC<{ items: SpecItem[]; tone?: 'light' | 'dark'; cl
           {it.icon && (
             <span
               className={cn(
-                'grid size-9 shrink-0 place-items-center rounded-full',
+                'grid size-9 shrink-0 place-items-center rounded-sm',
                 dark ? 'bg-white/10 text-white' : 'bg-brand/10 text-brand',
               )}
             >

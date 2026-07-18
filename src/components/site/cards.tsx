@@ -22,7 +22,7 @@ export const ServiceCard: React.FC<{ service: Service; featured?: boolean }> = (
         Same-day
       </span>
     )}
-    <span className="grid size-12 place-items-center rounded-full bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
+    <span className="grid size-12 place-items-center rounded-sm bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
       <DynamicIcon name={service.icon} className="size-6" />
     </span>
     <h3 className="mt-5 text-lg font-semibold text-foreground">{service.name}</h3>

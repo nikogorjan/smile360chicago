@@ -46,7 +46,7 @@ export const TabsBlock: React.FC<Props> = ({ eyebrow, heading, description, alig
                   {t.icon && (
                     <span
                       className={cn(
-                        'hidden size-10 shrink-0 place-items-center rounded-full lg:grid',
+                        'hidden size-10 shrink-0 place-items-center rounded-sm lg:grid',
                         on ? 'bg-primary/10 text-brand' : 'bg-foreground/5 text-muted-foreground',
                       )}
                     >
@@ -75,7 +75,7 @@ export const TabsBlock: React.FC<Props> = ({ eyebrow, heading, description, alig
                 <ul className="mt-7 grid gap-3 sm:grid-cols-2">
                   {a.bullets.map((b, i) => (
                     <li key={b.id || i} className="flex items-start gap-3">
-                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/10 text-brand">
+                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-sm bg-primary/10 text-brand">
                         <Check className="size-3" />
                       </span>
                       <span className="text-sm leading-snug text-foreground">{b.item}</span>

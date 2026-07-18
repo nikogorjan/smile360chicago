@@ -71,7 +71,7 @@ export const InvitationBlock: React.FC<Props> = ({
                     className={cn('flex items-center gap-4 py-3.5', i > 0 && 'border-t border-border/60')}
                   >
                     {d.icon && (
-                      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brand/10 text-brand">
+                      <span className="grid size-10 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
                         <DynamicIcon name={d.icon} className="size-4" />
                       </span>
                     )}

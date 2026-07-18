@@ -67,7 +67,7 @@ export const ValuesIndexBlock: React.FC<Props> = ({
               {it.body && <p className="mt-1 text-sm text-muted-foreground md:text-base">{it.body}</p>}
             </div>
             {it.icon && (
-              <span className="hidden size-11 shrink-0 place-items-center rounded-full bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-white sm:grid">
+              <span className="hidden size-11 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-white sm:grid">
                 <DynamicIcon name={it.icon} className="size-5" />
               </span>
             )}

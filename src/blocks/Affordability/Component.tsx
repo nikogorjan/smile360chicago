@@ -65,7 +65,7 @@ export const AffordabilityBlock: React.FC<Props> = ({
             >
               <span
                 className={cn(
-                  'grid size-11 place-items-center rounded-full',
+                  'grid size-11 place-items-center rounded-sm',
                   invert ? 'bg-white/10 text-white' : 'bg-brand/10 text-brand',
                 )}
               >

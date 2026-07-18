@@ -64,7 +64,7 @@ export const GetReadyBlock: React.FC<Props> = ({
                 <div className="flex items-center gap-3.5">
                   <span
                     className={cn(
-                      'grid size-11 shrink-0 place-items-center rounded-full',
+                      'grid size-11 shrink-0 place-items-center rounded-sm',
                       hot ? 'bg-brand text-white' : 'bg-brand/10 text-brand',
                     )}
                   >
@@ -76,7 +76,7 @@ export const GetReadyBlock: React.FC<Props> = ({
                 <ul className="mt-6 space-y-3.5">
                   {items.map((it, j) => (
                     <li key={j} className="flex items-start gap-3">
-                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/10 text-brand">
+                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
                         <DynamicIcon name="Check" className="size-3" />
                       </span>
                       <span className="text-sm leading-relaxed text-foreground/85 sm:text-[0.95rem]">{it.text}</span>
