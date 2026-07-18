@@ -14,9 +14,6 @@ import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
 import { ServicesListBlock } from '@/blocks/ServicesList/Component'
 import { ServicesBentoBlock } from '@/blocks/ServicesBento/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
-import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
-import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
-import { GalleryPreviewBlock } from '@/blocks/GalleryPreview/Component'
 import { ReviewsBlock } from '@/blocks/Reviews/Component'
 import { LatestPostsBlock } from '@/blocks/LatestPosts/Component'
 import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
@@ -88,9 +85,6 @@ const blockComponents = {
   servicesListBlock: ServicesListBlock,
   servicesBentoBlock: ServicesBentoBlock,
   featureGridBlock: FeatureGridBlock,
-  beforeAfterBlock: BeforeAfterBlock,
-  galleryGridBlock: GalleryGridBlock,
-  galleryPreviewBlock: GalleryPreviewBlock,
   reviewsBlock: ReviewsBlock,
   latestPostsBlock: LatestPostsBlock,
   quoteBlock: QuoteBlock,

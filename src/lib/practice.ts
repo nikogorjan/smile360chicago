@@ -75,7 +75,6 @@ export const nav: NavItem[] = [
       { label: 'Emergency Dentist', href: '/emergency-dentist', description: 'Same-day toothache relief' },
     ],
   },
-  { label: 'Smile Gallery', href: '/smile-gallery' },
   { label: 'New Patients', href: '/new-patients' },
   { label: 'Blog', href: '/posts' },
   { label: 'Contact', href: '/contact' },
@@ -141,15 +140,6 @@ export const services: Service[] = [
     from: '$1,800',
     highlights: ['Single & full-arch', 'Guided 3D placement', 'Lifetime-durable titanium'],
     featured: true,
-  },
-  {
-    slug: 'veneers',
-    name: 'Porcelain Veneers',
-    icon: 'Gem',
-    category: 'Cosmetic',
-    excerpt: 'Custom porcelain shells that redesign your smile in as few as two visits.',
-    from: '$950/tooth',
-    highlights: ['Digital smile design', 'Stain-resistant', 'Natural translucency'],
   },
   {
     slug: 'crowns-bridges',
@@ -293,24 +283,6 @@ export const testimonials: Testimonial[] = [
     source: 'Google',
     initials: 'JW',
   },
-]
-
-export type GalleryCase = {
-  title: string
-  treatment: string
-  description: string
-  /** Before/after photo URLs (from the CMS upload fields); absent for placeholders. */
-  before?: string
-  after?: string
-}
-
-export const galleryCases: GalleryCase[] = [
-  { title: 'Single-visit whitening', treatment: 'Whitening', description: '6 shades brighter in one appointment.' },
-  { title: 'Closed front gap', treatment: 'Invisalign', description: 'Clear aligners over 7 months.' },
-  { title: 'Chipped tooth repair', treatment: 'Bonding', description: 'Same-day cosmetic bonding.' },
-  { title: 'Full smile makeover', treatment: 'Veneers', description: '8 porcelain veneers, digitally designed.' },
-  { title: 'Missing tooth restored', treatment: 'Implant', description: 'Single implant + crown.' },
-  { title: 'Coffee-stain reversal', treatment: 'Whitening', description: 'Take-home professional whitening.' },
 ]
 
 export type Faq = { question: string; answer: string; isGeneral?: boolean }

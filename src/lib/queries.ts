@@ -3,12 +3,10 @@ import { getPayload } from 'payload'
 
 import {
   faqs as fbFaqs,
-  galleryCases as fbGallery,
   services as fbServices,
   team as fbTeam,
   testimonials as fbTestimonials,
   type Faq,
-  type GalleryCase,
   type Service,
   type TeamMember,
   type Testimonial,
@@ -213,34 +211,6 @@ export async function getFaqs(): Promise<Faq[]> {
     }))
   } catch {
     return fbFaqs.filter((f) => f.isGeneral)
-  }
-}
-
-export async function getGalleryCases(
-  opts: { limit?: number; sort?: string } = {},
-): Promise<GalleryCase[]> {
-  const { limit = 100, sort } = opts
-  try {
-    const p = await payload()
-    // depth 1 so the before/after upload relations are populated (we need their URLs).
-    const res = await p.find({
-      collection: 'gallery-cases',
-      limit,
-      depth: 1,
-      ...(sort ? { sort } : {}),
-    })
-    if (!res.docs.length) return fbGallery
-    const urlOf = (v: unknown): string | undefined =>
-      v && typeof v === 'object' && 'url' in v ? (v as { url?: string }).url || undefined : undefined
-    return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
-      title: String(d.title || ''),
-      treatment: String(d.treatment || ''),
-      description: String(d.description || ''),
-      before: urlOf(d.beforeImage),
-      after: urlOf(d.afterImage),
-    }))
-  } catch {
-    return fbGallery
   }
 }
 

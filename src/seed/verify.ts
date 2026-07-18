@@ -8,8 +8,7 @@ const run = async () => {
   const team = await payload.count({ collection: 'team' })
   const faqs = await payload.count({ collection: 'faqs' })
   const reviews = await payload.count({ collection: 'testimonials' })
-  const gallery = await payload.count({ collection: 'gallery-cases' })
-   
+
   console.log(
     JSON.stringify(
       {
@@ -18,7 +17,6 @@ const run = async () => {
         team: team.totalDocs,
         faqs: faqs.totalDocs,
         reviews: reviews.totalDocs,
-        gallery: gallery.totalDocs,
       },
       null,
       2,

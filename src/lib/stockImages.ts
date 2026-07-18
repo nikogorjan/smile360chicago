@@ -45,7 +45,6 @@ const serviceBySlug: Record<string, string> = {
   whitening: stockPhotos.officeModern,
   invisalign: stockPhotos.clearAligner,
   implants: stockPhotos.xrayReview,
-  veneers: stockPhotos.intraoralScan,
   'crowns-bridges': stockPhotos.officeWarm,
   'root-canals': stockPhotos.officeBright,
   'kids-dentistry': stockPhotos.toothbrushes,

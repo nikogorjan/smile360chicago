@@ -71,7 +71,6 @@ export interface Config {
     posts: Post;
     services: Service;
     team: Team;
-    'gallery-cases': GalleryCase;
     testimonials: Testimonial;
     faqs: Faq;
     media: Media;
@@ -98,7 +97,6 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
-    'gallery-cases': GalleryCasesSelect<false> | GalleryCasesSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -245,9 +243,6 @@ export interface Page {
     | ServicesListBlock
     | ServicesBentoBlock
     | FeatureGridBlock
-    | BeforeAfterBlock
-    | GalleryGridBlock
-    | GalleryPreviewBlock
     | ReviewsBlock
     | LatestPostsBlock
     | QuoteBlock
@@ -2230,96 +2225,6 @@ export interface FeatureGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BeforeAfterBlock".
- */
-export interface BeforeAfterBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  ctaLabel?: string | null;
-  ctaHref?: string | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'beforeAfterBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryGridBlock".
- */
-export interface GalleryGridBlock {
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'galleryGridBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryPreviewBlock".
- */
-export interface GalleryPreviewBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  /**
-   * How many of the latest before/after cases to show (3 recommended).
-   */
-  limit?: number | null;
-  /**
-   * “View full gallery” link (e.g. /smile-gallery).
-   */
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'galleryPreviewBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ReviewsBlock".
  */
 export interface ReviewsBlock {
@@ -3029,24 +2934,6 @@ export interface Team {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "gallery-cases".
- */
-export interface GalleryCase {
-  id: string;
-  title: string;
-  treatment: string;
-  description?: string | null;
-  beforeImage?: (string | null) | Media;
-  afterImage?: (string | null) | Media;
-  /**
-   * Required before publishing real before/after photos.
-   */
-  consentOnFile?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
 export interface Testimonial {
@@ -3286,10 +3173,6 @@ export interface PayloadLockedDocument {
         value: string | Team;
       } | null)
     | ({
-        relationTo: 'gallery-cases';
-        value: string | GalleryCase;
-      } | null)
-    | ({
         relationTo: 'testimonials';
         value: string | Testimonial;
       } | null)
@@ -3433,9 +3316,6 @@ export interface PagesSelect<T extends boolean = true> {
         servicesListBlock?: T | ServicesListBlockSelect<T>;
         servicesBentoBlock?: T | ServicesBentoBlockSelect<T>;
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
-        beforeAfterBlock?: T | BeforeAfterBlockSelect<T>;
-        galleryGridBlock?: T | GalleryGridBlockSelect<T>;
-        galleryPreviewBlock?: T | GalleryPreviewBlockSelect<T>;
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         latestPostsBlock?: T | LatestPostsBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
@@ -4319,60 +4199,6 @@ export interface FeatureGridBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BeforeAfterBlock_select".
- */
-export interface BeforeAfterBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  ctaLabel?: T;
-  ctaHref?: T;
-  background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryGridBlock_select".
- */
-export interface GalleryGridBlockSelect<T extends boolean = true> {
-  background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryPreviewBlock_select".
- */
-export interface GalleryPreviewBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  limit?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  background?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ReviewsBlock_select".
  */
 export interface ReviewsBlockSelect<T extends boolean = true> {
@@ -4747,20 +4573,6 @@ export interface TeamSelect<T extends boolean = true> {
         id?: T;
       };
   order?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "gallery-cases_select".
- */
-export interface GalleryCasesSelect<T extends boolean = true> {
-  title?: T;
-  treatment?: T;
-  description?: T;
-  beforeImage?: T;
-  afterImage?: T;
-  consentOnFile?: T;
   updatedAt?: T;
   createdAt?: T;
 }

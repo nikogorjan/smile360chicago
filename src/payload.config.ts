@@ -11,7 +11,6 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Services } from './collections/Services'
 import { Team } from './collections/Team'
-import { GalleryCases } from './collections/GalleryCases'
 import { Testimonials } from './collections/Testimonials'
 import { FAQs } from './collections/FAQs'
 import { Footer } from './Footer/config'
@@ -71,7 +70,6 @@ export default buildConfig({
     Posts,
     Services,
     Team,
-    GalleryCases,
     Testimonials,
     FAQs,
     Media,

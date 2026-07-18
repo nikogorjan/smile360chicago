@@ -2,7 +2,6 @@ import type { Payload } from 'payload'
 
 import {
   faqs,
-  galleryCases,
   hours,
   practice,
   services,
@@ -202,20 +201,6 @@ const featureGrid = (
   background = 'default',
 ) => ({ blockType: 'featureGridBlock', eyebrow, heading, align: 'center', features, background })
 
-const beforeAfter = (background = 'muted') => ({
-  blockType: 'beforeAfterBlock',
-  eyebrow: 'Real results',
-  heading: 'See the difference a *Smile360 smile* makes',
-  description:
-    'From whitening and bonding to full smile makeovers, the results speak for themselves — explore real patient transformations in our smile gallery.',
-  align: 'left',
-  ctaLabel: 'Explore the full smile gallery',
-  ctaHref: '/smile-gallery',
-  background,
-})
-
-const galleryGrid = () => ({ blockType: 'galleryGridBlock', background: 'default' })
-
 const emergency = () => ({
   blockType: 'emergencyBlock',
   heading: 'Got a toothache? *Just come to us.*',
@@ -242,16 +227,6 @@ const latestPosts = (over: Record<string, unknown> = {}) => ({
   description: 'Practical, easy-to-read oral-health advice from our Chicago dental team.',
   limit: 2,
   links: [customLink('/posts', 'View all articles')],
-  ...over,
-})
-
-const galleryPreview = (over: Record<string, unknown> = {}) => ({
-  blockType: 'galleryPreviewBlock',
-  eyebrow: 'Smile gallery',
-  heading: 'Real smiles, *real results*',
-  description: 'Drag any slider to see the transformation — whitening, bonding, veneers, and full smile makeovers.',
-  limit: 3,
-  links: [customLink('/smile-gallery', 'View full gallery')],
   ...over,
 })
 
@@ -855,8 +830,6 @@ const pages = [
       statsBlock(),
       servicesBentoBlock(),
       pillarsBlock(),
-      // Latest smile-gallery before/after cases (sliders) + view-all, under the pillars/marquee.
-      galleryPreview(),
       imageBand(),
       dentistFeature(),
       reviewsBlock({
@@ -925,28 +898,6 @@ const pages = [
         links: [callLink, customLink('/emergency-dentist', 'Emergency care')],
       }),
       faqBlock(),
-      finalCta(),
-    ],
-  },
-  {
-    slug: 'smile-gallery',
-    title: 'Smile Gallery',
-    meta: {
-      title: 'Smile Gallery — Before & After',
-      description:
-        'Browse real smile transformations from Smile360 Chicago — whitening, Invisalign, veneers, bonding, and implants.',
-    },
-    layout: [
-      pageHero('Smile gallery', 'Real smiles, real transformations', 'Cosmetic results that speak for themselves. Drag, filter, and explore the work our patients love to show off.'),
-      beforeAfter('default'),
-      galleryGrid(),
-      featuredQuote,
-      mediaBanner({
-        eyebrow: 'Your turn',
-        heading: 'Ready to love your smile?',
-        text: 'Book a cosmetic consultation and see your potential results with a free 3D preview.',
-        links: [bookLink],
-      }),
       finalCta(),
     ],
   },
@@ -1072,7 +1023,6 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
             { link: { type: 'custom', url: '/services', label: 'All Services' }, description: 'Browse every treatment' },
           ],
         },
-        { link: { type: 'custom', url: '/smile-gallery', label: 'Smile Gallery' } },
         { link: { type: 'custom', url: '/new-patients', label: 'New Patients' } },
         { link: { type: 'custom', url: '/posts', label: 'Blog' } },
         { link: { type: 'custom', url: '/contact', label: 'Contact' } },
@@ -1083,7 +1033,7 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
   // 3. Collections — non-destructive: only seed a collection when it's empty (or when
   //    forced), so re-running never deletes content/photos you've added in the admin.
   const seedCollection = async (
-    slug: 'services' | 'team' | 'testimonials' | 'faqs' | 'gallery-cases',
+    slug: 'services' | 'team' | 'testimonials' | 'faqs',
     createFn: () => Promise<void>,
   ) => {
     const existing = (await payload.count({ collection: slug })).totalDocs
@@ -1156,21 +1106,6 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
       await payload.create({
         collection: 'faqs',
         data: { question: f.question, answer: f.answer, isGeneral: f.isGeneral } as never,
-      })
-    }
-  })
-
-  await seedCollection('gallery-cases', async () => {
-    log('Gallery…')
-    for (const g of galleryCases) {
-      await payload.create({
-        collection: 'gallery-cases',
-        data: {
-          title: g.title,
-          treatment: g.treatment,
-          description: g.description,
-          consentOnFile: false,
-        } as never,
       })
     }
   })
