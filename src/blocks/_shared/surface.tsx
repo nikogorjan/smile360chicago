@@ -22,7 +22,8 @@ const MB = { none: '', xs: 'mb-6', sm: 'mb-10', md: 'mb-16', lg: 'mb-28', xl: 'm
 type Pad = keyof typeof PAD_T
 type Gap = keyof typeof MB
 
-export const surfaceInvert = (surface?: string | null): boolean => surface === 'brand'
+export const surfaceInvert = (surface?: string | null): boolean =>
+  surface === 'brand' || surface === 'brandPanel'
 
 export const SectionShell: React.FC<
   React.PropsWithChildren<{
@@ -50,12 +51,19 @@ export const SectionShell: React.FC<
   const pb = PAD_B[(paddingBottom as Pad) ?? 'md'] || PAD_B.md
   const mb = MB[(bottomGap as Gap) ?? 'none'] || ''
 
-  if (surface === 'panel') {
-    // The outer `pb` baseline + optional `mb` (Gap below) let the white card float
-    // above whatever follows (e.g. the footer) instead of butting flush against it.
+  if (surface === 'panel' || surface === 'brandPanel') {
+    // Inset rounded card that floats on the page: white ('panel') or cobalt
+    // ('brandPanel'). The outer `pb` + optional `mb` keep it off whatever follows.
     return (
       <section id={id} className={cn('px-3 pb-10 sm:px-4 sm:pb-14', mb, className)}>
-        <div className={cn('relative overflow-hidden rounded-[8px] bg-card', pt, pb)}>
+        <div
+          className={cn(
+            'relative overflow-hidden rounded-[8px]',
+            surface === 'brandPanel' ? 'bg-primary text-primary-foreground' : 'bg-card',
+            pt,
+            pb,
+          )}
+        >
           {backdrop}
           <div className={cn('container relative', containerClassName)}>{children}</div>
         </div>

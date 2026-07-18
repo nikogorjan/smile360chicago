@@ -15,7 +15,10 @@ export const ManifestoBlock: React.FC<Props> = ({
   paddingBottom,
   bottomGap,
 }) => {
-  const invert = surfaceInvert(surface)
+  // Render the cobalt statement as an inset rounded card (floats with 8px corners +
+  // padding), rather than a full-bleed band — a "brand" surface maps to "brandPanel".
+  const effectiveSurface = surface === 'brand' ? 'brandPanel' : surface
+  const invert = surfaceInvert(effectiveSurface)
   const statementEl = renderRichHeading(statement, invert)
 
   // Full-bleed depth layer — concentric focus rings + a soft central glow. Rendered
@@ -34,7 +37,7 @@ export const ManifestoBlock: React.FC<Props> = ({
 
   return (
     <SectionShell
-      surface={surface}
+      surface={effectiveSurface}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
       bottomGap={bottomGap}
