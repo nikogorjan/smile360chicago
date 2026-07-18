@@ -243,6 +243,9 @@ export interface Page {
     | ServicesListBlock
     | ServicesBentoBlock
     | FeatureGridBlock
+    | ComparisonBlock
+    | CredentialsBlock
+    | TechnologyBlock
     | ReviewsBlock
     | LatestPostsBlock
     | QuoteBlock
@@ -2225,6 +2228,244 @@ export interface FeatureGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparisonBlock".
+ */
+export interface ComparisonBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  intro?: string | null;
+  /**
+   * Header for the highlighted (your) column.
+   */
+  ourLabel?: string | null;
+  /**
+   * Header for the comparison column.
+   */
+  theirLabel?: string | null;
+  /**
+   * Each row: what you’re comparing, then the Smile360 answer vs. the usual.
+   */
+  rows?:
+    | {
+        /**
+         * What’s being compared, e.g. “Your dentist”, “Pace”, “Emergencies”.
+         */
+        label: string;
+        /**
+         * The Smile360 answer.
+         */
+        ours: string;
+        /**
+         * The usual answer.
+         */
+        theirs: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparisonBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CredentialsBlock".
+ */
+export interface CredentialsBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * A sentence or two on training and commitment.
+   */
+  lead?: string | null;
+  /**
+   * Credential / certificate photo (e.g. Dr. Salam receiving the award).
+   */
+  image?: (string | null) | Media;
+  /**
+   * Optional caption shown under the photo.
+   */
+  imageCaption?: string | null;
+  imageSide?: ('left' | 'right') | null;
+  /**
+   * Qualifications, certifications, memberships, experience — shown as a checklist.
+   */
+  credentials?:
+    | {
+        /**
+         * lucide icon (e.g. GraduationCap, Award, BadgeCheck, HeartPulse, Clock).
+         */
+        icon?: string | null;
+        title: string;
+        /**
+         * Optional detail line.
+         */
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'credentialsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TechnologyBlock".
+ */
+export interface TechnologyBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  lead?: string | null;
+  /**
+   * Each: icon + name + one-line patient benefit. Only list what you actually have.
+   */
+  items?:
+    | {
+        /**
+         * lucide icon (e.g. ScanLine, Radiation, Box, Camera, Sparkles, Zap).
+         */
+        icon?: string | null;
+        title: string;
+        /**
+         * One line on the patient benefit.
+         */
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional supporting photos (equipment / office). Click “Add Photo” for each — about 3 looks best.
+   */
+  images?:
+    | {
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'technologyBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ReviewsBlock".
  */
 export interface ReviewsBlock {
@@ -3316,6 +3557,9 @@ export interface PagesSelect<T extends boolean = true> {
         servicesListBlock?: T | ServicesListBlockSelect<T>;
         servicesBentoBlock?: T | ServicesBentoBlockSelect<T>;
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
+        comparisonBlock?: T | ComparisonBlockSelect<T>;
+        credentialsBlock?: T | CredentialsBlockSelect<T>;
+        technologyBlock?: T | TechnologyBlockSelect<T>;
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         latestPostsBlock?: T | LatestPostsBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
@@ -4194,6 +4438,100 @@ export interface FeatureGridBlockSelect<T extends boolean = true> {
         id?: T;
       };
   background?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparisonBlock_select".
+ */
+export interface ComparisonBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  ourLabel?: T;
+  theirLabel?: T;
+  rows?:
+    | T
+    | {
+        label?: T;
+        ours?: T;
+        theirs?: T;
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CredentialsBlock_select".
+ */
+export interface CredentialsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  image?: T;
+  imageCaption?: T;
+  imageSide?: T;
+  credentials?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TechnologyBlock_select".
+ */
+export interface TechnologyBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }

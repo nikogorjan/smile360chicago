@@ -11,6 +11,9 @@ import { Hero } from '../../blocks/Hero/config'
 import { Stats } from '../../blocks/Stats/config'
 import { ServicesGrid } from '../../blocks/ServicesGrid/config'
 import { FeatureGrid } from '../../blocks/FeatureGrid/config'
+import { Comparison } from '../../blocks/Comparison/config'
+import { Credentials } from '../../blocks/Credentials/config'
+import { Technology } from '../../blocks/Technology/config'
 import { Reviews } from '../../blocks/Reviews/config'
 import { TeamGrid } from '../../blocks/TeamGrid/config'
 import { DentistFeature } from '../../blocks/DentistFeature/config'
@@ -147,6 +150,9 @@ export const Pages: CollectionConfig<'pages'> = {
                 ServicesList,
                 ServicesBento,
                 FeatureGrid,
+                Comparison,
+                Credentials,
+                Technology,
                 Reviews,
                 LatestPosts,
                 QuoteSpotlight,
