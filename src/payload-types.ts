@@ -575,6 +575,18 @@ export interface MastheadBlock {
    */
   image?: (string | null) | Media;
   /**
+   * Which part of the photo stays in frame on desktop.
+   */
+  imageFocus?:
+    | ('center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right')
+    | null;
+  /**
+   * Focus on the taller mobile crop — set independently (e.g. “Top” to keep a face in frame).
+   */
+  imageFocusMobile?:
+    | ('center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right')
+    | null;
+  /**
    * Optional small caption over the photo.
    */
   caption?: string | null;
@@ -3632,6 +3644,8 @@ export interface MastheadBlockSelect<T extends boolean = true> {
   heading?: T;
   lead?: T;
   image?: T;
+  imageFocus?: T;
+  imageFocusMobile?: T;
   caption?: T;
   id?: T;
   blockName?: T;

@@ -5,6 +5,32 @@ import { Media } from '@/components/Media'
 import { DynamicIcon } from '@/components/site/primitives'
 import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { renderRichHeading } from '../_shared/richHeading'
+import { cn } from '@/utilities/ui'
+
+// Literal object-position classes (Tailwind must see the full class names). The mobile
+// focus applies at the base breakpoint; the desktop focus overrides it at md+.
+const MOBILE_POS: Record<string, string> = {
+  center: 'object-center',
+  top: 'object-top',
+  bottom: 'object-bottom',
+  left: 'object-left',
+  right: 'object-right',
+  'top-left': 'object-left-top',
+  'top-right': 'object-right-top',
+  'bottom-left': 'object-left-bottom',
+  'bottom-right': 'object-right-bottom',
+}
+const DESKTOP_POS: Record<string, string> = {
+  center: 'md:object-center',
+  top: 'md:object-top',
+  bottom: 'md:object-bottom',
+  left: 'md:object-left',
+  right: 'md:object-right',
+  'top-left': 'md:object-left-top',
+  'top-right': 'md:object-right-top',
+  'bottom-left': 'md:object-left-bottom',
+  'bottom-right': 'md:object-right-bottom',
+}
 
 /**
  * About-page hero — mirrors the home hero: a full-bleed image card with a little
@@ -13,10 +39,22 @@ import { renderRichHeading } from '../_shared/richHeading'
  * content anchored bottom-left in the page container. The image settles from a
  * slight zoom on load.
  */
-export const MastheadBlock: React.FC<Props> = ({ facts, heading, lead, image, caption }) => {
+export const MastheadBlock: React.FC<Props> = ({
+  facts,
+  heading,
+  lead,
+  image,
+  imageFocus,
+  imageFocusMobile,
+  caption,
+}) => {
   const hasImage = image && typeof image !== 'string'
   // Content sits on the (dark) image — render the accent as the inverted underline.
   const headingEl = renderRichHeading(heading, true)
+  const objectPos = cn(
+    MOBILE_POS[imageFocusMobile || 'center'] || MOBILE_POS.center,
+    DESKTOP_POS[imageFocus || 'center'] || DESKTOP_POS.center,
+  )
 
   return (
     <section className="relative">
@@ -27,7 +65,7 @@ export const MastheadBlock: React.FC<Props> = ({ facts, heading, lead, image, ca
               <Media
                 resource={image}
                 fill
-                imgClassName="object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]"
+                imgClassName={cn('object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]', objectPos)}
                 className="absolute inset-0"
               />
             </ScrollParallax>
