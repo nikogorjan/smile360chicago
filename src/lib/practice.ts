@@ -38,7 +38,6 @@ export const practice = {
   priceRange: '$$',
   social: {
     instagram: 'https://instagram.com/smile360chicago',
-    facebook: 'https://facebook.com/smile360chicago',
     google: 'https://g.page/smile360chicago',
     tiktok: 'https://tiktok.com/@smile360chicago',
   },

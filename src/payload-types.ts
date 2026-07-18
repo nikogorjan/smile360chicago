@@ -5138,7 +5138,6 @@ export interface SiteSetting {
   announcementText?: string | null;
   announcementLink?: string | null;
   instagram?: string | null;
-  facebook?: string | null;
   google?: string | null;
   tiktok?: string | null;
   updatedAt?: string | null;
@@ -5239,7 +5238,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   announcementText?: T;
   announcementLink?: T;
   instagram?: T;
-  facebook?: T;
   google?: T;
   tiktok?: T;
   updatedAt?: T;

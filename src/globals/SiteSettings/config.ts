@@ -103,7 +103,6 @@ export const SiteSettings: GlobalConfig = {
           label: 'Social',
           fields: [
             { name: 'instagram', type: 'text' },
-            { name: 'facebook', type: 'text' },
             { name: 'google', type: 'text', label: 'Google Business Profile' },
             { name: 'tiktok', type: 'text' },
           ],

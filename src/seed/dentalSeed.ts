@@ -998,7 +998,6 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
       announcementText: practice.emergencyTagline,
       announcementLink: '/emergency-dentist',
       instagram: practice.social.instagram,
-      facebook: practice.social.facebook,
       google: practice.social.google,
       tiktok: practice.social.tiktok,
     } as never,

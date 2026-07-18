@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowRight, Clock, Instagram, Mail, MapPin, Phone } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -101,15 +101,6 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
                   className="grid size-9 place-items-center rounded-sm border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
                 >
                   <Instagram className="size-4" />
-                </a>
-                <a
-                  href={site.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  className="grid size-9 place-items-center rounded-sm border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
-                >
-                  <Facebook className="size-4" />
                 </a>
               </div>
             </div>

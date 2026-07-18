@@ -15,7 +15,7 @@ export type SiteData = {
   mapEmbed: string
   hours: { day: string; open: string; close: string; closed?: boolean | null }[]
   announcement: { enabled: boolean; text: string; link: string }
-  social: { instagram: string; facebook: string; google: string; tiktok: string }
+  social: { instagram: string; google: string; tiktok: string }
   emergencyTagline: string
   rating: { value: number; count: number }
   logo: { lightUrl: string | null; darkUrl: string | null; alt: string }
@@ -82,7 +82,6 @@ export async function getSiteData(): Promise<SiteData> {
     },
     social: {
       instagram: (g.instagram as string) || practice.social.instagram,
-      facebook: (g.facebook as string) || practice.social.facebook,
       google: (g.google as string) || practice.social.google,
       tiktok: (g.tiktok as string) || practice.social.tiktok,
     },
