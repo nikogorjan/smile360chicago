@@ -68,7 +68,7 @@ export const FirstVisitSteps: React.FC<{ steps: Step[]; invert: boolean }> = ({ 
         aria-hidden
         className={cn(
           'absolute top-7 hidden h-px origin-left -translate-y-1/2 lg:block',
-          invert ? 'bg-white' : 'bg-brand',
+          invert ? 'bg-gradient-to-r from-white to-gold' : 'bg-gradient-to-r from-brand to-gold',
           animate && 'transition-transform duration-[1100ms] ease-out',
           shown ? 'scale-x-100' : 'scale-x-0',
         )}
@@ -95,7 +95,7 @@ export const FirstVisitSteps: React.FC<{ steps: Step[]; invert: boolean }> = ({ 
                 aria-hidden
                 className={cn(
                   'absolute left-7 top-7 h-[calc(100%+2.5rem)] w-px origin-top -translate-x-1/2 lg:hidden',
-                  invert ? 'bg-white' : 'bg-brand',
+                  invert ? 'bg-gradient-to-b from-white to-gold' : 'bg-gradient-to-b from-brand to-gold',
                   animate && 'transition-transform duration-[420ms] ease-out',
                   shown ? 'scale-y-100' : 'scale-y-0',
                 )}
@@ -108,7 +108,7 @@ export const FirstVisitSteps: React.FC<{ steps: Step[]; invert: boolean }> = ({ 
             <div
               className={cn(
                 'relative flex size-14 items-center justify-center rounded-full border shadow-sm',
-                invert ? 'border-white/20 bg-primary text-white' : 'border-border bg-card text-brand',
+                invert ? 'border-white/20 bg-primary text-white' : 'border-brand/15 bg-brand-soft text-brand',
               )}
             >
               {s.icon ? (
@@ -119,8 +119,8 @@ export const FirstVisitSteps: React.FC<{ steps: Step[]; invert: boolean }> = ({ 
               {/* Step-number badge */}
               <span
                 className={cn(
-                  'absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full text-[0.6rem] font-bold leading-none tabular-nums',
-                  invert ? 'bg-white text-primary' : 'bg-brand text-white',
+                  'absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full text-[0.6rem] font-bold leading-none tabular-nums shadow-sm ring-2',
+                  invert ? 'bg-gold text-gold-foreground ring-primary' : 'bg-gold text-gold-foreground ring-card',
                 )}
               >
                 {i + 1}
