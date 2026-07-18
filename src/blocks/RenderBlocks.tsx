@@ -52,6 +52,7 @@ import { InvitationBlock } from '@/blocks/Invitation/Component'
 import { NewPatientHeroBlock } from '@/blocks/NewPatientHero/Component'
 import { OfferSpotlightBlock } from '@/blocks/OfferSpotlight/Component'
 import { GetReadyBlock } from '@/blocks/GetReady/Component'
+import { ComfortBlock } from '@/blocks/Comfort/Component'
 import { AffordabilityBlock } from '@/blocks/Affordability/Component'
 import { MapBandBlock } from '@/blocks/MapBand/Component'
 
@@ -74,6 +75,7 @@ const blockComponents = {
   newPatientHeroBlock: NewPatientHeroBlock,
   offerSpotlightBlock: OfferSpotlightBlock,
   getReadyBlock: GetReadyBlock,
+  comfortBlock: ComfortBlock,
   affordabilityBlock: AffordabilityBlock,
   mapBandBlock: MapBandBlock,
   mediaBannerBlock: MediaBannerBlock,

@@ -804,6 +804,49 @@ const affordability = () => ({
   surface: 'canvas',
 })
 
+// New Patients reassurance grid — disarms dental anxiety right before the closing
+// invitation. Sits on a white panel. Icons are lucide names (edit freely in admin).
+const newPatientComfort = () => ({
+  blockType: 'comfortBlock',
+  eyebrow: 'You’re in good hands',
+  heading: rtHeading('Feeling nervous? We’ve got you.', 'We’ve got you'),
+  intro:
+    'Dental anxiety is more common than you’d think — so we’ve built the whole visit around keeping you calm, comfortable, and in control.',
+  items: [
+    {
+      icon: 'Feather',
+      title: 'Truly gentle hands',
+      description: 'We numb thoroughly and work gently, so treatment stays comfortable from start to finish.',
+    },
+    {
+      icon: 'Wind',
+      title: 'Calming options',
+      description: 'Nitrous (laughing gas) and other relaxation options for anyone who needs a little extra ease.',
+    },
+    {
+      icon: 'Hand',
+      title: 'You set the pace',
+      description: 'Raise your hand and we pause right away — you’re always in control of what happens next.',
+    },
+    {
+      icon: 'HeartHandshake',
+      title: 'Zero judgment',
+      description: 'However long it’s been, there are no lectures here. Just a warm, honest, fresh start.',
+    },
+    {
+      icon: 'Headphones',
+      title: 'Cozy little extras',
+      description: 'Blankets, noise-cancelling headphones, and a show to watch while you relax in the chair.',
+    },
+    {
+      icon: 'Clock',
+      title: 'Never rushed',
+      description: 'Your visit is your time — we move at your pace and answer every question, never the clock’s.',
+    },
+  ],
+  surface: 'panel',
+})
+
 const mapBand = () => ({ blockType: 'mapBandBlock', height: 'large' })
 
 /* ---------------------------------------------------------------- the pages */
@@ -908,6 +951,7 @@ const pages = [
       offerSpotlight(),
       affordability(),
       faqBlock(),
+      newPatientComfort(),
       aboutInvitation(),
     ],
   },

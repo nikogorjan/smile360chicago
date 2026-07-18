@@ -51,6 +51,7 @@ import { Invitation } from '../../blocks/Invitation/config'
 import { NewPatientHero } from '../../blocks/NewPatientHero/config'
 import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
 import { GetReady } from '../../blocks/GetReady/config'
+import { Comfort } from '../../blocks/Comfort/config'
 import { Affordability } from '../../blocks/Affordability/config'
 import { MapBand } from '../../blocks/MapBand/config'
 import { hero } from '@/heros/config'
@@ -130,6 +131,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 NewPatientHero,
                 OfferSpotlight,
                 GetReady,
+                Comfort,
                 Affordability,
                 MapBand,
                 AboutHero,

@@ -223,6 +223,7 @@ export interface Page {
     | NewPatientHeroBlock
     | OfferSpotlightBlock
     | GetReadyBlock
+    | ComfortBlock
     | AffordabilityBlock
     | MapBandBlock
     | AboutHeroBlock
@@ -1231,6 +1232,85 @@ export interface GetReadyBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'getReadyBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComfortBlock".
+ */
+export interface ComfortBlock {
+  eyebrow?: string | null;
+  /**
+   * Select a phrase, then Style → Brand blue to accent it.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  intro?: string | null;
+  /**
+   * The things that make a visit easy. 3 or 6 read best.
+   */
+  items?:
+    | {
+        /**
+         * lucide icon (e.g. Feather, Wind, Hand, Headphones).
+         */
+        icon?: string | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comfortBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3557,6 +3637,7 @@ export interface PagesSelect<T extends boolean = true> {
         newPatientHeroBlock?: T | NewPatientHeroBlockSelect<T>;
         offerSpotlightBlock?: T | OfferSpotlightBlockSelect<T>;
         getReadyBlock?: T | GetReadyBlockSelect<T>;
+        comfortBlock?: T | ComfortBlockSelect<T>;
         affordabilityBlock?: T | AffordabilityBlockSelect<T>;
         mapBandBlock?: T | MapBandBlockSelect<T>;
         aboutHeroBlock?: T | AboutHeroBlockSelect<T>;
@@ -3894,6 +3975,43 @@ export interface GetReadyBlockSelect<T extends boolean = true> {
       };
   image?: T;
   imageSide?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  surface?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComfortBlock_select".
+ */
+export interface ComfortBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   links?:
     | T
     | {
