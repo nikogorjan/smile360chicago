@@ -207,8 +207,9 @@ export const StatsGrid: React.FC<{ stats: Stat[] }> = ({ stats }) => {
                 </>
               )}
 
-              {/* Label */}
-              <p className="mt-4 max-w-[12rem] text-sm font-medium leading-snug text-muted-foreground sm:text-base">
+              {/* Label — reserve two lines so 1-line vs 2-line labels don't change the
+                  card's content height (which would push the centred icons out of row). */}
+              <p className="mt-4 flex min-h-11 max-w-48 items-center justify-center text-sm font-medium leading-snug text-muted-foreground sm:text-base">
                 {s.label}
               </p>
             </div>
