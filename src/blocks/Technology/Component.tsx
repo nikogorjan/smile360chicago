@@ -3,16 +3,9 @@ import React from 'react'
 import type { Media as MediaType, TechnologyBlock as Props } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { DynamicIcon, Eyebrow } from '@/components/site/primitives'
-import { ScrollDrift } from '@/components/site/ScrollDrift'
 import { SectionShell, surfaceInvert } from '../_shared/surface'
 import { renderRichHeading } from '../_shared/richHeading'
 import { cn } from '@/utilities/ui'
-
-// Per-tile vertical stagger (start position) and scroll drift (px, per index 0/1/2).
-// Symmetric — outer tiles match, middle is offset — so it always reads centered;
-// the drift is small so the movement stays subtle.
-const STAGGER = ['mt-8', 'mt-0', 'mt-8']
-const DRIFT = [16, -10, 16]
 
 /**
  * Technology — icon cards (the star) with an optional supporting photo strip below.
@@ -44,7 +37,7 @@ export const TechnologyBlock: React.FC<Props> = ({
       paddingBottom={paddingBottom}
       bottomGap={bottomGap}
     >
-      <div className={cn(hasPhotos && 'grid items-end gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-8')}>
+      <div className={cn(hasPhotos && 'grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-stretch lg:gap-8')}>
         {/* Content + technology list */}
         <div className={cn(hasPhotos ? 'max-w-xl' : 'max-w-2xl')}>
           {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
@@ -103,21 +96,34 @@ export const TechnologyBlock: React.FC<Props> = ({
           )}
         </div>
 
-        {/* Photos — three tall 9:16 tiles, staggered, each drifting on scroll.
-            Vertically centred against the copy (items-center on the parent grid). */}
+        {/* Photos — an editorial collage (one tall + two stacked) that fills the
+            column height, so the image side stays as substantial as the copy. */}
         {hasPhotos && (
           <div
             className={cn(
-              'grid gap-4 sm:gap-5',
-              photos.length >= 3 ? 'grid-cols-3' : photos.length === 2 ? 'grid-cols-2' : 'grid-cols-1',
+              'grid gap-4 lg:h-full',
+              photos.length >= 3
+                ? 'min-h-104 grid-cols-2 grid-rows-2'
+                : photos.length === 2
+                  ? 'grid-cols-2'
+                  : 'grid-cols-1',
             )}
           >
-            {photos.map((m, i) => (
-              <ScrollDrift key={i} amount={DRIFT[i % 3]} className={STAGGER[i % 3]}>
-                <div className="relative aspect-[9/16] overflow-hidden rounded-[8px] border border-border bg-muted">
-                  <Media resource={m} fill imgClassName="object-cover" className="absolute inset-0" />
-                </div>
-              </ScrollDrift>
+            {(photos.length >= 3 ? photos.slice(0, 3) : photos).map((m, i) => (
+              <div
+                key={i}
+                className={cn(
+                  'group/photo relative overflow-hidden rounded-[8px] border border-border bg-muted shadow-[0_18px_40px_-24px_rgb(0_0_0/0.3)]',
+                  photos.length >= 3 ? i === 0 && 'row-span-2' : 'aspect-[9/16]',
+                )}
+              >
+                <Media
+                  resource={m}
+                  fill
+                  imgClassName="object-cover transition-transform duration-500 ease-out group-hover/photo:scale-105 motion-reduce:transition-none motion-reduce:group-hover/photo:scale-100"
+                  className="absolute inset-0"
+                />
+              </div>
             ))}
           </div>
         )}
