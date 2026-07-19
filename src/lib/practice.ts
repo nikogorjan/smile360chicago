@@ -95,8 +95,8 @@ export type Service = {
   featured?: boolean
   /** Rich-text body (Lexical editor state) — present when fetched for the detail page. */
   body?: unknown
-  /** Hand-picked related-service ids (empty ⇒ auto-fill by category). */
-  relatedServices?: string[]
+  /** Hand-picked related blog post ids (empty ⇒ fall back to the latest posts). */
+  relatedPosts?: string[]
 }
 
 export const services: Service[] = [

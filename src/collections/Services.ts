@@ -65,14 +65,13 @@ export const Services: CollectionConfig = {
       },
     },
     {
-      name: 'relatedServices',
+      name: 'relatedPosts',
       type: 'relationship',
-      relationTo: 'services',
+      relationTo: 'posts',
       hasMany: true,
-      filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
       admin: {
         description:
-          'Hand-pick the treatments shown in “Related treatments” on this page. Leave empty to auto-fill from the same category.',
+          'Pick 2 blog posts to show as “Keep reading” at the bottom of this service page (same cards as the blog). Leave empty to fall back to the latest posts.',
       },
     },
     slugField({ useAsSlug: 'name' }),

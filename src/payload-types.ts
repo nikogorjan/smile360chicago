@@ -2237,9 +2237,9 @@ export interface Service {
     [k: string]: unknown;
   } | null;
   /**
-   * Hand-pick the treatments shown in “Related treatments” on this page. Leave empty to auto-fill from the same category.
+   * Pick 2 blog posts to show as “Keep reading” at the bottom of this service page (same cards as the blog). Leave empty to fall back to the latest posts.
    */
-  relatedServices?: (string | Service)[] | null;
+  relatedPosts?: (string | Post)[] | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -5030,7 +5030,7 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   body?: T;
-  relatedServices?: T;
+  relatedPosts?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

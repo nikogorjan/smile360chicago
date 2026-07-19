@@ -97,7 +97,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
       highlights: items(d.highlights),
       featured: Boolean(d.featured),
       body: d.body ?? null,
-      relatedServices: relIds(d.relatedServices),
+      relatedPosts: relIds(d.relatedPosts),
     }
   } catch {
     return null
@@ -211,6 +211,27 @@ export async function getFaqs(): Promise<Faq[]> {
     }))
   } catch {
     return fbFaqs.filter((f) => f.isGeneral)
+  }
+}
+
+/** Fetch specific posts by id, preserving the editor's chosen order (for a service's
+ *  hand-picked "Keep reading" posts). Same fields as getLatestPosts so PostFeatureCard renders. */
+export async function getPostsByIds(ids: string[]) {
+  if (!ids.length) return []
+  try {
+    const p = await payload()
+    const res = await p.find({
+      collection: 'posts',
+      where: { id: { in: ids } },
+      depth: 1,
+      limit: ids.length,
+      overrideAccess: false,
+      select: { title: true, slug: true, categories: true, meta: true, publishedAt: true, heroImage: true },
+    })
+    const order = new Map(ids.map((id, i) => [id, i]))
+    return [...res.docs].sort((a, b) => (order.get(String(a.id)) ?? 0) - (order.get(String(b.id)) ?? 0))
+  } catch {
+    return []
   }
 }
 
