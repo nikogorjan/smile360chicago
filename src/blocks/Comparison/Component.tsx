@@ -67,12 +67,12 @@ export const ComparisonBlock: React.FC<Props> = ({
           and scrolls horizontally (rather than restacking into cards). */}
       <div className="mt-12 overflow-x-auto md:overflow-visible">
         <div className="min-w-152 md:min-w-0">
-          <div className="rounded-[8px] border border-border bg-card p-2.5 md:p-3 md:shadow-[0_30px_70px_-40px_rgb(0_0_0/0.35)]">
+          <div className="rounded-[8px] border border-border bg-card p-2.5 md:p-3">
             <div className="relative grid grid-cols-[1.2fr_1fr_1fr] gap-x-2.5 md:gap-x-3">
               {/* Elevated cobalt highlight pill behind the "ours" column */}
               <div
                 aria-hidden
-                className="rounded-[8px] bg-primary md:shadow-[0_22px_45px_-22px_rgb(0_72_180/0.55)]"
+                className="rounded-[8px] bg-primary"
                 style={{ gridColumn: 2, gridRow: `1 / span ${list.length + 1}` }}
               />
 

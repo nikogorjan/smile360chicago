@@ -12,30 +12,30 @@ import { cn } from '@/utilities/ui'
 
 type Column = NonNullable<Props['columns']>[number]
 
-/** A single checklist — icon + title + check items. */
+/** A single checklist — icon + title + check items on hairline-divided rows. */
 const Checklist: React.FC<{ col: Column; hot?: boolean }> = ({ col, hot }) => {
   const items = col.items || []
   return (
     <div>
-      <div className="flex items-center gap-3.5">
+      <div className="flex items-center gap-4">
         <span
           className={cn(
-            'grid size-11 shrink-0 place-items-center rounded-sm',
+            'grid size-12 shrink-0 place-items-center rounded-sm',
             hot ? 'bg-brand text-white' : 'bg-brand/10 text-brand',
           )}
         >
-          <DynamicIcon name={col.icon || 'ClipboardList'} className="size-5" />
+          <DynamicIcon name={col.icon || 'ClipboardList'} className="size-6" />
         </span>
-        <h3 className="font-display text-xl font-bold text-foreground">{col.title}</h3>
+        <h3 className="font-display text-2xl font-bold tracking-tight text-foreground">{col.title}</h3>
       </div>
 
-      <ul className="mt-6 space-y-3.5">
+      <ul className="mt-7 divide-y divide-border/70">
         {items.map((it, j) => (
-          <li key={j} className="flex items-start gap-3">
-            <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
-              <DynamicIcon name="Check" className="size-3" />
+          <li key={j} className="flex items-center gap-4 py-4">
+            <span className="grid size-7 shrink-0 place-items-center rounded-full bg-brand/10 text-brand ring-1 ring-brand/20">
+              <DynamicIcon name="Check" className="size-4" />
             </span>
-            <span className="text-sm leading-relaxed text-foreground/85 sm:text-[0.95rem]">{it.text}</span>
+            <span className="text-base font-medium leading-snug text-foreground sm:text-lg">{it.text}</span>
           </li>
         ))}
       </ul>
@@ -93,7 +93,7 @@ export const GetReadyBlock: React.FC<Props> = ({
           {/* Checklist — first in the DOM (reading order); positioned by `order` on desktop */}
           <div
             className={cn(
-              'flex flex-col justify-center gap-9 p-6 sm:p-8 lg:p-10',
+              'flex flex-col justify-center gap-9 p-8 sm:p-10 lg:p-12',
               imageLeft ? 'lg:order-2' : 'lg:order-1',
             )}
           >

@@ -42,8 +42,10 @@ export const InvitationBlock: React.FC<Props> = ({
     : null
 
   // The map / photo, filling whatever frame it's given, with a "Get directions" chip.
+  // The border/rounding are passed in by the caller: the desktop backdrop rounds all four
+  // corners, while the mobile map sits flush inside the card (the card clips its corners).
   const mapFrame = (className: string) => (
-    <div className={cn('relative overflow-hidden rounded-[8px] border border-border bg-muted', className)}>
+    <div className={cn('relative overflow-hidden bg-muted', className)}>
       {mapAddress ? (
         <iframe
           title="Practice location map"
@@ -90,16 +92,19 @@ export const InvitationBlock: React.FC<Props> = ({
       className="lg:-mt-14"
       // Desktop map — fills the right half, inset 16px on top/right/bottom, bleeding to the edge.
       backdrop={
-        <div className="absolute inset-y-0 right-0 hidden w-1/2 p-3 sm:p-4 lg:block">{mapFrame('h-full')}</div>
+        <div className="absolute inset-y-0 right-0 hidden w-1/2 p-3 sm:p-4 lg:block">
+          {mapFrame('h-full rounded-[8px] border border-border')}
+        </div>
       }
     >
-      {/* Left half — the contact card mirrors the map: the 16px top/bottom frame comes from
-          this wrapper's py-4, the equal 16px gap to the map comes from the map's own left
-          inset, and it's left-aligned to the container edge so it stays inside the wrapper
-          (rather than bleeding to the viewport like the map). Fills its half like the map. */}
-      <div className="max-w-md py-16 lg:w-1/2 lg:max-w-none lg:py-4">
-        <div className="flex flex-col rounded-[8px] border border-border bg-card p-6 shadow-[0_24px_70px_-40px_rgb(0_0_0/0.4)] sm:p-8 lg:min-h-128 lg:justify-center">
-          {eyebrow && <Eyebrow tone="light">{eyebrow}</Eyebrow>}
+      {/* Left half — on desktop the contact card mirrors the map (16px frame from this
+          wrapper's py-4, left-aligned inside the container). On mobile the card widens to the
+          panel width (negative margins cancel the container gutter down to the panels' inset)
+          and the map sits flush inside it as one connected panel — no gap between the two. */}
+      <div className="-mx-3 py-4 sm:-mx-2 md:-mx-4 lg:mx-0 lg:w-1/2 lg:py-4">
+        <div className="overflow-hidden rounded-[8px] border border-border bg-card lg:flex lg:min-h-128 lg:flex-col lg:justify-center">
+          <div className="p-6 sm:p-8">
+            {eyebrow && <Eyebrow tone="light">{eyebrow}</Eyebrow>}
 
           {headingEl && (
             <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-4xl">
@@ -156,8 +161,9 @@ export const InvitationBlock: React.FC<Props> = ({
           )}
         </div>
 
-        {/* Mobile map — below the card (the desktop map is the backdrop) */}
-        <div className="mt-6 lg:hidden">{mapFrame('aspect-[4/3]')}</div>
+          {/* Mobile map — flush at the bottom of the card, no gap (desktop uses the backdrop) */}
+          <div className="lg:hidden">{mapFrame('aspect-4/3')}</div>
+        </div>
       </div>
     </SectionShell>
   )
