@@ -31,7 +31,16 @@ export const ComfortBlock: React.FC<Props> = ({
   const cta = links?.[0]?.link
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
+    <SectionShell
+      surface={surface}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      bottomGap={bottomGap}
+      // Extra-small outer bottom padding so this closing block sits close to the footer on
+      // both mobile and desktop, overriding the panel default (pb-10 sm:pb-14). Bump this up
+      // (or add "Gap below") if it ever needs more room before whatever follows.
+      className="pb-4 sm:pb-4"
+    >
       <div className="max-w-2xl">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
 

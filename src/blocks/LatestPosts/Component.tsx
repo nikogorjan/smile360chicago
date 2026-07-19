@@ -6,7 +6,7 @@ import type { LatestPostsBlock as Props } from '@/payload-types'
 import { Eyebrow, Section } from '@/components/site/primitives'
 import { PostFeatureCard } from '@/components/site/PostFeatureCard'
 import { resolveHref } from '@/lib/nav'
-import { getLatestPosts } from '@/lib/queries'
+import { getLatestPosts, getPostsByIds } from '@/lib/queries'
 
 /**
  * Latest blog posts as square image cards. Each card shows the post image full-colour
@@ -18,13 +18,18 @@ export const LatestPostsBlock: React.FC<Props> = async ({
   eyebrow,
   heading,
   description,
+  posts: picked,
   limit,
   links,
   background,
   paddingTop,
   paddingBottom,
 }) => {
-  const posts = await getLatestPosts(limit || 2)
+  // Hand-picked posts (order preserved) take priority; otherwise show the newest.
+  const pickedIds = (Array.isArray(picked) ? picked : [])
+    .map((p) => (typeof p === 'string' ? p : String(p?.id || '')))
+    .filter(Boolean)
+  const posts = pickedIds.length ? await getPostsByIds(pickedIds) : await getLatestPosts(limit || 2)
   if (!posts.length) return null
 
   const cta = links?.[0]?.link

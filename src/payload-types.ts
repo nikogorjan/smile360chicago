@@ -2609,7 +2609,11 @@ export interface LatestPostsBlock {
   heading?: string | null;
   description?: string | null;
   /**
-   * How many of the newest posts to show (2 recommended).
+   * Hand-pick the posts to show (e.g. 2 related posts). Leave empty to auto-show the newest posts instead.
+   */
+  posts?: (string | Post)[] | null;
+  /**
+   * When no posts are hand-picked above, how many of the newest posts to show (2 recommended).
    */
   limit?: number | null;
   /**
@@ -4702,6 +4706,7 @@ export interface LatestPostsBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   description?: T;
+  posts?: T;
   limit?: T;
   links?:
     | T

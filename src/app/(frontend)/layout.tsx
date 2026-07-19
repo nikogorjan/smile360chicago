@@ -75,7 +75,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             phoneHref={site.phoneHref}
             logo={site.logo}
           />
-          <main className="pb-20 lg:pb-0">{children}</main>
+          {/* No bottom padding: the footer sits directly after the content on every breakpoint.
+              (The old mobile pb-20 sat *before* the footer, so it only ever added dead space
+              between the last block and the footer — it never shielded the footer from the
+              sticky MobileCTA, which overlays the viewport bottom regardless.) */}
+          <main>{children}</main>
           <SiteFooter site={site} nav={header.nav} />
           <MobileCTA phone={site.phone} phoneHref={site.phoneHref} />
         </Providers>

@@ -21,7 +21,6 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   links,
   surface,
   paddingTop,
-  paddingBottom,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -50,7 +49,12 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
     <SectionShell
       surface={surface}
       paddingTop={paddingTop}
-      paddingBottom={paddingBottom}
+      // The desktop photo is a backdrop that bleeds to the section's bottom edge (16px inset),
+      // so it *absorbs* any bottom padding — paddingBottom only ever showed as a big gap on
+      // mobile (photo in-flow), never on desktop. Keep the section bottom at zero and give both
+      // a matching small inset, so the gap reads the same; use "Gap below" (bottomGap) to
+      // control the space to the next section consistently on mobile and desktop.
+      paddingBottom="none"
       bottomGap={bottomGap}
       // Desktop photo — a full-height panel on one half, inset by the same small
       // padding on top/right/bottom (like the home/About hero), bleeding to the edge.
@@ -128,9 +132,12 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
           </div>
         )}
 
-        {/* Mobile photo — below the copy (the desktop photo is the backdrop) */}
-        <div className="mt-10 lg:hidden">{photo('aspect-[4/5]')}</div>
       </div>
+
+      {/* Mobile photo — sits below the copy (desktop uses the backdrop). Pulled out of the
+          copy column and the container gutter so it spans the full screen width, with just a
+          small even inset — matching the desktop photo's edge bleed. */}
+      <div className="mt-10 -mx-6 px-3 pb-3 sm:px-4 sm:pb-4 md:-mx-8 lg:hidden">{photo('aspect-[4/5]')}</div>
     </SectionShell>
   )
 }

@@ -14,12 +14,24 @@ export const LatestPosts: Block = {
     { name: 'heading', type: 'text', defaultValue: 'Latest from our blog' },
     { name: 'description', type: 'textarea' },
     {
+      name: 'posts',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: true,
+      admin: {
+        description:
+          'Hand-pick the posts to show (e.g. 2 related posts). Leave empty to auto-show the newest posts instead.',
+      },
+    },
+    {
       name: 'limit',
       type: 'number',
       defaultValue: 2,
       min: 1,
       max: 4,
-      admin: { description: 'How many of the newest posts to show (2 recommended).' },
+      admin: {
+        description: 'When no posts are hand-picked above, how many of the newest posts to show (2 recommended).',
+      },
     },
     linkGroup({
       appearances: false,
