@@ -20,7 +20,6 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   imageSide,
   links,
   surface,
-  paddingTop,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -48,12 +47,12 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   return (
     <SectionShell
       surface={surface}
-      paddingTop={paddingTop}
-      // The desktop photo is a backdrop that bleeds to the section's bottom edge (16px inset),
-      // so it *absorbs* any bottom padding — paddingBottom only ever showed as a big gap on
-      // mobile (photo in-flow), never on desktop. Keep the section bottom at zero and give both
-      // a matching small inset, so the gap reads the same; use "Gap below" (bottomGap) to
-      // control the space to the next section consistently on mobile and desktop.
+      // Both top and bottom padding are zero: the desktop photo is a full-height backdrop
+      // (16px inset), so it centers on the section — and the copy only lines up with it when
+      // the section's vertical padding is symmetric. Any top padding would push the copy down
+      // by half its height relative to the photo. Use "Gap below" (bottomGap) for spacing to
+      // the next section (consistent on mobile and desktop).
+      paddingTop="none"
       paddingBottom="none"
       bottomGap={bottomGap}
       // Desktop photo — a full-height panel on one half, inset by the same small
@@ -75,7 +74,7 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
         className={cn(
           // Cap the copy to the left half minus a gutter on lg so it never runs
           // under the photo (which starts at 50vw), while staying readable width.
-          'flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,calc(50%-4rem))] lg:min-h-128',
+          'flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,calc(50%-4rem))] lg:min-h-216',
           imageLeft ? 'lg:ml-auto' : 'lg:mr-auto',
         )}
       >
