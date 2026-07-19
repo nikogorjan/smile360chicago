@@ -212,7 +212,7 @@ export interface Page {
     media?: (string | null) | Media;
   };
   layout: (
-    | PageHeroBlock
+    | HeroBlock
     | MastheadBlock
     | FounderLetterBlock
     | ValuesIndexBlock
@@ -225,34 +225,21 @@ export interface Page {
     | ComfortBlock
     | AffordabilityBlock
     | MapBandBlock
-    | HeroBlock
-    | MediaBannerBlock
     | ImageBandBlock
-    | SplitFeatureBlock
     | PillarsBlock
     | StatsBlock
-    | InsuranceBlock
-    | ServicesGridBlock
     | ServicesBentoBlock
-    | FeatureGridBlock
     | ComparisonBlock
     | CredentialsBlock
     | TechnologyBlock
     | ReviewsBlock
     | LatestPostsBlock
-    | QuoteBlock
     | DentistFeatureBlock
     | TimelineBlock
     | PanelBlock
     | FaqBlock
     | EmergencyBlock
-    | FinalCtaBlock
     | AppointmentBlock
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
-    | ArchiveBlock
-    | FormBlock
   )[];
   meta?: {
     title?: string | null;
@@ -493,13 +480,48 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PageHeroBlock".
+ * via the `definition` "HeroBlock".
  */
-export interface PageHeroBlock {
+export interface HeroBlock {
+  /**
+   * Choose what fills the hero card. Video falls back to the image.
+   */
+  mediaType?: ('image' | 'video') | null;
+  /**
+   * Background photo — used directly for Image, and as the poster/fallback for Video.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.
+   */
+  video?: (string | null) | Media;
+  /**
+   * Small label pill above the headline.
+   */
   eyebrow?: string | null;
-  heading: string;
-  description?: string | null;
-  variant?: ('brand' | 'emergency') | null;
+  /**
+   * Headline. Rendered in the editorial display serif, in white.
+   */
+  heading: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  showRating?: boolean | null;
+  /**
+   * e.g. "4.9 from 487+ Google reviews"
+   */
+  ratingText?: string | null;
   links?:
     | {
         link: {
@@ -516,13 +538,38 @@ export interface PageHeroBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('white' | 'outlineWhite') | null;
         };
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional small card overlapping the hero (hidden on mobile). Leave the title empty to show a compact rating stat card instead.
+   */
+  card?: {
+    /**
+     * Show the floating card.
+     */
+    enabled?: boolean | null;
+    /**
+     * Optional thumbnail/poster. Shows a play button when set.
+     */
+    media?: (string | null) | Media;
+    /**
+     * e.g. "Your family's smile, in one place"
+     */
+    title?: string | null;
+    /**
+     * One short supporting line.
+     */
+    text?: string | null;
+  };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'pageHeroBlock';
+  blockType: 'heroBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1345,138 +1392,6 @@ export interface MapBandBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
- */
-export interface HeroBlock {
-  /**
-   * Choose what fills the hero card. Video falls back to the image.
-   */
-  mediaType?: ('image' | 'video') | null;
-  /**
-   * Background photo — used directly for Image, and as the poster/fallback for Video.
-   */
-  image?: (string | null) | Media;
-  /**
-   * Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.
-   */
-  video?: (string | null) | Media;
-  /**
-   * Small label pill above the headline.
-   */
-  eyebrow?: string | null;
-  /**
-   * Headline. Rendered in the editorial display serif, in white.
-   */
-  heading: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  showRating?: boolean | null;
-  /**
-   * e.g. "4.9 from 487+ Google reviews"
-   */
-  ratingText?: string | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('white' | 'outlineWhite') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Optional small card overlapping the hero (hidden on mobile). Leave the title empty to show a compact rating stat card instead.
-   */
-  card?: {
-    /**
-     * Show the floating card.
-     */
-    enabled?: boolean | null;
-    /**
-     * Optional thumbnail/poster. Shows a play button when set.
-     */
-    media?: (string | null) | Media;
-    /**
-     * e.g. "Your family's smile, in one place"
-     */
-    title?: string | null;
-    /**
-     * One short supporting line.
-     */
-    text?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heroBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBannerBlock".
- */
-export interface MediaBannerBlock {
-  /**
-   * Background image. If empty, a brand gradient is used.
-   */
-  image?: (string | null) | Media;
-  eyebrow?: string | null;
-  heading: string;
-  text?: string | null;
-  align?: ('center' | 'left') | null;
-  overlay?: ('light' | 'medium' | 'dark') | null;
-  height?: ('standard' | 'tall') | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBannerBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageBandBlock".
  */
 export interface ImageBandBlock {
@@ -1503,55 +1418,6 @@ export interface ImageBandBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'imageBandBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SplitFeatureBlock".
- */
-export interface SplitFeatureBlock {
-  /**
-   * Shown beside the text. If empty, a branded panel is used.
-   */
-  image?: (string | null) | Media;
-  imageSide?: ('right' | 'left') | null;
-  eyebrow?: string | null;
-  heading: string;
-  body?: string | null;
-  bullets?:
-    | {
-        item?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  statValue?: string | null;
-  statLabel?: string | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'splitFeatureBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1625,51 +1491,6 @@ export interface StatsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'statsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InsuranceBlock".
- */
-export interface InsuranceBlock {
-  heading?: string | null;
-  /**
-   * Leave empty to use the default plan list.
-   */
-  plans?:
-    | {
-        name?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'insuranceBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ServicesGridBlock".
- */
-export interface ServicesGridBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  source?: ('all' | 'featured') | null;
-  /**
-   * Max number of services to show (leave blank for all).
-   */
-  limit?: number | null;
-  showViewAll?: boolean | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'servicesGridBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1772,37 +1593,6 @@ export interface Service {
   slug: string;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureGridBlock".
- */
-export interface FeatureGridBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  features?:
-    | {
-        /**
-         * lucide-react icon name, e.g. "HeartHandshake".
-         */
-        icon?: string | null;
-        title: string;
-        body?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'featureGridBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2139,23 +1929,6 @@ export interface LatestPostsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "QuoteBlock".
- */
-export interface QuoteBlock {
-  quote: string;
-  author?: string | null;
-  role?: string | null;
-  rating?: number | null;
-  /**
-   * Optional background photo. If empty, a brand background is used.
-   */
-  image?: (string | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'quoteBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DentistFeatureBlock".
  */
 export interface DentistFeatureBlock {
@@ -2304,21 +2077,6 @@ export interface EmergencyBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FinalCtaBlock".
- */
-export interface FinalCtaBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  primaryLabel?: string | null;
-  primaryHref?: string | null;
-  showMap?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'finalCtaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AppointmentBlock".
  */
 export interface AppointmentBlock {
@@ -2343,171 +2101,84 @@ export interface AppointmentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
+ * via the `definition` "team".
  */
-export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
+export interface Team {
+  id: string;
+  name: string;
+  role: string;
+  credentials?: string | null;
+  photo?: (string | null) | Media;
+  bio?: string | null;
+  specialties?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
+        item?: string | null;
         id?: string | null;
       }[]
     | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
+ * via the `definition` "testimonials".
  */
-export interface ContentBlock {
-  columns?:
-    | {
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
+export interface Testimonial {
+  id: string;
+  author: string;
+  rating: number;
+  quote: string;
+  treatment?: string | null;
+  source?: ('Google' | 'In-office') | null;
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
+ * via the `definition` "faqs".
  */
-export interface MediaBlock {
-  media: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
+export interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  /**
+   * Show this FAQ in general spots (the homepage and the FAQ block). For a service-specific FAQ, leave this off and use the Services field below instead.
+   */
+  isGeneral?: boolean | null;
+  /**
+   * Assign this FAQ to the service page(s) it should appear on. Leave empty for a general FAQ.
+   */
+  services?: (string | Service)[] | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock".
+ * via the `definition` "redirects".
  */
-export interface ArchiveBlock {
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
-  categories?: (string | Category)[] | null;
-  limit?: number | null;
-  selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: string | Post;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'archive';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
- */
-export interface FormBlock {
-  form: string | Form;
-  enableIntro?: boolean | null;
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'formBlock';
+export interface Redirect {
+  id: string;
+  /**
+   * You will need to rebuild the website when changing this field.
+   */
+  from: string;
+  to?: {
+    type?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2680,87 +2351,6 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "team".
- */
-export interface Team {
-  id: string;
-  name: string;
-  role: string;
-  credentials?: string | null;
-  photo?: (string | null) | Media;
-  bio?: string | null;
-  specialties?:
-    | {
-        item?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  order?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials".
- */
-export interface Testimonial {
-  id: string;
-  author: string;
-  rating: number;
-  quote: string;
-  treatment?: string | null;
-  source?: ('Google' | 'In-office') | null;
-  featured?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqs".
- */
-export interface Faq {
-  id: string;
-  question: string;
-  answer: string;
-  /**
-   * Show this FAQ in general spots (the homepage and the FAQ block). For a service-specific FAQ, leave this off and use the Services field below instead.
-   */
-  isGeneral?: boolean | null;
-  /**
-   * Assign this FAQ to the service page(s) it should appear on. Leave empty for a general FAQ.
-   */
-  services?: (string | Service)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
- */
-export interface Redirect {
-  id: string;
-  /**
-   * You will need to rebuild the website when changing this field.
-   */
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -3057,7 +2647,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        pageHeroBlock?: T | PageHeroBlockSelect<T>;
+        heroBlock?: T | HeroBlockSelect<T>;
         mastheadBlock?: T | MastheadBlockSelect<T>;
         founderLetterBlock?: T | FounderLetterBlockSelect<T>;
         valuesIndexBlock?: T | ValuesIndexBlockSelect<T>;
@@ -3070,34 +2660,21 @@ export interface PagesSelect<T extends boolean = true> {
         comfortBlock?: T | ComfortBlockSelect<T>;
         affordabilityBlock?: T | AffordabilityBlockSelect<T>;
         mapBandBlock?: T | MapBandBlockSelect<T>;
-        heroBlock?: T | HeroBlockSelect<T>;
-        mediaBannerBlock?: T | MediaBannerBlockSelect<T>;
         imageBandBlock?: T | ImageBandBlockSelect<T>;
-        splitFeatureBlock?: T | SplitFeatureBlockSelect<T>;
         pillarsBlock?: T | PillarsBlockSelect<T>;
         statsBlock?: T | StatsBlockSelect<T>;
-        insuranceBlock?: T | InsuranceBlockSelect<T>;
-        servicesGridBlock?: T | ServicesGridBlockSelect<T>;
         servicesBentoBlock?: T | ServicesBentoBlockSelect<T>;
-        featureGridBlock?: T | FeatureGridBlockSelect<T>;
         comparisonBlock?: T | ComparisonBlockSelect<T>;
         credentialsBlock?: T | CredentialsBlockSelect<T>;
         technologyBlock?: T | TechnologyBlockSelect<T>;
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         latestPostsBlock?: T | LatestPostsBlockSelect<T>;
-        quoteBlock?: T | QuoteBlockSelect<T>;
         dentistFeatureBlock?: T | DentistFeatureBlockSelect<T>;
         timelineBlock?: T | TimelineBlockSelect<T>;
         panelBlock?: T | PanelBlockSelect<T>;
         faqBlock?: T | FaqBlockSelect<T>;
         emergencyBlock?: T | EmergencyBlockSelect<T>;
-        finalCtaBlock?: T | FinalCtaBlockSelect<T>;
         appointmentBlock?: T | AppointmentBlockSelect<T>;
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        archive?: T | ArchiveBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
       };
   meta?:
     | T
@@ -3115,13 +2692,16 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PageHeroBlock_select".
+ * via the `definition` "HeroBlock_select".
  */
-export interface PageHeroBlockSelect<T extends boolean = true> {
+export interface HeroBlockSelect<T extends boolean = true> {
+  mediaType?: T;
+  image?: T;
+  video?: T;
   eyebrow?: T;
   heading?: T;
-  description?: T;
-  variant?: T;
+  showRating?: T;
+  ratingText?: T;
   links?:
     | T
     | {
@@ -3133,8 +2713,17 @@ export interface PageHeroBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              appearance?: T;
             };
         id?: T;
+      };
+  card?:
+    | T
+    | {
+        enabled?: T;
+        media?: T;
+        title?: T;
+        text?: T;
       };
   id?: T;
   blockName?: T;
@@ -3487,73 +3076,6 @@ export interface MapBandBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock_select".
- */
-export interface HeroBlockSelect<T extends boolean = true> {
-  mediaType?: T;
-  image?: T;
-  video?: T;
-  eyebrow?: T;
-  heading?: T;
-  showRating?: T;
-  ratingText?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  card?:
-    | T
-    | {
-        enabled?: T;
-        media?: T;
-        title?: T;
-        text?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBannerBlock_select".
- */
-export interface MediaBannerBlockSelect<T extends boolean = true> {
-  image?: T;
-  eyebrow?: T;
-  heading?: T;
-  text?: T;
-  align?: T;
-  overlay?: T;
-  height?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageBandBlock_select".
  */
 export interface ImageBandBlockSelect<T extends boolean = true> {
@@ -3567,42 +3089,6 @@ export interface ImageBandBlockSelect<T extends boolean = true> {
         eyebrow?: T;
         heading?: T;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SplitFeatureBlock_select".
- */
-export interface SplitFeatureBlockSelect<T extends boolean = true> {
-  image?: T;
-  imageSide?: T;
-  eyebrow?: T;
-  heading?: T;
-  body?: T;
-  bullets?:
-    | T
-    | {
-        item?: T;
-        id?: T;
-      };
-  statValue?: T;
-  statLabel?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  background?: T;
   id?: T;
   blockName?: T;
 }
@@ -3665,37 +3151,6 @@ export interface StatsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InsuranceBlock_select".
- */
-export interface InsuranceBlockSelect<T extends boolean = true> {
-  heading?: T;
-  plans?:
-    | T
-    | {
-        name?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ServicesGridBlock_select".
- */
-export interface ServicesGridBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  source?: T;
-  limit?: T;
-  showViewAll?: T;
-  background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ServicesBentoBlock_select".
  */
 export interface ServicesBentoBlockSelect<T extends boolean = true> {
@@ -3722,27 +3177,6 @@ export interface ServicesBentoBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureGridBlock_select".
- */
-export interface FeatureGridBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  features?:
-    | T
-    | {
-        icon?: T;
-        title?: T;
-        body?: T;
-        id?: T;
-      };
-  background?: T;
   id?: T;
   blockName?: T;
 }
@@ -3890,19 +3324,6 @@ export interface LatestPostsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "QuoteBlock_select".
- */
-export interface QuoteBlockSelect<T extends boolean = true> {
-  quote?: T;
-  author?: T;
-  role?: T;
-  rating?: T;
-  image?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DentistFeatureBlock_select".
  */
 export interface DentistFeatureBlockSelect<T extends boolean = true> {
@@ -4000,20 +3421,6 @@ export interface EmergencyBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FinalCtaBlock_select".
- */
-export interface FinalCtaBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  primaryLabel?: T;
-  primaryHref?: T;
-  showMap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AppointmentBlock_select".
  */
 export interface AppointmentBlockSelect<T extends boolean = true> {
@@ -4023,90 +3430,6 @@ export interface AppointmentBlockSelect<T extends boolean = true> {
   align?: T;
   showContactInfo?: T;
   background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock_select".
- */
-export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
- */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock_select".
- */
-export interface ArchiveBlockSelect<T extends boolean = true> {
-  introContent?: T;
-  populateBy?: T;
-  relationTo?: T;
-  categories?: T;
-  limit?: T;
-  selectedDocs?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
- */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
-  enableIntro?: T;
-  introContent?: T;
   id?: T;
   blockName?: T;
 }
@@ -4888,39 +4211,13 @@ export interface TaskSchedulePublish {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
+ * via the `definition` "MediaBlock".
  */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+export interface MediaBlock {
+  media: string | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'banner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
+  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

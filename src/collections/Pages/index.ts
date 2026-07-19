@@ -2,47 +2,34 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Hero } from '../../blocks/Hero/config'
 import { Stats } from '../../blocks/Stats/config'
-import { ServicesGrid } from '../../blocks/ServicesGrid/config'
-import { FeatureGrid } from '../../blocks/FeatureGrid/config'
-import { Comparison } from '../../blocks/Comparison/config'
-import { Credentials } from '../../blocks/Credentials/config'
-import { Technology } from '../../blocks/Technology/config'
-import { Reviews } from '../../blocks/Reviews/config'
-import { DentistFeature } from '../../blocks/DentistFeature/config'
-import { ImageBand } from '../../blocks/ImageBand/config'
-import { Faq } from '../../blocks/Faq/config'
-import { Emergency } from '../../blocks/Emergency/config'
-import { FinalCta } from '../../blocks/FinalCta/config'
-import { PageHero } from '../../blocks/PageHero/config'
-import { InsuranceMarquee } from '../../blocks/InsuranceMarquee/config'
-import { Appointment } from '../../blocks/Appointment/config'
-import { MediaBanner } from '../../blocks/MediaBanner/config'
-import { SplitFeature } from '../../blocks/SplitFeature/config'
-import { Pillars } from '../../blocks/Pillars/config'
 import { ServicesBento } from '../../blocks/ServicesBento/config'
-import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
-import { Timeline } from '../../blocks/Timeline/config'
-import { Panel } from '../../blocks/Panel/config'
+import { Pillars } from '../../blocks/Pillars/config'
+import { ImageBand } from '../../blocks/ImageBand/config'
+import { DentistFeature } from '../../blocks/DentistFeature/config'
+import { Reviews } from '../../blocks/Reviews/config'
 import { LatestPosts } from '../../blocks/LatestPosts/config'
+import { Panel } from '../../blocks/Panel/config'
+import { Emergency } from '../../blocks/Emergency/config'
 import { Masthead } from '../../blocks/Masthead/config'
 import { FounderLetter } from '../../blocks/FounderLetter/config'
 import { ValuesIndex } from '../../blocks/ValuesIndex/config'
 import { Manifesto } from '../../blocks/Manifesto/config'
+import { Credentials } from '../../blocks/Credentials/config'
+import { Technology } from '../../blocks/Technology/config'
+import { Comparison } from '../../blocks/Comparison/config'
 import { FirstVisit } from '../../blocks/FirstVisit/config'
 import { Invitation } from '../../blocks/Invitation/config'
 import { NewPatientHero } from '../../blocks/NewPatientHero/config'
-import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
 import { GetReady } from '../../blocks/GetReady/config'
-import { Comfort } from '../../blocks/Comfort/config'
+import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
 import { Affordability } from '../../blocks/Affordability/config'
+import { Faq } from '../../blocks/Faq/config'
+import { Comfort } from '../../blocks/Comfort/config'
+import { Appointment } from '../../blocks/Appointment/config'
 import { MapBand } from '../../blocks/MapBand/config'
+import { Timeline } from '../../blocks/Timeline/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -109,7 +96,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                PageHero,
+                Hero,
                 Masthead,
                 FounderLetter,
                 ValuesIndex,
@@ -122,34 +109,21 @@ export const Pages: CollectionConfig<'pages'> = {
                 Comfort,
                 Affordability,
                 MapBand,
-                Hero,
-                MediaBanner,
                 ImageBand,
-                SplitFeature,
                 Pillars,
                 Stats,
-                InsuranceMarquee,
-                ServicesGrid,
                 ServicesBento,
-                FeatureGrid,
                 Comparison,
                 Credentials,
                 Technology,
                 Reviews,
                 LatestPosts,
-                QuoteSpotlight,
                 DentistFeature,
                 Timeline,
                 Panel,
                 Faq,
                 Emergency,
-                FinalCta,
                 Appointment,
-                CallToAction,
-                Content,
-                MediaBlock,
-                Archive,
-                FormBlock,
               ],
               required: true,
               admin: {

@@ -11,8 +11,6 @@ import {
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
-import { Banner } from '../blocks/Banner/config'
-import { Code } from '../blocks/Code/config'
 import { MediaBlock } from '../blocks/MediaBlock/config'
 import { slugField } from 'payload'
 
@@ -54,7 +52,7 @@ export const Services: CollectionConfig = {
         features: ({ rootFeatures }) => [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-          BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+          BlocksFeature({ blocks: [MediaBlock] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
           HorizontalRuleFeature(),
