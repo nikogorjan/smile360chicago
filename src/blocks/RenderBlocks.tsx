@@ -11,7 +11,6 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
 import { StatsBlock } from '@/blocks/Stats/Component'
 import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
-import { ServicesListBlock } from '@/blocks/ServicesList/Component'
 import { ServicesBentoBlock } from '@/blocks/ServicesBento/Component'
 import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
 import { ComparisonBlock } from '@/blocks/Comparison/Component'
@@ -19,10 +18,8 @@ import { CredentialsBlock } from '@/blocks/Credentials/Component'
 import { TechnologyBlock } from '@/blocks/Technology/Component'
 import { ReviewsBlock } from '@/blocks/Reviews/Component'
 import { LatestPostsBlock } from '@/blocks/LatestPosts/Component'
-import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
 import { DentistFeatureBlock } from '@/blocks/DentistFeature/Component'
 import { ImageBandBlock } from '@/blocks/ImageBand/Component'
-import { ProcessBlock } from '@/blocks/ProcessSteps/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { EmergencyBlock } from '@/blocks/Emergency/Component'
 import { FinalCtaBlock } from '@/blocks/FinalCta/Component'
@@ -31,22 +28,14 @@ import { InsuranceBlock } from '@/blocks/InsuranceMarquee/Component'
 import { AppointmentBlock } from '@/blocks/Appointment/Component'
 import { MediaBannerBlock } from '@/blocks/MediaBanner/Component'
 import { SplitFeatureBlock } from '@/blocks/SplitFeature/Component'
-import { BentoBlock } from '@/blocks/Bento/Component'
 import { QuoteBlock } from '@/blocks/QuoteSpotlight/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { PanelBlock } from '@/blocks/Panel/Component'
-import { TabsBlock } from '@/blocks/Tabs/Component'
 import { PillarsBlock } from '@/blocks/Pillars/Component'
-import { AboutHeroBlock } from '@/blocks/AboutHero/Component'
-import { StatementBlock } from '@/blocks/Statement/Component'
-import { FounderStoryBlock } from '@/blocks/FounderStory/Component'
-import { MosaicBentoBlock } from '@/blocks/MosaicBento/Component'
-import { MetricRingsBlock } from '@/blocks/MetricRings/Component'
 import { MastheadBlock } from '@/blocks/Masthead/Component'
 import { FounderLetterBlock } from '@/blocks/FounderLetter/Component'
 import { ValuesIndexBlock } from '@/blocks/ValuesIndex/Component'
 import { ManifestoBlock } from '@/blocks/Manifesto/Component'
-import { PhotoCollageBlock } from '@/blocks/PhotoCollage/Component'
 import { FirstVisitBlock } from '@/blocks/FirstVisit/Component'
 import { InvitationBlock } from '@/blocks/Invitation/Component'
 import { NewPatientHeroBlock } from '@/blocks/NewPatientHero/Component'
@@ -60,16 +49,10 @@ const blockComponents = {
   // Custom dental blocks (self-spacing, rendered flush)
   heroBlock: HeroBlock,
   pageHeroBlock: PageHeroBlock,
-  aboutHeroBlock: AboutHeroBlock,
-  statementBlock: StatementBlock,
-  founderStoryBlock: FounderStoryBlock,
-  mosaicBentoBlock: MosaicBentoBlock,
-  metricRingsBlock: MetricRingsBlock,
   mastheadBlock: MastheadBlock,
   founderLetterBlock: FounderLetterBlock,
   valuesIndexBlock: ValuesIndexBlock,
   manifestoBlock: ManifestoBlock,
-  photoCollageBlock: PhotoCollageBlock,
   firstVisitBlock: FirstVisitBlock,
   invitationBlock: InvitationBlock,
   newPatientHeroBlock: NewPatientHeroBlock,
@@ -81,13 +64,10 @@ const blockComponents = {
   mediaBannerBlock: MediaBannerBlock,
   imageBandBlock: ImageBandBlock,
   splitFeatureBlock: SplitFeatureBlock,
-  bentoBlock: BentoBlock,
-  tabsBlock: TabsBlock,
   pillarsBlock: PillarsBlock,
   statsBlock: StatsBlock,
   insuranceBlock: InsuranceBlock,
   servicesGridBlock: ServicesGridBlock,
-  servicesListBlock: ServicesListBlock,
   servicesBentoBlock: ServicesBentoBlock,
   featureGridBlock: FeatureGridBlock,
   comparisonBlock: ComparisonBlock,
@@ -96,9 +76,7 @@ const blockComponents = {
   reviewsBlock: ReviewsBlock,
   latestPostsBlock: LatestPostsBlock,
   quoteBlock: QuoteBlock,
-  teamGridBlock: TeamGridBlock,
   dentistFeatureBlock: DentistFeatureBlock,
-  processBlock: ProcessBlock,
   timelineBlock: TimelineBlock,
   panelBlock: PanelBlock,
   faqBlock: FaqBlock,

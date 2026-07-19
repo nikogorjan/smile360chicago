@@ -15,10 +15,8 @@ import { Comparison } from '../../blocks/Comparison/config'
 import { Credentials } from '../../blocks/Credentials/config'
 import { Technology } from '../../blocks/Technology/config'
 import { Reviews } from '../../blocks/Reviews/config'
-import { TeamGrid } from '../../blocks/TeamGrid/config'
 import { DentistFeature } from '../../blocks/DentistFeature/config'
 import { ImageBand } from '../../blocks/ImageBand/config'
-import { ProcessSteps } from '../../blocks/ProcessSteps/config'
 import { Faq } from '../../blocks/Faq/config'
 import { Emergency } from '../../blocks/Emergency/config'
 import { FinalCta } from '../../blocks/FinalCta/config'
@@ -27,25 +25,16 @@ import { InsuranceMarquee } from '../../blocks/InsuranceMarquee/config'
 import { Appointment } from '../../blocks/Appointment/config'
 import { MediaBanner } from '../../blocks/MediaBanner/config'
 import { SplitFeature } from '../../blocks/SplitFeature/config'
-import { Bento } from '../../blocks/Bento/config'
-import { Tabs } from '../../blocks/Tabs/config'
 import { Pillars } from '../../blocks/Pillars/config'
-import { ServicesList } from '../../blocks/ServicesList/config'
 import { ServicesBento } from '../../blocks/ServicesBento/config'
 import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { Panel } from '../../blocks/Panel/config'
 import { LatestPosts } from '../../blocks/LatestPosts/config'
-import { AboutHero } from '../../blocks/AboutHero/config'
-import { Statement } from '../../blocks/Statement/config'
-import { FounderStory } from '../../blocks/FounderStory/config'
-import { MosaicBento } from '../../blocks/MosaicBento/config'
-import { MetricRings } from '../../blocks/MetricRings/config'
 import { Masthead } from '../../blocks/Masthead/config'
 import { FounderLetter } from '../../blocks/FounderLetter/config'
 import { ValuesIndex } from '../../blocks/ValuesIndex/config'
 import { Manifesto } from '../../blocks/Manifesto/config'
-import { PhotoCollage } from '../../blocks/PhotoCollage/config'
 import { FirstVisit } from '../../blocks/FirstVisit/config'
 import { Invitation } from '../../blocks/Invitation/config'
 import { NewPatientHero } from '../../blocks/NewPatientHero/config'
@@ -125,7 +114,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 FounderLetter,
                 ValuesIndex,
                 Manifesto,
-                PhotoCollage,
                 FirstVisit,
                 Invitation,
                 NewPatientHero,
@@ -134,22 +122,14 @@ export const Pages: CollectionConfig<'pages'> = {
                 Comfort,
                 Affordability,
                 MapBand,
-                AboutHero,
-                Statement,
-                FounderStory,
-                MosaicBento,
-                MetricRings,
                 Hero,
                 MediaBanner,
                 ImageBand,
                 SplitFeature,
-                Bento,
-                Tabs,
                 Pillars,
                 Stats,
                 InsuranceMarquee,
                 ServicesGrid,
-                ServicesList,
                 ServicesBento,
                 FeatureGrid,
                 Comparison,
@@ -158,9 +138,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Reviews,
                 LatestPosts,
                 QuoteSpotlight,
-                TeamGrid,
                 DentistFeature,
-                ProcessSteps,
                 Timeline,
                 Panel,
                 Faq,

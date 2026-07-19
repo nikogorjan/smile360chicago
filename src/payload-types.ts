@@ -217,7 +217,6 @@ export interface Page {
     | FounderLetterBlock
     | ValuesIndexBlock
     | ManifestoBlock
-    | PhotoCollageBlock
     | FirstVisitBlock
     | InvitationBlock
     | NewPatientHeroBlock
@@ -226,22 +225,14 @@ export interface Page {
     | ComfortBlock
     | AffordabilityBlock
     | MapBandBlock
-    | AboutHeroBlock
-    | StatementBlock
-    | FounderStoryBlock
-    | MosaicBentoBlock
-    | MetricRingsBlock
     | HeroBlock
     | MediaBannerBlock
     | ImageBandBlock
     | SplitFeatureBlock
-    | BentoBlock
-    | TabsBlock
     | PillarsBlock
     | StatsBlock
     | InsuranceBlock
     | ServicesGridBlock
-    | ServicesListBlock
     | ServicesBentoBlock
     | FeatureGridBlock
     | ComparisonBlock
@@ -250,9 +241,7 @@ export interface Page {
     | ReviewsBlock
     | LatestPostsBlock
     | QuoteBlock
-    | TeamGridBlock
     | DentistFeatureBlock
-    | ProcessBlock
     | TimelineBlock
     | PanelBlock
     | FaqBlock
@@ -766,64 +755,6 @@ export interface ManifestoBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'manifestoBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PhotoCollageBlock".
- */
-export interface PhotoCollageBlock {
-  eyebrow?: string | null;
-  /**
-   * Select a phrase, then Style → Brand blue to accent it in cobalt.
-   */
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  description?: string | null;
-  /**
-   * A clean, aligned grid of photos — 3 across on desktop, 2 on tablet.
-   */
-  items?:
-    | {
-        image?: (string | null) | Media;
-        /**
-         * Optional caption over the photo.
-         */
-        caption?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * How this section sits on the page.
-   */
-  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'photoCollageBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1414,331 +1345,6 @@ export interface MapBandBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AboutHeroBlock".
- */
-export interface AboutHeroBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading: string;
-  /**
-   * Optional phrase inside the heading to accent in cobalt.
-   */
-  highlight?: string | null;
-  /**
-   * One or two sentences under the heading.
-   */
-  intro?: string | null;
-  /**
-   * Portrait-orientation photo (e.g. Mustafa or the clinic). If empty, a branded panel shows.
-   */
-  image?: (string | null) | Media;
-  imageSide?: ('right' | 'left') | null;
-  /**
-   * Filled stars (1–5).
-   */
-  ratingValue?: number | null;
-  /**
-   * e.g. “4.9 from 487 Google reviews”
-   */
-  ratingLabel?: string | null;
-  /**
-   * Small trust badges, e.g. “15+ years”, “Same-day care”.
-   */
-  chips?:
-    | {
-        /**
-         * lucide-react icon name (e.g. ShieldCheck).
-         */
-        icon?: string | null;
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'aboutHeroBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatementBlock".
- */
-export interface StatementBlock {
-  /**
-   * Small label above the statement.
-   */
-  eyebrow?: string | null;
-  /**
-   * The big editorial line — keep it short and punchy.
-   */
-  statement: string;
-  /**
-   * Optional phrase inside the statement to accent in cobalt.
-   */
-  highlight?: string | null;
-  /**
-   * Optional supporting sentence below the statement.
-   */
-  subline?: string | null;
-  /**
-   * Optional small credit line, e.g. “Mustafa — Founder”.
-   */
-  attribution?: string | null;
-  align?: ('center' | 'left') | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'statementBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FounderStoryBlock".
- */
-export interface FounderStoryBlock {
-  /**
-   * Portrait of the founder. If empty, a branded panel shows.
-   */
-  image?: (string | null) | Media;
-  imageSide?: ('left' | 'right') | null;
-  eyebrow?: string | null;
-  heading: string;
-  /**
-   * Optional phrase inside the heading to accent in cobalt.
-   */
-  highlight?: string | null;
-  /**
-   * The story — 2–4 short paragraphs.
-   */
-  body?: string | null;
-  /**
-   * Optional pull-quote shown large with a cobalt rule.
-   */
-  quote?: string | null;
-  /**
-   * Name shown as a signature, e.g. “Mustafa”.
-   */
-  signature?: string | null;
-  /**
-   * e.g. “Founder & Lead Dentist”.
-   */
-  role?: string | null;
-  bullets?:
-    | {
-        item?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'founderStoryBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MosaicBentoBlock".
- */
-export interface MosaicBentoBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  /**
-   * Optional phrase inside the heading to accent in cobalt.
-   */
-  highlight?: string | null;
-  description?: string | null;
-  /**
-   * Mix photo / value / stat tiles. Vary sizes (wide, tall) for an editorial mosaic.
-   */
-  tiles?:
-    | {
-        type?: ('value' | 'photo' | 'stat') | null;
-        size?: ('normal' | 'wide' | 'tall') | null;
-        /**
-         * Ignored for photo tiles.
-         */
-        tone?: ('default' | 'muted' | 'brand' | 'glow') | null;
-        /**
-         * Value tiles: lucide-react icon name (e.g. ShieldCheck).
-         */
-        icon?: string | null;
-        title?: string | null;
-        /**
-         * Value tiles: short supporting line.
-         */
-        body?: string | null;
-        /**
-         * Photo tiles only.
-         */
-        image?: (string | null) | Media;
-        /**
-         * Photo tiles: small chip label over the image (e.g. “Reception”).
-         */
-        label?: string | null;
-        /**
-         * Stat tiles: the big number (e.g. “20k+”).
-         */
-        statValue?: string | null;
-        /**
-         * Stat tiles: caption under the number.
-         */
-        statLabel?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mosaicBentoBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MetricRingsBlock".
- */
-export interface MetricRingsBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  /**
-   * Optional phrase inside the heading to accent in cobalt.
-   */
-  highlight?: string | null;
-  description?: string | null;
-  metrics?:
-    | {
-        /**
-         * e.g. “4.9★” or “20k+”.
-         */
-        value: string;
-        label: string;
-        /**
-         * Ring fill 0–100.
-         */
-        percent?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'metricRingsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HeroBlock".
  */
 export interface HeroBlock {
@@ -1949,96 +1555,6 @@ export interface SplitFeatureBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BentoBlock".
- */
-export interface BentoBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  /**
-   * Mix sizes and tones for an asymmetric, magazine-style layout.
-   */
-  tiles?:
-    | {
-        size?: ('normal' | 'wide' | 'tall' | 'large') | null;
-        tone?: ('card' | 'brand' | 'accent' | 'image') | null;
-        /**
-         * lucide-react icon name
-         */
-        icon?: string | null;
-        title: string;
-        body?: string | null;
-        /**
-         * Used when tone is "Image".
-         */
-        image?: (string | null) | Media;
-        /**
-         * Optional big stat, e.g. "20k+"
-         */
-        stat?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'bentoBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TabsBlock".
- */
-export interface TabsBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  /**
-   * A vertical tab selector that swaps the content panel.
-   */
-  tabs?:
-    | {
-        label: string;
-        /**
-         * lucide-react icon name
-         */
-        icon?: string | null;
-        title: string;
-        body?: string | null;
-        bullets?:
-          | {
-              item?: string | null;
-              id?: string | null;
-            }[]
-          | null;
-        /**
-         * e.g. "20k+"
-         */
-        stat?: string | null;
-        statLabel?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tabsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PillarsBlock".
  */
 export interface PillarsBlock {
@@ -2157,15 +1673,24 @@ export interface ServicesGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ServicesListBlock".
+ * via the `definition` "ServicesBentoBlock".
  */
-export interface ServicesListBlock {
+export interface ServicesBentoBlock {
   eyebrow?: string | null;
   heading?: string | null;
   /**
-   * Pick which services to show, in order. Leave empty to show all services.
+   * Pick services and set each tile size for the bento rhythm. Leave empty to show all services at normal size.
    */
-  services?: (string | Service)[] | null;
+  tiles?:
+    | {
+        service: string | Service;
+        /**
+         * Wide spans 2 columns; Tall spans 2 rows (desktop/tablet).
+         */
+        size?: ('normal' | 'wide' | 'tall') | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Optional “View all services” button shown top-right of the heading.
    */
@@ -2191,7 +1716,7 @@ export interface ServicesListBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'servicesListBlock';
+  blockType: 'servicesBentoBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2247,53 +1772,6 @@ export interface Service {
   slug: string;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ServicesBentoBlock".
- */
-export interface ServicesBentoBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  /**
-   * Pick services and set each tile size for the bento rhythm. Leave empty to show all services at normal size.
-   */
-  tiles?:
-    | {
-        service: string | Service;
-        /**
-         * Wide spans 2 columns; Tall spans 2 rows (desktop/tablet).
-         */
-        size?: ('normal' | 'wide' | 'tall') | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Optional “View all services” button shown top-right of the heading.
-   */
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'servicesBentoBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2678,30 +2156,6 @@ export interface QuoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TeamGridBlock".
- */
-export interface TeamGridBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  /**
-   * Max team members to show.
-   */
-  limit?: number | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'teamGridBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DentistFeatureBlock".
  */
 export interface DentistFeatureBlock {
@@ -2767,33 +2221,6 @@ export interface DentistFeatureBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'dentistFeatureBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProcessBlock".
- */
-export interface ProcessBlock {
-  /**
-   * Small label above the heading.
-   */
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  align?: ('center' | 'left') | null;
-  steps?:
-    | {
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section background style.
-   */
-  background?: ('default' | 'muted' | 'brand' | 'glow') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'processBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3635,7 +3062,6 @@ export interface PagesSelect<T extends boolean = true> {
         founderLetterBlock?: T | FounderLetterBlockSelect<T>;
         valuesIndexBlock?: T | ValuesIndexBlockSelect<T>;
         manifestoBlock?: T | ManifestoBlockSelect<T>;
-        photoCollageBlock?: T | PhotoCollageBlockSelect<T>;
         firstVisitBlock?: T | FirstVisitBlockSelect<T>;
         invitationBlock?: T | InvitationBlockSelect<T>;
         newPatientHeroBlock?: T | NewPatientHeroBlockSelect<T>;
@@ -3644,22 +3070,14 @@ export interface PagesSelect<T extends boolean = true> {
         comfortBlock?: T | ComfortBlockSelect<T>;
         affordabilityBlock?: T | AffordabilityBlockSelect<T>;
         mapBandBlock?: T | MapBandBlockSelect<T>;
-        aboutHeroBlock?: T | AboutHeroBlockSelect<T>;
-        statementBlock?: T | StatementBlockSelect<T>;
-        founderStoryBlock?: T | FounderStoryBlockSelect<T>;
-        mosaicBentoBlock?: T | MosaicBentoBlockSelect<T>;
-        metricRingsBlock?: T | MetricRingsBlockSelect<T>;
         heroBlock?: T | HeroBlockSelect<T>;
         mediaBannerBlock?: T | MediaBannerBlockSelect<T>;
         imageBandBlock?: T | ImageBandBlockSelect<T>;
         splitFeatureBlock?: T | SplitFeatureBlockSelect<T>;
-        bentoBlock?: T | BentoBlockSelect<T>;
-        tabsBlock?: T | TabsBlockSelect<T>;
         pillarsBlock?: T | PillarsBlockSelect<T>;
         statsBlock?: T | StatsBlockSelect<T>;
         insuranceBlock?: T | InsuranceBlockSelect<T>;
         servicesGridBlock?: T | ServicesGridBlockSelect<T>;
-        servicesListBlock?: T | ServicesListBlockSelect<T>;
         servicesBentoBlock?: T | ServicesBentoBlockSelect<T>;
         featureGridBlock?: T | FeatureGridBlockSelect<T>;
         comparisonBlock?: T | ComparisonBlockSelect<T>;
@@ -3668,9 +3086,7 @@ export interface PagesSelect<T extends boolean = true> {
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         latestPostsBlock?: T | LatestPostsBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
-        teamGridBlock?: T | TeamGridBlockSelect<T>;
         dentistFeatureBlock?: T | DentistFeatureBlockSelect<T>;
-        processBlock?: T | ProcessBlockSelect<T>;
         timelineBlock?: T | TimelineBlockSelect<T>;
         panelBlock?: T | PanelBlockSelect<T>;
         faqBlock?: T | FaqBlockSelect<T>;
@@ -3794,28 +3210,6 @@ export interface ManifestoBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   statement?: T;
   footnote?: T;
-  surface?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PhotoCollageBlock_select".
- */
-export interface PhotoCollageBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  items?:
-    | T
-    | {
-        image?: T;
-        caption?: T;
-        id?: T;
-      };
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
@@ -4093,161 +3487,6 @@ export interface MapBandBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AboutHeroBlock_select".
- */
-export interface AboutHeroBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  highlight?: T;
-  intro?: T;
-  image?: T;
-  imageSide?: T;
-  ratingValue?: T;
-  ratingLabel?: T;
-  chips?:
-    | T
-    | {
-        icon?: T;
-        label?: T;
-        id?: T;
-      };
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  background?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatementBlock_select".
- */
-export interface StatementBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  statement?: T;
-  highlight?: T;
-  subline?: T;
-  attribution?: T;
-  align?: T;
-  background?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FounderStoryBlock_select".
- */
-export interface FounderStoryBlockSelect<T extends boolean = true> {
-  image?: T;
-  imageSide?: T;
-  eyebrow?: T;
-  heading?: T;
-  highlight?: T;
-  body?: T;
-  quote?: T;
-  signature?: T;
-  role?: T;
-  bullets?:
-    | T
-    | {
-        item?: T;
-        id?: T;
-      };
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  background?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MosaicBentoBlock_select".
- */
-export interface MosaicBentoBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  highlight?: T;
-  description?: T;
-  tiles?:
-    | T
-    | {
-        type?: T;
-        size?: T;
-        tone?: T;
-        icon?: T;
-        title?: T;
-        body?: T;
-        image?: T;
-        label?: T;
-        statValue?: T;
-        statLabel?: T;
-        id?: T;
-      };
-  background?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MetricRingsBlock_select".
- */
-export interface MetricRingsBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  highlight?: T;
-  description?: T;
-  metrics?:
-    | T
-    | {
-        value?: T;
-        label?: T;
-        percent?: T;
-        id?: T;
-      };
-  background?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HeroBlock_select".
  */
 export interface HeroBlockSelect<T extends boolean = true> {
@@ -4369,61 +3608,6 @@ export interface SplitFeatureBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BentoBlock_select".
- */
-export interface BentoBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  tiles?:
-    | T
-    | {
-        size?: T;
-        tone?: T;
-        icon?: T;
-        title?: T;
-        body?: T;
-        image?: T;
-        stat?: T;
-        id?: T;
-      };
-  background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TabsBlock_select".
- */
-export interface TabsBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  tabs?:
-    | T
-    | {
-        label?: T;
-        icon?: T;
-        title?: T;
-        body?: T;
-        bullets?:
-          | T
-          | {
-              item?: T;
-              id?: T;
-            };
-        stat?: T;
-        statLabel?: T;
-        id?: T;
-      };
-  background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PillarsBlock_select".
  */
 export interface PillarsBlockSelect<T extends boolean = true> {
@@ -4507,31 +3691,6 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
   limit?: T;
   showViewAll?: T;
   background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ServicesListBlock_select".
- */
-export interface ServicesListBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  services?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
   id?: T;
   blockName?: T;
 }
@@ -4744,20 +3903,6 @@ export interface QuoteBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TeamGridBlock_select".
- */
-export interface TeamGridBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  limit?: T;
-  background?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DentistFeatureBlock_select".
  */
 export interface DentistFeatureBlockSelect<T extends boolean = true> {
@@ -4787,26 +3932,6 @@ export interface DentistFeatureBlockSelect<T extends boolean = true> {
   paddingTop?: T;
   paddingBottom?: T;
   bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProcessBlock_select".
- */
-export interface ProcessBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  align?: T;
-  steps?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  background?: T;
   id?: T;
   blockName?: T;
 }
