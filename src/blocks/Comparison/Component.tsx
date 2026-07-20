@@ -39,7 +39,7 @@ export const ComparisonBlock: React.FC<Props> = ({
       paddingBottom={paddingBottom}
       bottomGap={bottomGap}
     >
-      <div className="mx-auto max-w-2xl text-center">
+      <div className="max-w-2xl">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
         {headingEl && (
           <h2
@@ -54,7 +54,7 @@ export const ComparisonBlock: React.FC<Props> = ({
         {intro && (
           <p
             className={cn(
-              'mx-auto mt-4 max-w-xl text-base leading-relaxed',
+              'mt-4 max-w-xl text-base leading-relaxed',
               invert ? 'text-white/80' : 'text-muted-foreground',
             )}
           >

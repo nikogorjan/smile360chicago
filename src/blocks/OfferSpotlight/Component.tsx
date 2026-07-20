@@ -65,7 +65,10 @@ export const OfferSpotlightBlock: React.FC<Props> = ({
         {/* Gold seal — a rotated stamp, behind a perforated divider on desktop */}
         <div className="relative flex justify-center lg:border-l lg:border-dashed lg:border-white/25 lg:pl-14">
           <div className="relative grid size-48 rotate-[-7deg] place-items-center rounded-full bg-gold text-gold-foreground sm:size-60">
-            <span aria-hidden className="absolute inset-3 rounded-full border-2 border-dashed border-gold-foreground/30" />
+            <span
+              aria-hidden
+              className="absolute inset-3 rounded-full border-2 border-dashed border-gold-foreground/30 motion-safe:animate-[spin_18s_linear_infinite]"
+            />
             <div className="flex flex-col items-center gap-2 px-8 text-center">
               <DynamicIcon name={sealIcon || 'BadgePercent'} className="size-9" />
               {seal && (

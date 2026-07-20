@@ -25,7 +25,7 @@ export const FirstVisitSteps: React.FC<{ steps: Step[]; invert: boolean }> = ({ 
       {steps.map((s, i) => (
         <div
           key={s.id || i}
-          className="flex flex-col rounded-[8px] bg-primary p-6 text-primary-foreground shadow-[0_20px_50px_-32px_rgb(0_72_180/0.6)]"
+          className="flex flex-col rounded-[8px] bg-primary p-6 text-primary-foreground"
         >
           <div className="flex items-center justify-between">
             <span className="grid size-11 shrink-0 place-items-center rounded-sm bg-white/10 text-white ring-1 ring-white/15">

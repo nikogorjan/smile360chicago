@@ -1386,6 +1386,10 @@ export interface MapBandBlock {
    */
   mapAddress?: string | null;
   height?: ('medium' | 'large' | 'tall') | null;
+  /**
+   * Pull the map up to absorb the bottom padding of the block above it, so the gap on top matches the small even margin on the sides.
+   */
+  tightenTop?: ('none' | 'panel' | 'section') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mapBandBlock';
@@ -3071,6 +3075,7 @@ export interface AffordabilityBlockSelect<T extends boolean = true> {
 export interface MapBandBlockSelect<T extends boolean = true> {
   mapAddress?: T;
   height?: T;
+  tightenTop?: T;
   id?: T;
   blockName?: T;
 }
