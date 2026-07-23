@@ -123,7 +123,12 @@ export const GetReadyBlock: React.FC<Props> = ({
         // The block above is a white `panel` (~56px of outer bottom padding); on desktop that
         // stacks on top of the photo's own 16px inset, making the top gap read bigger than the
         // right/bottom. Pull the section up to absorb it, so the photo has an even 16px frame.
-        className="lg:-mt-14"
+        //
+        // `max-lg:pb-0` — on desktop the backdrop photo spans inset-y-0, so it covers the
+        // section's bottom padding and the gap to the next block is just the photo's 16px
+        // inset. Below lg the photo drops into the flow, so that padding would read as extra
+        // gap; zero it and let the photo's own bottom inset (below) match the desktop frame.
+        className="max-lg:pb-0 lg:-mt-14"
         backdrop={
           <div
             className={cn(
@@ -146,7 +151,9 @@ export const GetReadyBlock: React.FC<Props> = ({
 
         {/* Mobile photo — full-bleed below the copy, pulled out of the capped copy column so it
             spans the full width (desktop uses the backdrop). */}
-        <div className="mt-8 -mx-6 px-3 sm:px-4 md:-mx-8 lg:hidden">{photo('aspect-4/3')}</div>
+        <div className="mt-8 -mx-6 px-3 pb-3 sm:px-4 sm:pb-4 md:-mx-8 lg:hidden">
+          {photo('aspect-4/3')}
+        </div>
       </SectionShell>
     )
   }
