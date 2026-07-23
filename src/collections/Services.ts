@@ -12,6 +12,9 @@ import {
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 import { MediaBlock } from '../blocks/MediaBlock/config'
+import { Callout } from '../blocks/Callout/config'
+import { PullQuote } from '../blocks/PullQuote/config'
+import { KeyTakeaways } from '../blocks/KeyTakeaways/config'
 import { slugField } from 'payload'
 
 export const Services: CollectionConfig = {
@@ -52,7 +55,7 @@ export const Services: CollectionConfig = {
         features: ({ rootFeatures }) => [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-          BlocksFeature({ blocks: [MediaBlock] }),
+          BlocksFeature({ blocks: [MediaBlock, Callout, PullQuote, KeyTakeaways] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
           HorizontalRuleFeature(),

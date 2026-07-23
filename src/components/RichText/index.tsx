@@ -1,4 +1,7 @@
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { CalloutBlock as CalloutBlockComponent } from '@/blocks/Callout/Component'
+import { PullQuoteBlock as PullQuoteBlockComponent } from '@/blocks/PullQuote/Component'
+import { KeyTakeawaysBlock as KeyTakeawaysBlockComponent } from '@/blocks/KeyTakeaways/Component'
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -11,10 +14,19 @@ import {
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
 
-import type { MediaBlock as MediaBlockProps } from '@/payload-types'
+import type {
+  MediaBlock as MediaBlockProps,
+  CalloutBlock as CalloutBlockProps,
+  PullQuoteBlock as PullQuoteBlockProps,
+  KeyTakeawaysBlock as KeyTakeawaysBlockProps,
+} from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
-type NodeTypes = DefaultNodeTypes | SerializedBlockNode<MediaBlockProps>
+type NodeTypes =
+  | DefaultNodeTypes
+  | SerializedBlockNode<
+      MediaBlockProps | CalloutBlockProps | PullQuoteBlockProps | KeyTakeawaysBlockProps
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -49,6 +61,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         disableInnerContainer={true}
       />
     ),
+    calloutBlock: ({ node }) => <CalloutBlockComponent {...node.fields} />,
+    pullQuoteBlock: ({ node }) => <PullQuoteBlockComponent {...node.fields} />,
+    keyTakeawaysBlock: ({ node }) => <KeyTakeawaysBlockComponent {...node.fields} />,
   },
 })
 
