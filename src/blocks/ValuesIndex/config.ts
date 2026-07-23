@@ -10,8 +10,8 @@ import { headingEditor, spacingFields, surfaceField } from '../_shared/fields'
 export const ValuesIndex: Block = {
   slug: 'valuesIndexBlock',
   interfaceName: 'ValuesIndexBlock',
-  imageURL: '/block-previews/feature-grid.svg',
-  imageAltText: 'Numbered editorial index of values divided by hairline rules',
+  imageURL: '/block-previews/values-index.webp',
+  imageAltText: 'Numbered index of practice values in columns',
   labels: { singular: 'Values Index', plural: 'Values Indexes' },
   fields: [
     { name: 'eyebrow', type: 'text' },

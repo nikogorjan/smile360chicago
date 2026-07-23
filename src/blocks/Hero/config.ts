@@ -6,8 +6,8 @@ import { spacingFieldsFlush } from '../_shared/fields'
 export const Hero: Block = {
   slug: 'heroBlock',
   interfaceName: 'HeroBlock',
-  imageURL: '/block-previews/hero.svg',
-  imageAltText: 'Inset hero card with floating nav, headline bottom-left',
+  imageURL: '/block-previews/hero.webp',
+  imageAltText: 'Full-bleed hero photo with headline and call button',
   labels: { singular: 'Hero', plural: 'Heroes' },
   fields: [
     {

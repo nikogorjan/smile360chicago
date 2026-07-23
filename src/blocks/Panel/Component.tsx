@@ -39,7 +39,11 @@ export const PanelBlock: React.FC<Props> = ({
           {list.map((b, i) => {
             const C = bareComponents[b.blockType as keyof typeof bareComponents]
             return (
-              <div key={b.id || i} className={i > 0 ? 'mt-28 md:mt-40' : ''}>
+              <div
+                key={b.id || i}
+                data-block={b.blockType}
+                className={i > 0 ? 'mt-28 md:mt-40' : ''}
+              >
                 {/* @ts-expect-error bare-mode block props are a union resolved at runtime */}
                 <C {...b} bare />
               </div>

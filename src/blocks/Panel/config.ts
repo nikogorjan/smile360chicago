@@ -13,8 +13,8 @@ export const Panel: Block = {
   slug: 'panelBlock',
   interfaceName: 'PanelBlock',
   labels: { singular: 'Panel (grouped sections)', plural: 'Panels' },
-  imageURL: '/block-previews/feature-grid.svg',
-  imageAltText: 'Several sections grouped in one white rounded inset panel',
+  imageURL: '/block-previews/panel.webp',
+  imageAltText: 'Several sections grouped in one white rounded panel',
   fields: [
     {
       name: 'blocks',

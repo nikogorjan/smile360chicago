@@ -10,6 +10,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const Comparison: Block = {
   slug: 'comparisonBlock',
   interfaceName: 'ComparisonBlock',
+  imageURL: '/block-previews/comparison.webp',
+  imageAltText: 'Side-by-side comparison table with a cobalt column',
   labels: { singular: 'Comparison', plural: 'Comparisons' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'Why Smile360' },
@@ -51,13 +53,25 @@ export const Comparison: Block = {
           name: 'label',
           type: 'text',
           required: true,
-          admin: { description: 'What’s being compared, e.g. “Your dentist”, “Pace”, “Emergencies”.' },
+          admin: {
+            description: 'What’s being compared, e.g. “Your dentist”, “Pace”, “Emergencies”.',
+          },
         },
         {
           type: 'row',
           fields: [
-            { name: 'ours', type: 'text', required: true, admin: { width: '50%', description: 'The Smile360 answer.' } },
-            { name: 'theirs', type: 'text', required: true, admin: { width: '50%', description: 'The usual answer.' } },
+            {
+              name: 'ours',
+              type: 'text',
+              required: true,
+              admin: { width: '50%', description: 'The Smile360 answer.' },
+            },
+            {
+              name: 'theirs',
+              type: 'text',
+              required: true,
+              admin: { width: '50%', description: 'The usual answer.' },
+            },
           ],
         },
       ],

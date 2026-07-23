@@ -5,8 +5,8 @@ import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/
 export const Appointment: Block = {
   slug: 'appointmentBlock',
   interfaceName: 'AppointmentBlock',
-  imageURL: '/block-previews/appointment.svg',
-  imageAltText: 'Appointment request form with contact info column',
+  imageURL: '/block-previews/appointment.webp',
+  imageAltText: 'Appointment request form with a contact column',
   labels: { singular: 'Appointment Form', plural: 'Appointment Forms' },
   fields: [
     ...sectionHeaderFields,

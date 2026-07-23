@@ -11,6 +11,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const FirstVisit: Block = {
   slug: 'firstVisitBlock',
   interfaceName: 'FirstVisitBlock',
+  imageURL: '/block-previews/first-visit.webp',
+  imageAltText: 'Numbered cobalt step cards walking through a first visit',
   labels: { singular: 'First Visit', plural: 'First Visit Sections' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'Your first visit' },
@@ -20,7 +22,11 @@ export const FirstVisit: Block = {
       editor: headingEditor,
       admin: { description: 'Select a phrase, then Style → Brand blue to accent it in cobalt.' },
     },
-    { name: 'intro', type: 'textarea', admin: { description: 'Optional sentence under the heading.' } },
+    {
+      name: 'intro',
+      type: 'textarea',
+      admin: { description: 'Optional sentence under the heading.' },
+    },
     {
       name: 'steps',
       type: 'array',

@@ -5,8 +5,8 @@ import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/
 export const Reviews: Block = {
   slug: 'reviewsBlock',
   interfaceName: 'ReviewsBlock',
-  imageURL: '/block-previews/reviews.svg',
-  imageAltText: 'Patient review cards with star ratings',
+  imageURL: '/block-previews/reviews.webp',
+  imageAltText: 'Carousel of patient review cards',
   labels: { singular: 'Reviews', plural: 'Reviews' },
   fields: [
     ...sectionHeaderFields,

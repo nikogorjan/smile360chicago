@@ -10,6 +10,8 @@ import { spacingFieldsFlush } from '../_shared/fields'
 export const MapBand: Block = {
   slug: 'mapBandBlock',
   interfaceName: 'MapBandBlock',
+  imageURL: '/block-previews/map-band.webp',
+  imageAltText: 'Full-width map card with a directions chip',
   labels: { singular: 'Map Band', plural: 'Map Bands' },
   fields: [
     {

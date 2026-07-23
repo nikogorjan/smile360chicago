@@ -80,9 +80,15 @@ export const RenderBlocks: React.FC<{
           const Block = blockComponents[blockType]
 
           if (Block) {
+            // `display: contents` — the wrapper generates no box, so layout is identical to
+            // rendering the block bare. It exists only to label where each block starts and
+            // ends in the DOM (used by scripts/shoot-block-previews.mts, and handy when
+            // tracking down "this section looks wrong" reports in the browser).
             return (
-              // @ts-expect-error block props are a union resolved at runtime
-              <Block {...block} key={index} />
+              <div key={index} data-block={blockType} className="contents">
+                {/* @ts-expect-error block props are a union resolved at runtime */}
+                <Block {...block} />
+              </div>
             )
           }
         }

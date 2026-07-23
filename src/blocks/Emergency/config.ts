@@ -5,7 +5,7 @@ import { spacingFields } from '../_shared/fields'
 export const Emergency: Block = {
   slug: 'emergencyBlock',
   interfaceName: 'EmergencyBlock',
-  imageURL: '/block-previews/emergency.svg',
+  imageURL: '/block-previews/emergency.webp',
   imageAltText: 'High-contrast emergency call-to-action band',
   labels: { singular: 'Emergency Band', plural: 'Emergency Bands' },
   fields: [

@@ -13,6 +13,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const GetReady: Block = {
   slug: 'getReadyBlock',
   interfaceName: 'GetReadyBlock',
+  imageURL: '/block-previews/get-ready.webp',
+  imageAltText: 'Checklist beside an edge-to-edge photo',
   labels: { singular: 'Get Ready', plural: 'Get Ready Sections' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'Before you arrive' },
@@ -33,9 +35,17 @@ export const GetReady: Block = {
         {
           type: 'row',
           fields: [
-            { name: 'icon', type: 'text', admin: { width: '30%', description: 'lucide icon (e.g. ClipboardList, Laptop).' } },
+            {
+              name: 'icon',
+              type: 'text',
+              admin: { width: '30%', description: 'lucide icon (e.g. ClipboardList, Laptop).' },
+            },
             { name: 'title', type: 'text', required: true, admin: { width: '50%' } },
-            { name: 'highlight', type: 'checkbox', admin: { width: '20%', description: 'Emphasise in cobalt + show the CTA here.' } },
+            {
+              name: 'highlight',
+              type: 'checkbox',
+              admin: { width: '20%', description: 'Emphasise in cobalt + show the CTA here.' },
+            },
           ],
         },
         {
@@ -52,7 +62,8 @@ export const GetReady: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Optional photo shown beside the checklist so a single column never feels empty.',
+        description:
+          'Optional photo shown beside the checklist so a single column never feels empty.',
       },
     },
     {

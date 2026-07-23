@@ -5,7 +5,7 @@ import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/
 export const Faq: Block = {
   slug: 'faqBlock',
   interfaceName: 'FaqBlock',
-  imageURL: '/block-previews/faq.svg',
+  imageURL: '/block-previews/faq.webp',
   imageAltText: 'FAQ accordion with expandable questions',
   labels: { singular: 'FAQ', plural: 'FAQs' },
   fields: [

@@ -11,6 +11,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const Credentials: Block = {
   slug: 'credentialsBlock',
   interfaceName: 'CredentialsBlock',
+  imageURL: '/block-previews/credentials.webp',
+  imageAltText: 'Credentials and affiliations beside a parallax photo',
   labels: { singular: 'Credentials', plural: 'Credentials Sections' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'Credentials & training' },
@@ -20,14 +22,24 @@ export const Credentials: Block = {
       editor: headingEditor,
       admin: { description: 'Select a phrase, then Style → Brand blue to accent it.' },
     },
-    { name: 'lead', type: 'textarea', admin: { description: 'A sentence or two on training and commitment.' } },
+    {
+      name: 'lead',
+      type: 'textarea',
+      admin: { description: 'A sentence or two on training and commitment.' },
+    },
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Credential / certificate photo (e.g. Dr. Salam receiving the award).' },
+      admin: {
+        description: 'Credential / certificate photo (e.g. Dr. Salam receiving the award).',
+      },
     },
-    { name: 'imageCaption', type: 'text', admin: { description: 'Optional caption shown under the photo.' } },
+    {
+      name: 'imageCaption',
+      type: 'text',
+      admin: { description: 'Optional caption shown under the photo.' },
+    },
     {
       name: 'imageSide',
       type: 'select',
@@ -44,7 +56,8 @@ export const Credentials: Block = {
       labels: { singular: 'Credential', plural: 'Credentials' },
       admin: {
         initCollapsed: true,
-        description: 'Qualifications, certifications, memberships, experience — shown as a checklist.',
+        description:
+          'Qualifications, certifications, memberships, experience — shown as a checklist.',
       },
       fields: [
         {
@@ -55,7 +68,8 @@ export const Credentials: Block = {
               type: 'text',
               admin: {
                 width: '30%',
-                description: 'lucide icon (e.g. GraduationCap, Award, BadgeCheck, HeartPulse, Clock).',
+                description:
+                  'lucide icon (e.g. GraduationCap, Award, BadgeCheck, HeartPulse, Clock).',
               },
             },
             { name: 'title', type: 'text', required: true, admin: { width: '70%' } },

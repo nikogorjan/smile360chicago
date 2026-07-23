@@ -5,8 +5,8 @@ import { spacingFields } from '../_shared/fields'
 export const Pillars: Block = {
   slug: 'pillarsBlock',
   interfaceName: 'PillarsBlock',
-  imageURL: '/block-previews/pillars.svg',
-  imageAltText: 'Horizontal expanding accordion of pillars',
+  imageURL: '/block-previews/pillars.webp',
+  imageAltText: 'Expanding accordion of practice pillars',
   labels: { singular: 'Pillars Accordion', plural: 'Pillars Accordions' },
   fields: [
     { name: 'eyebrow', type: 'text' },

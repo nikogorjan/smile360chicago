@@ -10,7 +10,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const Manifesto: Block = {
   slug: 'manifestoBlock',
   interfaceName: 'ManifestoBlock',
-  imageAltText: 'Full-width statement band',
+  imageURL: '/block-previews/manifesto.webp',
+  imageAltText: 'Oversized statement type on a full-width band',
   labels: { singular: 'Manifesto', plural: 'Manifestos' },
   fields: [
     { name: 'eyebrow', type: 'text' },
@@ -19,9 +20,15 @@ export const Manifesto: Block = {
       type: 'richText',
       editor: headingEditor,
       required: true,
-      admin: { description: 'The one big line. Select a phrase, then Style → Brand blue to accent it.' },
+      admin: {
+        description: 'The one big line. Select a phrase, then Style → Brand blue to accent it.',
+      },
     },
-    { name: 'footnote', type: 'text', admin: { description: 'Optional small line below the statement.' } },
+    {
+      name: 'footnote',
+      type: 'text',
+      admin: { description: 'Optional small line below the statement.' },
+    },
     surfaceFieldWith('brand'),
     spacingFields,
   ],

@@ -6,8 +6,8 @@ export const ImageBand: Block = {
   slug: 'imageBandBlock',
   interfaceName: 'ImageBandBlock',
   labels: { singular: 'Image Band', plural: 'Image Bands' },
-  imageURL: '/block-previews/media-banner.svg',
-  imageAltText: 'Full-width edge-to-edge photo band',
+  imageURL: '/block-previews/image-band.webp',
+  imageAltText: 'Wide inset photo band',
   fields: [
     {
       name: 'image',

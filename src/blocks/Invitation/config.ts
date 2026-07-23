@@ -33,7 +33,11 @@ export const Invitation: Block = {
         {
           type: 'row',
           fields: [
-            { name: 'icon', type: 'text', admin: { width: '25%', description: 'lucide icon (MapPin, Clock, Phone).' } },
+            {
+              name: 'icon',
+              type: 'text',
+              admin: { width: '25%', description: 'lucide icon (MapPin, Clock, Phone).' },
+            },
             { name: 'label', type: 'text', admin: { width: '30%' } },
             { name: 'value', type: 'text', required: true, admin: { width: '45%' } },
           ],
@@ -52,7 +56,9 @@ export const Invitation: Block = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Fallback photo (e.g. the entrance) — shown only when no map address is set.' },
+      admin: {
+        description: 'Fallback photo (e.g. the entrance) — shown only when no map address is set.',
+      },
     },
     linkGroup({ appearances: false, overrides: { maxRows: 2 } }),
     surfaceFieldWith('panel'),

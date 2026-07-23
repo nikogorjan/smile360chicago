@@ -7,8 +7,8 @@ export const LatestPosts: Block = {
   slug: 'latestPostsBlock',
   interfaceName: 'LatestPostsBlock',
   labels: { singular: 'Latest Posts', plural: 'Latest Posts' },
-  imageURL: '/block-previews/reviews.svg',
-  imageAltText: 'A row of the latest blog posts as image cards',
+  imageURL: '/block-previews/latest-posts.webp',
+  imageAltText: 'Grid of latest blog post cards',
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'From the blog' },
     { name: 'heading', type: 'text', defaultValue: 'Latest from our blog' },
@@ -30,7 +30,8 @@ export const LatestPosts: Block = {
       min: 1,
       max: 4,
       admin: {
-        description: 'When no posts are hand-picked above, how many of the newest posts to show (2 recommended).',
+        description:
+          'When no posts are hand-picked above, how many of the newest posts to show (2 recommended).',
       },
     },
     linkGroup({

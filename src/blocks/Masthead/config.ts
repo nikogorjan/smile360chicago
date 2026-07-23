@@ -23,7 +23,7 @@ const FOCUS_OPTIONS = [
 export const Masthead: Block = {
   slug: 'mastheadBlock',
   interfaceName: 'MastheadBlock',
-  imageURL: '/block-previews/page-hero.svg',
+  imageURL: '/block-previews/masthead.webp',
   imageAltText: 'Large editorial headline over a wide panoramic photo',
   labels: { singular: 'Masthead', plural: 'Mastheads' },
   fields: [

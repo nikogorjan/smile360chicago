@@ -10,8 +10,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const FounderLetter: Block = {
   slug: 'founderLetterBlock',
   interfaceName: 'FounderLetterBlock',
-  imageURL: '/block-previews/team.svg',
-  imageAltText: 'A personal signed letter from the founder',
+  imageURL: '/block-previews/founder-letter.webp',
+  imageAltText: 'Signed letter from the dentist beside a portrait',
   labels: { singular: 'Founder Letter', plural: 'Founder Letters' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'A note from our founder' },
@@ -19,7 +19,9 @@ export const FounderLetter: Block = {
       name: 'heading',
       type: 'richText',
       editor: headingEditor,
-      admin: { description: 'Optional heading. Select a phrase, then Style → Brand blue to accent it.' },
+      admin: {
+        description: 'Optional heading. Select a phrase, then Style → Brand blue to accent it.',
+      },
     },
     {
       name: 'quote',
@@ -40,7 +42,8 @@ export const FounderLetter: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Large photo shown on the opposite side of the letter (e.g. the founder). If empty, a branded panel shows.',
+        description:
+          'Large photo shown on the opposite side of the letter (e.g. the founder). If empty, a branded panel shows.',
       },
     },
     {
@@ -55,8 +58,16 @@ export const FounderLetter: Block = {
     {
       type: 'row',
       fields: [
-        { name: 'signature', type: 'text', admin: { width: '50%', description: 'e.g. “Dr. Mustafa Salam”.' } },
-        { name: 'role', type: 'text', admin: { width: '50%', description: 'e.g. “Founder & Lead Dentist · DMD”.' } },
+        {
+          name: 'signature',
+          type: 'text',
+          admin: { width: '50%', description: 'e.g. “Dr. Mustafa Salam”.' },
+        },
+        {
+          name: 'role',
+          type: 'text',
+          admin: { width: '50%', description: 'e.g. “Founder & Lead Dentist · DMD”.' },
+        },
       ],
     },
     surfaceFieldWith('panel'),

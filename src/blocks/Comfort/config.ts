@@ -12,6 +12,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const Comfort: Block = {
   slug: 'comfortBlock',
   interfaceName: 'ComfortBlock',
+  imageURL: '/block-previews/comfort.webp',
+  imageAltText: 'Grid of comfort commitments on a white panel',
   labels: { singular: 'Comfort', plural: 'Comfort Sections' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'You’re in good hands' },
@@ -35,7 +37,10 @@ export const Comfort: Block = {
             {
               name: 'icon',
               type: 'text',
-              admin: { width: '35%', description: 'lucide icon (e.g. Feather, Wind, Hand, Headphones).' },
+              admin: {
+                width: '35%',
+                description: 'lucide icon (e.g. Feather, Wind, Hand, Headphones).',
+              },
             },
             { name: 'title', type: 'text', required: true, admin: { width: '65%' } },
           ],

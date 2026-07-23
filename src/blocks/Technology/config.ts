@@ -10,6 +10,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const Technology: Block = {
   slug: 'technologyBlock',
   interfaceName: 'TechnologyBlock',
+  imageURL: '/block-previews/technology.webp',
+  imageAltText: 'Technology rows above a set of tall photos',
   labels: { singular: 'Technology', plural: 'Technology Sections' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'Technology' },
@@ -27,7 +29,8 @@ export const Technology: Block = {
       labels: { singular: 'Technology', plural: 'Technologies' },
       admin: {
         initCollapsed: true,
-        description: 'Each: icon + name + one-line patient benefit. Only list what you actually have.',
+        description:
+          'Each: icon + name + one-line patient benefit. Only list what you actually have.',
       },
       fields: [
         {
@@ -44,7 +47,11 @@ export const Technology: Block = {
             { name: 'title', type: 'text', required: true, admin: { width: '70%' } },
           ],
         },
-        { name: 'description', type: 'text', admin: { description: 'One line on the patient benefit.' } },
+        {
+          name: 'description',
+          type: 'text',
+          admin: { description: 'One line on the patient benefit.' },
+        },
       ],
     },
     {
@@ -53,7 +60,8 @@ export const Technology: Block = {
       maxRows: 4,
       labels: { singular: 'Photo', plural: 'Photos' },
       admin: {
-        description: 'Optional supporting photos (equipment / office). Click “Add Photo” for each — about 3 looks best.',
+        description:
+          'Optional supporting photos (equipment / office). Click “Add Photo” for each — about 3 looks best.',
       },
       fields: [{ name: 'image', type: 'upload', relationTo: 'media' }],
     },

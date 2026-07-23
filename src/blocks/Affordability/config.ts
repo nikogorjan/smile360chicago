@@ -31,7 +31,14 @@ export const Affordability: Block = {
         {
           type: 'row',
           fields: [
-            { name: 'icon', type: 'text', admin: { width: '35%', description: 'lucide icon (e.g. ShieldCheck, CreditCard, ReceiptText).' } },
+            {
+              name: 'icon',
+              type: 'text',
+              admin: {
+                width: '35%',
+                description: 'lucide icon (e.g. ShieldCheck, CreditCard, ReceiptText).',
+              },
+            },
             { name: 'title', type: 'text', required: true, admin: { width: '65%' } },
           ],
         },
