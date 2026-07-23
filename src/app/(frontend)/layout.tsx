@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
@@ -48,6 +49,7 @@ export const dynamic = 'force-dynamic'
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
   const [site, header, services] = await Promise.all([getSiteData(), getHeaderNav(), getServices()])
+  const gaId = process.env.NEXT_PUBLIC_GA_ID
 
   return (
     <html
@@ -84,6 +86,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <SiteFooter site={site} nav={header.nav} services={services} />
           <MobileCTA phone={site.phone} phoneHref={site.phoneHref} />
         </Providers>
+        {/* Google Analytics 4 — only loads when a Measurement ID is configured, so dev and any
+            environment without the var stay tracking-free. Handles App Router page views on
+            client-side navigation automatically. Set NEXT_PUBLIC_GA_ID in the production env only. */}
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   )
