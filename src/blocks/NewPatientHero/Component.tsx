@@ -76,6 +76,10 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
           // Cap the copy to the left half minus a gutter on lg so it never runs
           // under the photo (which starts at 50vw), while staying readable width.
           'flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,calc(50%-4rem))] lg:min-h-216',
+          // Mobile stacks copy above the photo, so the eyebrow would sit hard against the
+          // header — give it room. Zero again on lg, where the section must stay symmetric
+          // for the copy to centre against the full-height backdrop photo.
+          'pt-10 sm:pt-12 lg:pt-0',
           imageLeft ? 'lg:ml-auto' : 'lg:mr-auto',
         )}
       >
