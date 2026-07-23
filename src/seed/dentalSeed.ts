@@ -1068,7 +1068,7 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
   // 3. Collections — non-destructive: only seed a collection when it's empty (or when
   //    forced), so re-running never deletes content/photos you've added in the admin.
   const seedCollection = async (
-    slug: 'services' | 'team' | 'testimonials' | 'faqs',
+    slug: 'services' | 'testimonials' | 'faqs',
     createFn: () => Promise<void>,
   ) => {
     const existing = (await payload.count({ collection: slug })).totalDocs
@@ -1100,23 +1100,6 @@ export async function dentalSeed(payload: Payload, opts: { force?: boolean } = {
     }
   })
 
-  await seedCollection('team', async () => {
-    log('Team…')
-    for (let i = 0; i < team.length; i++) {
-      const m = team[i]
-      await payload.create({
-        collection: 'team',
-        data: {
-          name: m.name,
-          role: m.role,
-          credentials: m.credentials,
-          bio: m.bio,
-          specialties: m.specialties.map((item) => ({ item })),
-          order: i,
-        } as never,
-      })
-    }
-  })
 
   await seedCollection('testimonials', async () => {
     log('Testimonials…')

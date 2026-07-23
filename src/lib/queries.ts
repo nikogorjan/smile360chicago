@@ -4,11 +4,9 @@ import { getPayload } from 'payload'
 import {
   faqs as fbFaqs,
   services as fbServices,
-  team as fbTeam,
   testimonials as fbTestimonials,
   type Faq,
   type Service,
-  type TeamMember,
   type Testimonial,
 } from '@/lib/practice'
 
@@ -158,22 +156,6 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
   }
 }
 
-export async function getTeam(): Promise<TeamMember[]> {
-  try {
-    const p = await payload()
-    const res = await p.find({ collection: 'team', limit: 100, sort: 'order', depth: 0 })
-    if (!res.docs.length) return fbTeam
-    return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
-      name: String(d.name || ''),
-      role: String(d.role || ''),
-      credentials: String(d.credentials || ''),
-      bio: String(d.bio || ''),
-      specialties: items(d.specialties),
-    }))
-  } catch {
-    return fbTeam
-  }
-}
 
 export async function getTestimonials(): Promise<Testimonial[]> {
   try {

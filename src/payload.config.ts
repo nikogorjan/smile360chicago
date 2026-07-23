@@ -11,7 +11,6 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Services } from './collections/Services'
-import { Team } from './collections/Team'
 import { Testimonials } from './collections/Testimonials'
 import { FAQs } from './collections/FAQs'
 import { Footer } from './Footer/config'
@@ -91,7 +90,7 @@ export default buildConfig({
         }),
       }
     : {}),
-  collections: [Pages, Posts, Services, Team, Testimonials, FAQs, Media, Categories, Users],
+  collections: [Pages, Posts, Services, Testimonials, FAQs, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,

@@ -5,7 +5,6 @@ const run = async () => {
   const payload = await getPayload({ config })
   const pages = await payload.find({ collection: 'pages', limit: 100, depth: 0 })
   const services = await payload.count({ collection: 'services' })
-  const team = await payload.count({ collection: 'team' })
   const faqs = await payload.count({ collection: 'faqs' })
   const reviews = await payload.count({ collection: 'testimonials' })
 
@@ -14,7 +13,6 @@ const run = async () => {
       {
         pages: pages.docs.map((p) => ({ slug: p.slug, status: (p as { _status?: string })._status, blocks: (p.layout || []).length })),
         services: services.totalDocs,
-        team: team.totalDocs,
         faqs: faqs.totalDocs,
         reviews: reviews.totalDocs,
       },
