@@ -168,49 +168,6 @@ export interface UserAuthOperations {
 export interface Page {
   id: string;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: (string | null) | Media;
-  };
   layout: (
     | HeroBlock
     | MastheadBlock
@@ -261,13 +218,29 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "HeroBlock".
  */
-export interface Post {
-  id: string;
-  title: string;
-  heroImage?: (string | null) | Media;
-  content: {
+export interface HeroBlock {
+  /**
+   * Choose what fills the hero card. Video falls back to the image.
+   */
+  mediaType?: ('image' | 'video') | null;
+  /**
+   * Background photo — used directly for Image, and as the poster/fallback for Video.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.
+   */
+  video?: (string | null) | Media;
+  /**
+   * Small label pill above the headline.
+   */
+  eyebrow?: string | null;
+  /**
+   * Headline. Rendered in the editorial display serif, in white.
+   */
+  heading: {
     root: {
       type: string;
       children: {
@@ -282,32 +255,75 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (string | Post)[] | null;
-  categories?: (string | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (string | User)[] | null;
-  populatedAuthors?:
+  showRating?: boolean | null;
+  /**
+   * e.g. "4.9 from 487+ Google reviews"
+   */
+  ratingText?: string | null;
+  links?:
     | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('white' | 'outlineWhite') | null;
+        };
         id?: string | null;
-        name?: string | null;
       }[]
     | null;
   /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   * Optional small card overlapping the hero (hidden on mobile). Leave the title empty to show a compact rating stat card instead.
    */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  card?: {
+    /**
+     * Show the floating card.
+     */
+    enabled?: boolean | null;
+    /**
+     * Optional thumbnail/poster. Shows a play button when set.
+     */
+    media?: (string | null) | Media;
+    /**
+     * e.g. "Your family's smile, in one place"
+     */
+    title?: string | null;
+    /**
+     * One short supporting line.
+     */
+    text?: string | null;
+  };
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -430,6 +446,56 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  heroImage?: (string | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (string | Post)[] | null;
+  categories?: (string | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (string | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -477,115 +543,6 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
- */
-export interface HeroBlock {
-  /**
-   * Choose what fills the hero card. Video falls back to the image.
-   */
-  mediaType?: ('image' | 'video') | null;
-  /**
-   * Background photo — used directly for Image, and as the poster/fallback for Video.
-   */
-  image?: (string | null) | Media;
-  /**
-   * Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.
-   */
-  video?: (string | null) | Media;
-  /**
-   * Small label pill above the headline.
-   */
-  eyebrow?: string | null;
-  /**
-   * Headline. Rendered in the editorial display serif, in white.
-   */
-  heading: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  showRating?: boolean | null;
-  /**
-   * e.g. "4.9 from 487+ Google reviews"
-   */
-  ratingText?: string | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('white' | 'outlineWhite') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Optional small card overlapping the hero (hidden on mobile). Leave the title empty to show a compact rating stat card instead.
-   */
-  card?: {
-    /**
-     * Show the floating card.
-     */
-    enabled?: boolean | null;
-    /**
-     * Optional thumbnail/poster. Shows a play button when set.
-     */
-    media?: (string | null) | Media;
-    /**
-     * e.g. "Your family's smile, in one place"
-     */
-    title?: string | null;
-    /**
-     * One short supporting line.
-     */
-    text?: string | null;
-  };
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap above (lift off the previous section)
-   */
-  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heroBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2882,28 +2839,6 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  hero?:
-    | T
-    | {
-        type?: T;
-        richText?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        media?: T;
-      };
   layout?:
     | T
     | {
