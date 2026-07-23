@@ -21,12 +21,10 @@ import { FounderLetterBlock } from '@/blocks/FounderLetter/Component'
 import { ValuesIndexBlock } from '@/blocks/ValuesIndex/Component'
 import { ManifestoBlock } from '@/blocks/Manifesto/Component'
 import { FirstVisitBlock } from '@/blocks/FirstVisit/Component'
-import { InvitationBlock } from '@/blocks/Invitation/Component'
 import { NewPatientHeroBlock } from '@/blocks/NewPatientHero/Component'
 import { OfferSpotlightBlock } from '@/blocks/OfferSpotlight/Component'
 import { GetReadyBlock } from '@/blocks/GetReady/Component'
 import { ComfortBlock } from '@/blocks/Comfort/Component'
-import { AffordabilityBlock } from '@/blocks/Affordability/Component'
 import { MapBandBlock } from '@/blocks/MapBand/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { PanelBlock } from '@/blocks/Panel/Component'
@@ -50,11 +48,9 @@ const blockComponents = {
   technologyBlock: TechnologyBlock,
   comparisonBlock: ComparisonBlock,
   firstVisitBlock: FirstVisitBlock,
-  invitationBlock: InvitationBlock,
   newPatientHeroBlock: NewPatientHeroBlock,
   getReadyBlock: GetReadyBlock,
   offerSpotlightBlock: OfferSpotlightBlock,
-  affordabilityBlock: AffordabilityBlock,
   faqBlock: FaqBlock,
   comfortBlock: ComfortBlock,
   appointmentBlock: AppointmentBlock,

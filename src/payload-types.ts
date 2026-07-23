@@ -175,12 +175,10 @@ export interface Page {
     | ValuesIndexBlock
     | ManifestoBlock
     | FirstVisitBlock
-    | InvitationBlock
     | NewPatientHeroBlock
     | OfferSpotlightBlock
     | GetReadyBlock
     | ComfortBlock
-    | AffordabilityBlock
     | MapBandBlock
     | ImageBandBlock
     | PillarsBlock
@@ -872,97 +870,6 @@ export interface FirstVisitBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InvitationBlock".
- */
-export interface InvitationBlock {
-  eyebrow?: string | null;
-  /**
-   * Select a phrase, then Style → Brand blue to accent it in cobalt.
-   */
-  heading: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  body?: string | null;
-  /**
-   * Address / hours / phone, shown as an editorial list.
-   */
-  details?:
-    | {
-        /**
-         * lucide icon (MapPin, Clock, Phone).
-         */
-        icon?: string | null;
-        label?: string | null;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Enter an address to show a live Google map (e.g. 360 N Michigan Ave, Suite 1200, Chicago, IL 60601). Takes priority over the image.
-   */
-  mapAddress?: string | null;
-  /**
-   * Fallback photo (e.g. the entrance) — shown only when no map address is set.
-   */
-  image?: (string | null) | Media;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * How this section sits on the page.
-   */
-  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap above (lift off the previous section)
-   */
-  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'invitationBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NewPatientHeroBlock".
  */
 export interface NewPatientHeroBlock {
@@ -1314,96 +1221,6 @@ export interface ComfortBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'comfortBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AffordabilityBlock".
- */
-export interface AffordabilityBlock {
-  eyebrow?: string | null;
-  /**
-   * Select a phrase, then Style → Brand blue to accent it.
-   */
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  intro?: string | null;
-  points?:
-    | {
-        /**
-         * lucide icon (e.g. ShieldCheck, CreditCard, ReceiptText).
-         */
-        icon?: string | null;
-        title: string;
-        body?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Accepted-plan names, shown as small chips.
-   */
-  insurers?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  insurersLabel?: string | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * How this section sits on the page.
-   */
-  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
-  /**
-   * Padding above
-   */
-  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Padding below
-   */
-  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
-  /**
-   * Gap above (lift off the previous section)
-   */
-  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  /**
-   * Gap below (lift off the footer / next section)
-   */
-  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'affordabilityBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2848,12 +2665,10 @@ export interface PagesSelect<T extends boolean = true> {
         valuesIndexBlock?: T | ValuesIndexBlockSelect<T>;
         manifestoBlock?: T | ManifestoBlockSelect<T>;
         firstVisitBlock?: T | FirstVisitBlockSelect<T>;
-        invitationBlock?: T | InvitationBlockSelect<T>;
         newPatientHeroBlock?: T | NewPatientHeroBlockSelect<T>;
         offerSpotlightBlock?: T | OfferSpotlightBlockSelect<T>;
         getReadyBlock?: T | GetReadyBlockSelect<T>;
         comfortBlock?: T | ComfortBlockSelect<T>;
-        affordabilityBlock?: T | AffordabilityBlockSelect<T>;
         mapBandBlock?: T | MapBandBlockSelect<T>;
         imageBandBlock?: T | ImageBandBlockSelect<T>;
         pillarsBlock?: T | PillarsBlockSelect<T>;
@@ -3038,46 +2853,6 @@ export interface FirstVisitBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InvitationBlock_select".
- */
-export interface InvitationBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  body?: T;
-  details?:
-    | T
-    | {
-        icon?: T;
-        label?: T;
-        value?: T;
-        id?: T;
-      };
-  mapAddress?: T;
-  image?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  surface?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  topGap?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NewPatientHeroBlock_select".
  */
 export interface NewPatientHeroBlockSelect<T extends boolean = true> {
@@ -3210,51 +2985,6 @@ export interface ComfortBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  surface?: T;
-  paddingTop?: T;
-  paddingBottom?: T;
-  topGap?: T;
-  bottomGap?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AffordabilityBlock_select".
- */
-export interface AffordabilityBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  intro?: T;
-  points?:
-    | T
-    | {
-        icon?: T;
-        title?: T;
-        body?: T;
-        id?: T;
-      };
-  insurers?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  insurersLabel?: T;
   links?:
     | T
     | {

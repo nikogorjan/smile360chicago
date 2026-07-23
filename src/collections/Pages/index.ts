@@ -20,11 +20,9 @@ import { Credentials } from '../../blocks/Credentials/config'
 import { Technology } from '../../blocks/Technology/config'
 import { Comparison } from '../../blocks/Comparison/config'
 import { FirstVisit } from '../../blocks/FirstVisit/config'
-import { Invitation } from '../../blocks/Invitation/config'
 import { NewPatientHero } from '../../blocks/NewPatientHero/config'
 import { GetReady } from '../../blocks/GetReady/config'
 import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
-import { Affordability } from '../../blocks/Affordability/config'
 import { Faq } from '../../blocks/Faq/config'
 import { Comfort } from '../../blocks/Comfort/config'
 import { Appointment } from '../../blocks/Appointment/config'
@@ -97,12 +95,10 @@ export const Pages: CollectionConfig<'pages'> = {
                 ValuesIndex,
                 Manifesto,
                 FirstVisit,
-                Invitation,
                 NewPatientHero,
                 OfferSpotlight,
                 GetReady,
                 Comfort,
-                Affordability,
                 MapBand,
                 ImageBand,
                 Pillars,
