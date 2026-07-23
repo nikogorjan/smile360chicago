@@ -37,7 +37,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/contact"
-                  className={buttonVariants({ variant: 'white', size: 'clear', className: 'px-6 py-3.5 font-bold' })}
+                  className={buttonVariants({ variant: 'white', size: 'clear', className: 'px-6 py-3.5 font-bold max-sm:w-full' })}
                 >
                   <ButtonLabel>
                     Book Appointment
@@ -46,7 +46,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
                 </Link>
                 <Link
                   href={site.phoneHref}
-                  className={buttonVariants({ variant: 'outlineWhite', size: 'clear', className: 'px-6 py-3.5 font-bold' })}
+                  className={buttonVariants({ variant: 'outlineWhite', size: 'clear', className: 'px-6 py-3.5 font-bold max-sm:w-full' })}
                 >
                   <ButtonLabel>
                     <Phone className="size-4" />

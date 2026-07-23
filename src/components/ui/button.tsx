@@ -27,11 +27,15 @@ const buttonVariants = cva(
         white: 'bg-white text-primary hover:bg-primary hover:text-white',
         outlineWhite: 'border border-white/40 text-white hover:bg-white/10',
       },
+      // Text buttons go full width below `sm` — on a phone a shrink-to-fit CTA reads as a
+      // stray chip, and stacked pairs line up instead of straggling. `max-sm:` is purely
+      // additive, so a caller that already sets its own width (e.g. `w-full` in the header
+      // dropdown) keeps it at every breakpoint. `icon` and `clear` opt out by design.
       size: {
         clear: '',
-        sm: 'h-9 px-4',
-        default: 'h-11 px-6',
-        lg: 'h-12 px-7',
+        sm: 'h-9 px-4 max-sm:w-full',
+        default: 'h-11 px-6 max-sm:w-full',
+        lg: 'h-12 px-7 max-sm:w-full',
         icon: 'size-10',
       },
     },
