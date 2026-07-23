@@ -5,18 +5,18 @@ import type { Media, Page, Post, Config } from '../payload-types'
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
+/** The page's own Meta Image, preferring the 1200×630 `og` size Payload generates for it.
+ *  Returns undefined when the page has none, so `mergeOpenGraph` falls back to the
+ *  site-wide /og.jpg rather than the Payload template's placeholder. */
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL()
-
-  let url = serverUrl + '/website-template-OG.webp'
-
   if (image && typeof image === 'object' && 'url' in image) {
+    const serverUrl = getServerSideURL()
     const ogUrl = image.sizes?.og?.url
 
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
+    return ogUrl ? serverUrl + ogUrl : serverUrl + image.url
   }
 
-  return url
+  return undefined
 }
 
 export const generateMeta = async (args: {
@@ -26,9 +26,10 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  // The Meta Title field IS the full title — no brand suffix appended. The SEO panel
+  // measures that field against the 50–60 character target, so anything tacked on here
+  // would silently push every page past what Google actually shows.
+  const title = doc?.meta?.title || 'Smile360 Chicago'
 
   return {
     description: doc?.meta?.description,
