@@ -1,12 +1,13 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
+import { spacingFieldsFlush } from '../_shared/fields'
 
 export const ServicesBento: Block = {
   slug: 'servicesBentoBlock',
   interfaceName: 'ServicesBentoBlock',
-  imageURL: '/block-previews/bento.svg',
-  imageAltText: 'Bento grid of service tiles with images',
+  imageURL: '/block-previews/services-bento.webp',
+  imageAltText: 'Bento grid of service tiles',
   labels: { singular: 'Services Bento', plural: 'Services Bentos' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'Our services' },
@@ -45,5 +46,6 @@ export const ServicesBento: Block = {
         },
       },
     }),
+    spacingFieldsFlush,
   ],
 }

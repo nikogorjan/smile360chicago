@@ -21,9 +21,24 @@ export const EmergencyBlock: React.FC<Props> = ({
   callLabel,
   secondaryLabel,
   secondaryHref,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   return (
-    <Section className="relative overflow-hidden">
+    // On mobile the beacon is clipped hard into a box by `overflow-hidden`, so it reads as a
+    // separate glowing background from the footer below. `overflow-x-clip` still contains the
+    // wide (150vw) beacon horizontally (no sideways scroll) but lets it bleed *vertically* and
+    // fade into the same page canvas the footer sits on — behind everything (isolate + -z-10),
+    // and behind the footer (which paints later). Desktop keeps the contained behaviour.
+    <Section
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      topGap={topGap}
+      bottomGap={bottomGap}
+      className="relative overflow-x-clip lg:overflow-hidden"
+    >
       <div className="container relative isolate">
         <div className="mx-auto max-w-2xl text-center">
           <Eyebrow>Dental emergency?</Eyebrow>

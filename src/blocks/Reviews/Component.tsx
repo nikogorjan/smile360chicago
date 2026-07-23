@@ -11,6 +11,8 @@ export const ReviewsBlock: React.FC<Props> = async ({
   limit,
   paddingTop,
   paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   let reviews = await getTestimonials()
   if (limit) reviews = reviews.slice(0, limit)
@@ -23,6 +25,8 @@ export const ReviewsBlock: React.FC<Props> = async ({
       reviews={reviews}
       paddingTop={paddingTop || undefined}
       paddingBottom={paddingBottom || undefined}
+      topGap={topGap || undefined}
+      bottomGap={bottomGap || undefined}
     />
   )
 }

@@ -1,13 +1,13 @@
 import type { Block } from 'payload'
 
-import { backgroundField, sectionHeaderFields } from '../_shared/fields'
+import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/fields'
 
 export const Timeline: Block = {
   slug: 'timelineBlock',
   interfaceName: 'TimelineBlock',
   labels: { singular: 'Timeline', plural: 'Timelines' },
-  imageURL: '/block-previews/timeline.svg',
-  imageAltText: 'Vertical alternating timeline of steps',
+  imageURL: '/block-previews/timeline.webp',
+  imageAltText: 'Horizontal timeline of numbered steps',
   fields: [
     ...sectionHeaderFields,
     {
@@ -22,5 +22,6 @@ export const Timeline: Block = {
       ],
     },
     backgroundField,
+    spacingFields,
   ],
 }

@@ -206,7 +206,7 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                           >
                             <span
                               aria-hidden
-                              className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
+                              className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand"
                             >
                               <Check className="size-3" strokeWidth={2.5} />
                             </span>
@@ -341,7 +341,7 @@ export const PillarsAccordion: React.FC<{ pillars: PillarItem[] }> = ({ pillars 
                             >
                               <span
                                 aria-hidden
-                                className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
+                                className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand"
                               >
                                 <Check className="size-3" strokeWidth={2.5} />
                               </span>

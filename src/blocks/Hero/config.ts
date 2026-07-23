@@ -1,12 +1,13 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
+import { spacingFieldsFlush } from '../_shared/fields'
 
 export const Hero: Block = {
   slug: 'heroBlock',
   interfaceName: 'HeroBlock',
-  imageURL: '/block-previews/hero.svg',
-  imageAltText: 'Inset hero card with floating nav, headline bottom-left',
+  imageURL: '/block-previews/hero.webp',
+  imageAltText: 'Full-bleed hero photo with headline and call button',
   labels: { singular: 'Hero', plural: 'Heroes' },
   fields: [
     {
@@ -24,7 +25,8 @@ export const Hero: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Background photo — used directly for Image, and as the poster/fallback for Video.',
+        description:
+          'Background photo — used directly for Image, and as the poster/fallback for Video.',
       },
     },
     {
@@ -32,11 +34,16 @@ export const Hero: Block = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.',
+        description:
+          'Background video (mp4/webm, muted autoplay loop). Shown when Media type is Video.',
         condition: (_, siblingData) => siblingData?.mediaType === 'video',
       },
     },
-    { name: 'eyebrow', type: 'text', admin: { description: 'Small label pill above the headline.' } },
+    {
+      name: 'eyebrow',
+      type: 'text',
+      admin: { description: 'Small label pill above the headline.' },
+    },
     {
       name: 'heading',
       type: 'richText',
@@ -44,7 +51,11 @@ export const Hero: Block = {
       admin: { description: 'Headline. Rendered in the editorial display serif, in white.' },
     },
     { name: 'showRating', type: 'checkbox', defaultValue: true },
-    { name: 'ratingText', type: 'text', admin: { description: 'e.g. "4.9 from 487+ Google reviews"' } },
+    {
+      name: 'ratingText',
+      type: 'text',
+      admin: { description: 'e.g. "4.9 from 487+ Google reviews"' },
+    },
     linkGroup({ appearances: ['white', 'outlineWhite'], overrides: { maxRows: 2 } }),
     {
       name: 'card',
@@ -67,9 +78,14 @@ export const Hero: Block = {
           relationTo: 'media',
           admin: { description: 'Optional thumbnail/poster. Shows a play button when set.' },
         },
-        { name: 'title', type: 'text', admin: { description: 'e.g. "Your family\'s smile, in one place"' } },
+        {
+          name: 'title',
+          type: 'text',
+          admin: { description: 'e.g. "Your family\'s smile, in one place"' },
+        },
         { name: 'text', type: 'text', admin: { description: 'One short supporting line.' } },
       ],
     },
+    spacingFieldsFlush,
   ],
 }

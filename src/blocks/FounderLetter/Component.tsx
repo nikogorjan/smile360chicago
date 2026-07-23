@@ -20,6 +20,7 @@ export const FounderLetterBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -35,7 +36,7 @@ export const FounderLetterBlock: React.FC<Props> = ({
     .filter(Boolean)
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Content */}
         <div className={cn('max-w-xl', imageLeft ? 'lg:order-2' : 'lg:order-1')}>

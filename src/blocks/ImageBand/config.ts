@@ -1,11 +1,13 @@
 import type { Block } from 'payload'
 
+import { spacingFieldsFlush } from '../_shared/fields'
+
 export const ImageBand: Block = {
   slug: 'imageBandBlock',
   interfaceName: 'ImageBandBlock',
   labels: { singular: 'Image Band', plural: 'Image Bands' },
-  imageURL: '/block-previews/media-banner.svg',
-  imageAltText: 'Full-width edge-to-edge photo band',
+  imageURL: '/block-previews/image-band.webp',
+  imageAltText: 'Wide inset photo band',
   fields: [
     {
       name: 'image',
@@ -44,5 +46,6 @@ export const ImageBand: Block = {
         { name: 'heading', type: 'text' },
       ],
     },
+    spacingFieldsFlush,
   ],
 }

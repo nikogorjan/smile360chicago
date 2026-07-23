@@ -7,8 +7,8 @@ export const DentistFeature: Block = {
   slug: 'dentistFeatureBlock',
   interfaceName: 'DentistFeatureBlock',
   labels: { singular: 'Dentist Feature', plural: 'Dentist Features' },
-  imageURL: '/block-previews/team.svg',
-  imageAltText: 'A single dentist portrait beside their bio, credentials and specialty chips',
+  imageURL: '/block-previews/dentist-feature.webp',
+  imageAltText: 'Dentist portrait beside a short bio',
   fields: [
     {
       name: 'portrait',
@@ -33,7 +33,9 @@ export const DentistFeature: Block = {
     {
       name: 'quote',
       type: 'textarea',
-      admin: { description: 'Optional short personal quote from the dentist, shown under the bio.' },
+      admin: {
+        description: 'Optional short personal quote from the dentist, shown under the bio.',
+      },
     },
     linkGroup({
       appearances: false,

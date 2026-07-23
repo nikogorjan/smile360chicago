@@ -55,12 +55,21 @@ const spacingOptions = [
   { label: 'Large', value: 'lg' },
 ]
 
-export const spacingFields: Field = {
+const gapOptions = [...spacingOptions, { label: 'Extra large', value: 'xl' }]
+
+/**
+ * Spacing controls (padding inside the section + gaps above/below it).
+ *
+ * `defaultPad` sets the starting Padding above/below. Use the default 'md' for normal
+ * sections; use 'none' for edge-to-edge blocks (heroes, image/map bands, panels) so that
+ * simply adding the control never introduces padding they didn't have before.
+ */
+export const spacingFieldsWith = (defaultPad: 'none' | 'xs' | 'sm' | 'md' | 'lg' = 'md'): Field => ({
   type: 'collapsible',
   label: 'Spacing',
   admin: {
     initCollapsed: true,
-    description: 'Vertical padding inside this section, plus an optional gap below it.',
+    description: 'Vertical padding inside this section, plus optional gaps above and below it.',
   },
   fields: [
     {
@@ -69,28 +78,46 @@ export const spacingFields: Field = {
         {
           name: 'paddingTop',
           type: 'select',
-          defaultValue: 'md',
+          defaultValue: defaultPad,
           options: spacingOptions,
-          admin: { width: '33%', description: 'Padding above' },
+          admin: { width: '50%', description: 'Padding above' },
         },
         {
           name: 'paddingBottom',
           type: 'select',
-          defaultValue: 'md',
+          defaultValue: defaultPad,
           options: spacingOptions,
-          admin: { width: '33%', description: 'Padding below' },
+          admin: { width: '50%', description: 'Padding below' },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'topGap',
+          type: 'select',
+          defaultValue: 'none',
+          options: gapOptions,
+          admin: { width: '50%', description: 'Gap above (lift off the previous section)' },
         },
         {
           name: 'bottomGap',
           type: 'select',
           defaultValue: 'none',
-          options: [...spacingOptions, { label: 'Extra large', value: 'xl' }],
-          admin: { width: '34%', description: 'Gap below (lift off the footer / next section)' },
+          options: gapOptions,
+          admin: { width: '50%', description: 'Gap below (lift off the footer / next section)' },
         },
       ],
     },
   ],
-}
+})
+
+/** Standard spacing controls (padding defaults to the normal section rhythm). */
+export const spacingFields: Field = spacingFieldsWith('md')
+
+/** Spacing controls for edge-to-edge blocks — padding starts at "None" so nothing changes. */
+export const spacingFieldsFlush: Field = spacingFieldsWith('none')
 
 /** A constrained rich-text editor for short body copy inside blocks. */
 export const richTextField = (name = 'richText'): Field => ({

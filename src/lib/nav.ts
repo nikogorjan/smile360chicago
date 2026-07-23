@@ -90,7 +90,6 @@ const SERVICE_TAGLINES: Record<string, string> = {
   cleanings: 'Preventive care & checkups',
   suresmile: 'Clear, removable aligners',
   implants: 'Permanent tooth replacement',
-  veneers: 'A custom-designed smile',
   'crowns-bridges': 'Restore damaged teeth',
   'root-canals': 'Pain-free, tooth-saving care',
   'kids-dentistry': 'Fear-free kids’ visits',

@@ -54,7 +54,7 @@ export const Faq: React.FC<{
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                 >
                   <span className="text-base font-bold text-foreground">{f.question}</span>
-                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-brand/10 text-brand">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-sm bg-brand/10 text-brand">
                     {isOpen ? <Minus className="size-4" /> : <Plus className="size-4" />}
                   </span>
                 </button>

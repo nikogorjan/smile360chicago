@@ -1,4 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -10,8 +11,6 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Services } from './collections/Services'
-import { Team } from './collections/Team'
-import { GalleryCases } from './collections/GalleryCases'
 import { Testimonials } from './collections/Testimonials'
 import { FAQs } from './collections/FAQs'
 import { Footer } from './Footer/config'
@@ -66,18 +65,32 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
-  collections: [
-    Pages,
-    Posts,
-    Services,
-    Team,
-    GalleryCases,
-    Testimonials,
-    FAQs,
-    Media,
-    Categories,
-    Users,
-  ],
+  // Outbound mail for the form-builder plugin's "Emails" panel — plain SMTP through the
+  // practice's own mailbox, so there's no third-party sending service to pay for or hand
+  // over at launch.
+  //
+  // Only registered when SMTP_HOST is present. Without an adapter Payload logs the message
+  // to the console instead, which keeps local dev quiet; submissions are stored in
+  // Form Submissions either way, so a missing config can never lose an enquiry.
+  ...(process.env.SMTP_HOST
+    ? {
+        email: nodemailerAdapter({
+          defaultFromName: process.env.EMAIL_FROM_NAME || 'Smile360 Chicago',
+          defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'hello@smile360chicago.com',
+          transportOptions: {
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT || 587),
+            // 465 is implicit TLS; 587 upgrades via STARTTLS after connecting.
+            secure: Number(process.env.SMTP_PORT || 587) === 465,
+            auth: {
+              user: process.env.SMTP_USER,
+              pass: process.env.SMTP_PASS,
+            },
+          },
+        }),
+      }
+    : {}),
+  collections: [Pages, Posts, Services, Testimonials, FAQs, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,

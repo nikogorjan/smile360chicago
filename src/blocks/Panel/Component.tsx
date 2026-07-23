@@ -3,6 +3,8 @@ import React from 'react'
 import type { PanelBlock as Props } from '@/payload-types'
 import { FaqBlock } from '../Faq/Component'
 import { TimelineBlock } from '../Timeline/Component'
+import { spacingClass } from '../_shared/surface'
+import { cn } from '@/utilities/ui'
 
 /** Nested blocks that can render "bare" inside the panel. */
 const bareComponents = {
@@ -17,20 +19,31 @@ const bareComponents = {
  * sections stack with comfortable spacing. Vertical float gaps come from the neighbouring
  * sections, so it lines up with the other floating panels.
  */
-export const PanelBlock: React.FC<Props> = ({ blocks }) => {
-  const list = (blocks || []).filter(
-    (b) => (b?.blockType as string) in bareComponents,
-  )
+export const PanelBlock: React.FC<Props> = ({
+  blocks,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
+  const list = (blocks || []).filter((b) => (b?.blockType as string) in bareComponents)
   if (!list.length) return null
 
   return (
-    <section className="px-3 sm:px-4">
-      <div className="rounded-[8px] bg-card py-20 md:py-28">
+    <section className={cn('px-3 sm:px-4', spacingClass({ topGap, bottomGap }))}>
+      {/* Padding lives on the card itself, so the float inset stays even; gaps sit outside it. */}
+      <div
+        className={cn('rounded-[8px] bg-card', spacingClass({ paddingTop, paddingBottom }, 'md'))}
+      >
         <div className="container">
           {list.map((b, i) => {
             const C = bareComponents[b.blockType as keyof typeof bareComponents]
             return (
-              <div key={b.id || i} className={i > 0 ? 'mt-28 md:mt-40' : ''}>
+              <div
+                key={b.id || i}
+                data-block={b.blockType}
+                className={i > 0 ? 'mt-28 md:mt-40' : ''}
+              >
                 {/* @ts-expect-error bare-mode block props are a union resolved at runtime */}
                 <C {...b} bare />
               </div>

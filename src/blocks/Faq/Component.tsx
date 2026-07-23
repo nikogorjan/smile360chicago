@@ -13,6 +13,10 @@ export const FaqBlock: React.FC<Props & { bare?: boolean }> = async ({
   showCall,
   background,
   bare,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   let items = await getFaqs()
   if (limit) items = items.slice(0, limit)
@@ -33,6 +37,10 @@ export const FaqBlock: React.FC<Props & { bare?: boolean }> = async ({
       phoneHref={site?.phoneHref}
       tone={tone}
       bare={bare}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      topGap={topGap}
+      bottomGap={bottomGap}
     />
   )
 }

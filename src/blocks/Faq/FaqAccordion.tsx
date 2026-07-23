@@ -19,6 +19,10 @@ export const FaqAccordion: React.FC<{
   tone?: 'default' | 'muted' | 'cream'
   /** Render just the grid (no Section/container) for use inside a shared Panel. */
   bare?: boolean
+  paddingTop?: string | null
+  paddingBottom?: string | null
+  topGap?: string | null
+  bottomGap?: string | null
 }> = ({
   items,
   eyebrow = 'Good to know',
@@ -28,6 +32,10 @@ export const FaqAccordion: React.FC<{
   phoneHref,
   tone = 'default',
   bare,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   const [open, setOpen] = useState<number | null>(0)
 
@@ -114,5 +122,15 @@ export const FaqAccordion: React.FC<{
 
   if (bare) return grid
 
-  return <Section tone={tone}>{grid}</Section>
+  return (
+    <Section
+      tone={tone}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      topGap={topGap}
+      bottomGap={bottomGap}
+    >
+      {grid}
+    </Section>
+  )
 }

@@ -2,58 +2,32 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Hero } from '../../blocks/Hero/config'
 import { Stats } from '../../blocks/Stats/config'
-import { ServicesGrid } from '../../blocks/ServicesGrid/config'
-import { FeatureGrid } from '../../blocks/FeatureGrid/config'
-import { BeforeAfter } from '../../blocks/BeforeAfter/config'
-import { GalleryGrid } from '../../blocks/GalleryGrid/config'
-import { Reviews } from '../../blocks/Reviews/config'
-import { TeamGrid } from '../../blocks/TeamGrid/config'
-import { DentistFeature } from '../../blocks/DentistFeature/config'
-import { ImageBand } from '../../blocks/ImageBand/config'
-import { ProcessSteps } from '../../blocks/ProcessSteps/config'
-import { Faq } from '../../blocks/Faq/config'
-import { Emergency } from '../../blocks/Emergency/config'
-import { FinalCta } from '../../blocks/FinalCta/config'
-import { PageHero } from '../../blocks/PageHero/config'
-import { InsuranceMarquee } from '../../blocks/InsuranceMarquee/config'
-import { Appointment } from '../../blocks/Appointment/config'
-import { MediaBanner } from '../../blocks/MediaBanner/config'
-import { SplitFeature } from '../../blocks/SplitFeature/config'
-import { Bento } from '../../blocks/Bento/config'
-import { Tabs } from '../../blocks/Tabs/config'
-import { Pillars } from '../../blocks/Pillars/config'
-import { ServicesList } from '../../blocks/ServicesList/config'
 import { ServicesBento } from '../../blocks/ServicesBento/config'
-import { QuoteSpotlight } from '../../blocks/QuoteSpotlight/config'
-import { Timeline } from '../../blocks/Timeline/config'
-import { Panel } from '../../blocks/Panel/config'
+import { Pillars } from '../../blocks/Pillars/config'
+import { ImageBand } from '../../blocks/ImageBand/config'
+import { DentistFeature } from '../../blocks/DentistFeature/config'
+import { Reviews } from '../../blocks/Reviews/config'
 import { LatestPosts } from '../../blocks/LatestPosts/config'
-import { GalleryPreview } from '../../blocks/GalleryPreview/config'
-import { AboutHero } from '../../blocks/AboutHero/config'
-import { Statement } from '../../blocks/Statement/config'
-import { FounderStory } from '../../blocks/FounderStory/config'
-import { MosaicBento } from '../../blocks/MosaicBento/config'
-import { MetricRings } from '../../blocks/MetricRings/config'
+import { Panel } from '../../blocks/Panel/config'
+import { Emergency } from '../../blocks/Emergency/config'
 import { Masthead } from '../../blocks/Masthead/config'
 import { FounderLetter } from '../../blocks/FounderLetter/config'
 import { ValuesIndex } from '../../blocks/ValuesIndex/config'
 import { Manifesto } from '../../blocks/Manifesto/config'
-import { PhotoCollage } from '../../blocks/PhotoCollage/config'
+import { Credentials } from '../../blocks/Credentials/config'
+import { Technology } from '../../blocks/Technology/config'
+import { Comparison } from '../../blocks/Comparison/config'
 import { FirstVisit } from '../../blocks/FirstVisit/config'
-import { Invitation } from '../../blocks/Invitation/config'
 import { NewPatientHero } from '../../blocks/NewPatientHero/config'
-import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
 import { GetReady } from '../../blocks/GetReady/config'
-import { Affordability } from '../../blocks/Affordability/config'
+import { OfferSpotlight } from '../../blocks/OfferSpotlight/config'
+import { Faq } from '../../blocks/Faq/config'
+import { Comfort } from '../../blocks/Comfort/config'
+import { Appointment } from '../../blocks/Appointment/config'
 import { MapBand } from '../../blocks/MapBand/config'
-import { hero } from '@/heros/config'
+import { Timeline } from '../../blocks/Timeline/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -110,66 +84,37 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
-          label: 'Hero',
-        },
-        {
           fields: [
             {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                PageHero,
+                Hero,
                 Masthead,
                 FounderLetter,
                 ValuesIndex,
                 Manifesto,
-                PhotoCollage,
                 FirstVisit,
-                Invitation,
                 NewPatientHero,
                 OfferSpotlight,
                 GetReady,
-                Affordability,
+                Comfort,
                 MapBand,
-                AboutHero,
-                Statement,
-                FounderStory,
-                MosaicBento,
-                MetricRings,
-                Hero,
-                MediaBanner,
                 ImageBand,
-                SplitFeature,
-                Bento,
-                Tabs,
                 Pillars,
                 Stats,
-                InsuranceMarquee,
-                ServicesGrid,
-                ServicesList,
                 ServicesBento,
-                FeatureGrid,
-                BeforeAfter,
-                GalleryGrid,
-                GalleryPreview,
+                Comparison,
+                Credentials,
+                Technology,
                 Reviews,
                 LatestPosts,
-                QuoteSpotlight,
-                TeamGrid,
                 DentistFeature,
-                ProcessSteps,
                 Timeline,
                 Panel,
                 Faq,
                 Emergency,
-                FinalCta,
                 Appointment,
-                CallToAction,
-                Content,
-                MediaBlock,
-                Archive,
-                FormBlock,
               ],
               required: true,
               admin: {

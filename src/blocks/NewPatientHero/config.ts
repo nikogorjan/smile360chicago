@@ -11,6 +11,8 @@ import { headingEditor, spacingFields, surfaceFieldWith } from '../_shared/field
 export const NewPatientHero: Block = {
   slug: 'newPatientHeroBlock',
   interfaceName: 'NewPatientHeroBlock',
+  imageURL: '/block-previews/new-patient-hero.webp',
+  imageAltText: 'Subpage hero — copy and chips beside a full-height photo',
   labels: { singular: 'New Patient Hero', plural: 'New Patient Heroes' },
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'New patients' },
@@ -31,7 +33,14 @@ export const NewPatientHero: Block = {
         {
           type: 'row',
           fields: [
-            { name: 'icon', type: 'text', admin: { width: '35%', description: 'lucide icon (e.g. ShieldCheck, Clock, HeartHandshake).' } },
+            {
+              name: 'icon',
+              type: 'text',
+              admin: {
+                width: '35%',
+                description: 'lucide icon (e.g. ShieldCheck, Clock, HeartHandshake).',
+              },
+            },
             { name: 'text', type: 'text', required: true, admin: { width: '65%' } },
           ],
         },
@@ -41,7 +50,9 @@ export const NewPatientHero: Block = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Tall photo (e.g. the reception or a welcoming face). Drifts with scroll.' },
+      admin: {
+        description: 'Tall photo (e.g. the reception or a welcoming face). Drifts with scroll.',
+      },
     },
     {
       name: 'imageSide',

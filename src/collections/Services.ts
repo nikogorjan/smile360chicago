@@ -11,9 +11,10 @@ import {
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
-import { Banner } from '../blocks/Banner/config'
-import { Code } from '../blocks/Code/config'
 import { MediaBlock } from '../blocks/MediaBlock/config'
+import { Callout } from '../blocks/Callout/config'
+import { PullQuote } from '../blocks/PullQuote/config'
+import { KeyTakeaways } from '../blocks/KeyTakeaways/config'
 import { slugField } from 'payload'
 
 export const Services: CollectionConfig = {
@@ -54,7 +55,7 @@ export const Services: CollectionConfig = {
         features: ({ rootFeatures }) => [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-          BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+          BlocksFeature({ blocks: [MediaBlock, Callout, PullQuote, KeyTakeaways] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
           HorizontalRuleFeature(),
@@ -65,14 +66,13 @@ export const Services: CollectionConfig = {
       },
     },
     {
-      name: 'relatedServices',
+      name: 'relatedPosts',
       type: 'relationship',
-      relationTo: 'services',
+      relationTo: 'posts',
       hasMany: true,
-      filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
       admin: {
         description:
-          'Hand-pick the treatments shown in “Related treatments” on this page. Leave empty to auto-fill from the same category.',
+          'Pick 2 blog posts to show as “Keep reading” at the bottom of this service page (same cards as the blog). Leave empty to fall back to the latest posts.',
       },
     },
     slugField({ useAsSlug: 'name' }),

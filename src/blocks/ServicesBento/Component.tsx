@@ -9,6 +9,7 @@ import { ButtonLabel } from '@/components/ui/button'
 import { getServices, getServicesByIds } from '@/lib/queries'
 import { getServicePhoto } from '@/lib/stockImages'
 import { resolveHref } from '@/lib/nav'
+import { spacingClass } from '../_shared/surface'
 import { cn } from '@/utilities/ui'
 
 type Tile = { slug: string; name: string; imageUrl: string }
@@ -20,9 +21,7 @@ const idOf = (v: unknown): string =>
  * Balanced bento mosaic (computed, not per-tile): a fixed 4-column grid with one
  * consistent row height, where every row is [wide (2 cols) + normal + normal] and the
  * wide tile alternates left/right per row — so each row fills exactly 4 columns with no
- * orphan cells, and no tall tiles to leave height holes. Only used when the count
- * divides into clean rows of three; otherwise the grid falls back to uniform equal-size
- * tiles (a partial final row, never a mid-grid hole).
+ * orphan cells. Used when the count divides into clean rows of three.
  */
 const isMosaic = (n: number) => n >= 3 && n % 3 === 0
 const isWide = (i: number, n: number): boolean => {
@@ -33,6 +32,23 @@ const isWide = (i: number, n: number): boolean => {
 }
 
 /**
+ * Column-span classes for tile i of n. Mosaic counts (multiples of three) keep the
+ * alternating layout above; any other count widens just the trailing tile(s) to fill
+ * the final row — the lone odd tile on the 2-col layout, and the empty cell(s) in the
+ * last row on the 4-col layout — so there's never an orphan hole (e.g. 7 services →
+ * the last tile spans two columns and closes the bottom-right gap).
+ */
+const wideClass = (i: number, n: number): string => {
+  if (isMosaic(n)) return isWide(i, n) ? 'sm:col-span-2' : ''
+  const parts: string[] = []
+  if (n % 2 === 1 && i === n - 1) parts.push('sm:col-span-2') // 2-col: fill the lone last tile
+  const lastRow = n % 4 // 4-col: fill the empty cell(s) in the last row
+  if (lastRow === 1 && i === n - 1) parts.push('lg:col-span-4')
+  else if (lastRow > 1 && i >= n - (4 - lastRow)) parts.push('lg:col-span-2')
+  return parts.join(' ')
+}
+
+/**
  * Services bento — server component. A rounded inset white panel that floats on the gray
  * page like the hero media (same horizontal inset + 8px radius), with its header + grid
  * sitting in the standard 1600px content container. Each tile: full-bleed image with a
@@ -40,7 +56,16 @@ const isWide = (i: number, n: number): boolean => {
  * colour on hover/focus — pure CSS, with a prefers-reduced-motion guard. A white pill
  * label (navy name + unified arrow chip) sits bottom-left. No gold in this section.
  */
-export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, tiles, links }) => {
+export const ServicesBentoBlock: React.FC<Props> = async ({
+  eyebrow,
+  heading,
+  tiles,
+  links,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
   const ids = (tiles || []).map((t) => idOf(t.service)).filter(Boolean)
   const list = ids.length ? await getServicesByIds(ids) : await getServices()
 
@@ -56,7 +81,7 @@ export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, ti
   const cta = links?.[0]?.link
 
   return (
-    <section>
+    <section className={spacingClass({ paddingTop, paddingBottom, topGap, bottomGap })}>
       {/* No outer vertical padding — the panel's own (larger) padding handles the
           spacing; the horizontal inset still floats it like the hero media. */}
       <div className="px-3 sm:px-4">
@@ -90,7 +115,7 @@ export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, ti
                   aria-label={s.name}
                   className={cn(
                     'group/tile relative block h-full overflow-hidden rounded-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card',
-                    isWide(i, n) && 'sm:col-span-2',
+                    wideClass(i, n),
                   )}
                 >
                   {/* Full-bleed image — LIGHT frosted-blue duotone at rest → full colour on

@@ -6,6 +6,7 @@ import { Media } from '@/components/Media'
 import { Eyebrow } from '@/components/site/primitives'
 import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { stockPhotos } from '@/lib/stockImages'
+import { spacingClass } from '../_shared/surface'
 import { cn } from '@/utilities/ui'
 
 /** Responsive band heights — shorter on mobile so it never feels overly tall. */
@@ -16,13 +17,24 @@ const heightClass: Record<string, string> = {
 }
 
 /**
- * Full-width image band — a single edge-to-edge photo (e.g. the practice building).
- * Full-bleed (NOT inside the 1600px container, no inset, no rounded corners), object-cover
+ * Image band — a single practice photo (e.g. the practice building). Rather than full-bleed,
+ * it floats as an inset card: a small even padding all around (p-3/p-4) and 8px rounded,
+ * clipped corners (matching the hero images and the "Our Promise" panel). Object-cover
  * cropped at any width with a fixed responsive height, and lazy-loaded. Optional overlay
  * text (eyebrow + heading) renders over a subtle dark scrim; leave it empty for just the
  * photo. The photo drifts with scroll (parallax).
  */
-export const ImageBandBlock: React.FC<Props> = ({ image, alt, caption, height, overlayText }) => {
+export const ImageBandBlock: React.FC<Props> = ({
+  image,
+  alt,
+  caption,
+  height,
+  overlayText,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
   const hasImage = image && typeof image !== 'string'
   const h = heightClass[height || 'large'] || heightClass.large
   const eyebrow = overlayText?.eyebrow
@@ -30,54 +42,61 @@ export const ImageBandBlock: React.FC<Props> = ({ image, alt, caption, height, o
   const hasOverlay = Boolean(eyebrow || heading)
 
   return (
-    <section className={cn('relative w-full overflow-hidden', h)}>
-      {/* Full-bleed cover photo (lazy-loaded), drifting with scroll */}
-      <ScrollParallax className="absolute inset-0" amount={0.1}>
-        {hasImage ? (
-          <Media
-            resource={image}
-            alt={alt || undefined}
-            fill
-            size="100vw"
-            loading="lazy"
-            imgClassName="object-cover"
-            className="absolute inset-0"
-          />
-        ) : (
-          <Image
-            src={stockPhotos.officeBright}
-            alt={alt || ''}
-            fill
-            sizes="100vw"
-            loading="lazy"
-            className="object-cover"
-          />
-        )}
-      </ScrollParallax>
+    <section
+      className={cn('relative', spacingClass({ paddingTop, paddingBottom, topGap, bottomGap }))}
+    >
+      {/* Small even inset all around → the photo floats as a rounded card, not full-bleed */}
+      <div className="p-3 sm:p-4">
+        <div className={cn('relative overflow-hidden rounded-[8px]', h)}>
+          {/* Cover photo (lazy-loaded), drifting with scroll */}
+          <ScrollParallax className="absolute inset-0" amount={0.1}>
+            {hasImage ? (
+              <Media
+                resource={image}
+                alt={alt || undefined}
+                fill
+                size="100vw"
+                loading="lazy"
+                imgClassName="object-cover"
+                className="absolute inset-0"
+              />
+            ) : (
+              <Image
+                src={stockPhotos.officeBright}
+                alt={alt || ''}
+                fill
+                sizes="100vw"
+                loading="lazy"
+                className="object-cover"
+              />
+            )}
+          </ScrollParallax>
 
-      {/* Optional overlay text over a subtle dark scrim for legibility */}
-      {hasOverlay && (
-        <>
-          <span aria-hidden className="pointer-events-none absolute inset-0 bg-black/45" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="container">
-              {eyebrow && <Eyebrow tone="dark">{eyebrow}</Eyebrow>}
-              {heading && (
-                <h2 className="mt-3 max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
-                  {heading}
-                </h2>
-              )}
-            </div>
-          </div>
-        </>
-      )}
+          {/* Optional overlay text over a subtle dark scrim for legibility */}
+          {hasOverlay && (
+            <>
+              <span aria-hidden className="pointer-events-none absolute inset-0 bg-black/45" />
+              <div className="absolute inset-0 flex items-center">
+                <div className="container">
+                  {eyebrow && <Eyebrow tone="dark">{eyebrow}</Eyebrow>}
+                  {heading && (
+                    <h2 className="mt-3 max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+                      {heading}
+                    </h2>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
 
-      {/* Optional small caption */}
-      {caption && (
-        <p className="absolute bottom-3 right-4 z-10 text-xs text-white/85 [text-shadow:0_1px_3px_rgb(0_0_0/0.6)]">
-          {caption}
-        </p>
-      )}
+          {/* Optional small caption */}
+          {caption && (
+            <p className="absolute bottom-3 right-4 z-10 text-xs text-white/85 [text-shadow:0_1px_3px_rgb(0_0_0/0.6)]">
+              {caption}
+            </p>
+          )}
+        </div>
+      </div>
     </section>
   )
 }

@@ -40,13 +40,17 @@ export function emphasize(text: React.ReactNode): React.ReactNode {
 
 /** Per-side vertical padding presets — kept as full literal class strings so Tailwind
  *  detects them. Driven by the CMS `spacingFields` (paddingTop / paddingBottom). */
-const PAD_TOP = { none: 'pt-0', sm: 'pt-10 md:pt-14', md: 'pt-20 md:pt-28', lg: 'pt-28 md:pt-36' } as const
-const PAD_BOTTOM = { none: 'pb-0', sm: 'pb-10 md:pb-14', md: 'pb-20 md:pb-28', lg: 'pb-28 md:pb-36' } as const
+const PAD_TOP = { none: 'pt-0', xs: 'pt-6', sm: 'pt-10 md:pt-14', md: 'pt-20 md:pt-28', lg: 'pt-28 md:pt-36' } as const
+const PAD_BOTTOM = { none: 'pb-0', xs: 'pb-6', sm: 'pb-10 md:pb-14', md: 'pb-20 md:pb-28', lg: 'pb-28 md:pb-36' } as const
+const GAP_TOP = { none: '', xs: 'mt-6', sm: 'mt-10', md: 'mt-16', lg: 'mt-28', xl: 'mt-40' } as const
+const GAP_BOTTOM = { none: '', xs: 'mb-6', sm: 'mb-10', md: 'mb-16', lg: 'mb-28', xl: 'mb-40' } as const
 type Pad = keyof typeof PAD_TOP
+type Gap = keyof typeof GAP_TOP
 
 /** Vertical-rhythm wrapper. Transparent (cream canvas shows through) — color
  *  comes from <Panel> and cards, not from section backgrounds. CMS-controlled
- *  paddingTop/paddingBottom override the default rhythm when provided. */
+ *  paddingTop/paddingBottom override the default rhythm; topGap/bottomGap add
+ *  margin above/below the whole section. */
 export const Section: React.FC<
   React.PropsWithChildren<{
     className?: string
@@ -55,16 +59,20 @@ export const Section: React.FC<
     tight?: boolean
     paddingTop?: string | null
     paddingBottom?: string | null
+    topGap?: string | null
+    bottomGap?: string | null
   }>
-> = ({ children, className, id, tight, paddingTop, paddingBottom }) => {
+> = ({ children, className, id, tight, paddingTop, paddingBottom, topGap, bottomGap }) => {
   const custom = paddingTop || paddingBottom
   const pad = custom
     ? cn(PAD_TOP[paddingTop as Pad] || PAD_TOP.md, PAD_BOTTOM[paddingBottom as Pad] || PAD_BOTTOM.md)
     : tight
       ? 'py-10 md:py-14'
       : 'py-20 md:py-28'
+  const mt = GAP_TOP[(topGap as Gap) ?? 'none'] || ''
+  const mb = GAP_BOTTOM[(bottomGap as Gap) ?? 'none'] || ''
   return (
-    <section id={id} className={cn(pad, className)}>
+    <section id={id} className={cn(pad, mt, mb, className)}>
       {children}
     </section>
   )
@@ -208,7 +216,7 @@ export const SpecList: React.FC<{ items: SpecItem[]; tone?: 'light' | 'dark'; cl
           {it.icon && (
             <span
               className={cn(
-                'grid size-9 shrink-0 place-items-center rounded-full',
+                'grid size-9 shrink-0 place-items-center rounded-sm',
                 dark ? 'bg-white/10 text-white' : 'bg-brand/10 text-brand',
               )}
             >

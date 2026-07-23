@@ -8,14 +8,21 @@ import React from 'react'
 import { FaqAccordion } from '@/blocks/Faq/FaqAccordion'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { Eyebrow, Section, SectionHeading, DynamicIcon } from '@/components/site/primitives'
-import { ServiceCard } from '@/components/site/cards'
+import { PostFeatureCard } from '@/components/site/PostFeatureCard'
 import { BreadcrumbSchema, ServiceSchema } from '@/components/site/Schema'
 import RichText from '@/components/RichText'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { getSiteData } from '@/lib/getSiteSettings'
-import { getServices, getFaqs, getServiceBySlug, getFaqsForService } from '@/lib/queries'
+import {
+  getServices,
+  getFaqs,
+  getServiceBySlug,
+  getFaqsForService,
+  getPostsByIds,
+  getLatestPosts,
+} from '@/lib/queries'
 import { getServicePhoto } from '@/lib/stockImages'
-import { practice, type Service } from '@/lib/practice'
+import { practice } from '@/lib/practice'
 
 type Args = { params: Promise<{ slug: string }> }
 
@@ -60,18 +67,11 @@ export default async function ServiceDetailPage({ params }: Args) {
   const serviceFaqs = service.id ? await getFaqsForService(service.id) : []
   const faqItems = serviceFaqs.length ? serviceFaqs : generalFaqs.slice(0, 5)
 
-  // Related treatments: hand-picked (CMS) first — resolved against the full list
-  // to keep the editor's order — then same-category, then any other services.
-  const picked = (service.relatedServices ?? [])
-    .map((id) => services.find((s) => s.id === id))
-    .filter((s): s is Service => Boolean(s) && s!.slug !== slug)
-    .slice(0, 3)
-  const related = picked.length
-    ? picked
-    : services.filter((s) => s.slug !== slug && s.category === service.category).slice(0, 3)
-  const relatedList = related.length
-    ? related
-    : services.filter((s) => s.slug !== slug).slice(0, 3)
+  // Keep reading — hand-picked blog posts (CMS), else the latest posts; rendered with the
+  // same immersive cards as the homepage "Latest posts" block and the /blog listing.
+  const relatedPosts = (
+    service.relatedPosts?.length ? await getPostsByIds(service.relatedPosts) : await getLatestPosts(2)
+  ).slice(0, 2)
 
   return (
     <>
@@ -140,7 +140,10 @@ export default async function ServiceDetailPage({ params }: Args) {
         </div>
       </header>
 
-      <Section>
+      {/* Trimmed padding top and bottom: the hero above and the muted FAQ band below both
+          carry their own generous inset, so a full section's worth here stacked into a gap
+          roughly twice the size of the content's own rhythm. */}
+      <Section paddingTop="sm" paddingBottom="sm">
         <div className="container grid gap-12 lg:grid-cols-[1.4fr_0.6fr]">
           <div>
             <span className="grid size-14 place-items-center rounded-full bg-brand/10 text-brand">
@@ -200,18 +203,21 @@ export default async function ServiceDetailPage({ params }: Args) {
 
       <FaqAccordion items={faqItems} phone={site.phone} phoneHref={site.phoneHref} tone="muted" />
 
-      {/* Related treatments — at the very end. Standard section spacing (matches the homepage
-          rhythm), with ~1.5× bottom padding for extra breathing room before the footer. */}
-      <Section className="pb-30 md:pb-42">
-        <div className="container">
-          <SectionHeading eyebrow="Keep exploring" title="Related treatments" />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedList.map((s) => (
-              <ServiceCard key={s.slug} service={s} />
-            ))}
+      {/* Keep reading — related blog posts at the very end, in the immersive blog-card style.
+          The FAQ band above supplies the gap, so this only needs a light top padding; the
+          bottom stays a little longer to breathe before the footer. */}
+      {relatedPosts.length > 0 && (
+        <Section paddingTop="sm" className="pb-24 md:pb-32">
+          <div className="container">
+            <SectionHeading eyebrow="Keep reading" title="From our blog" />
+            <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {relatedPosts.map((post) => (
+                <PostFeatureCard key={post.slug} post={post} />
+              ))}
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      )}
     </>
   )
 }

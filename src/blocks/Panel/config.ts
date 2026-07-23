@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { spacingFields } from '../_shared/fields'
 import { Faq } from '../Faq/config'
 import { Timeline } from '../Timeline/config'
 
@@ -12,8 +13,8 @@ export const Panel: Block = {
   slug: 'panelBlock',
   interfaceName: 'PanelBlock',
   labels: { singular: 'Panel (grouped sections)', plural: 'Panels' },
-  imageURL: '/block-previews/feature-grid.svg',
-  imageAltText: 'Several sections grouped in one white rounded inset panel',
+  imageURL: '/block-previews/panel.webp',
+  imageAltText: 'Several sections grouped in one white rounded panel',
   fields: [
     {
       name: 'blocks',
@@ -25,5 +26,6 @@ export const Panel: Block = {
         description: 'Sections grouped inside one white rounded inset panel (e.g. roadmap + FAQ).',
       },
     },
+    spacingFields,
   ],
 }

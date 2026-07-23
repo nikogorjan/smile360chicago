@@ -62,7 +62,7 @@ export const LocalBusinessSchema: React.FC = () => {
         opens: to24(h.open),
         closes: to24(h.close),
       })),
-    sameAs: [practice.social.instagram, practice.social.facebook, practice.social.google],
+    sameAs: [practice.social.instagram, practice.social.google],
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: practice.rating.value,

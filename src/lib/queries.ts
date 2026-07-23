@@ -3,14 +3,10 @@ import { getPayload } from 'payload'
 
 import {
   faqs as fbFaqs,
-  galleryCases as fbGallery,
   services as fbServices,
-  team as fbTeam,
   testimonials as fbTestimonials,
   type Faq,
-  type GalleryCase,
   type Service,
-  type TeamMember,
   type Testimonial,
 } from '@/lib/practice'
 
@@ -99,7 +95,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
       highlights: items(d.highlights),
       featured: Boolean(d.featured),
       body: d.body ?? null,
-      relatedServices: relIds(d.relatedServices),
+      relatedPosts: relIds(d.relatedPosts),
     }
   } catch {
     return null
@@ -160,22 +156,6 @@ export async function getServicesByIds(ids: string[]): Promise<Service[]> {
   }
 }
 
-export async function getTeam(): Promise<TeamMember[]> {
-  try {
-    const p = await payload()
-    const res = await p.find({ collection: 'team', limit: 100, sort: 'order', depth: 0 })
-    if (!res.docs.length) return fbTeam
-    return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
-      name: String(d.name || ''),
-      role: String(d.role || ''),
-      credentials: String(d.credentials || ''),
-      bio: String(d.bio || ''),
-      specialties: items(d.specialties),
-    }))
-  } catch {
-    return fbTeam
-  }
-}
 
 export async function getTestimonials(): Promise<Testimonial[]> {
   try {
@@ -216,31 +196,24 @@ export async function getFaqs(): Promise<Faq[]> {
   }
 }
 
-export async function getGalleryCases(
-  opts: { limit?: number; sort?: string } = {},
-): Promise<GalleryCase[]> {
-  const { limit = 100, sort } = opts
+/** Fetch specific posts by id, preserving the editor's chosen order (for a service's
+ *  hand-picked "Keep reading" posts). Same fields as getLatestPosts so PostFeatureCard renders. */
+export async function getPostsByIds(ids: string[]) {
+  if (!ids.length) return []
   try {
     const p = await payload()
-    // depth 1 so the before/after upload relations are populated (we need their URLs).
     const res = await p.find({
-      collection: 'gallery-cases',
-      limit,
+      collection: 'posts',
+      where: { id: { in: ids } },
       depth: 1,
-      ...(sort ? { sort } : {}),
+      limit: ids.length,
+      overrideAccess: false,
+      select: { title: true, slug: true, categories: true, meta: true, publishedAt: true, heroImage: true },
     })
-    if (!res.docs.length) return fbGallery
-    const urlOf = (v: unknown): string | undefined =>
-      v && typeof v === 'object' && 'url' in v ? (v as { url?: string }).url || undefined : undefined
-    return (res.docs as unknown as Record<string, unknown>[]).map((d) => ({
-      title: String(d.title || ''),
-      treatment: String(d.treatment || ''),
-      description: String(d.description || ''),
-      before: urlOf(d.beforeImage),
-      after: urlOf(d.afterImage),
-    }))
+    const order = new Map(ids.map((id, i) => [id, i]))
+    return [...res.docs].sort((a, b) => (order.get(String(a.id)) ?? 0) - (order.get(String(b.id)) ?? 0))
   } catch {
-    return fbGallery
+    return []
   }
 }
 

@@ -20,8 +20,7 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   imageSide,
   links,
   surface,
-  paddingTop,
-  paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -49,9 +48,14 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   return (
     <SectionShell
       surface={surface}
-      paddingTop={paddingTop}
-      paddingBottom={paddingBottom}
-      bottomGap={bottomGap}
+      // Both top and bottom padding are zero: the desktop photo is a full-height backdrop
+      // (16px inset), so it centers on the section — and the copy only lines up with it when
+      // the section's vertical padding is symmetric. Any top padding would push the copy down
+      // by half its height relative to the photo. Use "Gap below" (bottomGap) for spacing to
+      // the next section (consistent on mobile and desktop).
+      paddingTop="none"
+      paddingBottom="none"
+      topGap={topGap} bottomGap={bottomGap}
       // Desktop photo — a full-height panel on one half, inset by the same small
       // padding on top/right/bottom (like the home/About hero), bleeding to the edge.
       backdrop={
@@ -71,7 +75,11 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
         className={cn(
           // Cap the copy to the left half minus a gutter on lg so it never runs
           // under the photo (which starts at 50vw), while staying readable width.
-          'flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,calc(50%-4rem))] lg:min-h-128',
+          'flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,calc(50%-4rem))] lg:min-h-216',
+          // Mobile stacks copy above the photo, so the eyebrow would sit hard against the
+          // header — give it room. Zero again on lg, where the section must stay symmetric
+          // for the copy to centre against the full-height backdrop photo.
+          'pt-10 sm:pt-12 lg:pt-0',
           imageLeft ? 'lg:ml-auto' : 'lg:mr-auto',
         )}
       >
@@ -128,9 +136,12 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
           </div>
         )}
 
-        {/* Mobile photo — below the copy (the desktop photo is the backdrop) */}
-        <div className="mt-10 lg:hidden">{photo('aspect-[4/5]')}</div>
       </div>
+
+      {/* Mobile photo — sits below the copy (desktop uses the backdrop). Pulled out of the
+          copy column and the container gutter so it spans the full screen width, with just a
+          small even inset — matching the desktop photo's edge bleed. */}
+      <div className="mt-10 -mx-6 px-3 pb-3 sm:px-4 sm:pb-4 md:-mx-8 lg:hidden">{photo('aspect-[4/5]')}</div>
     </SectionShell>
   )
 }

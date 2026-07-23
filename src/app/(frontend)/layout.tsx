@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
@@ -36,6 +37,7 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { getSiteData } from '@/lib/getSiteSettings'
+import { getServices } from '@/lib/queries'
 import { getHeaderNav } from '@/lib/nav'
 
 // Render the whole site on every request so any CMS edit — pages, posts, blocks,
@@ -46,7 +48,8 @@ export const dynamic = 'force-dynamic'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
-  const [site, header] = await Promise.all([getSiteData(), getHeaderNav()])
+  const [site, header, services] = await Promise.all([getSiteData(), getHeaderNav(), getServices()])
+  const gaId = process.env.NEXT_PUBLIC_GA_ID
 
   return (
     <html
@@ -75,10 +78,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             phoneHref={site.phoneHref}
             logo={site.logo}
           />
-          <main className="pb-20 lg:pb-0">{children}</main>
-          <SiteFooter site={site} nav={header.nav} />
+          {/* No bottom padding: the footer sits directly after the content on every breakpoint.
+              (The old mobile pb-20 sat *before* the footer, so it only ever added dead space
+              between the last block and the footer — it never shielded the footer from the
+              sticky MobileCTA, which overlays the viewport bottom regardless.) */}
+          <main>{children}</main>
+          <SiteFooter site={site} nav={header.nav} services={services} />
           <MobileCTA phone={site.phone} phoneHref={site.phoneHref} />
         </Providers>
+        {/* Google Analytics 4 — only loads when a Measurement ID is configured, so dev and any
+            environment without the var stay tracking-free. Handles App Router page views on
+            client-side navigation automatically. Set NEXT_PUBLIC_GA_ID in the production env only. */}
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   )

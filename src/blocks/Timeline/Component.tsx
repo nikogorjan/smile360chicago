@@ -13,6 +13,10 @@ export const TimelineBlock: React.FC<Props & { bare?: boolean }> = ({
   items,
   background,
   bare,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   const list = items || []
 
@@ -34,7 +38,13 @@ export const TimelineBlock: React.FC<Props & { bare?: boolean }> = ({
   if (bare) return content
 
   return (
-    <Section tone={background}>
+    <Section
+      tone={background}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      topGap={topGap}
+      bottomGap={bottomGap}
+    >
       <div className="container">{content}</div>
     </Section>
   )

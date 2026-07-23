@@ -2,117 +2,61 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
-
 import { HeroBlock } from '@/blocks/Hero/Component'
 import { StatsBlock } from '@/blocks/Stats/Component'
-import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
-import { ServicesListBlock } from '@/blocks/ServicesList/Component'
 import { ServicesBentoBlock } from '@/blocks/ServicesBento/Component'
-import { FeatureGridBlock } from '@/blocks/FeatureGrid/Component'
-import { BeforeAfterBlock } from '@/blocks/BeforeAfter/Component'
-import { GalleryGridBlock } from '@/blocks/GalleryGrid/Component'
-import { GalleryPreviewBlock } from '@/blocks/GalleryPreview/Component'
+import { ComparisonBlock } from '@/blocks/Comparison/Component'
+import { CredentialsBlock } from '@/blocks/Credentials/Component'
+import { TechnologyBlock } from '@/blocks/Technology/Component'
 import { ReviewsBlock } from '@/blocks/Reviews/Component'
 import { LatestPostsBlock } from '@/blocks/LatestPosts/Component'
-import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
 import { DentistFeatureBlock } from '@/blocks/DentistFeature/Component'
 import { ImageBandBlock } from '@/blocks/ImageBand/Component'
-import { ProcessBlock } from '@/blocks/ProcessSteps/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { EmergencyBlock } from '@/blocks/Emergency/Component'
-import { FinalCtaBlock } from '@/blocks/FinalCta/Component'
-import { PageHeroBlock } from '@/blocks/PageHero/Component'
-import { InsuranceBlock } from '@/blocks/InsuranceMarquee/Component'
 import { AppointmentBlock } from '@/blocks/Appointment/Component'
-import { MediaBannerBlock } from '@/blocks/MediaBanner/Component'
-import { SplitFeatureBlock } from '@/blocks/SplitFeature/Component'
-import { BentoBlock } from '@/blocks/Bento/Component'
-import { QuoteBlock } from '@/blocks/QuoteSpotlight/Component'
-import { TimelineBlock } from '@/blocks/Timeline/Component'
-import { PanelBlock } from '@/blocks/Panel/Component'
-import { TabsBlock } from '@/blocks/Tabs/Component'
 import { PillarsBlock } from '@/blocks/Pillars/Component'
-import { AboutHeroBlock } from '@/blocks/AboutHero/Component'
-import { StatementBlock } from '@/blocks/Statement/Component'
-import { FounderStoryBlock } from '@/blocks/FounderStory/Component'
-import { MosaicBentoBlock } from '@/blocks/MosaicBento/Component'
-import { MetricRingsBlock } from '@/blocks/MetricRings/Component'
 import { MastheadBlock } from '@/blocks/Masthead/Component'
 import { FounderLetterBlock } from '@/blocks/FounderLetter/Component'
 import { ValuesIndexBlock } from '@/blocks/ValuesIndex/Component'
 import { ManifestoBlock } from '@/blocks/Manifesto/Component'
-import { PhotoCollageBlock } from '@/blocks/PhotoCollage/Component'
 import { FirstVisitBlock } from '@/blocks/FirstVisit/Component'
-import { InvitationBlock } from '@/blocks/Invitation/Component'
 import { NewPatientHeroBlock } from '@/blocks/NewPatientHero/Component'
 import { OfferSpotlightBlock } from '@/blocks/OfferSpotlight/Component'
 import { GetReadyBlock } from '@/blocks/GetReady/Component'
-import { AffordabilityBlock } from '@/blocks/Affordability/Component'
+import { ComfortBlock } from '@/blocks/Comfort/Component'
 import { MapBandBlock } from '@/blocks/MapBand/Component'
+import { TimelineBlock } from '@/blocks/Timeline/Component'
+import { PanelBlock } from '@/blocks/Panel/Component'
 
 const blockComponents = {
-  // Custom dental blocks (self-spacing, rendered flush)
   heroBlock: HeroBlock,
-  pageHeroBlock: PageHeroBlock,
-  aboutHeroBlock: AboutHeroBlock,
-  statementBlock: StatementBlock,
-  founderStoryBlock: FounderStoryBlock,
-  mosaicBentoBlock: MosaicBentoBlock,
-  metricRingsBlock: MetricRingsBlock,
+  statsBlock: StatsBlock,
+  servicesBentoBlock: ServicesBentoBlock,
+  pillarsBlock: PillarsBlock,
+  imageBandBlock: ImageBandBlock,
+  dentistFeatureBlock: DentistFeatureBlock,
+  reviewsBlock: ReviewsBlock,
+  latestPostsBlock: LatestPostsBlock,
+  panelBlock: PanelBlock,
+  emergencyBlock: EmergencyBlock,
   mastheadBlock: MastheadBlock,
   founderLetterBlock: FounderLetterBlock,
   valuesIndexBlock: ValuesIndexBlock,
   manifestoBlock: ManifestoBlock,
-  photoCollageBlock: PhotoCollageBlock,
+  credentialsBlock: CredentialsBlock,
+  technologyBlock: TechnologyBlock,
+  comparisonBlock: ComparisonBlock,
   firstVisitBlock: FirstVisitBlock,
-  invitationBlock: InvitationBlock,
   newPatientHeroBlock: NewPatientHeroBlock,
-  offerSpotlightBlock: OfferSpotlightBlock,
   getReadyBlock: GetReadyBlock,
-  affordabilityBlock: AffordabilityBlock,
-  mapBandBlock: MapBandBlock,
-  mediaBannerBlock: MediaBannerBlock,
-  imageBandBlock: ImageBandBlock,
-  splitFeatureBlock: SplitFeatureBlock,
-  bentoBlock: BentoBlock,
-  tabsBlock: TabsBlock,
-  pillarsBlock: PillarsBlock,
-  statsBlock: StatsBlock,
-  insuranceBlock: InsuranceBlock,
-  servicesGridBlock: ServicesGridBlock,
-  servicesListBlock: ServicesListBlock,
-  servicesBentoBlock: ServicesBentoBlock,
-  featureGridBlock: FeatureGridBlock,
-  beforeAfterBlock: BeforeAfterBlock,
-  galleryGridBlock: GalleryGridBlock,
-  galleryPreviewBlock: GalleryPreviewBlock,
-  reviewsBlock: ReviewsBlock,
-  latestPostsBlock: LatestPostsBlock,
-  quoteBlock: QuoteBlock,
-  teamGridBlock: TeamGridBlock,
-  dentistFeatureBlock: DentistFeatureBlock,
-  processBlock: ProcessBlock,
-  timelineBlock: TimelineBlock,
-  panelBlock: PanelBlock,
+  offerSpotlightBlock: OfferSpotlightBlock,
   faqBlock: FaqBlock,
-  emergencyBlock: EmergencyBlock,
-  finalCtaBlock: FinalCtaBlock,
+  comfortBlock: ComfortBlock,
   appointmentBlock: AppointmentBlock,
-  // Template blocks (need outer margin)
-  archive: ArchiveBlock,
-  content: ContentBlock,
-  cta: CallToActionBlock,
-  formBlock: FormBlock,
-  mediaBlock: MediaBlock,
+  mapBandBlock: MapBandBlock,
+  timelineBlock: TimelineBlock,
 }
-
-/** Template blocks that need the my-16 spacing wrapper; custom blocks self-space. */
-const spacedBlocks = new Set(['archive', 'content', 'cta', 'formBlock', 'mediaBlock'])
 
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
@@ -132,17 +76,15 @@ export const RenderBlocks: React.FC<{
           const Block = blockComponents[blockType]
 
           if (Block) {
-            if (spacedBlocks.has(blockType)) {
-              return (
-                <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
-                </div>
-              )
-            }
+            // `display: contents` — the wrapper generates no box, so layout is identical to
+            // rendering the block bare. It exists only to label where each block starts and
+            // ends in the DOM (used by scripts/shoot-block-previews.mts, and handy when
+            // tracking down "this section looks wrong" reports in the browser).
             return (
-              // @ts-expect-error block props are a union resolved at runtime
-              <Block {...block} key={index} />
+              <div key={index} data-block={blockType} className="contents">
+                {/* @ts-expect-error block props are a union resolved at runtime */}
+                <Block {...block} />
+              </div>
             )
           }
         }

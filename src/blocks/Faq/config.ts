@@ -1,11 +1,11 @@
 import type { Block } from 'payload'
 
-import { backgroundField, sectionHeaderFields } from '../_shared/fields'
+import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/fields'
 
 export const Faq: Block = {
   slug: 'faqBlock',
   interfaceName: 'FaqBlock',
-  imageURL: '/block-previews/faq.svg',
+  imageURL: '/block-previews/faq.webp',
   imageAltText: 'FAQ accordion with expandable questions',
   labels: { singular: 'FAQ', plural: 'FAQs' },
   fields: [
@@ -13,5 +13,6 @@ export const Faq: Block = {
     { name: 'limit', type: 'number' },
     { name: 'showCall', type: 'checkbox', defaultValue: true },
     backgroundField,
+    spacingFields,
   ],
 }
