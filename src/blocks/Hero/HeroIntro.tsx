@@ -8,6 +8,8 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import { ScrollParallax } from '@/components/site/ScrollParallax'
+import { cn } from '@/utilities/ui'
+import { spacingClass } from '../_shared/surface'
 
 type TextNode = { type?: string; text?: string; format?: number }
 type LexNode = { type?: string; children?: TextNode[] }
@@ -56,6 +58,10 @@ type Props = {
   logoDark?: string | null
   logoAlt?: string | null
   card?: { mediaUrl?: string; title?: string | null; text?: string | null } | null
+  paddingTop?: string | null
+  paddingBottom?: string | null
+  topGap?: string | null
+  bottomGap?: string | null
 }
 
 /**
@@ -84,6 +90,10 @@ export const HeroIntro: React.FC<Props> = ({
   logoDark,
   logoAlt,
   card,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   const reduce = useReducedMotion()
   // null = undetermined (hold the intro's first frame); true = play; false = skip.
@@ -91,8 +101,7 @@ export const HeroIntro: React.FC<Props> = ({
   const [revealed, setRevealed] = useState(false)
 
   useEffect(() => {
-    const running =
-      document.documentElement.getAttribute('data-intro') === 'running' && !reduce
+    const running = document.documentElement.getAttribute('data-intro') === 'running' && !reduce
     if (running) {
       setPlay(true)
       const t = setTimeout(() => {
@@ -148,7 +157,13 @@ export const HeroIntro: React.FC<Props> = ({
   }, [play, introName])
 
   return (
-    <section data-hero className="relative bg-cream">
+    <section
+      data-hero
+      className={cn(
+        'relative bg-cream',
+        spacingClass({ paddingTop, paddingBottom, topGap, bottomGap }),
+      )}
+    >
       <div className="p-3 sm:p-4">
         <div className="relative h-[92svh] min-h-[640px] max-h-[960px] overflow-hidden rounded-[8px]">
           {/* The one and only hero media — grows in place */}
@@ -158,7 +173,12 @@ export const HeroIntro: React.FC<Props> = ({
             animate={mediaAnimate}
             transition={
               play === true
-                ? { duration: 2, delay: SHOW_INTRO_NAME ? 1.9 : 0.2, ease: EASE, times: [0, 0.5, 1] }
+                ? {
+                    duration: 2,
+                    delay: SHOW_INTRO_NAME ? 1.9 : 0.2,
+                    ease: EASE,
+                    times: [0, 0.5, 1],
+                  }
                 : { duration: 0 }
             }
           >
@@ -229,52 +249,54 @@ export const HeroIntro: React.FC<Props> = ({
               style={{ fontSize: introSize ? `${introSize}px` : 'clamp(1.9rem, 8.5vw, 7rem)' }}
             >
               <h2 aria-hidden className="flex flex-nowrap font-display font-normal leading-none">
-              {introName.split('').map((ch, i) => (
-                <span key={i} className="inline-block overflow-hidden pb-[0.2em] align-bottom">
-                  <motion.span
-                    className="inline-block"
-                    initial={{ y: 0 }}
-                    animate={play === true ? { y: '-115%' } : { y: 0 }}
-                    transition={
-                      play === true
-                        ? { duration: 0.7, delay: 0.4 + i * 0.04, ease: EASE_OUT }
-                        : { duration: 0 }
-                    }
-                  >
-                    {ch === ' ' ? ' ' : ch}
-                  </motion.span>
-                </span>
-              ))}
-            </h2>
+                {introName.split('').map((ch, i) => (
+                  <span key={i} className="inline-block overflow-hidden pb-[0.2em] align-bottom">
+                    <motion.span
+                      className="inline-block"
+                      initial={{ y: 0 }}
+                      animate={play === true ? { y: '-115%' } : { y: 0 }}
+                      transition={
+                        play === true
+                          ? { duration: 0.7, delay: 0.4 + i * 0.04, ease: EASE_OUT }
+                          : { duration: 0 }
+                      }
+                    >
+                      {ch === ' ' ? ' ' : ch}
+                    </motion.span>
+                  </span>
+                ))}
+              </h2>
 
-            {/* CMS logo — same height as the text, wipes up last */}
-            <span className="inline-block shrink-0 overflow-hidden align-bottom">
-              <motion.span
-                className="inline-block"
-                initial={{ y: 0 }}
-                animate={play === true ? { y: '-130%' } : { y: 0 }}
-                transition={
-                  play === true ? { duration: 0.7, delay: logoDelay, ease: EASE_OUT } : { duration: 0 }
-                }
-              >
-                <Image
-                  src={logoLight || '/smile360-new-logo.png'}
-                  alt={logoAlt || ''}
-                  width={1254}
-                  height={1254}
-                  priority
-                  className="h-[0.85em] w-auto rounded-lg dark:hidden"
-                />
-                <Image
-                  src={logoDark || logoLight || '/smile360-new-logo.png'}
-                  alt={logoAlt || ''}
-                  width={1254}
-                  height={1254}
-                  priority
-                  className="hidden h-[0.85em] w-auto rounded-lg dark:block"
-                />
-              </motion.span>
-            </span>
+              {/* CMS logo — same height as the text, wipes up last */}
+              <span className="inline-block shrink-0 overflow-hidden align-bottom">
+                <motion.span
+                  className="inline-block"
+                  initial={{ y: 0 }}
+                  animate={play === true ? { y: '-130%' } : { y: 0 }}
+                  transition={
+                    play === true
+                      ? { duration: 0.7, delay: logoDelay, ease: EASE_OUT }
+                      : { duration: 0 }
+                  }
+                >
+                  <Image
+                    src={logoLight || '/smile360-new-logo.png'}
+                    alt={logoAlt || ''}
+                    width={1254}
+                    height={1254}
+                    priority
+                    className="h-[0.85em] w-auto rounded-lg dark:hidden"
+                  />
+                  <Image
+                    src={logoDark || logoLight || '/smile360-new-logo.png'}
+                    alt={logoAlt || ''}
+                    width={1254}
+                    height={1254}
+                    priority
+                    className="hidden h-[0.85em] w-auto rounded-lg dark:block"
+                  />
+                </motion.span>
+              </span>
             </div>
           </div>
         </div>

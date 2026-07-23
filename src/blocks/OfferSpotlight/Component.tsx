@@ -18,6 +18,7 @@ export const OfferSpotlightBlock: React.FC<Props> = ({
   links,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   // The card is always cobalt, so render the heading accent inverted (white).
@@ -32,7 +33,7 @@ export const OfferSpotlightBlock: React.FC<Props> = ({
       surface="brandPanel"
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
       // Soft glow (top-right) for a little depth — full-bleed inside the cobalt card.
       backdrop={
         <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-white/10 blur-3xl" />

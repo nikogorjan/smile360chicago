@@ -27,6 +27,10 @@ export const HeroBlock: React.FC<HeroBlockProps> = async ({
   ratingText,
   links,
   card,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   const site = await getSiteData()
   const imageUrl = mediaUrl(image as MediaLike) || stockPhotos.reception
@@ -59,6 +63,10 @@ export const HeroBlock: React.FC<HeroBlockProps> = async ({
       logoDark={site.logo.darkUrl}
       logoAlt={site.logo.alt}
       card={showCard ? { mediaUrl: cardMediaUrl, title: card?.title, text: card?.text } : null}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      topGap={topGap}
+      bottomGap={bottomGap}
     />
   )
 }

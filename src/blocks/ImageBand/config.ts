@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { spacingFieldsFlush } from '../_shared/fields'
+
 export const ImageBand: Block = {
   slug: 'imageBandBlock',
   interfaceName: 'ImageBandBlock',
@@ -44,5 +46,6 @@ export const ImageBand: Block = {
         { name: 'heading', type: 'text' },
       ],
     },
+    spacingFieldsFlush,
   ],
 }

@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { spacingFieldsFlush } from '../_shared/fields'
+
 /**
  * A full-width live map that floats as a rounded card — inset by a small even padding
  * (p-3/p-4) with 8px rounded corners and a floating "Get directions" chip. A clean,
@@ -39,5 +41,6 @@ export const MapBand: Block = {
           'Pull the map up to absorb the bottom padding of the block above it, so the gap on top matches the small even margin on the sides.',
       },
     },
+    spacingFieldsFlush,
   ],
 }

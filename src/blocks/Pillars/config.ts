@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { spacingFields } from '../_shared/fields'
+
 export const Pillars: Block = {
   slug: 'pillarsBlock',
   interfaceName: 'PillarsBlock',
@@ -61,5 +63,6 @@ export const Pillars: Block = {
         },
       ],
     },
+    spacingFields,
   ],
 }

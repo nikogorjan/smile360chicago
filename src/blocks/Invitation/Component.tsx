@@ -27,6 +27,7 @@ export const InvitationBlock: React.FC<Props> = ({
   mapAddress,
   links,
   surface,
+  topGap,
   bottomGap,
 }) => {
   const hasImage = image && typeof image !== 'string'
@@ -84,7 +85,7 @@ export const InvitationBlock: React.FC<Props> = ({
       // the map's 16px. So the section itself carries no vertical padding.
       paddingTop="none"
       paddingBottom="none"
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
       // The block above is usually a white `panel`, which carries ~56px of outer bottom
       // padding beneath its card. On desktop that would stack on top of the map's own 16px
       // inset, making the top gap look far bigger than the right/bottom. Pull the section up

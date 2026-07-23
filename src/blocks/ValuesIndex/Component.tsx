@@ -14,6 +14,7 @@ export const ValuesIndexBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -21,7 +22,7 @@ export const ValuesIndexBlock: React.FC<Props> = ({
   const list = items || []
 
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       {(eyebrow || headingEl || description) && (
         <div className="mb-10 grid gap-6 md:mb-14 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-2xl">

@@ -9,6 +9,7 @@ import { ButtonLabel } from '@/components/ui/button'
 import { getServices, getServicesByIds } from '@/lib/queries'
 import { getServicePhoto } from '@/lib/stockImages'
 import { resolveHref } from '@/lib/nav'
+import { spacingClass } from '../_shared/surface'
 import { cn } from '@/utilities/ui'
 
 type Tile = { slug: string; name: string; imageUrl: string }
@@ -55,7 +56,16 @@ const wideClass = (i: number, n: number): string => {
  * colour on hover/focus — pure CSS, with a prefers-reduced-motion guard. A white pill
  * label (navy name + unified arrow chip) sits bottom-left. No gold in this section.
  */
-export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, tiles, links }) => {
+export const ServicesBentoBlock: React.FC<Props> = async ({
+  eyebrow,
+  heading,
+  tiles,
+  links,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
   const ids = (tiles || []).map((t) => idOf(t.service)).filter(Boolean)
   const list = ids.length ? await getServicesByIds(ids) : await getServices()
 
@@ -71,7 +81,7 @@ export const ServicesBentoBlock: React.FC<Props> = async ({ eyebrow, heading, ti
   const cta = links?.[0]?.link
 
   return (
-    <section>
+    <section className={spacingClass({ paddingTop, paddingBottom, topGap, bottomGap })}>
       {/* No outer vertical padding — the panel's own (larger) padding handles the
           spacing; the horizontal inset still floats it like the hero media. */}
       <div className="px-3 sm:px-4">

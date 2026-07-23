@@ -23,6 +23,7 @@ export const ComparisonBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -37,7 +38,7 @@ export const ComparisonBlock: React.FC<Props> = ({
       surface={surface}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
     >
       <div className="max-w-2xl">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}

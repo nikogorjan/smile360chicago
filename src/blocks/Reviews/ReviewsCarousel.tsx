@@ -23,12 +23,14 @@ export const ReviewsCarousel: React.FC<{
   reviews: Review[]
   paddingTop?: string
   paddingBottom?: string
-}> = ({ eyebrow, heading, description, reviews, paddingTop, paddingBottom }) => {
+  topGap?: string
+  bottomGap?: string
+}> = ({ eyebrow, heading, description, reviews, paddingTop, paddingBottom, topGap, bottomGap }) => {
   const ref = useRef<HTMLDivElement>(null)
   const scroll = (dir: number) => ref.current?.scrollBy({ left: dir * 372, behavior: 'smooth' })
 
   return (
-    <Section paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <Section paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="container">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-2xl">

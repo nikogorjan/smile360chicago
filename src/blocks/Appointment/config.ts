@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { backgroundField, sectionHeaderFields } from '../_shared/fields'
+import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/fields'
 
 export const Appointment: Block = {
   slug: 'appointmentBlock',
@@ -17,5 +17,6 @@ export const Appointment: Block = {
       admin: { description: 'Show the phone / address / hours column next to the form.' },
     },
     backgroundField,
+    spacingFields,
   ],
 }

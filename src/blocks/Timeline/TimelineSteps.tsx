@@ -84,7 +84,9 @@ export const TimelineSteps: React.FC<{ items: Step[] }> = ({ items }) => {
             <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-brand">
               Step {i + 1}
             </span>
-            <h3 className="mt-2 text-lg font-semibold tracking-tight text-foreground">{it.title}</h3>
+            <h3 className="mt-2 text-lg font-semibold tracking-tight text-foreground">
+              {it.title}
+            </h3>
             {it.body && (
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{it.body}</p>
             )}

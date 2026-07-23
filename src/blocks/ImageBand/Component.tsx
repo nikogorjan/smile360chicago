@@ -6,6 +6,7 @@ import { Media } from '@/components/Media'
 import { Eyebrow } from '@/components/site/primitives'
 import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { stockPhotos } from '@/lib/stockImages'
+import { spacingClass } from '../_shared/surface'
 import { cn } from '@/utilities/ui'
 
 /** Responsive band heights — shorter on mobile so it never feels overly tall. */
@@ -23,7 +24,17 @@ const heightClass: Record<string, string> = {
  * text (eyebrow + heading) renders over a subtle dark scrim; leave it empty for just the
  * photo. The photo drifts with scroll (parallax).
  */
-export const ImageBandBlock: React.FC<Props> = ({ image, alt, caption, height, overlayText }) => {
+export const ImageBandBlock: React.FC<Props> = ({
+  image,
+  alt,
+  caption,
+  height,
+  overlayText,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
   const hasImage = image && typeof image !== 'string'
   const h = heightClass[height || 'large'] || heightClass.large
   const eyebrow = overlayText?.eyebrow
@@ -31,7 +42,9 @@ export const ImageBandBlock: React.FC<Props> = ({ image, alt, caption, height, o
   const hasOverlay = Boolean(eyebrow || heading)
 
   return (
-    <section className="relative">
+    <section
+      className={cn('relative', spacingClass({ paddingTop, paddingBottom, topGap, bottomGap }))}
+    >
       {/* Small even inset all around → the photo floats as a rounded card, not full-bleed */}
       <div className="p-3 sm:p-4">
         <div className={cn('relative overflow-hidden rounded-[8px]', h)}>

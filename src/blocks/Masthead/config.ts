@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { headingEditor } from '../_shared/fields'
+import { headingEditor, spacingFieldsFlush } from '../_shared/fields'
 
 /** Where to anchor the photo when object-cover crops it (object-position). */
 const FOCUS_OPTIONS = [
@@ -40,14 +40,23 @@ export const Masthead: Block = {
       type: 'richText',
       editor: headingEditor,
       required: true,
-      admin: { description: 'The large headline. Select a phrase, then Style → Brand blue to accent it in cobalt.' },
+      admin: {
+        description:
+          'The large headline. Select a phrase, then Style → Brand blue to accent it in cobalt.',
+      },
     },
-    { name: 'lead', type: 'textarea', admin: { description: 'Short lead paragraph under the headline.' } },
+    {
+      name: 'lead',
+      type: 'textarea',
+      admin: { description: 'Short lead paragraph under the headline.' },
+    },
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      admin: { description: 'Wide panoramic photo (team / practice). If empty, a branded panel shows.' },
+      admin: {
+        description: 'Wide panoramic photo (team / practice). If empty, a branded panel shows.',
+      },
     },
     {
       type: 'row',
@@ -58,7 +67,10 @@ export const Masthead: Block = {
           label: 'Image focus — desktop',
           defaultValue: 'center',
           options: FOCUS_OPTIONS,
-          admin: { width: '50%', description: 'Which part of the photo stays in frame on desktop.' },
+          admin: {
+            width: '50%',
+            description: 'Which part of the photo stays in frame on desktop.',
+          },
         },
         {
           name: 'imageFocusMobile',
@@ -68,11 +80,17 @@ export const Masthead: Block = {
           options: FOCUS_OPTIONS,
           admin: {
             width: '50%',
-            description: 'Focus on the taller mobile crop — set independently (e.g. “Top” to keep a face in frame).',
+            description:
+              'Focus on the taller mobile crop — set independently (e.g. “Top” to keep a face in frame).',
           },
         },
       ],
     },
-    { name: 'caption', type: 'text', admin: { description: 'Optional small caption over the photo.' } },
+    {
+      name: 'caption',
+      type: 'text',
+      admin: { description: 'Optional small caption over the photo.' },
+    },
+    spacingFieldsFlush,
   ],
 }

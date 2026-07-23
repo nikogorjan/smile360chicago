@@ -5,6 +5,7 @@ import { Media } from '@/components/Media'
 import { DynamicIcon } from '@/components/site/primitives'
 import { ScrollParallax } from '@/components/site/ScrollParallax'
 import { renderRichHeading } from '../_shared/richHeading'
+import { spacingClass } from '../_shared/surface'
 import { cn } from '@/utilities/ui'
 
 // Literal object-position classes (Tailwind must see the full class names). The mobile
@@ -47,6 +48,10 @@ export const MastheadBlock: React.FC<Props> = ({
   imageFocus,
   imageFocusMobile,
   caption,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   const hasImage = image && typeof image !== 'string'
   // Content sits on the (dark) image — render the accent as the inverted underline.
@@ -57,7 +62,9 @@ export const MastheadBlock: React.FC<Props> = ({
   )
 
   return (
-    <section className="relative">
+    <section
+      className={cn('relative', spacingClass({ paddingTop, paddingBottom, topGap, bottomGap }))}
+    >
       <div className="p-3 sm:p-4">
         <div className="relative h-[92svh] max-h-[960px] min-h-[640px] overflow-hidden rounded-[8px]">
           {hasImage ? (
@@ -65,7 +72,10 @@ export const MastheadBlock: React.FC<Props> = ({
               <Media
                 resource={image}
                 fill
-                imgClassName={cn('object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]', objectPos)}
+                imgClassName={cn(
+                  'object-cover motion-safe:animate-[hero-zoom_1.6s_ease-out]',
+                  objectPos,
+                )}
                 className="absolute inset-0"
               />
             </ScrollParallax>
@@ -94,7 +104,9 @@ export const MastheadBlock: React.FC<Props> = ({
                   </h1>
                 )}
 
-                {lead && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">{lead}</p>}
+                {lead && (
+                  <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">{lead}</p>
+                )}
 
                 {facts && facts.length > 0 && (
                   <ul className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/70">

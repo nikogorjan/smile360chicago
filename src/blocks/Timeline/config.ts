@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { backgroundField, sectionHeaderFields } from '../_shared/fields'
+import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/fields'
 
 export const Timeline: Block = {
   slug: 'timelineBlock',
@@ -22,5 +22,6 @@ export const Timeline: Block = {
       ],
     },
     backgroundField,
+    spacingFields,
   ],
 }

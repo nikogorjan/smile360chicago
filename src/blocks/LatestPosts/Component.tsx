@@ -24,6 +24,8 @@ export const LatestPostsBlock: React.FC<Props> = async ({
   background,
   paddingTop,
   paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   // Hand-picked posts (order preserved) take priority; otherwise show the newest.
   const pickedIds = (Array.isArray(picked) ? picked : [])
@@ -35,7 +37,7 @@ export const LatestPostsBlock: React.FC<Props> = async ({
   const cta = links?.[0]?.link
 
   return (
-    <Section tone={background} paddingTop={paddingTop} paddingBottom={paddingBottom}>
+    <Section tone={background} paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="container">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-2xl">

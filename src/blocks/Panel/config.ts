@@ -1,5 +1,6 @@
 import type { Block } from 'payload'
 
+import { spacingFields } from '../_shared/fields'
 import { Faq } from '../Faq/config'
 import { Timeline } from '../Timeline/config'
 
@@ -25,5 +26,6 @@ export const Panel: Block = {
         description: 'Sections grouped inside one white rounded inset panel (e.g. roadmap + FAQ).',
       },
     },
+    spacingFields,
   ],
 }

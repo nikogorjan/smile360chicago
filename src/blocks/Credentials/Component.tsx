@@ -27,6 +27,7 @@ export const CredentialsBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -41,7 +42,7 @@ export const CredentialsBlock: React.FC<Props> = ({
       surface={surface}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
     >
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Photo */}

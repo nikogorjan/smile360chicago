@@ -567,6 +567,22 @@ export interface HeroBlock {
      */
     text?: string | null;
   };
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroBlock';
@@ -627,6 +643,22 @@ export interface MastheadBlock {
    * Optional small caption over the photo.
    */
   caption?: string | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mastheadBlock';
@@ -689,6 +721,10 @@ export interface FounderLetterBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -748,6 +784,10 @@ export interface ValuesIndexBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -795,6 +835,10 @@ export interface ManifestoBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
@@ -857,6 +901,10 @@ export interface FirstVisitBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
@@ -945,6 +993,10 @@ export interface InvitationBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1031,6 +1083,10 @@ export interface NewPatientHeroBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1110,6 +1166,10 @@ export interface OfferSpotlightBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
@@ -1204,6 +1264,10 @@ export interface GetReadyBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1282,6 +1346,10 @@ export interface ComfortBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
@@ -1369,6 +1437,10 @@ export interface AffordabilityBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1390,6 +1462,22 @@ export interface MapBandBlock {
    * Pull the map up to absorb the bottom padding of the block above it, so the gap on top matches the small even margin on the sides.
    */
   tightenTop?: ('none' | 'panel' | 'section') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mapBandBlock';
@@ -1419,6 +1507,22 @@ export interface ImageBandBlock {
     eyebrow?: string | null;
     heading?: string | null;
   };
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'imageBandBlock';
@@ -1476,6 +1580,22 @@ export interface PillarsBlock {
         }[]
       | null;
   };
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'pillarsBlock';
@@ -1492,6 +1612,22 @@ export interface StatsBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'statsBlock';
@@ -1539,6 +1675,22 @@ export interface ServicesBentoBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'servicesBentoBlock';
@@ -1664,6 +1816,10 @@ export interface ComparisonBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1758,6 +1914,10 @@ export interface CredentialsBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1829,6 +1989,10 @@ export interface TechnologyBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -1864,6 +2028,10 @@ export interface ReviewsBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
@@ -1923,6 +2091,10 @@ export interface LatestPostsBlock {
    * Padding below
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   /**
    * Gap below (lift off the footer / next section)
    */
@@ -1992,6 +2164,10 @@ export interface DentistFeatureBlock {
    */
   paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
   /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
    * Gap below (lift off the footer / next section)
    */
   bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
@@ -2026,6 +2202,22 @@ export interface TimelineBlock {
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'timelineBlock';
@@ -2039,6 +2231,22 @@ export interface PanelBlock {
    * Sections grouped inside one white rounded inset panel (e.g. roadmap + FAQ).
    */
   blocks?: (TimelineBlock | FaqBlock)[] | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'panelBlock';
@@ -2061,6 +2269,22 @@ export interface FaqBlock {
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'faqBlock';
@@ -2075,6 +2299,22 @@ export interface EmergencyBlock {
   callLabel?: string | null;
   secondaryLabel?: string | null;
   secondaryHref?: string | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'emergencyBlock';
@@ -2099,6 +2339,22 @@ export interface AppointmentBlock {
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'appointmentBlock';
@@ -2729,6 +2985,10 @@ export interface HeroBlockSelect<T extends boolean = true> {
         title?: T;
         text?: T;
       };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -2749,6 +3009,10 @@ export interface MastheadBlockSelect<T extends boolean = true> {
   imageFocus?: T;
   imageFocusMobile?: T;
   caption?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -2768,6 +3032,7 @@ export interface FounderLetterBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2791,6 +3056,7 @@ export interface ValuesIndexBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2806,6 +3072,7 @@ export interface ManifestoBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2829,6 +3096,7 @@ export interface FirstVisitBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2868,6 +3136,7 @@ export interface InvitationBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2906,6 +3175,7 @@ export interface NewPatientHeroBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2938,6 +3208,7 @@ export interface OfferSpotlightBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -2983,6 +3254,7 @@ export interface GetReadyBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3020,6 +3292,7 @@ export interface ComfortBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3064,6 +3337,7 @@ export interface AffordabilityBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3076,6 +3350,10 @@ export interface MapBandBlockSelect<T extends boolean = true> {
   mapAddress?: T;
   height?: T;
   tightenTop?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3094,6 +3372,10 @@ export interface ImageBandBlockSelect<T extends boolean = true> {
         eyebrow?: T;
         heading?: T;
       };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3136,6 +3418,10 @@ export interface PillarsBlockSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3151,6 +3437,10 @@ export interface StatsBlockSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3182,6 +3472,10 @@ export interface ServicesBentoBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3206,6 +3500,7 @@ export interface ComparisonBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3246,6 +3541,7 @@ export interface CredentialsBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3275,6 +3571,7 @@ export interface TechnologyBlockSelect<T extends boolean = true> {
   surface?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3292,6 +3589,7 @@ export interface ReviewsBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3323,6 +3621,7 @@ export interface LatestPostsBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3357,6 +3656,7 @@ export interface DentistFeatureBlockSelect<T extends boolean = true> {
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  topGap?: T;
   bottomGap?: T;
   id?: T;
   blockName?: T;
@@ -3379,6 +3679,10 @@ export interface TimelineBlockSelect<T extends boolean = true> {
         id?: T;
       };
   background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3393,6 +3697,10 @@ export interface PanelBlockSelect<T extends boolean = true> {
         timelineBlock?: T | TimelineBlockSelect<T>;
         faqBlock?: T | FaqBlockSelect<T>;
       };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3408,6 +3716,10 @@ export interface FaqBlockSelect<T extends boolean = true> {
   limit?: T;
   showCall?: T;
   background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3421,6 +3733,10 @@ export interface EmergencyBlockSelect<T extends boolean = true> {
   callLabel?: T;
   secondaryLabel?: T;
   secondaryHref?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }
@@ -3435,6 +3751,10 @@ export interface AppointmentBlockSelect<T extends boolean = true> {
   align?: T;
   showContactInfo?: T;
   background?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
   id?: T;
   blockName?: T;
 }

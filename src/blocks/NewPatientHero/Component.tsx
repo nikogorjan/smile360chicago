@@ -20,6 +20,7 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
   imageSide,
   links,
   surface,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -54,7 +55,7 @@ export const NewPatientHeroBlock: React.FC<Props> = ({
       // the next section (consistent on mobile and desktop).
       paddingTop="none"
       paddingBottom="none"
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
       // Desktop photo — a full-height panel on one half, inset by the same small
       // padding on top/right/bottom (like the home/About hero), bleeding to the edge.
       backdrop={

@@ -13,6 +13,7 @@ export const ManifestoBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   // Render the cobalt statement as an inset rounded card (floats with 8px corners +
@@ -40,7 +41,7 @@ export const ManifestoBlock: React.FC<Props> = ({
       surface={effectiveSurface}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
       backdrop={backdrop}
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center py-4 text-center md:py-10">

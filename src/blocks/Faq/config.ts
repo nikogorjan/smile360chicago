@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { backgroundField, sectionHeaderFields } from '../_shared/fields'
+import { backgroundField, sectionHeaderFields, spacingFields } from '../_shared/fields'
 
 export const Faq: Block = {
   slug: 'faqBlock',
@@ -13,5 +13,6 @@ export const Faq: Block = {
     { name: 'limit', type: 'number' },
     { name: 'showCall', type: 'checkbox', defaultValue: true },
     backgroundField,
+    spacingFields,
   ],
 }

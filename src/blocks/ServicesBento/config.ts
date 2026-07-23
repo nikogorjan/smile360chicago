@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
+import { spacingFieldsFlush } from '../_shared/fields'
 
 export const ServicesBento: Block = {
   slug: 'servicesBentoBlock',
@@ -45,5 +46,6 @@ export const ServicesBento: Block = {
         },
       },
     }),
+    spacingFieldsFlush,
   ],
 }

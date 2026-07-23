@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { spacingFields } from '../_shared/fields'
+
 export const Stats: Block = {
   slug: 'statsBlock',
   interfaceName: 'StatsBlock',
@@ -18,5 +20,6 @@ export const Stats: Block = {
         { name: 'label', type: 'text', required: true },
       ],
     },
+    spacingFields,
   ],
 }

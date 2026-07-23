@@ -32,7 +32,7 @@ const FALLBACKS = [
  * accordion on desktop, stacked on mobile). The insurance marquee is merged in
  * at the bottom of the same section.
  */
-export const PillarsBlock: React.FC<Props> = ({ eyebrow, heading, intro, pillars, insurance }) => {
+export const PillarsBlock: React.FC<Props> = ({ eyebrow, heading, intro, pillars, insurance, paddingTop, paddingBottom, topGap, bottomGap }) => {
   const items: PillarItem[] = (pillars || []).map((p, i) => ({
     number: String(i + 1).padStart(2, '0'),
     title: p.title,
@@ -52,7 +52,7 @@ export const PillarsBlock: React.FC<Props> = ({ eyebrow, heading, intro, pillars
   const insuranceHeading = insurance?.heading || 'We accept most major dental plans'
 
   return (
-    <Section>
+    <Section paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="container">
         {heading && (
           <SectionHeading

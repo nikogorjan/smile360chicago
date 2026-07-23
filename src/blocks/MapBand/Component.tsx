@@ -4,6 +4,7 @@ import React from 'react'
 import type { MapBandBlock as Props } from '@/payload-types'
 import { practice } from '@/lib/practice'
 import { cn } from '@/utilities/ui'
+import { spacingClass } from '../_shared/surface'
 
 const heightClass: Record<string, string> = {
   medium: 'h-[38vh] sm:h-[46vh]',
@@ -19,17 +20,33 @@ const pullClass: Record<string, string> = {
   section: '-mt-20 md:-mt-28',
 }
 
-export const MapBandBlock: React.FC<Props> = ({ mapAddress, height, tightenTop }) => {
+export const MapBandBlock: React.FC<Props> = ({
+  mapAddress,
+  height,
+  tightenTop,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
   const address = mapAddress || practice.address.full
   const h = heightClass[height || 'large'] || heightClass.large
   const pull = pullClass[tightenTop || 'none'] || ''
   const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`
 
   return (
-    <section className={cn('relative', pull)}>
+    <section
+      className={cn(
+        'relative',
+        pull,
+        spacingClass({ paddingTop, paddingBottom, topGap, bottomGap }),
+      )}
+    >
       {/* Small even inset all around → the map floats as a rounded card, full-width */}
       <div className="p-3 sm:p-4">
-        <div className={cn('relative overflow-hidden rounded-[8px] border border-border bg-muted', h)}>
+        <div
+          className={cn('relative overflow-hidden rounded-[8px] border border-border bg-muted', h)}
+        >
           <iframe
             title="Practice location map"
             src={`https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`}

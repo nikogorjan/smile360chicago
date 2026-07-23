@@ -14,10 +14,20 @@ export const AppointmentBlock: React.FC<Props> = async ({
   description,
   showContactInfo,
   background,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
 }) => {
   const site = await getSiteData()
   return (
-    <Section tone={(background as 'default') || 'default'}>
+    <Section
+      tone={(background as 'default') || 'default'}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
+      topGap={topGap}
+      bottomGap={bottomGap}
+    >
       <div className="container">
         {(eyebrow || heading || description) && (
           <SectionHeading

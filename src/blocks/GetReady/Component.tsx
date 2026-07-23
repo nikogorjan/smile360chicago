@@ -54,6 +54,7 @@ export const GetReadyBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -118,7 +119,7 @@ export const GetReadyBlock: React.FC<Props> = ({
         surface={surface}
         paddingTop={paddingTop}
         paddingBottom={paddingBottom}
-        bottomGap={bottomGap}
+        topGap={topGap} bottomGap={bottomGap}
         // The block above is a white `panel` (~56px of outer bottom padding); on desktop that
         // stacks on top of the photo's own 16px inset, making the top gap read bigger than the
         // right/bottom. Pull the section up to absorb it, so the photo has an even 16px frame.
@@ -152,7 +153,7 @@ export const GetReadyBlock: React.FC<Props> = ({
 
   // No photo → a centered header over the clean card grid.
   return (
-    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} bottomGap={bottomGap}>
+    <SectionShell surface={surface} paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="max-w-2xl">
         {eyebrow && <Eyebrow tone={invert ? 'dark' : 'light'}>{eyebrow}</Eyebrow>}
         {headingEl && (

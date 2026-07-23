@@ -23,6 +23,7 @@ export const ComfortBlock: React.FC<Props> = ({
   surface,
   paddingTop,
   paddingBottom,
+  topGap,
   bottomGap,
 }) => {
   const invert = surfaceInvert(surface)
@@ -35,7 +36,7 @@ export const ComfortBlock: React.FC<Props> = ({
       surface={surface}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
-      bottomGap={bottomGap}
+      topGap={topGap} bottomGap={bottomGap}
       // Extra-small outer bottom padding so this closing block sits close to the footer on
       // both mobile and desktop, overriding the panel default (pb-10 sm:pb-14). Bump this up
       // (or add "Gap below") if it ever needs more room before whatever follows.

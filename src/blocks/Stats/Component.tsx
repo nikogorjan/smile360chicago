@@ -5,12 +5,12 @@ import { stats as fallback } from '@/lib/practice'
 import { Section, SectionHeading } from '@/components/site/primitives'
 import { StatsGrid } from './StatsGrid'
 
-export const StatsBlock: React.FC<Props> = ({ items }) => {
+export const StatsBlock: React.FC<Props> = ({ items, paddingTop, paddingBottom, topGap, bottomGap }) => {
   const mapped = (items || []).map((i) => ({ value: i.value, label: i.label }))
   const stats = mapped.length ? mapped : fallback
 
   return (
-    <Section>
+    <Section paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="container">
         <SectionHeading
           align="center"
