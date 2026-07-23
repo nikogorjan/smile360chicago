@@ -38,7 +38,7 @@ const spanClass = (width?: number | null) =>
  * emails are configured on the form. A failed request surfaces a real error rather than a
  * false "thanks" — a silent success on an appointment request loses a patient.
  */
-export const CmsForm: React.FC<{ form: FormDoc }> = ({ form }) => {
+export const CmsForm: React.FC<{ form: FormDoc; bare?: boolean }> = ({ form, bare }) => {
   const [done, setDone] = useState(false)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -80,7 +80,12 @@ export const CmsForm: React.FC<{ form: FormDoc }> = ({ form }) => {
 
   if (done) {
     return (
-      <div className="rounded-[8px] border border-success/40 bg-success/10 p-10 text-center">
+      <div
+        className={cn(
+          'p-10 text-center',
+          !bare && 'rounded-[8px] border border-success/40 bg-success/10',
+        )}
+      >
         <span className="mx-auto grid size-14 place-items-center rounded-full bg-success/20 text-success">
           <CheckCircle2 className="size-8" />
         </span>
@@ -97,7 +102,12 @@ export const CmsForm: React.FC<{ form: FormDoc }> = ({ form }) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-[8px] border border-border bg-card p-6 sm:p-8">
+    // `bare` drops the card chrome so the form can sit inside a panel that already
+    // supplies the border, background and padding — no card-inside-a-card.
+    <form
+      onSubmit={onSubmit}
+      className={cn(!bare && 'rounded-[8px] border border-border bg-card p-6 sm:p-8')}
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         {fields.map((f, i) => {
           if (f.blockType === 'message') {
