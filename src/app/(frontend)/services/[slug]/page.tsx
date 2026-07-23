@@ -140,7 +140,10 @@ export default async function ServiceDetailPage({ params }: Args) {
         </div>
       </header>
 
-      <Section>
+      {/* Trimmed padding top and bottom: the hero above and the muted FAQ band below both
+          carry their own generous inset, so a full section's worth here stacked into a gap
+          roughly twice the size of the content's own rhythm. */}
+      <Section paddingTop="sm" paddingBottom="sm">
         <div className="container grid gap-12 lg:grid-cols-[1.4fr_0.6fr]">
           <div>
             <span className="grid size-14 place-items-center rounded-full bg-brand/10 text-brand">
@@ -201,9 +204,10 @@ export default async function ServiceDetailPage({ params }: Args) {
       <FaqAccordion items={faqItems} phone={site.phone} phoneHref={site.phoneHref} tone="muted" />
 
       {/* Keep reading — related blog posts at the very end, in the immersive blog-card style.
-          Standard section spacing, with ~1.5× bottom padding for breathing room before the footer. */}
+          The FAQ band above supplies the gap, so this only needs a light top padding; the
+          bottom stays a little longer to breathe before the footer. */}
       {relatedPosts.length > 0 && (
-        <Section className="pb-30 md:pb-42">
+        <Section paddingTop="sm" className="pb-24 md:pb-32">
           <div className="container">
             <SectionHeading eyebrow="Keep reading" title="From our blog" />
             <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
