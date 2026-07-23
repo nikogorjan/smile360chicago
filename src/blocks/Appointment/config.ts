@@ -11,6 +11,15 @@ export const Appointment: Block = {
   fields: [
     ...sectionHeaderFields,
     {
+      name: 'form',
+      type: 'relationship',
+      relationTo: 'forms',
+      admin: {
+        description:
+          'Which form to show. Build and edit the fields, confirmation message and email routing under Forms.',
+      },
+    },
+    {
       name: 'showContactInfo',
       type: 'checkbox',
       defaultValue: true,

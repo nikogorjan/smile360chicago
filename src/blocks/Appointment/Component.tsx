@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { AppointmentBlock as Props } from '@/payload-types'
-import { AppointmentForm } from '@/components/sections/AppointmentForm'
+import { CmsForm } from '@/components/sections/CmsForm'
 import { Section, SectionHeading, cardSurface } from '@/components/site/primitives'
 import { getSiteData } from '@/lib/getSiteSettings'
 import { cn } from '@/utilities/ui'
@@ -12,6 +12,7 @@ export const AppointmentBlock: React.FC<Props> = async ({
   eyebrow,
   heading,
   description,
+  form,
   showContactInfo,
   background,
   paddingTop,
@@ -20,6 +21,10 @@ export const AppointmentBlock: React.FC<Props> = async ({
   bottomGap,
 }) => {
   const site = await getSiteData()
+  // The relationship arrives populated (an object) at the default depth; guard for the
+  // ID-only shape so a shallow query can't crash the page.
+  const formDoc = form && typeof form === 'object' ? form : null
+
   return (
     <Section
       tone={(background as 'default') || 'default'}
@@ -109,7 +114,13 @@ export const AppointmentBlock: React.FC<Props> = async ({
             </div>
           )}
           <div className={showContactInfo ? '' : 'lg:col-span-2 lg:mx-auto lg:max-w-2xl'}>
-            <AppointmentForm />
+            {formDoc ? (
+              <CmsForm form={formDoc} />
+            ) : (
+              <p className="rounded-[8px] border border-border bg-card p-6 text-sm text-muted-foreground">
+                No form selected. Pick one in this block’s <strong>Form</strong> field.
+              </p>
+            )}
           </div>
         </div>
       </div>

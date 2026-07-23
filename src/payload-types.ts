@@ -2106,6 +2106,10 @@ export interface AppointmentBlock {
   description?: string | null;
   align?: ('center' | 'left') | null;
   /**
+   * Which form to show. Build and edit the fields, confirmation message and email routing under Forms.
+   */
+  form?: (string | null) | Form;
+  /**
    * Show the phone / address / hours column next to the form.
    */
   showContactInfo?: boolean | null;
@@ -2132,87 +2136,6 @@ export interface AppointmentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'appointmentBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "team".
- */
-export interface Team {
-  id: string;
-  name: string;
-  role: string;
-  credentials?: string | null;
-  photo?: (string | null) | Media;
-  bio?: string | null;
-  specialties?:
-    | {
-        item?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  order?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials".
- */
-export interface Testimonial {
-  id: string;
-  author: string;
-  rating: number;
-  quote: string;
-  treatment?: string | null;
-  source?: ('Google' | 'In-office') | null;
-  featured?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqs".
- */
-export interface Faq {
-  id: string;
-  question: string;
-  answer: string;
-  /**
-   * Show this FAQ in general spots (the homepage and the FAQ block). For a service-specific FAQ, leave this off and use the Services field below instead.
-   */
-  isGeneral?: boolean | null;
-  /**
-   * Assign this FAQ to the service page(s) it should appear on. Leave empty for a general FAQ.
-   */
-  services?: (string | Service)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
- */
-export interface Redirect {
-  id: string;
-  /**
-   * You will need to rebuild the website when changing this field.
-   */
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2385,6 +2308,87 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team".
+ */
+export interface Team {
+  id: string;
+  name: string;
+  role: string;
+  credentials?: string | null;
+  photo?: (string | null) | Media;
+  bio?: string | null;
+  specialties?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: string;
+  author: string;
+  rating: number;
+  quote: string;
+  treatment?: string | null;
+  source?: ('Google' | 'In-office') | null;
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  /**
+   * Show this FAQ in general spots (the homepage and the FAQ block). For a service-specific FAQ, leave this off and use the Services field below instead.
+   */
+  isGeneral?: boolean | null;
+  /**
+   * Assign this FAQ to the service page(s) it should appear on. Leave empty for a general FAQ.
+   */
+  services?: (string | Service)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: string;
+  /**
+   * You will need to rebuild the website when changing this field.
+   */
+  from: string;
+  to?: {
+    type?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -3414,6 +3418,7 @@ export interface AppointmentBlockSelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   align?: T;
+  form?: T;
   showContactInfo?: T;
   background?: T;
   paddingTop?: T;

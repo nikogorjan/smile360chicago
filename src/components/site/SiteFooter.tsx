@@ -5,10 +5,16 @@ import React from 'react'
 import { Brand } from './Brand'
 import { ButtonLabel, buttonVariants } from '@/components/ui/button'
 import type { SiteData } from '@/lib/getSiteSettings'
-import type { NavItem } from '@/lib/practice'
-import { services } from '@/lib/practice'
+import type { NavItem, Service } from '@/lib/practice'
 
-export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site, nav }) => {
+/** `services` comes from the CMS (passed in by the layout) — reading the static fallback
+ *  here left the footer linking to /services/whitening and /services/invisalign, both 404
+ *  since those services were removed, on every page of the site. */
+export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[]; services: Service[] }> = ({
+  site,
+  nav,
+  services,
+}) => {
   return (
     <footer className="mt-auto">
       {/* Transparent inset wrapper — its horizontal + bottom padding is the only thing
@@ -19,10 +25,7 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
             ALL live on THIS inset element (never a full-width parent), so the colour can
             only paint inside the inset box. `data-theme="dark"` + `.site-footer` stay on
             one element so the content renders dark-themed and the navy tracks the theme. */}
-        <div
-          data-theme="dark"
-          className="site-footer overflow-hidden rounded-[8px] text-white"
-        >
+        <div data-theme="dark" className="site-footer overflow-hidden rounded-[8px] text-white">
           {/* CTA strip */}
           <div className="border-b border-white/10">
             <div className="container flex flex-col items-center justify-between gap-6 py-12 text-center md:flex-row md:text-left">
@@ -37,7 +40,11 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/contact"
-                  className={buttonVariants({ variant: 'white', size: 'clear', className: 'px-6 py-3.5 font-bold max-sm:w-full' })}
+                  className={buttonVariants({
+                    variant: 'white',
+                    size: 'clear',
+                    className: 'px-6 py-3.5 font-bold max-sm:w-full',
+                  })}
                 >
                   <ButtonLabel>
                     Book Appointment
@@ -46,7 +53,11 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
                 </Link>
                 <Link
                   href={site.phoneHref}
-                  className={buttonVariants({ variant: 'outlineWhite', size: 'clear', className: 'px-6 py-3.5 font-bold max-sm:w-full' })}
+                  className={buttonVariants({
+                    variant: 'outlineWhite',
+                    size: 'clear',
+                    className: 'px-6 py-3.5 font-bold max-sm:w-full',
+                  })}
                 >
                   <ButtonLabel>
                     <Phone className="size-4" />
@@ -124,7 +135,9 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[] }> = ({ site,
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+                Services
+              </h3>
               <ul className="mt-4 space-y-2.5 text-sm">
                 {services.slice(0, 6).map((s) => (
                   <li key={s.slug}>

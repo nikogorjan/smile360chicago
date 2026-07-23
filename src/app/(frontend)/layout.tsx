@@ -36,6 +36,7 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { getSiteData } from '@/lib/getSiteSettings'
+import { getServices } from '@/lib/queries'
 import { getHeaderNav } from '@/lib/nav'
 
 // Render the whole site on every request so any CMS edit — pages, posts, blocks,
@@ -46,7 +47,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
-  const [site, header] = await Promise.all([getSiteData(), getHeaderNav()])
+  const [site, header, services] = await Promise.all([getSiteData(), getHeaderNav(), getServices()])
 
   return (
     <html
@@ -80,7 +81,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               between the last block and the footer — it never shielded the footer from the
               sticky MobileCTA, which overlays the viewport bottom regardless.) */}
           <main>{children}</main>
-          <SiteFooter site={site} nav={header.nav} />
+          <SiteFooter site={site} nav={header.nav} services={services} />
           <MobileCTA phone={site.phone} phoneHref={site.phoneHref} />
         </Providers>
       </body>
