@@ -14,6 +14,7 @@ export type SiteData = {
   mapUrl: string
   mapEmbed: string
   hours: { day: string; open: string; close: string; closed?: boolean | null }[]
+  hoursNote: string
   announcement: { enabled: boolean; text: string; link: string }
   social: { instagram: string; google: string; tiktok: string }
   emergencyTagline: string
@@ -75,6 +76,7 @@ export async function getSiteData(): Promise<SiteData> {
     mapUrl: (g.mapUrl as string) || practice.mapUrl,
     mapEmbed: practice.mapEmbed,
     hours: hoursArr,
+    hoursNote: (g.hoursNote as string) || practice.hoursNote,
     announcement: {
       enabled: g.announcementEnabled !== false,
       text: (g.announcementText as string) || practice.emergencyTagline,

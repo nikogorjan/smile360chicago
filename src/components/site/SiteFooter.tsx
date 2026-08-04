@@ -167,6 +167,9 @@ export const SiteFooter: React.FC<{ site: SiteData; nav: NavItem[]; services: Se
                   </li>
                 ))}
               </ul>
+              {site.hoursNote && (
+                <p className="mt-3 text-sm font-medium text-brand">{site.hoursNote}</p>
+              )}
             </div>
           </div>
 

@@ -17,23 +17,23 @@ export const practice = {
   /** The client's signature line — also drives the emergency SEO angle. */
   emergencyTagline: 'Got a toothache? Just come to us.',
   description:
-    'Smile360 Chicago is a modern, patient-first dental practice offering family, cosmetic, and same-day emergency dentistry in the heart of Chicago.',
-  email: 'hello@smile360chicago.com',
-  phone: '(312) 555-0360',
-  phoneHref: 'tel:+13125550360',
-  emergencyPhone: '(312) 555-0911',
-  emergencyPhoneHref: 'tel:+13125550911',
+    'Smile360 Chicago is a modern, patient-first dental practice offering family, cosmetic, and same-day emergency dentistry on the North Side of Chicago.',
+  email: 'mustafasalamdmd@gmail.com',
+  phone: '(773) 338-7565',
+  phoneHref: 'tel:+17733387565',
+  // One number for the whole practice — the emergency line is the same as the main line.
+  emergencyPhone: '(773) 338-7565',
+  emergencyPhoneHref: 'tel:+17733387565',
   address: {
-    street: '360 N Michigan Ave, Suite 1200',
+    street: '2820 W Devon Ave',
     city: 'Chicago',
     state: 'IL',
-    zip: '60601',
-    full: '360 N Michigan Ave, Suite 1200, Chicago, IL 60601',
+    zip: '60659',
+    full: '2820 W Devon Ave, Chicago, IL 60659',
   },
-  geo: { lat: 41.8868, lng: -87.6245 },
-  mapUrl: 'https://maps.google.com/?q=360+N+Michigan+Ave+Chicago+IL',
-  mapEmbed:
-    'https://www.google.com/maps?q=360+N+Michigan+Ave,+Chicago,+IL+60601&output=embed',
+  geo: { lat: 41.9976, lng: -87.7009 },
+  mapUrl: 'https://maps.google.com/?q=2820+W+Devon+Ave+Chicago+IL+60659',
+  mapEmbed: 'https://www.google.com/maps?q=2820+W+Devon+Ave,+Chicago,+IL+60659&output=embed',
   url: 'https://smile360chicago.com',
   priceRange: '$$',
   social: {
@@ -42,16 +42,20 @@ export const practice = {
     tiktok: 'https://tiktok.com/@smile360chicago',
   },
   rating: { value: 4.9, count: 487 },
+  /** Shown beneath the office hours everywhere they render (footer, contact). */
+  hoursNote: 'Walk-ins welcome daily, 9–11 AM',
+  /** Languages spoken at the practice — rendered where relevant. */
+  languages: ['English', 'Assyrian', 'Arabic'],
 } as const
 
 export type DayHours = { day: string; open: string; close: string; closed?: boolean }
 
 export const hours: DayHours[] = [
-  { day: 'Monday', open: '8:00 AM', close: '6:00 PM' },
-  { day: 'Tuesday', open: '8:00 AM', close: '6:00 PM' },
-  { day: 'Wednesday', open: '8:00 AM', close: '7:00 PM' },
-  { day: 'Thursday', open: '8:00 AM', close: '7:00 PM' },
-  { day: 'Friday', open: '8:00 AM', close: '4:00 PM' },
+  { day: 'Monday', open: '9:00 AM', close: '4:00 PM' },
+  { day: 'Tuesday', open: '9:00 AM', close: '4:00 PM' },
+  { day: 'Wednesday', open: '9:00 AM', close: '2:00 PM' },
+  { day: 'Thursday', open: '9:00 AM', close: '4:00 PM' },
+  { day: 'Friday', open: '9:00 AM', close: '4:00 PM' },
   { day: 'Saturday', open: '9:00 AM', close: '2:00 PM' },
   { day: 'Sunday', open: '', close: '', closed: true },
 ]
@@ -67,11 +71,31 @@ export const nav: NavItem[] = [
     href: '/services',
     children: [
       { label: 'All Services', href: '/services', description: 'Browse every treatment' },
-      { label: 'Teeth Cleaning', href: '/services/cleanings', description: 'Preventive care & checkups' },
-      { label: 'Teeth Whitening', href: '/services/whitening', description: 'Brighten in one visit' },
-      { label: 'Invisalign®', href: '/services/invisalign', description: 'Clear, removable aligners' },
-      { label: 'Dental Implants', href: '/services/implants', description: 'Permanent tooth replacement' },
-      { label: 'Emergency Dentist', href: '/emergency-dentist', description: 'Same-day toothache relief' },
+      {
+        label: 'Teeth Cleaning',
+        href: '/services/cleanings',
+        description: 'Preventive care & checkups',
+      },
+      {
+        label: 'Teeth Whitening',
+        href: '/services/whitening',
+        description: 'Brighten in one visit',
+      },
+      {
+        label: 'Invisalign®',
+        href: '/services/invisalign',
+        description: 'Clear, removable aligners',
+      },
+      {
+        label: 'Dental Implants',
+        href: '/services/implants',
+        description: 'Permanent tooth replacement',
+      },
+      {
+        label: 'Emergency Dentist',
+        href: '/emergency-dentist',
+        description: 'Same-day toothache relief',
+      },
     ],
   },
   { label: 'New Patients', href: '/new-patients' },
@@ -156,7 +180,11 @@ export const services: Service[] = [
     category: 'Restorative',
     excerpt: 'Pain-free treatment that saves an infected tooth and ends the ache.',
     from: '$700',
-    highlights: ['Gentle sedation options', 'Single-visit when possible', 'Saves your natural tooth'],
+    highlights: [
+      'Gentle sedation options',
+      'Single-visit when possible',
+      'Saves your natural tooth',
+    ],
   },
   {
     slug: 'kids-dentistry',
@@ -339,7 +367,7 @@ export const insurance: string[] = [
 export type Stat = { value: string; label: string }
 
 export const stats: Stat[] = [
-  { value: '15+', label: 'Years caring for Chicago' },
+  { value: '20+', label: 'Years caring for Chicago' },
   { value: '20k+', label: 'Smiles transformed' },
   { value: '4.9★', label: '487 Google reviews' },
   { value: 'Same-day', label: 'Emergency appointments' },
@@ -348,15 +376,18 @@ export const stats: Stat[] = [
 export const newPatientSteps = [
   {
     title: 'Book in 60 seconds',
-    description: 'Request a time online or call us. We’ll confirm fast and verify your insurance for you.',
+    description:
+      'Request a time online or call us. We’ll confirm fast and verify your insurance for you.',
   },
   {
     title: 'Relax at your visit',
-    description: 'Comfortable chairs, calming amenities, and a team that explains every step — no lectures.',
+    description:
+      'Comfortable chairs, calming amenities, and a team that explains every step — no lectures.',
   },
   {
     title: 'Get a clear plan',
-    description: 'Honest, photo-backed findings and transparent pricing. You decide what’s next, never pressured.',
+    description:
+      'Honest, photo-backed findings and transparent pricing. You decide what’s next, never pressured.',
   },
   {
     title: 'Smile with confidence',
