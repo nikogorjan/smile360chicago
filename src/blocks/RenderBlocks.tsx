@@ -28,6 +28,7 @@ import { ComfortBlock } from '@/blocks/Comfort/Component'
 import { MapBandBlock } from '@/blocks/MapBand/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { PanelBlock } from '@/blocks/Panel/Component'
+import { LanguagesBlock } from '@/blocks/Languages/Component'
 
 const blockComponents = {
   heroBlock: HeroBlock,
@@ -56,6 +57,7 @@ const blockComponents = {
   appointmentBlock: AppointmentBlock,
   mapBandBlock: MapBandBlock,
   timelineBlock: TimelineBlock,
+  languagesBlock: LanguagesBlock,
 }
 
 export const RenderBlocks: React.FC<{

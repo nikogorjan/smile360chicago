@@ -1,4 +1,4 @@
-import { Clock, Mail, MapPin, Phone, Siren } from 'lucide-react'
+import { Clock, Instagram, Mail, MapPin, Phone, Siren } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -13,9 +13,10 @@ const Row: React.FC<{
   icon: React.ReactNode
   label: string
   href?: string
+  external?: boolean
   emergency?: boolean
   children: React.ReactNode
-}> = ({ icon, label, href, emergency, children }) => {
+}> = ({ icon, label, href, external, emergency, children }) => {
   const body = (
     <>
       <span
@@ -40,7 +41,11 @@ const Row: React.FC<{
   return (
     <li className="border-b border-border/70 last:border-b-0">
       {href ? (
-        <a href={href} className="flex gap-4 py-5 transition-colors hover:text-brand">
+        <a
+          href={href}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          className="flex gap-4 py-5 transition-colors hover:text-brand"
+        >
           {body}
         </a>
       ) : (
@@ -139,7 +144,22 @@ export const AppointmentBlock: React.FC<Props> = async ({
                       </li>
                     ))}
                   </ul>
+                  {site.hoursNote && (
+                    <span className="mt-3 block text-sm font-medium text-brand">
+                      {site.hoursNote}
+                    </span>
+                  )}
                 </Row>
+                {site.social.instagram && (
+                  <Row
+                    icon={<Instagram className="size-4" />}
+                    label="Follow us"
+                    href={site.social.instagram}
+                    external
+                  >
+                    Instagram
+                  </Row>
+                )}
               </ul>
             </div>
           )}

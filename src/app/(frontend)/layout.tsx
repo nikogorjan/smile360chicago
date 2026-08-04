@@ -77,6 +77,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             phone={site.phone}
             phoneHref={site.phoneHref}
             logo={site.logo}
+            instagram={site.social.instagram}
           />
           {/* No bottom padding: the footer sits directly after the content on every breakpoint.
               (The old mobile pb-20 sat *before* the footer, so it only ever added dead space

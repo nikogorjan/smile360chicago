@@ -64,6 +64,19 @@ export default buildConfig({
   editor: defaultLexical,
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
+    // Cap the connection pool. Mongoose defaults to maxPoolSize 100 PER instance, and on
+    // Vercel each warm serverless instance keeps its own pool — a few instances at 100 each
+    // blow straight past the M0 free-tier ceiling of 500, which is what triggers the Atlas
+    // "nearing connection limit" alert. A low-traffic site needs only a handful of sockets
+    // per instance; idle ones are reaped so cold/idle instances give their connections back.
+    connectOptions: {
+      maxPoolSize: Number(process.env.MONGODB_MAX_POOL_SIZE || 5),
+      minPoolSize: 0,
+      maxIdleTimeMS: 10_000,
+      // Fail fast instead of piling up connection attempts if the cluster is briefly busy.
+      serverSelectionTimeoutMS: 10_000,
+      waitQueueTimeoutMS: 10_000,
+    },
   }),
   // Outbound mail for the form-builder plugin's "Emails" panel — plain SMTP through the
   // practice's own mailbox, so there's no third-party sending service to pay for or hand

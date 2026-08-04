@@ -28,6 +28,7 @@ import { Comfort } from '../../blocks/Comfort/config'
 import { Appointment } from '../../blocks/Appointment/config'
 import { MapBand } from '../../blocks/MapBand/config'
 import { Timeline } from '../../blocks/Timeline/config'
+import { Languages } from '../../blocks/Languages/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -111,6 +112,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 LatestPosts,
                 DentistFeature,
                 Timeline,
+                Languages,
                 Panel,
                 Faq,
                 Emergency,

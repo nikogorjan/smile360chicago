@@ -7,6 +7,7 @@ import {
   ChevronRight,
   HeartPulse,
   LayoutGrid,
+  Instagram,
   Menu,
   Phone,
   Siren,
@@ -56,7 +57,8 @@ export const SiteHeader: React.FC<{
   phone: string
   phoneHref: string
   logo?: { lightUrl: string | null; darkUrl: string | null; alt: string } | null
-}> = ({ nav, phone, phoneHref, logo }) => {
+  instagram?: string | null
+}> = ({ nav, phone, phoneHref, logo, instagram }) => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   // Which nav group's sub-panel is showing on mobile (drill-down). null = main level.
@@ -79,8 +81,7 @@ export const SiteHeader: React.FC<{
     }
   }, [mobileOpen])
 
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href))
 
   const triggerClass = (active: boolean) =>
     cn(
@@ -94,7 +95,11 @@ export const SiteHeader: React.FC<{
         <div className="container flex h-18.75 items-center justify-between gap-4">
           {/* LEFT — logo + nav links */}
           <div className="flex items-center gap-6">
-            <Link href="/" aria-label="Smile360 Chicago — home" className="flex shrink-0 items-center">
+            <Link
+              href="/"
+              aria-label="Smile360 Chicago — home"
+              className="flex shrink-0 items-center"
+            >
               <Image
                 src={logo?.lightUrl || '/smile360-new-logo.png'}
                 alt={logo?.alt || 'Smile360 Chicago'}
@@ -117,7 +122,11 @@ export const SiteHeader: React.FC<{
               {nav.map((item) => {
                 if (!item.children) {
                   return (
-                    <Link key={item.label} href={item.href} className={triggerClass(isActive(item.href))}>
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className={triggerClass(isActive(item.href))}
+                    >
                       {item.label}
                     </Link>
                   )
@@ -244,10 +253,18 @@ export const SiteHeader: React.FC<{
           {/* RIGHT — actions (desktop) */}
           <div className="hidden items-center gap-2 lg:flex">
             <ThemeToggle />
-            <Link
-              href={phoneHref}
-              className={buttonVariants({ variant: 'outline', size: 'sm' })}
-            >
+            {instagram && (
+              <a
+                href={instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="grid size-9 place-items-center rounded-sm border border-border text-foreground transition-colors hover:border-brand hover:text-brand"
+              >
+                <Instagram className="size-4" />
+              </a>
+            )}
+            <Link href={phoneHref} className={buttonVariants({ variant: 'outline', size: 'sm' })}>
               <ButtonLabel>
                 <Phone className="size-4" />
                 Call {phone}
@@ -369,14 +386,25 @@ export const SiteHeader: React.FC<{
                 </div>
               ))}
           </div>
-          <div className="border-t border-border p-4">
+          <div className="flex items-center gap-3 border-t border-border p-4">
             <Link
               href={phoneHref}
-              className="flex items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+              className="flex flex-1 items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
             >
               <Phone className="size-4" />
               Call {phone}
             </Link>
+            {instagram && (
+              <a
+                href={instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="grid size-12 shrink-0 place-items-center rounded-sm border border-border text-foreground transition-colors hover:border-brand hover:text-brand"
+              >
+                <Instagram className="size-5" />
+              </a>
+            )}
           </div>
         </div>
       </div>

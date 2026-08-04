@@ -187,6 +187,7 @@ export interface Page {
     | LatestPostsBlock
     | DentistFeatureBlock
     | TimelineBlock
+    | LanguagesBlock
     | PanelBlock
     | FaqBlock
     | EmergencyBlock
@@ -1994,6 +1995,44 @@ export interface TimelineBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LanguagesBlock".
+ */
+export interface LanguagesBlock {
+  /**
+   * How this section sits on the page.
+   */
+  surface?: ('canvas' | 'panel' | 'muted' | 'brand') | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  items?:
+    | {
+        language: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Padding above
+   */
+  paddingTop?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Padding below
+   */
+  paddingBottom?: ('none' | 'xs' | 'sm' | 'md' | 'lg') | null;
+  /**
+   * Gap above (lift off the previous section)
+   */
+  topGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  /**
+   * Gap below (lift off the footer / next section)
+   */
+  bottomGap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'languagesBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PanelBlock".
  */
 export interface PanelBlock {
@@ -2621,6 +2660,7 @@ export interface PagesSelect<T extends boolean = true> {
         latestPostsBlock?: T | LatestPostsBlockSelect<T>;
         dentistFeatureBlock?: T | DentistFeatureBlockSelect<T>;
         timelineBlock?: T | TimelineBlockSelect<T>;
+        languagesBlock?: T | LanguagesBlockSelect<T>;
         panelBlock?: T | PanelBlockSelect<T>;
         faqBlock?: T | FaqBlockSelect<T>;
         emergencyBlock?: T | EmergencyBlockSelect<T>;
@@ -3293,6 +3333,28 @@ export interface TimelineBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LanguagesBlock_select".
+ */
+export interface LanguagesBlockSelect<T extends boolean = true> {
+  surface?: T;
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        language?: T;
+        id?: T;
+      };
+  paddingTop?: T;
+  paddingBottom?: T;
+  topGap?: T;
+  bottomGap?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PanelBlock_select".
  */
 export interface PanelBlockSelect<T extends boolean = true> {
@@ -3951,6 +4013,10 @@ export interface SiteSetting {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Small line shown beneath the hours everywhere (footer, contact) — e.g. walk-in times.
+   */
+  hoursNote?: string | null;
   announcementEnabled?: boolean | null;
   announcementText?: string | null;
   announcementLink?: string | null;
@@ -4051,6 +4117,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         closed?: T;
         id?: T;
       };
+  hoursNote?: T;
   announcementEnabled?: T;
   announcementText?: T;
   announcementLink?: T;

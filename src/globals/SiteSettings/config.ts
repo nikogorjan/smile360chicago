@@ -89,12 +89,26 @@ export const SiteSettings: GlobalConfig = {
                 },
               ],
             },
+            {
+              name: 'hoursNote',
+              type: 'text',
+              label: 'Hours note',
+              admin: {
+                description:
+                  'Small line shown beneath the hours everywhere (footer, contact) — e.g. walk-in times.',
+              },
+            },
           ],
         },
         {
           label: 'Announcement',
           fields: [
-            { name: 'announcementEnabled', type: 'checkbox', label: 'Show announcement bar', defaultValue: true },
+            {
+              name: 'announcementEnabled',
+              type: 'checkbox',
+              label: 'Show announcement bar',
+              defaultValue: true,
+            },
             { name: 'announcementText', type: 'text', label: 'Announcement text' },
             { name: 'announcementLink', type: 'text', label: 'Announcement link (URL)' },
           ],
