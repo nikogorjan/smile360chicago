@@ -1788,6 +1788,20 @@ export interface ReviewsBlock {
    */
   limit?: number | null;
   /**
+   * Paste the full link, e.g. https://www.tiktok.com/@user/video/1234567890
+   */
+  videoUrl?: string | null;
+  /**
+   * Small label above the heading.
+   */
+  videoEyebrow?: string | null;
+  videoHeading?: string | null;
+  videoDescription?: string | null;
+  /**
+   * A line the person says in the video — shown large beside it, as a pull-quote.
+   */
+  videoText?: string | null;
+  /**
    * Section background style.
    */
   background?: ('default' | 'muted' | 'brand' | 'glow') | null;
@@ -3231,6 +3245,11 @@ export interface ReviewsBlockSelect<T extends boolean = true> {
   description?: T;
   align?: T;
   limit?: T;
+  videoUrl?: T;
+  videoEyebrow?: T;
+  videoHeading?: T;
+  videoDescription?: T;
+  videoText?: T;
   background?: T;
   paddingTop?: T;
   paddingBottom?: T;

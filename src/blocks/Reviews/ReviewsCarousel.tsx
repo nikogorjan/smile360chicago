@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Star } from 'lucide-react'
 import Image from 'next/image'
 import React, { useRef } from 'react'
 
-import { Eyebrow, Section } from '@/components/site/primitives'
+import { Eyebrow, Section, SectionHeading } from '@/components/site/primitives'
 import { getPatientPhoto } from '@/lib/stockImages'
 import { cn } from '@/utilities/ui'
 
@@ -21,65 +21,126 @@ export const ReviewsCarousel: React.FC<{
   heading?: string
   description?: string
   reviews: Review[]
+  videoUrl?: string
+  videoEyebrow?: string
+  videoHeading?: string
+  videoDescription?: string
+  videoText?: string
   paddingTop?: string
   paddingBottom?: string
   topGap?: string
   bottomGap?: string
-}> = ({ eyebrow, heading, description, reviews, paddingTop, paddingBottom, topGap, bottomGap }) => {
+}> = ({
+  eyebrow,
+  heading,
+  description,
+  reviews,
+  videoUrl,
+  videoEyebrow,
+  videoHeading,
+  videoDescription,
+  videoText,
+  paddingTop,
+  paddingBottom,
+  topGap,
+  bottomGap,
+}) => {
   const ref = useRef<HTMLDivElement>(null)
   const scroll = (dir: number) => ref.current?.scrollBy({ left: dir * 372, behavior: 'smooth' })
+
+  // Pull the numeric video id out of a full TikTok URL (…/video/123456…) or a bare id.
+  const tiktokId =
+    videoUrl?.match(/\/video\/(\d+)/)?.[1] ||
+    (videoUrl && /^\d+$/.test(videoUrl.trim()) ? videoUrl.trim() : null)
+
+  // Carousel prev/next control — the two arrows differ only in direction, so share one helper.
+  const arrowBtn = (dir: number, label: string, Icon: typeof ArrowLeft) => (
+    <button
+      type="button"
+      onClick={() => scroll(dir)}
+      aria-label={label}
+      className="group grid size-11 place-items-center overflow-hidden rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
+    >
+      <Icon
+        aria-hidden
+        className={cn(
+          'size-5 [grid-area:1/1] transition-transform duration-300 ease-out motion-reduce:transition-none',
+          dir < 0 ? 'group-hover:-translate-x-[150%]' : 'group-hover:translate-x-[150%]',
+        )}
+      />
+      <Icon
+        aria-hidden
+        className={cn(
+          'size-5 [grid-area:1/1] transition-transform duration-300 ease-out motion-reduce:transition-none',
+          dir < 0 ? 'translate-x-[150%] group-hover:translate-x-0' : '-translate-x-[150%] group-hover:translate-x-0',
+        )}
+      />
+    </button>
+  )
 
   return (
     <Section paddingTop={paddingTop} paddingBottom={paddingBottom} topGap={topGap} bottomGap={bottomGap}>
       <div className="container">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-2xl">
-            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-            {heading && (
-              <h2 className="mt-4 text-4xl leading-[1.03] tracking-normal text-foreground sm:text-5xl">
-                {heading}
-              </h2>
+        {/* Featured TikTok video — a centred header, then a large pull-quote (founder-note
+            style) beside the vertical video. Sits at the top of the section; renders only
+            when a video URL is set. */}
+        {tiktokId && (
+          <div className="mx-auto max-w-4xl">
+            {(videoEyebrow || videoHeading || videoDescription) && (
+              <SectionHeading
+                align="center"
+                eyebrow={videoEyebrow}
+                title={videoHeading || ''}
+                description={videoDescription}
+              />
             )}
-            {description && (
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                {description}
-              </p>
-            )}
-          </div>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => scroll(-1)}
-              aria-label="Previous reviews"
-              className="group grid size-11 place-items-center overflow-hidden rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
+            <div
+              className={cn(
+                'grid items-center gap-8 sm:grid-cols-[1fr_300px] sm:gap-12',
+                (videoEyebrow || videoHeading || videoDescription) && 'mt-12',
+              )}
             >
-              {/* Arrow swap: resting arrow exits left, a second slides in from the right */}
-              <ArrowLeft
-                aria-hidden
-                className="size-5 [grid-area:1/1] transition-transform duration-300 ease-out group-hover:-translate-x-[150%] motion-reduce:transition-none"
-              />
-              <ArrowLeft
-                aria-hidden
-                className="size-5 translate-x-[150%] [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-0 motion-reduce:transition-none"
-              />
-            </button>
-            <button
-              type="button"
-              onClick={() => scroll(1)}
-              aria-label="More reviews"
-              className="group grid size-11 place-items-center overflow-hidden rounded-full bg-brand/10 text-brand transition-colors hover:bg-brand hover:text-white"
-            >
-              {/* Arrow swap: resting arrow exits right, a second slides in from the left */}
-              <ArrowRight
-                aria-hidden
-                className="size-5 [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-[150%] motion-reduce:transition-none"
-              />
-              <ArrowRight
-                aria-hidden
-                className="size-5 -translate-x-[150%] [grid-area:1/1] transition-transform duration-300 ease-out group-hover:translate-x-0 motion-reduce:transition-none"
-              />
-            </button>
+              <figure className="relative order-2 sm:order-1">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -left-1 -top-7 select-none font-display text-6xl leading-none text-brand/15"
+                >
+                  &ldquo;
+                </span>
+                {videoText && (
+                  <blockquote className="relative pl-2 font-display text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
+                    {videoText}
+                  </blockquote>
+                )}
+              </figure>
+              <div className="order-1 mx-auto w-full max-w-[300px] overflow-hidden rounded-[8px] border border-border bg-black sm:order-2 sm:mx-0">
+                <div className="relative aspect-[9/16]">
+                  <iframe
+                    src={`https://www.tiktok.com/player/v1/${tiktokId}`}
+                    title="Patient video"
+                    loading="lazy"
+                    allow="fullscreen"
+                    className="absolute inset-0 size-full"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
+        )}
+
+        {/* Reviews header — moved BELOW the video, directly above the cards. */}
+        <div className={cn('max-w-2xl', tiktokId && 'mt-20')}>
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          {heading && (
+            <h2 className="mt-4 text-4xl leading-[1.03] tracking-normal text-foreground sm:text-5xl">
+              {heading}
+            </h2>
+          )}
+          {description && (
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {description}
+            </p>
+          )}
         </div>
 
         <div
@@ -122,6 +183,14 @@ export const ReviewsCarousel: React.FC<{
             </figure>
           ))}
         </div>
+
+        {/* Carousel controls — under the testimonials. */}
+        {reviews.length > 1 && (
+          <div className="mt-8 flex justify-end gap-2">
+            {arrowBtn(-1, 'Previous reviews', ArrowLeft)}
+            {arrowBtn(1, 'More reviews', ArrowRight)}
+          </div>
+        )}
       </div>
     </Section>
   )

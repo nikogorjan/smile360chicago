@@ -9,6 +9,11 @@ export const ReviewsBlock: React.FC<Props> = async ({
   heading,
   description,
   limit,
+  videoUrl,
+  videoEyebrow,
+  videoHeading,
+  videoDescription,
+  videoText,
   paddingTop,
   paddingBottom,
   topGap,
@@ -23,6 +28,11 @@ export const ReviewsBlock: React.FC<Props> = async ({
       heading={heading || undefined}
       description={description || undefined}
       reviews={reviews}
+      videoUrl={videoUrl || undefined}
+      videoEyebrow={videoEyebrow || undefined}
+      videoHeading={videoHeading || undefined}
+      videoDescription={videoDescription || undefined}
+      videoText={videoText || undefined}
       paddingTop={paddingTop || undefined}
       paddingBottom={paddingBottom || undefined}
       topGap={topGap || undefined}
