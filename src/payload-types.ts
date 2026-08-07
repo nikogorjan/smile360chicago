@@ -1788,6 +1788,10 @@ export interface ReviewsBlock {
    */
   limit?: number | null;
   /**
+   * Hides the “Real patient stories” heading and review cards — e.g. until real Google reviews are ready. The featured video (if set) still shows.
+   */
+  hideTestimonials?: boolean | null;
+  /**
    * Paste the full link, e.g. https://www.tiktok.com/@user/video/1234567890
    */
   videoUrl?: string | null;
@@ -3245,6 +3249,7 @@ export interface ReviewsBlockSelect<T extends boolean = true> {
   description?: T;
   align?: T;
   limit?: T;
+  hideTestimonials?: T;
   videoUrl?: T;
   videoEyebrow?: T;
   videoHeading?: T;
