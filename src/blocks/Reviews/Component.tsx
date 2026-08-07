@@ -9,6 +9,7 @@ export const ReviewsBlock: React.FC<Props> = async ({
   heading,
   description,
   limit,
+  hideTestimonials,
   videoUrl,
   videoEyebrow,
   videoHeading,
@@ -19,8 +20,14 @@ export const ReviewsBlock: React.FC<Props> = async ({
   topGap,
   bottomGap,
 }) => {
-  let reviews = await getTestimonials()
-  if (limit) reviews = reviews.slice(0, limit)
+  // Nothing left to show: cards hidden and no video → render nothing (no empty section).
+  if (hideTestimonials && !videoUrl) return null
+
+  let reviews: Awaited<ReturnType<typeof getTestimonials>> = []
+  if (!hideTestimonials) {
+    reviews = await getTestimonials()
+    if (limit) reviews = reviews.slice(0, limit)
+  }
 
   return (
     <ReviewsCarousel
@@ -28,6 +35,7 @@ export const ReviewsBlock: React.FC<Props> = async ({
       heading={heading || undefined}
       description={description || undefined}
       reviews={reviews}
+      hideTestimonials={!!hideTestimonials}
       videoUrl={videoUrl || undefined}
       videoEyebrow={videoEyebrow || undefined}
       videoHeading={videoHeading || undefined}
